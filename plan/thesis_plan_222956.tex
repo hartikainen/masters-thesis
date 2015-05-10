@@ -1,0 +1,75 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb, amsthm}
+\usepackage{hyperref, url}
+\usepackage{listings}
+\usepackage{verbatim}
+\usepackage{color}
+\usepackage[T1]{fontenc}
+\usepackage{csvsimple}
+\usepackage{array, booktabs, longtable}
+
+\newcommand\figureFromFile[3] {
+  \pagebreak
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{#1.#2}
+    \caption{#3}
+    \label{fig:#1}
+  \end{figure}
+}
+
+\parindent 0mm
+\parskip 3mm
+
+\title{Thesis Plan}
+\author{Kristian Hartikainen (222956)}
+\begin{document}
+
+\maketitle
+
+\pagebreak
+\section{Summary}
+\input{summary.tex}
+
+\pagebreak
+\section{Background}
+\input{background.tex}
+
+\pagebreak
+\section{Objectives}
+\input{objectives.tex}
+
+\pagebreak
+\section{Methods}
+\input{methods.tex}
+
+\pagebreak
+\section{Material}
+\input{material.tex}
+
+\pagebreak
+\section{Challenges}
+\input{challenges.tex}
+
+\pagebreak
+\section{Work Plan}
+\input{work-plan.tex}
+
+\pagebreak
+\section{Resources}
+\input{resources.tex}
+
+\pagebreak
+\section{Dissemination}
+\input{dissemination.tex}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
