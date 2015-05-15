@@ -1,4 +1,27 @@
-objectives
+The objectives of this thesis is to understand the allocation of computing resources in a streaming multi-blade computing setup. This objective includes an implementation(s) of efficient scheduling/load-balancing for multi-blade processing, as well as the analysis of those implementation(s). Hopefully we can answer the question, how should the multi-blade load-balancing be implemented? Should it be implemented on top of OpenMP/OpenEM/MPI?
+
+% The event based parallelism seems promising, and thus the question is, how to manage the load-balancing between multiple blades? Should the OpenMP/OpenEM be extended, or implement something else?
+
+% One of the objects is to understand load-balancing of multiple blades. Events will be a part of this. ``Työkaluina eventit, miten balansoidaan multibladelle?'' -> ``ei riitä että miten Cavium toimii''
+
+% ``Asian muotoilu on kriittinen juttu, essential and not easy''
+
+% The functions of Cavium itself are not so interesting, but how to do load-balancing on multiple blades.
+
+% Qualitative evaluation vs quantitative evaluation
+% The experiments will be done using BCN/Cavium, and thus the focus will be on the quantitative side.
+% ``cavium hard, black box''
+
+% ``This section should be like the abstract, not quite as formal though''
+
+TODO:
+\begin{itemize}
+\item Tavoitteet vielä melko epäselvät, ainakin vaikeasti muotoiltavissa.
+\item Kuten BG:ssä, mikä on se oikea ongelma?
+\item Onko dynaaminen/staattinen analyysi vain väline näiden tulosten evaluointiin, vai onko analyysissä itsessään jotain kysymysmerkkejä joihin halutaan vastauksia??
+\item Ilmeisesti pääkysymys on, että miten load-balancing toteutetaan multi-bladelle, toteutetaanko suoraan OpenEM:ään/OpenMP:hen vai jollain muulla tavalla?
+\end{itemize}
+
 
 %%% Local Variables:
 %%% mode: latex
