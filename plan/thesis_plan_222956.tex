@@ -11,6 +11,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{csvsimple}
 \usepackage{array, booktabs, longtable}
+\usepackage[toc,page]{appendix}
 
 \newcommand\figureFromFile[3] {
   \pagebreak
@@ -25,47 +26,48 @@
 \parindent 0mm
 \parskip 3mm
 
-\title{Thesis Plan}
-\author{Kristian Hartikainen (222956)}
+\title{Master's Thesis Plan}
+\author{Kristian Hartikainen (222956)\\
+       {\tt kristian.hartikainen@aalto.fi}}
 \begin{document}
 
 \maketitle
 
-\pagebreak
 \section{Summary}
 \input{summary.tex}
 
-\pagebreak
 \section{Background}
 \input{background.tex}
 
-\pagebreak
 \section{Objectives}
 \input{objectives.tex}
 
-\pagebreak
 \section{Methods}
 \input{methods.tex}
 
-\pagebreak
-\section{Material}
-\input{material.tex}
+\section{Material and Resources}
+\input{material-and-resources.tex}
 
-\pagebreak
 \section{Challenges}
 \input{challenges.tex}
 
-\pagebreak
 \section{Work Plan}
 \input{work-plan.tex}
 
-\pagebreak
-\section{Resources}
-\input{resources.tex}
+\section{Schedule}
+\input{schedule.tex}
 
-\pagebreak
 \section{Dissemination}
 \input{dissemination.tex}
+
+\pagebreak
+\begin{appendices}
+  \section{Thesis structure}
+  \input{structure.tex}
+
+  \section{Key Literature}
+  \input{literature.tex}
+\end{appendices}
 
 \end{document}
 
