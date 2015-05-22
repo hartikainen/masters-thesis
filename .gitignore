@@ -23,5 +23,9 @@
 *.out
 *.synctex.gz
 
+# own ignores
+*.run.xml
+*-blx.bib
+
 # Random PDF's
 material/
