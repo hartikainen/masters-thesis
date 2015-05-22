@@ -1,30 +1,6 @@
-The base for the methods will be somekind of event-driven parallelism solution. The processing-queues will probably play a big role when trying to answer the multi-blade load-balancing question. Most likely, either OpenEM or OpenMP will be extended.
+The load-balancing of the dynamic data-stream will be transformed into a task scheduling problem. This will be achieved by extending OpenEM type of processing queue mechanism by MPI's inter-node task scheduling. The actual experiment will not include any implementation of either OpenEM or MPI.
 
-The results of the experiments will be evaluated both qualitatively and quantitatively. The hardware used in the experiment (BCN/Cavium OCTEON II CPU) is sort of a black box and thus the focus will be heavily on the quantitative results.
-
-Program analysis will be done both statically and dynamically. The main simulation (dynamic analysis) tool will be Performation Simulation Environment (PSE). Perf, rapl.
-
-TODO:
-\begin{itemize}
-\item Workload generation?
-\item Ei-jaettu muisti??
-\item Tehdäänkö analyysi sekä staattisesti että dynaamisesti?
-\item Taas, mikä on se varsinainen haaste tai kysymys?
-\item Kuten edellä, onko analyysi itsessään jonkinlainen kysymysmerkki?
-\end{itemize}
-
-% ???
-
-% The challenge for May
-
-% - Something to do with the queues
-% - Kirjoitetaan/keskustellaan
-% - OpenEM -> Itse raakana, selvitetään miten. Peräisin Caviumin sis.
-% - OpenEM lacks/does not include inter node implementation.
-
-% - Jonometodiikkaa -> Mitkä on meidän optiot jonoissa? -> PSE oletusarvoinen simulointiväline
-
-% - Perf, rapl
+The results of the experiments will be evaluated both qualitatively and quantitatively. The experiment will be implemented on a system consisting of 8 Cavium Oceton II blades, each consisting of 32 MIPS cores. Because the system is sort of a black box our focus will be heavily on the quantitative results. Program analysis will be done both statically and dynamically. The main simulation (dynamic analysis) tool will be Performation Simulation Environment (PSE). The analysis results will be compared to the actual measurements of the experiment system.
 
 %%% Local Variables:
 %%% mode: latex

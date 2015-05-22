@@ -1,11 +1,20 @@
-Quite traditional iterative approach will be used to move forward with the experiments and thesis writing. Getting familiar with the setup of the hardware used in the experiments has been going on for the last few weeks. After the hardware setup is all clear, I will begin constructing the expertiment. The construction follows with the measurement and analysis of the construction.
+The work plan for my thesis consists of five major steps, that can be summarized as follows:
 
-After the first prototype, the last two stages, construction and analysis, will be redone according to the results of the previous iteration. As many iterations are done as are needed, within the the time I have.
+\begin{enumerate}
+\setcounter{enumi}{-1}
+\item Study the load-balancing mechanisms in OpenMP and MPI systems
+\item Design a corresponding mechanism for our experiment hardware
+\item Plan how to implement a test of such a mechanism for our experiment hardware
+\item Implement a bare load-balancing mechanism for the experiment
+\item Run the experiment using the implemented mechanism
+\item Model the experiment using a simulator
+\end{enumerate}
 
-% ``Do this, write this, ...''
-% Construct -> Setup -> Measure -> Model
-% ``pieni prototyyppi''
-% ``kirjoitetaan jotain -> kokeillaan -> tehdään''
+In step 0 we will study the load-balancing mechanisms in OpenMP and MPI systems. In step 1 we will design how to build such a asynchronous task parallelism with distributed-memory parallelism system on top of OpenEM, instead of OpenMP. OpenME at the moment does not include an MPI or inter-node support.
+
+In step 2, we will plan how to isolate the bare load-balancing mechanism of the whole model. The time resources for this thesis are limited, and thus the implementation of a complete model is unfeasible. We will isolate a part of the model, such that we can implement and test the performance of its load-balancing mechanism.
+
+Next, we will implement the load-balancing mechanism of the model. That is, we will implement a very bare queue mechanism, such that the workdload can be scheduled between the computing nodes, without using OpenEM, OpenMP or MPI. After that, we will test and measure the implementation. Finally, we will model the mechanism using a simulator software, and interpret the results. The experiment will be reiterated, while need be and the resources are sufficient, starting from step 2.
 
 %%% Local Variables:
 %%% mode: latex
