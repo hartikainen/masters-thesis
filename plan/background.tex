@@ -1,16 +1,12 @@
-The amount of data being transmitted and processed in the world is growing rapidly, and the restrictions, mainly the increasing energy consumption, in the microprocessor evolution has led in the development of new type of Multiprocessor System-on-Chip devices (MPSoC).
+Parallel computation and heterogeneous MPSoC devices seem promising in terms of the needed increase in today's computational performance. However, they also bring out new challenges in the software development and requirements for the programming models.
 
-While these MPSoC devices seem promising in terms of the needed increase in computational performance, they also bring out new challenges in the software development. The traditionally used parallel programming models, that are based on thread parallelism, don't meet the needs of processing the heterogeneous stream-like data.
+The scalability of the parallel computation itself, especially on heterogeneous hardware, is a hard problem due to the non-determinism of parallel computation, communication delays and complicated memory management. Data processed in stream computation is often dynamic, that is, the volume of the data and the computation requirements can change at any point of the computation.
 
-Several different programming models/frameworks have been proposed to allow parallel software development. It is still unclear, however, how to efficiently allocate the computing resources in these models.
+Hardware threads are static, meaning that they cannot adapt to the dynamic changes of the workload. Also, the hardware threads cannot be migrated between the computing nodes, and thus binding the computation to the hardware threads forces the computation to be done on the specific computing node. This is why the traditionally used parallel programming models, that are based on thread parallelism, don't meet needs of streaming computing of dynamically changing workflow.
 
-Also, the analysis of parallel programs is a tedious task, partly due to the non-deterministic behaviour of the parallel hardware, the complexity in the memory accesses and the delays from the communication.
+Traditional computing clusters and inter-node computations can be virtualized by using message passing abstractions such as MPI. However the real time nature of the streaming computation brings on problems to this kind of inter-node computation. The research problem of this thesis is the balancing and transferring of the dynamic workload between multiple stream computing nodes.
 
-TODO:
-\begin{itemize}
-\item Mikä on oikeastaan on se yleinen ongelma täällä? Ilmeisesti multiblade juttu itsessään on melko selkeää, samoin kun eventtipohjainen parallelismi. Onko stream-processing, yhdistettynä näihin kahteen, se joka tuo ongelman tähän hommaan?
-\item Miten analyysi liittyy näihin asioihin? Onko haasteet analyysin tekemisessä itsessään jo ongelma vai johtaako ne vain epäsuorasti ongelmiin esim. eri menetelmiä verrattaessa??
-\end{itemize}
+The thesis is done under the Embedded Systems Group in Aalto University with connections to the ParallaX research project. The actual starting point for this thesis is defined by the recent bachelor's theses (Kiljunen, Teemaa) and master's theses (Hanhirova, Saarinen, Rasa), written for the Embedded Systems Group.
 
 %%% Local Variables:
 %%% mode: latex
