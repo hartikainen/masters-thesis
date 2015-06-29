@@ -1,0 +1,22 @@
+The work plan for my thesis consists of five major steps, that can be summarized as follows:
+
+\begin{enumerate}
+\setcounter{enumi}{-1}
+\item Study the load-balancing mechanisms in OpenMP and MPI systems
+\item Design a corresponding mechanism for our experiment hardware
+\item Plan how to implement and test such a mechanism for our experiment hardware
+\item Implement a bare load-balancing mechanism for the experiment
+\item Run the experiment using the implemented mechanism
+\item Model the experiment using a simulator
+\end{enumerate}
+
+In step 0 we will study the load-balancing mechanisms in OpenMP and MPI systems. In step 1 we will design how to build such a asynchronous task parallelism with distributed-memory parallelism system on top of OpenEM, instead of OpenMP. OpenEM at the moment does not include an MPI or inter-node support.
+
+In step 2, we will plan how to isolate a suitable part of the system for our experiments needs. The time resources for this thesis are limited, and thus the implementation of a complete model is unfeasible. We will isolate a part of the model, such that we can implement and test the performance of its bare load-balancing mechanism.
+
+Next, we will implement the load-balancing mechanism of the model. That is, we will implement a very bare queue mechanism, such that the workdload can be scheduled between the computing nodes, without using OpenEM, OpenMP or MPI. After that, we will test and measure the implementation. Finally, we will model the mechanism using a simulator software, and interpret the results. The experiment will be reiterated, while need be and the resources are sufficient, starting hopefully from step 2.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "thesis-plan-hartikainen"
+%%% End:
