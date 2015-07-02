@@ -1,0 +1,52 @@
+The hardware setup that we are interested in, consists of 8 Cavium Octeon II blades, 32 MIPS cores each. Due to the black-box-like nature of the setup, the focus of the experiment will be in the simulation of the system. We will build a realistic simulation model of our hardware running OpenEM application for video processing. The parameters, mainly delays, needed for the simulation model will be gathered from several smaller measurement experiments done with the actual hardware setup.
+
+The accuracy of the model must be precise enough so that further studies of the system behaviour can be conducted reliably by the simulation. We will validate and verify the results by comparing the behaviour of the simulation to the real life application.
+
+\subsection{Hardware Setup}
+The Cavium Octeon II blades are connected to each other over ethernet switch. The data packet flow inside a single blade can be divided into three main phases namely input phase, sso and core processing phase, and output phase.
+
+Input phase:
+\begin{enumerate}
+\item The Receive Port (RX) forwards the packet to the Input Packet Data (IPD) Unit. IPD processes the packet together with Packet Input Processor (PIP), e.g. parse packets and the fields required for the Work Queue Entry (WQE).
+\item Allocate WQE Buffer and Packet Data Buffer from the Free Pool Allocator (FPA) Unit.
+\item Write WQE fields and packet data to the WQE Buffer and Packet Data Buffer respectively.
+\item Add WQE pointer to the Schedule Synchronization Order (SSO) Unit.
+\end{enumerate}
+
+SSO and Core Processing:
+\begin{enumerate}
+\item A processing core requests WQE pointer from the SSO unit. WQE contains pointer to the packet data.
+\item The packet data is processed by the core, the data is read and written to L2/DRAM.
+\item When the processing is finished, the core sends the Packet Data Buffer pointer and the data offset to the Packet Output Queue in the Packet Output (PKO) Unit.
+\item Free the WQE Buffer back to the FPA.
+\end{enumerate}
+
+Output phase:
+\begin{enumerate}
+\item PKO DMA's the Packet Data Buffer in to its own memory.
+\item PKO does the needed post-processing, e.g. adding checksums, and then sends the packet data to Output Port (TX). Optionally notify the core when the packet was sent.
+\item PKO free's the Packet Data Buffer back to FPA.
+\end{enumerate}
+
+The delays in the input and output phases are most interesting, and challenging at the same time, for us to understand the inter-node load-balancing. The input and output phases are mostly hardware accelerated which makes the measurements challenging. Also, the intra-node core-to-core delays are interesting.
+
+- käsittelyketju: muistista-muistiin (NIC yms. tulee väliin)
+- voi tapahtua softan ajamana, mutta aika pitkälti rautapohjaisesti
+  -- rautapohjaisessa ei helpolla saada suoria mitta-arvoja
+  -- pitää varioida mittausta, jotta voidaan tilastollisesti ratkaista
+
+\subsection{OpenEM}
+Understanding the OpenEM's computation context is crucial when creating the simulation model. When we move the computation of from one blade, we need to know how much, and what kind of, data needs to be transferred in order to continue the computation on another blade.
+
+\subsection{Inter-blade load balancing}
+Once we undestand the data needed for the inter-blade load-balancing, we need to understand the different options to implement the actual message passing between the blades. At the moment Message Passing Interface (MPI) and future-promise constructs both seem valid options.
+
+\subsection{Performance Simulation Environment (PSE)}
+The system will be modeled using Performance Simulation Environment (PSE). The three main parts of PSE  model are workload model, software model and hardware model. The workload model consists of actions which are invoked according to user specified rules, for example probability distributions. These actions are passed to the software model to be processed. Software model utilizes the hardware resources described in the hardware model.
+
+Both, the hardware and software models, are amplified by the parameters gained from the measurements of the system.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "experiment-plan-hartikainen"
+%%% End:
