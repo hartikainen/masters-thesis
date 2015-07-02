@@ -1,0 +1,35 @@
+Measurements are needed to gather the parameters to configure the simulation system. As we are interested especially in the inter-node level challenges of the stream computation, the communication delays are the main focus of our measurements. Also, the memory delays in the blades are interesting.
+
+The Cavium measurements will be run on top of Linux, which makes the measurements and workload handling easier. However, this also creates overhead in the measurements, and has to be taken into account in the results.
+
+\subsection{Inter-node Communication Delays}
+The processing chain of the inter-node communication contains several steps, as presented in the previous chapter. We will not able to measure the delays in each of the hardware parts of the communication chain. Thus, the measurements need to be varied to find out the parameters for the underlying statistical behaviour of the phases.
+
+We will measure the total delay in the output phase and the input phase by using the Octeon's hardware counters. CVMX_CORE_PERF_CLK counter returns the clocked cpu cycles. We can determine the communication delay between the blades by sending data packets from blade A to another blade B. We will save the clock cycle once right before the sending the packet from blade A, and again right after the blade B receives the packet. If we send the packets from a blade back to itself through the switch, the absolute timing will be more accurate. The parameters for the statistical model will be gathered from several measurements, varying the packet size and count.
+
+Cavium SDK offers ready-built interface for the use of performance counters. The complete list of per-core counters can be found from the OCTEON Programmer's Guide, p. 6-14.
+
+\subsection{Intra-node Delays}
+We will also need to measure the delays, mainly memory latencies, of single blade.
+
+MPICH2 library and OpenEM reference implementation of OpenEM are used to guide the implementation.
+
+
+We might need more than one measurement setup to gain all the needed information for the model. Some of the simpler measurements can be done with already existing code while some of the more complex measurements require implementation of things like simple OpenEM queue mechanism and MPI and future-promise type message passing.
+
+We need to measure how the transfer times of the raw data (packets) between the blades correspond to the varying packet sizes and packet counts. First, we will create a local area network between the Blades (running on Linux) and an external packet generator. The packet generator will send packets, using a networking tool (e.g. netcat or mausezahn), to one of the blades, which then forwards the packets to other blades. Then the We will measure at least the communication latencies (transferred packets per time) as a function of packet size and packet count. The passthrough.c example from the Cavium SDK examples can be used as a base for this experiment.
+
+For the more complex measurements we will have to implement a program that also includes actual processing and termination of the packets. This requires understanding of the actual memory-to-memory communication chain between the blades. For example, with a simple OpenEM queue implementations, we can measure the load-balancing overhead when the amount of data transferred exceeds the computation capacity of the blades.
+
+
+
+The parameters for the model will be gathered from various experiments performed on a real-life hardware setup
+
+We can measure the throughput and latency of effects future-promise communication by for example running an MPI program with bare bone future-promise implementation that simulates the real-life communication.
+
+The measurement results are used to amplify the simulation model, and the simulation results are compared to the results from the experiments.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "experiment-plan-hartikainen"
+%%% End:
