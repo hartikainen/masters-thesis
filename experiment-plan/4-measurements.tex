@@ -1,4 +1,4 @@
-Measurements are needed to gather the parameters to configure the simulation system. As we are interested especially in the inter-node level challenges of the stream computation, the communication delays are the main focus of our measurements. Also, the memory delays in the blades are interesting.
+Measurements are needed to gather the parameters to configure the simulation system. As we are interested especially in the inter-node level challenges of the stream computation, the communication delays are the main focus of our measurements. Also, the intra-node delays, mainly memory latencies inside the blades, are interesting.
 
 The Cavium measurements will be run on top of Linux, which makes the measurements and workload handling easier. However, this also creates overhead in the measurements, and has to be taken into account in the results.
 
@@ -9,14 +9,14 @@ We will measure the total delay in the output phase and the input phase by using
 
 Cavium SDK offers ready-built interface for the use of performance counters. The complete list of per-core counters can be found from the OCTEON Programmer's Guide, p. 6-14.
 
-At the moment, the traffic generation is planned to be done by using external machine. We will create a local area network between the Blades (running on Linux) and an external packet generator. The packet generator will send packets, using a networking tool (e.g. netcat or mausezahn), to one of the blades, which then forwards the packets to other blades. In this case, the communication times could probably be measure by using Multi-core Processor Architecture and Communication (MPAC) benchmarking library. Using MPAC, we would measure the loopback time of the packets, starting from the packet generator through one or more of the blades, and then back to the packet generator.
+At the moment, the traffic generation is planned to be done by using external machine. We will create a local area network between the blades and an external packet generator. The packet generator will send packets, using a networking tool (e.g. netcat or mausezahn), to one of the blades, which then forwards the packets to other blades, and finally back to the traffic generator. The communication times could also be measure by using Multi-core Processor Architecture and Communication (MPAC) benchmarking library. Using MPAC, we would measure the loopback time of the packets, starting from the packet generator through one or more of the blades, and then back to the packet generator.
 
 For this setup, the delays in the actual traffic generator might be very large. We will have to measure the latencies of that machine as well.
 
-The passthrough.c example from the Cavium SDK examples can be used as a base for this experiment. We might also need to implement some simple application that also includes processing and termination of the packets. With a simple OpenEM queue implementations, we can measure the load-balancing overhead when the amount of data transferred exceeds the computation capacity of the blades.
+The passthrough.c example from the Cavium SDK can be used as a base for this experiment. We might also need to implement some simple application that also includes processing and termination of the packets. With a simple OpenEM queue implementations, we can measure the load-balancing overhead when the amount of data transferred exceeds the computation capacity of the blades.
 
 \subsection{Intra-node Delays}
-We will also need to measure the delays, mainly memory latencies, of a single blade. This will be done by running some multi threaded application, implemented for example with OpenMP, and measure it's performance, for example with MPAC.
+We will also need to measure the delays, mainly memory latencies, of a single blade. This will be done by running some multi-threaded application, implemented for example with OpenMP, and measure it's performance, for example with MPAC.
 
 %%% Local Variables:
 %%% mode: latex
