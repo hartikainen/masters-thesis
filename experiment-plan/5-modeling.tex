@@ -1,14 +1,14 @@
-The model will be created by iterative modeling-measurement-configuration approach.
+The model will be created by iterative modeling-measurement-configuration approach. The measurements described in the last chapter are needed to build the model.
 
 \subsection{Workload model}
 The workload for the model will be chosen so that it brings out the real-life characteristics of the load-balancing. There is no need to conduct any special measurements for the workload model, we already know how to create network packet data. Technically the parameters, such as the branching statements, of the model are written in the workload model.
 
-\subsubsection{Software model}
+\subsection{Software model}
 The software is modeled using OpenEM type, event based, processing where the inter-blade communication and load-balancing is implemented using for example future-promise or MPI type synchronization constructs.
 
 OpenEM execution objects are presented as separate submodels, where the hardware utilization and workload flow depends on the modeled execution object's logic. The different software queue types will be modeled as resource usage nodes.
 
-\subsubsection{Hardware model}
+\subsection{Hardware model}
 The hardware model will be created based on the previously described network processing device. The parameters and the delays gained from the measurements will be used to present the hardware provision utilized by the software model.
 
 %%% Local Variables:
