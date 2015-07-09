@@ -1,0 +1,128 @@
+TG2_FILE_BEGIN
+SOFTWARE
+6
+17
+block
+311 366 261 366
+18
+block
+434 623 384 623
+14
+ends
+731 362 681 362
+19
+begin
+95 370 45 370
+15
+block
+222 369 172 369
+16
+block
+622 362 572 362
+5
+24
+17
+18
+311.0 366.0 384.0 623.0
+19
+19
+15
+95.0 370.0 172.0 369.0
+15
+16
+14
+622.0 362.0 681.0 362.0
+25
+18
+16
+434.0 623.0 572.0 362.0
+16
+15
+17
+222.0 369.0 261.0 366.0
+0
+6
+17
+289.0 364.0
+9
+use core
+type:device
+name:CPU
+amount:$codelines/10.0
+
+
+
+
+
+
+14
+703.0 355.0
+8
+END
+name:OUT
+
+
+
+
+
+
+
+18
+410.0 626.0
+13
+read memory
+type:device
+name:L1_access
+amount:$cachelines
+
+
+
+
+
+
+
+
+
+
+19
+68.0 372.0
+8
+BEGIN
+name:IN
+
+
+
+
+
+
+
+15
+206.0 372.0
+7
+core require
+type:reserve
+name:core_require
+
+
+
+
+
+16
+594.0 354.0
+12
+release core
+type:release
+name:core_require
+
+
+
+
+
+
+
+
+
+
+22
+26
+TG2_FILE_END
