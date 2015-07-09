@@ -27,5 +27,8 @@
 *.run.xml
 *-blx.bib
 
+# PSE stuff
+/pse/*.[ch]
+
 # Random PDF's
 material/
