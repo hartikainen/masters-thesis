@@ -25,7 +25,7 @@ WL_workload.c: workload.wl $(wlc) TG_software.h RN_hardware.h
 
 .PHONY: clean cleanmetric
 clean:
-	-rm workload.c workload.h hardware.c hardware.h software.c software.h memory_submodel.c memory_submodel.h sim
+	-rm WL_workload.c WL_workload.h RN_hardware.c RN_hardware.h TG_software.c TG_software.h memory_submodel.c memory_submodel.h sim
 
 cleanmetric:
 	-rm avg_cpu_queue avg_cpu_req_queue avg_cpu_util avg_cpu_req_util cpu_req_queue cpu_req_util cpu_util L1_queue L1_util ram_queue ram_util cpu_queue output
