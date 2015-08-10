@@ -185,7 +185,7 @@ block
 25
 35
 461.0 416.0
-26
+27
 add_work to SSO
 type:device
 name:PKI
@@ -213,9 +213,10 @@ amount:$size/10
 
 
 
+
 36
 100.0 560.0
-13
+18
 require core
 type:reserve
 name:core_require
@@ -230,12 +231,21 @@ name:core_require
 
 
 
+
+
+
+
+
 37
 705.0 560.0
-3
+7
 release core
 type:release
 name:core_require
+
+
+
+
 
 19
 40.0 17.0
@@ -255,11 +265,12 @@ name:IN
 
 38
 180.0 560.0
-8
+9
 use core
 name:core
 type:device
-amount:$codelines/10.0
+amount:10.0
+
 
 
 
@@ -267,11 +278,15 @@ amount:$codelines/10.0
 
 39
 255.0 560.0
-8
+12
 read RAM
 name:RAM
 type:device
-amount:$cachelines
+amount:10.0
+
+
+
+
 
 
 
@@ -279,22 +294,26 @@ amount:$cachelines
 
 40
 335.0 560.0
-7
+9
 use core
 name:core
 type:device
-amount:$codelines/10.0
+amount:10.0
+
+
 
 
 
 
 41
 410.0 560.0
-8
+10
 write RAM
 name:RAM
 type:device
-amount:$codelines
+amount:10.0
+
+
 
 
 
@@ -302,7 +321,7 @@ amount:$codelines
 
 23
 171.0 236.0
-26
+29
 Input Process
 type:device
 name:PKI
@@ -330,18 +349,24 @@ amount:$size/10
 
 
 
+
+
+
 42
 480.0 560.0
-5
+8
 use core
 name:core
 type:device
-amount:$codelines/10.0
+amount:10.0
+
+
+
 
 
 24
 261.0 649.0
-21
+25
 Output Process
 type:device
 name:PKO
@@ -364,30 +389,41 @@ amount:$size/10
 
 
 
+
+
+
+
 43
 555.0 560.0
-6
+9
 send to PKO
 name:core
 type:device
-amount:$codelines/10.0
+amount:10.0
+
+
+
 
 
 
 44
 630.0 560.0
-7
+11
 free WQE
 name:core
 type:device
-amount:$codelines/10.0
+amount:10.0
+
+
+
+
 
 
 
 
 26
 267.0 236.0
-29
+33
 Parse Packet
 type:device
 name:PKI
@@ -418,13 +454,20 @@ amount:$size/10
 
 
 
+
+
+
+
 45
 135.0 650.0
-11
+14
 PKO DMA (read L2/RAM)
-name:RAM
 type:device
-amount:$codelines/10.0
+name:RAM
+amount:10.0
+
+
+
 
 
 
@@ -435,10 +478,15 @@ amount:$codelines/10.0
 
 27
 356.0 224.0
-27
+32
 drop?
 name:drop
-expr:$packet_drop
+expr:$drop
+
+
+
+
+
 
 
 
@@ -466,19 +514,27 @@ expr:$packet_drop
 
 28
 71.0 441.0
-4
+8
 fork
-name:forkA
+name:fork_a
+tag:0
+
+
+
 
 
 
 47
 380.0 650.0
-14
+18
 send to TX
-name:PKO
 type:device
-amount:$codelines/10.0
+name:PKO
+amount:10.0
+
+
+
+
 
 
 
@@ -492,7 +548,7 @@ amount:$codelines/10.0
 
 30
 153.0 498.0
-7
+8
 Allocate packet
 type:device
 name:PKI
@@ -501,9 +557,10 @@ amount:$size/10
 
 
 
+
 29
 150.0 394.0
-8
+9
 Allocate WQE
 type:device
 name:PKI
@@ -513,9 +570,10 @@ amount:$size/10
 
 
 
+
 48
 90.0 235.0
-27
+30
 from RX
 type:device
 name:PKI
@@ -544,20 +602,28 @@ amount:$size/10
 
 
 
+
+
+
 32
 355.0 445.0
-5
+6
 join
-name:joinA
+name:join_a
+
 
 
 
 
 14
 759.0 14.0
-12
+16
 OUT
 name:OUT
+tag:1
+
+
+
 
 
 
@@ -571,7 +637,7 @@ name:OUT
 
 33
 263.0 394.0
-6
+7
 Write WQE
 type:device
 name:PKI
@@ -579,13 +645,15 @@ amount:$size/10
 
 
 
+
 34
 266.0 499.0
-6
+7
 Write packet
 type:device
 name:PKI
 amount:$size/10
+
 
 
 
