@@ -20,7 +20,7 @@ route
 5
 72
 401.0 165.0
-10
+12
 BLADE
 name:BLADE
 type:submodel
@@ -32,11 +32,14 @@ file:blade.rn
 
 
 
+
+
 44
 57.0 52.0
-14
+15
 IN
 name:IN
+
 
 
 
@@ -67,10 +70,11 @@ name:OUT
 
 63
 91.0 118.0
-20
+21
 in route
 name:in_route
 i=0 ; IN[i] ; BLADE[i].IN[i]
+
 
 
 
