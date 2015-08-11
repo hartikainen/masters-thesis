@@ -7,12 +7,12 @@ submodel
 44
 input
 57 83 57 33
-45
-output
-755 28 755 78
 63
 route
 57.0 125.0 57.0 111.0
+45
+output
+755 28 755 78
 47
 route
 755.0 111.0 755.0 125.0
@@ -20,11 +20,12 @@ route
 5
 72
 401.0 165.0
-12
+13
 BLADE
 name:BLADE
 type:submodel
 file:blade.rn
+
 
 
 
@@ -53,24 +54,9 @@ name:IN
 
 
 
-45
-754.0 54.0
-11
-OUT
-name:OUT
-
-
-
-
-
-
-
-
-
-
 63
 91.0 118.0
-21
+22
 in route
 name:in_route
 i=0 ; IN[i] ; BLADE[i].IN[i]
@@ -83,6 +69,22 @@ i=0 ; IN[i] ; BLADE[i].IN[i]
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+45
+754.0 54.0
+11
+OUT
+name:OUT
 
 
 
