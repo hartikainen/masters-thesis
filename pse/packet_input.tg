@@ -1,79 +1,184 @@
 TG2_FILE_BEGIN
 PACKET_INPUT
-5
+11
+13
+block
+580 130 530 130
 4
 block
-245 300 195 300
+154 160 104 160
+14
+block
+665 130 615 130
+10
+block
+465 50 415 50
 5
 block
-383 300 333 300
+234 160 184 160
+15
+branch
+375 160 335 160
+11
+block
+580 50 530 50
 6
 block
-547 300 497 300
+313 160 263 160
 2
 begin
-100 300 50 300
+80 160 30 160
+12
+block
+480 130 430 130
 3
 ends
-685 300 635 300
-4
-4
-6
-3
-547.0 300.0 635.0 300.0
+765 160 715 160
+11
+8
+10
+11
+465.0 50.0 530.0 50.0
 1
 2
 4
-100.0 300.0 195.0 300.0
+80.0 160.0 104.0 160.0
+5
+15
+10
+375.0 160.0 375.0 50.0 415.0 50.0
+9
+11
+12
+580.0 50.0 600.0 50.0 600.0 80.0 395.0 80.0 395.0 130.0 430.0 130.0
+10
+12
+13
+480.0 130.0 530.0 130.0
 2
 4
 5
-245.0 300.0 333.0 300.0
+154.0 160.0 184.0 160.0
+6
+15
+3
+375.0 160.0 715.0 160.0
+11
+13
+14
+580.0 130.0 615.0 130.0
 3
 5
 6
-383.0 300.0 497.0 300.0
+234.0 160.0 263.0 160.0
+7
+6
+15
+313.0 160.0 335.0 160.0
+12
+14
+3
+665.0 130.0 690.0 130.0 690.0 160.0 715.0 160.0
 0
-5
+11
 4
-220.0 275.0
-4
-RX to PKI
-type:device
-name:PKI
-amount:$size/10
-
-5
-360.0 275.0
-4
-Input Process
-type:device
-name:PKI
-amount:$size/10
-
+129.0 135.0
 6
-520.0 275.0
-6
-Parse Packet
+RX
 type:device
 name:PKI
 amount:$size/10
 
 
+
+13
+555.0 105.0
+7
+Write packet
+type:device
+name:PKI
+amount:$size/10
+
+
+
+
+5
+211.0 135.0
+5
+Process
+type:device
+name:PKI
+amount:$size/10
+
+
+10
+445.0 25.0
+6
+Allocate WQE
+type:device
+name:PKI
+amount:$size/10
+
+tag:0
+
+14
+640.0 105.0
+4
+add to SSO
+type:device
+name:PKI
+amount:$size/10
 
 2
-65.0 300.0
+45.0 160.0
 2
 IN
 name:IN
 
+6
+286.0 135.0
+7
+Parse
+type:device
+name:PKI
+amount:$size/10
+
+
+
+
+11
+555.0 25.0
+5
+Write WQE
+type:device
+name:PKI
+amount:$size/10
+
+
+15
+355.0 195.0
 3
-655.0 300.0
+drop?
+name:drop
+expr:$drop
+
+3
+735.0 160.0
 3
 OUT
 name:OUT
+tag:1
+
+12
+460.0 105.0
+6
+Allocate packet
+type:device
+name:PKI
+amount:$size/10
 
 
-7
-5
+
+17
+13
 TG2_FILE_END
