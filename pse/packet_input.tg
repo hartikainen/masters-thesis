@@ -1,0 +1,79 @@
+TG2_FILE_BEGIN
+PACKET_INPUT
+5
+4
+block
+245 300 195 300
+5
+block
+383 300 333 300
+6
+block
+547 300 497 300
+2
+begin
+100 300 50 300
+3
+ends
+685 300 635 300
+4
+4
+6
+3
+547.0 300.0 635.0 300.0
+1
+2
+4
+100.0 300.0 195.0 300.0
+2
+4
+5
+245.0 300.0 333.0 300.0
+3
+5
+6
+383.0 300.0 497.0 300.0
+0
+5
+4
+220.0 275.0
+4
+RX to PKI
+type:device
+name:PKI
+amount:$size/10
+
+5
+360.0 275.0
+4
+Input Process
+type:device
+name:PKI
+amount:$size/10
+
+6
+520.0 275.0
+6
+Parse Packet
+type:device
+name:PKI
+amount:$size/10
+
+
+
+2
+65.0 300.0
+2
+IN
+name:IN
+
+3
+655.0 300.0
+3
+OUT
+name:OUT
+
+
+7
+5
+TG2_FILE_END
