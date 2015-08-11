@@ -29,30 +29,9 @@ node
 375.0 95.0 156.0 245.0
 0
 4
-12
-160.0 289.0
-17
-Stream 1 [1Gbps, 85B]
-name:stream_1
-job:SOFTWARE
-lifetime:0.1
-interval:RNS_random_exponential(0.00025)
-size:85*8
-portnumber:1
-portname:IN
-
-drop:0
-
-
-
-
-
-
-
-
 13
 375.0 290.0
-19
+21
 Stream 2 [4Gbps, 85B]
 name:stream_2
 job:SOFTWARE
@@ -73,9 +52,11 @@ drop:0
 
 
 
+
+
 14
 590.0 290.0
-16
+17
 Stream 3 [10Gbps, 85B]
 name:stream_3
 job:SOFTWARE
@@ -93,13 +74,37 @@ drop:0
 
 
 
+
 15
 380.0 50.0
-10
+11
 TRAFFIC GENERATOR
 name:generator
 lifetime:1
 interval:RNS_random_exponential(0.25)
+
+
+
+
+
+
+
+
+12
+160.0 289.0
+18
+Stream 1 [1Gbps, 85B]
+name:stream_1
+job:SOFTWARE
+lifetime:0.1
+interval:RNS_random_exponential(0.00025)
+size:85*8
+portnumber:1
+portname:IN
+
+drop:0
+
+
 
 
 

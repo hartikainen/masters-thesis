@@ -1,6 +1,6 @@
 TG2_FILE_BEGIN
 SOFTWARE
-27
+25
 35
 block
 491 446 441 446
@@ -16,6 +16,9 @@ begin
 38
 block
 205 585 155 585
+57
+submodel
+305 160 255 160
 40
 block
 360 585 310 585
@@ -25,9 +28,6 @@ block
 41
 block
 435 585 385 585
-23
-block
-198 265 148 265
 42
 block
 505 585 455 585
@@ -40,9 +40,6 @@ block
 44
 block
 655 585 605 585
-26
-block
-293 265 243 265
 45
 block
 155 675 105 675
@@ -61,9 +58,6 @@ block
 29
 block
 173 420 123 420
-48
-block
-115 265 65 265
 50
 block
 176 160 126 160
@@ -82,7 +76,7 @@ block
 34
 block
 289 467 239 467
-28
+26
 53
 44
 37
@@ -115,10 +109,6 @@ block
 33
 32
 287.0 420.0 339.04999999999995 446.0
-59
-48
-23
-115.0 265.0 148.0 265.0
 42
 32
 35
@@ -131,10 +121,6 @@ block
 35
 36
 491.0 446.0 520.0 446.0 520.0 525.0 30.0 525.0 30.0 585.0 75.0 585.0
-62
-50
-48
-176.0 160.0 195.0 160.0 195.0 210.0 35.0 210.0 35.0 265.0 65.0 265.0
 44
 36
 38
@@ -163,14 +149,6 @@ block
 40
 41
 360.0 585.0 385.0 585.0
-29
-23
-26
-198.0 265.0 243.0 265.0
-30
-26
-27
-293.0 265.0 335.0 265.0
 48
 41
 42
@@ -179,6 +157,10 @@ block
 27
 28
 375.0 265.0 375.0 380.0 250.0 380.0 15.0 380.0 15.0 443.0 47.05000000000001 443.0
+67
+50
+57
+176.0 160.0 255.0 160.0
 50
 42
 43
@@ -187,6 +169,10 @@ block
 28
 29
 86.94999999999999 443.0 123.0 420.0
+68
+57
+27
+305.0 160.0 335.0 265.0
 33
 28
 30
@@ -202,7 +188,7 @@ block
 52
 65
 690.0 115.0 690.0 95.0
-29
+27
 35
 461.0 416.0
 27
@@ -269,7 +255,7 @@ name:core_require
 
 19
 38.0 13.0
-12
+15
 IN
 name:IN
 
@@ -283,13 +269,20 @@ name:IN
 
 
 
+
+
+
 56
 40.0 175.0
-6
+10
 enter_blade
 name:enter_blade
 file:enter_blade
-type:metric
+type:abs_trace
+
+
+
+
 
 
 
@@ -300,6 +293,22 @@ use core
 name:core
 type:device
 amount:10.0
+
+
+
+
+
+
+57
+280.0 135.0
+12
+Packet Input
+name:PACKET_INPUT
+type:submodel
+file:packet_input.tg
+
+
+
 
 
 
@@ -342,39 +351,6 @@ write RAM
 name:RAM
 type:device
 amount:10.0
-
-
-
-
-
-
-
-23
-173.0 238.0
-29
-Input Process
-type:device
-name:PKI
-amount:$size/10
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -451,43 +427,6 @@ amount:10.0
 
 
 
-26
-267.0 238.0
-33
-Parse Packet
-type:device
-name:PKI
-amount:$size/10
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 45
 135.0 650.0
 14
@@ -508,7 +447,7 @@ amount:10.0
 
 27
 356.0 231.0
-32
+35
 drop?
 name:drop
 expr:$drop
@@ -542,12 +481,17 @@ expr:$drop
 
 
 
+
+
+
 28
 71.0 441.0
-9
+11
 fork
 name:fork_a
 tag:0
+
+
 
 
 
@@ -579,7 +523,7 @@ amount:10.0
 
 30
 153.0 498.0
-8
+9
 Allocate packet
 type:device
 name:PKI
@@ -589,9 +533,10 @@ amount:$size/10
 
 
 
+
 29
 150.0 394.0
-9
+10
 Allocate WQE
 type:device
 name:PKI
@@ -602,48 +547,19 @@ amount:$size/10
 
 
 
-48
-91.0 237.0
-31
-from RX
-type:device
-name:PKI
-amount:$size/10
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 50
 156.0 135.0
-8
-enter BLADE
+13
+enter BLADE hw model
 name:BLADE
 type:enter
 port:IN
+
+
+
+
+
 
 
 
@@ -662,10 +578,12 @@ name:join_a
 
 14
 759.0 14.0
-16
+18
 OUT
 name:OUT
-tag:1
+
+
+
 
 
 
@@ -682,8 +600,8 @@ tag:1
 
 51
 650.0 200.0
-8
-exit BLADE
+10
+exit BLADE hw model
 name:OUT
 type:exit
 exits:BLADE
@@ -692,9 +610,11 @@ tag:1
 
 
 
+
+
 33
 263.0 394.0
-7
+9
 Write WQE
 type:device
 name:PKI
@@ -703,13 +623,19 @@ amount:$size/10
 
 
 
+
+
 52
 690.0 83.0
-5
+9
 exit_blade
 name:exit_blade
 file:exit_blade
-type:metric
+type:abs_trace
+
+
+
+
 
 
 34
@@ -723,6 +649,6 @@ amount:$size/10
 
 
 
-57
-66
+61
+69
 TG2_FILE_END
