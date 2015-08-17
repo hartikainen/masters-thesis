@@ -1,12 +1,12 @@
 TG2_FILE_BEGIN
 SOFTWARE
 9
-120
-ends
-760 60 710 60
 119
 begin
 100 60 50 60
+120
+ends
+760 60 710 60
 121
 block
 180 60 130 60
@@ -67,23 +67,23 @@ block
 680.0 60.0 710.0 60.0
 0
 9
-120
-730.0 60.0
-8
-OUT
-
-
-
-
-
-
-
-
 119
 60.0 60.0
 9
 IN
 
+
+
+
+
+
+
+
+
+120
+730.0 60.0
+8
+OUT
 
 
 
@@ -113,39 +113,55 @@ port:IN
 
 123
 325.0 35.0
-4
+5
 Packet Input
 name:PACKET_INPUT
 type:submodel
 file:PACKET_INPUT
 
+
 124
 475.0 35.0
-7
+10
 Packet Process
 name:PACKET_PROCESS
 type:submodel
-file:software/packet_process.tg
+file:PACKET_PROCESS
 
 tag:0
 
 
+
+
+
 125
 570.0 35.0
-1
+7
 Packet Output
+name:PACKET_OUTPUT
+type:submodel
+file:PACKET_OUTPUT
+
+
+
 
 126
 400.0 25.0
-3
+4
 drop?
-
+name:drop
+expr:$drop
 
 
 127
 655.0 35.0
-2
+7
 exit NPU
+name:OUT
+type:exit
+exits:NPU
+
+tag:1
 
 
 129

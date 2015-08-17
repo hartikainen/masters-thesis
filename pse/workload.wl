@@ -31,8 +31,8 @@ node
 4
 13
 375.0 200.0
-22
-Stream 2 [4Gbps, 85B, app 2]
+26
+Stream 2 [4Gbps, 85B, app 1]
 name:stream_2
 job:SOFTWARE
 lifetime:0.1
@@ -41,7 +41,11 @@ size:85*8
 portnumber:2
 portname:IN
 
+app_id:0
 drop:0
+
+
+
 
 
 
@@ -57,8 +61,8 @@ drop:0
 
 14
 600.0 200.0
-18
-Stream 3 [10Gbps, 85, app 3]
+22
+Stream 3 [10Gbps, 85B, app 2]
 name:stream_3
 job:SOFTWARE
 lifetime:0.1
@@ -67,7 +71,11 @@ size:85*8
 portnumber:3
 portname:IN
 
+app_id:1
 drop:0
+
+
+
 
 
 
@@ -95,7 +103,7 @@ interval:RNS_random_exponential(0.25)
 
 12
 165.0 199.0
-25
+28
 Stream 1 [1Gbps, 85B, app 1]
 name:stream_1
 job:SOFTWARE
@@ -104,9 +112,12 @@ interval:RNS_random_exponential(0.00025)
 size:85*8
 portnumber:1
 portname:IN
-ram_access_time: RNS_random_exponential(0.00025) + (0.00025)
+ram_access_time: RNS_random_exponential((0.00025) + (0.00025))
 
+app_id:0
 drop:0
+
+
 
 
 
