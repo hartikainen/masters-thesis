@@ -64,40 +64,50 @@ name:OUT
 
 6
 145.0 130.0
-5
+6
 PKO DMA (read L2/RAM)
 type:device
 name:RAM
 amount:10.0
 
 
+
 7
 220.0 70.0
-4
+6
 Process
 type:device
 name:PKO
 amount:$size/10
 
+
+
 8
 455.0 70.0
-4
+5
 TX
 type:device
 name:PKO
 amount:10.0
 
+
 12
 380.0 70.0
-3
+4
 Free Packet
-
-
+type:device
+name:PKO
+amount:$size/10
 
 13
 300.0 70.0
-1
+6
 Free WQE
+type:device
+name:PKO
+amount:$size/10
+
+
 
 14
 10

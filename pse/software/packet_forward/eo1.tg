@@ -1,5 +1,5 @@
 TG2_FILE_BEGIN
-EO1
+PACKET_FORWARD_EO1
 6
 74
 begin
@@ -43,40 +43,51 @@ block_queue
 0
 6
 74
-65.0 50.0
-3
-IN eo1
-name:IN_eo1
-
+66.0 79.0
+2
+IN
+name:IN
 
 75
-520.0 50.0
-2
-OUT eo1
-name:OUT_eo1
+523.0 81.0
+3
+OUT
+name:OUT
+
 
 76
 160.0 55.0
-2
+4
 use cpu
-
+name:core
+type:device
+amount:10.0
 
 79
 245.0 55.0
-1
+7
 write mem
+name:RAM
+type:device
+amount:10.0
+
+
+
 
 111
 435.0 55.0
-2
-release cpu
-
+3
+release core
+type:release
+name:core_require
 
 114
 335.0 100.0
-3
+5
 send to SSO
-
+name:sso
+type:device
+amount:10.0
 
 
 129
