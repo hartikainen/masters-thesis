@@ -94,23 +94,41 @@ IN
 
 121
 155.0 35.0
-1
+5
 switch forward
+name:switch
+type:device
+amout:1
+
 
 122
 240.0 35.0
-1
+6
 enter NPU
+name:NPU
+type:enter
+port:IN
+
+
 
 123
 325.0 35.0
-1
+4
 Packet Input
+name:PACKET_INPUT
+type:submodel
+file:PACKET_INPUT
 
 124
 475.0 35.0
-1
+7
 Packet Process
+name:PACKET_PROCESS
+type:submodel
+file:software/packet_process.tg
+
+tag:0
+
 
 125
 570.0 35.0
