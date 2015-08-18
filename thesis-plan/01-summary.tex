@@ -1,8 +1,22 @@
-In this thesis, we will measure the performance of a multi-blade network processing system, and create a simulation model based on those measurements. The simulation model is used to understand limitations of such a system and its suitability as stream computing platform. We hope to understand how event driven programming models, such as OpenEM, could be extended to support inter-node load balancing in this context.
+In this thesis, we aim to understand if, and how, stream computation can be scaled with current NPU devices and event driven programming models. We believe that by distributing the stream computation and utilizing external accelerators, both programmability and efficiency of the devices, can be improved.
 
-The measurements will be done on a system consisting of 8 Cavium Octeon II, 32 MIPS core blades, connected over ethernet switch to each other. The emphasis of the measurements will be on the communication delays between the blades.
+We will measure the performance of a multi-blade network processing system, and create a simulation model based on those measurements. The simulation model is used to understand limitations of such a system and its suitability as stream computing platform.
 
-The system will be modeled using Performance Simulation Environment (PSE).
+The system will be modeled using Performance Simulation Environment (PSE), based on the values gathered from various measurements. The measurements will be done on a system consisting of 8 Cavium Octeon II, 32 MIPS core blades, connected over ethernet switch to each other. The emphasis of the measurements will be on the communication delays between the blades.
+
+
+TODO [check this]:
+
+
+- Millon MIPSit menee kyykkyyn?
+  -> millon kannattaa lahettaa verkon kautta tavalliselle x86:lle laskettavaks/kiihdytettavaks? Kannattaako edes?
+  -  mietitaan/mitataan naita arvoja (tiedonsiirto viiveet), tehdaan malli -> dippa
+
+- switchi full crossbar
+
+- PSE main deal, Cavium ja OpenEM Nokian juttuja
+
+- PSE: res verk. simulaattori jossa mukava softaote. (PDES-simulaattori)
 
 
 %%% Local Variables:
