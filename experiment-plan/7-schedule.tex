@@ -3,10 +3,10 @@
   \begin{tabular}{@{}c|p{10cm}@{}}
     \toprule
     Week 26 (past) & Figuring out why the hardware setup loses packets \\
-    Week 27 (past) & Still debugging the packet loss problem. Contacted Krister from Nokia, but haven\t hear back from him. Figuring out how the Octeon perf-counter work, coding some initial examples \\
-    Week 28 & Measure the loopback time through the blade, possibly several blades. Use different packet sizes: x, y, z. Do the measurements first using MPAC, and after that use the perf-counters. Measure the latencies of the packet generator simply by sending packets to itself. Create initial PSE model of the setup. \\
-    Week 29 & Figure out the packet loss problem, start variating the packet data. Start measuring the intar-node latencies \\
-    Week 30 & Vacation \\
+    Week 27 (past) & Still debugging the packet loss problem. Contacted Krister from Nokia, but haven't hear back from him. Figuring out how the Octeon perf-counters work, coding some initial examples. Turned out that perf-counters don't work out of the box on Linux, but need to be initialized some how. They work fine on simple exec.\\
+    Week 28 (past) & Measure the loopback time through the blade. Use different packet sizes: 80-1000 bytes. Measure the latencies of the packet generator simply by sending packets to itself. The loopback times has been measure only with 32 packets, since the Cavium lost packets. Create initial PSE model of the setup. Packet loss problem figured out, at least on some level. \\
+    Week 29 & Start variating the packet data. Start measuring the inter-node latencies. \\
+    Week 30 & Vacation? \\
     \bottomrule
   \end{tabular}
 \end{table}
