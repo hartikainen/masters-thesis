@@ -1,17 +1,18 @@
-Parallel computation and heterogeneous MPSoC devices are important parts of today's efficient computing systems. However, they also bring out new challenges in the software development and requirements for the programming models.
+In traditional computing architectures, such as Von Neumann architecture, the computation is based on reading, processing and storing back the data in system's memory. Many of today's computation tasks are
+done for data streams flowing through the system, instead of being altered in the memory.
 
-The scalability of the parallel computation itself, especially on heterogeneous hardware, is a hard problem due to the non-determinism of parallel computation, communication delays and complicated memory management. Data processed in stream computation is often dynamic: the stream characteristics are not known in advance, and the data volume and the computation requirements can change at any point of the computation.
+Parallel computation and heterogeneous MPSoC devices are important parts of today's efficient computing systems. However, they also bring out new challenges in the software development and requirements for the programming models. The scalability of the parallel computation itself, especially on heterogeneous hardware, is a hard problem due to the non-determinism of parallel computation, communication (memory) delays and complicated memory management.
 
-Traditionally, the computing
+Traditional computing clusters can be virtualized, alleviating the distribution of the computation, by using message passing abstractions such as Message Passing Interface (MPI). However, the real time nature of the streaming computation makes its distribution hard. Data processed in stream computation is often dynamic: the stream characteristics are not known in advance, and the data volume and the computation requirements can change at any point of the computation. Thus, the load-balancing of the computation has to be done on the fly, and also the real-time characteristics of the stream computation tasks imposes strict requirements for the communication delays and latencies between the nodes.
 
-Communication delays and latencies, between the computing nodes, have essential role in distributed stream computing.
+!!!VON NEUMANN!!!
 
 %%TODO: ``from threads to tasks'' ja ``context-swithing overhead''
-Hardware threads are static, meaning that they cannot adapt to the dynamic changes of the workload. Also, the hardware threads cannot be migrated between the computing nodes, and thus binding the computation to the hardware threads forces the computation to be done on the specific computing node. This is why the traditionally used parallel programming models, that are based on thread parallelism, don't meet needs of streaming computing of dynamically changing workflow.
+% Hardware threads are static, meaning that they cannot adapt to the dynamic changes of the workload. Also, the hardware threads cannot be migrated between the computing nodes, and thus binding the computation to hardware threads forces the computation to be done on the specific computing node. This is why the traditionally used parallel programming models, that are based on thread parallelism, don't meet needs of streaming computing of dynamically changing workflow.
 
-Traditional computing clusters and inter-node computations can be virtualized by using message passing abstractions such as MPI. However the real time nature of the streaming computation brings on problems to this kind of inter-node computation. The research problem of this thesis is the balancing and transferring of the dynamic workload between multiple stream computing nodes.
 
-The thesis is done under the Embedded Systems Group in Aalto University with connections to the ParallaX research project. The actual starting point for this thesis is defined by the recent bachelor's theses (Kiljunen, Teemaa) and master's theses (Hanhirova, Saarinen, Rasa), written for the Embedded Systems Group.
+
+The thesis is done under the Embedded Systems Group in Aalto University with connections to the ParallaX research project. The actual starting point for this thesis is defined by the recent bachelor's theses (Kiljunen, Teemaa) and master's theses (Hanhirova, Saarinen, Rasa), written in the same group.
 
 %%% Local Variables:
 %%% mode: latex
