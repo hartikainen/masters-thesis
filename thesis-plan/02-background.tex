@@ -1,6 +1,10 @@
 Parallel computation and heterogeneous MPSoC devices are important parts of today's efficient computing systems. However, they also bring out new challenges in the software development and requirements for the programming models.
 
-The scalability of the parallel computation itself, especially on heterogeneous hardware, is a hard problem due to the non-determinism of parallel computation, communication delays and complicated memory management. Data processed in stream computation is often dynamic. The stream characteristics are not known in advance, and the data volume and the computation requirements can change at any point of the computation.
+The scalability of the parallel computation itself, especially on heterogeneous hardware, is a hard problem due to the non-determinism of parallel computation, communication delays and complicated memory management. Data processed in stream computation is often dynamic: the stream characteristics are not known in advance, and the data volume and the computation requirements can change at any point of the computation.
+
+Traditionally, the computing
+
+Communication delays and latencies, between the computing nodes, have essential role in distributed stream computing.
 
 %%TODO: ``from threads to tasks'' ja ``context-swithing overhead''
 Hardware threads are static, meaning that they cannot adapt to the dynamic changes of the workload. Also, the hardware threads cannot be migrated between the computing nodes, and thus binding the computation to the hardware threads forces the computation to be done on the specific computing node. This is why the traditionally used parallel programming models, that are based on thread parallelism, don't meet needs of streaming computing of dynamically changing workflow.
