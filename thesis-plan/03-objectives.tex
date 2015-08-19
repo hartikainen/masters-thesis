@@ -1,9 +1,8 @@
-The objective of this thesis is to understand the load-balancing options of a dynamic workload of a stream computing system combining both, inter-node (shared memory) and intra-node (distributed memory), level parallelism. This objective includes constructing an experiment, that is, planning and designing, implementing, and analyzing an example of such a load-balancing system.
+The objective of this thesis is to understand the load-balancing options of a dynamic workload of a stream computing system combining both, inter-node (shared memory) and intra-node (distributed memory), level parallelism. This objective includes constructing an experiment, that is, measuring and modeling  such a system.
 
 We hope to understand how the implemented dynamic load-balancing mechanism performs under the changing volume and requirements of a dynamic data streams, and furthermore, gain directions for further development of such a system. The experiment should reflect a real world situation of a dynamic stream processing, for the results being applicable in the further research in the field.
 
-When distributing the computation between multiple NPU's, the communication latencies are in crucial role. The latencies consist essentially from two aspects. First, the speed, namely latency and throughput, of the NPU system. We will statistically determine these for our test system. Secondly, we want to understand how much implicit context information needs to be transferred along with the data, to carry on the computation on another node. This is clearly dependent on the method used for the distribution.
-
+When distributing the computation between multiple NPU's, the communication latencies are in crucial role. The latencies consist essentially from two aspects. Firstly, the speed, that is latency and throughput, of the NPU system. We will statistically determine these for our test system. Secondly, we want to understand how much implicit context information needs to be transferred along with the data, to carry on the computation on another node. This is clearly dependent on the method used for the distribution and communication.
 
 %%% Local Variables:
 %%% mode: latex
