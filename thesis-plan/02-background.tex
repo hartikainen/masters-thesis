@@ -1,18 +1,18 @@
-In traditional computing architectures, such as Von Neumann architecture, the computation is based on reading, processing and storing back the data in system's memory. Many of today's computation tasks are
-done for data streams flowing through the system, instead of being altered in the memory.
+\subsection{Stream Computing}
+In traditional computing architectures, such as Von Neumann architecture, the computation is based on reading, processing and writing the data located in system's memory. These architectures have their limitations and thus both the academia and the industry are researching alternative ways of computing. One of these is stream computing, which is present especially in Internet of Things (IoT) applications. In stream computing, the computation is done for data streams flowing through the system, instead of being altered in the memory.
 
-Parallel computation and heterogeneous MPSoC devices are important parts of today's efficient computing systems. However, they also bring out new challenges in the software development and requirements for the programming models. The scalability of the parallel computation itself, especially on heterogeneous hardware, is a hard problem due to the non-determinism of parallel computation, communication (memory) delays and complicated memory management.
+\subsection{Programming methods}
+The performance gains in today's computing rely heavily on parallelism and concurrency of programs. The parallel computation itself, especially on heterogeneous hardware, is a hard problem due to the non-determinism, communication (memory) delays and complicated memory management. Most widely adopted  parallel programming approach, threads, are becoming inefficient and thus new approaches, such as task parallelism, have been developed. This raises the question of how to balance the computation between the computing resources to maximize the utilization.
+%[Lee et al. Problem with Threads]
 
-Traditional computing clusters can be virtualized, alleviating the distribution of the computation, by using message passing abstractions such as Message Passing Interface (MPI). However, the real time nature of the streaming computation makes its distribution hard. Data processed in stream computation is often dynamic: the stream characteristics are not known in advance, and the data volume and the computation requirements can change at any point of the computation. Thus, the load-balancing of the computation has to be done on the fly, and also the real-time characteristics of the stream computation tasks imposes strict requirements for the communication delays and latencies between the nodes.
+Parallel computation and heterogeneous MPSoC devices are important parts of today's efficient computing systems. However, they also bring out new challenges in the software development and requirements for the programming models. The scalability of the
 
-!!!VON NEUMANN!!!
+Distributing the stream computation is non-trivial, due to its real time nature. Traditional computing clusters can be virtualized, alleviating the distribution of the computation, by using message passing abstractions such as Message Passing Interface (MPI). However, the real time nature of stream computation makes its distribution difficult. Data processed in stream computation is often dynamic: the stream characteristics are not known in advance, and the data volume and the computation requirements can change at any point of the computation. Load-balancing of the computation has to be done on the fly, and thus the communication delays and latencies between the nodes are important.
 
 %%TODO: ``from threads to tasks'' ja ``context-swithing overhead''
-% Hardware threads are static, meaning that they cannot adapt to the dynamic changes of the workload. Also, the hardware threads cannot be migrated between the computing nodes, and thus binding the computation to hardware threads forces the computation to be done on the specific computing node. This is why the traditionally used parallel programming models, that are based on thread parallelism, don't meet needs of streaming computing of dynamically changing workflow.
+% Hardware threads are static, meaning that they cannot adapt to the dynamic changes of the workload. Also, the hardware threads cannot be migrated between the computing nodes, and thus binding the computation to hardware threads forces the computation to be done on the specific computing node. This is why
 
 
-
-The thesis is done under the Embedded Systems Group in Aalto University with connections to the ParallaX research project. The actual starting point for this thesis is defined by the recent bachelor's theses (Kiljunen, Teemaa) and master's theses (Hanhirova, Saarinen, Rasa), written in the same group.
 
 %%% Local Variables:
 %%% mode: latex
