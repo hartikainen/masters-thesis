@@ -1,31 +1,45 @@
-Vesa Hirvisalo will work as an advisor for this thesis. Jussi Hanhirova is working on his doctoral thesis on the same area of research. Risto Vuorio is working on his Master's thesis on the similar subject. The supervisor is still yet to be decided. Hardware and frameworks to be used in the thesis is listed below.
+\subsection{Measurement Hardware and Software}
+The hardware and software needed to carry out the measurements are listed below.
 
 \begin{itemize}
-\item Cavium OCTEON II: MPSoC blade with aspecial purpose hardware accelerators and 32 MIPS cores.
 
-\item Intel DPDK: a set of packet prosessing libraries and drivers.
+\item Cavium OCTEON II: MPSoC blade with a special purpose hardware accelerators and 32 MIPS cores.
+\item Cavium OCTEON SDK: A set of software tools to build applications that run on the OCTEON II blades.
+\item Multi-core Processor Architecture and Communication Benchmark Suite (MPAC): A benchmarking library for performance characterization of multi-core systems.
+\item Wireshark: An open source network packet analysis tool.
 
-\item MPI (Message Passing Interface): De-facto standard for message-passing system to write portable message-passing programs.
-
-\item OpenEM (Open Event-Machine): Architectural abstraction and framework of event-driven multicore computation.
-
-\item OpenMP (Open Multi-Processing): Multi-platform, Shared memory multiprocessing API, a thread-parallelism implementation.
-
-\item PSE (Performance Simulation Environment): A toolset for analyzing hardware and software co-scheduled manycore systems.
 \end{itemize}
 
-\subsection{Open Event Machine}
-Open Event Machine (OpenEM), originally developed by Nokia Solutions and Networks (NSN) is a framework and programming model for a task (event) based processing on a multicore platforms. It enables efficient writing of dynamically load-balanced multicore applications with a very low overhead run-to-completion principle. OpenEM can be implemented both, on bare hardware as well as on top of an operating system.
+All the measurements will be done on the Cavium OCTEON II blades. OCTEON SDK provides several packet processing examples, which will be used as a base for the actual measurements. The examples include a traffic generator application which will be one potential option, together with Wireshark, when generating test workloads. The SDK provides convenient access to the hardware counters which will be used in the timing.
 
-OpenEM applications are constructed from three main parts, namely execution objects (EO), events, and event queues. Events are the main communication blocks, the data, of OpenEM. Execution object is a run-to-completion object, or a function [TODO: mention context], that is run using the event as the argument. Event queues are used to store the events between execution objects. The scheduling order of the events, from the queues to the EO's, are handled by the OpenEM scheduler. Neither the application nor the EO's are tied to a specific core. The dynamic load-balancing is achieved by processing EO's with the events on any available core at the time.
+\subsection{Modeling material}
+The system will be modeled using Performation Simulation Environment (PSE). PSE is a heterogeneous modeling and discrete event simulation environment, based on a Queuing Network Simulation (QSE) tool built at Aalto University. It provides a toolset for analyzing hardware and software co-scheduled manycore systems.
 
-The user is able to guide the scheduling of the events through the EO's coremask parameters, and queue's priority and type parameters. The coremask parameter for the EO's specifies which cores each the EO is allowed to be run on (no restrictions by default). The queue type can be atomic, parallel, or parallel ordered, and the priority order of the queues can be specified by the priority parameter. In addition to the user specified parameters, the scheduling is guided by the locality of the EO, meaning that tasks to be processed on the same EO are more likely to be scheduled consecutively in cases where the other priorities are equal. Also, the task order is maintained through the queue in a FIFO principle.
+\subsection{Reference Material}
+The reference material, listed below, is not directly related to the measurements or the modeling of the system, but act as the base for understanding the different solutions for the challenges.
 
-\subsection{Message Passing Interface}
-Message Passing Interface (MPI) is a specification and de facto standard for a set of message passing libraries. MPI standard defines the syntax and semantics for functions that are useful in a portable message-passing and distributed memory programs.
+\begin{itemize}
 
-\subsection{Performation Simulation Environment}
-Performation Simulation Environment (PSE) is a heterogeneous modeling and simulation environment, based on a Queuing Network Simulation (QSE) tool built at Aalto (TKK).
+\item Open Event-Machine (OpenEM): Architectural abstraction and framework of event-driven multicore computation. OpenEM enables efficient writing of dynamically load-balanced multicore applications with a very low overhead run-to-completion principle. OpenEM can be implemented both, on bare hardware as well as on top of an operating system.
+\item Message Passing Interface (MPI): A specification and de facto standard for a set of message passing libraries. MPI standard defines the syntax and semantics for functions that are useful in a portable message-passing and distributed memory programs.
+\item Futures and promises: Futures and promises are constructs that are used communication and synchronization in concurrent programming.
+\item Open Multi-Processing (OpenMP): Multi-platform, shared memory multiprocessing API.
+\item Intel Data Plane Development Kit (DPDK): A set of packet prosessing libraries and drivers.
+\end{itemize}
+
+OpenEM will work as a base programming framework in our study. To understand how OpenEM could be extended to support distributed computation, we will investigate already widely used communication methods such as MPI and future-promise. Intel DPDK can be studied to better understand the data plane functions and data I/O.
+
+\subsection{Other resources}
+Vesa Hirvisalo will work as an advisor for this thesis. Jussi Hanhirova is working on his doctoral thesis on the same area of research. Risto Vuorio is working on his Master's thesis on the similar subject. The supervisor is still yet to be decided. Hardware and frameworks to be used in the thesis is listed below.
+
+
+% \subsection{Open Event Machine}
+% Open Event Machine (OpenEM), originally developed by Nokia Solutions and Networks (NSN) is a framework and programming model for a task (event) based processing on a multicore platforms. It enables efficient writing of dynamically load-balanced multicore applications with a very low overhead run-to-completion principle. OpenEM can be implemented both, on bare hardware as well as on top of an operating system.
+
+% OpenEM applications are constructed from three main parts, namely execution objects (EO), events, and event queues. Events are the main communication blocks, the data, of OpenEM. Execution object is a run-to-completion object, or a function [TODO: mention context], that is run using the event as the argument. Event queues are used to store the events between execution objects. The scheduling order of the events, from the queues to the EO's, are handled by the OpenEM scheduler. Neither the application nor the EO's are tied to a specific core. The dynamic load-balancing is achieved by processing EO's with the events on any available core at the time.
+
+% The user is able to guide the scheduling of the events through the EO's coremask parameters, and queue's priority and type parameters. The coremask parameter for the EO's specifies which cores each the EO is allowed to be run on (no restrictions by default). The queue type can be atomic, parallel, or parallel ordered, and the priority order of the queues can be specified by the priority parameter. In addition to the user specified parameters, the scheduling is guided by the locality of the EO, meaning that tasks to be processed on the same EO are more likely to be scheduled consecutively in cases where the other priorities are equal. Also, the task order is maintained through the queue in a FIFO principle.
+
 
 %%% Local Variables:
 %%% mode: latex
