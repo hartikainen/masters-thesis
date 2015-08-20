@@ -13,6 +13,11 @@
 \usepackage{array, booktabs, longtable}
 \usepackage[toc,page]{appendix}
 \usepackage{enumitem}
+\usepackage[style=numeric, backend=bibtex, doi=false, isbn=false, url=false, hyperref]{biblatex}
+%\usepackage[square,sort&compress,numbers]{natbib}
+
+\defbibheading{bibliography}[\refname]{}
+\addbibresource{./../thesis/sources.bib}
 
 \newcommand\figureFromFile[3] {
   \pagebreak
@@ -69,7 +74,8 @@
 
   \pagebreak
   \section{Key Literature}
-  \input{11-literature.tex}
+  \nocite{*}
+  \printbibliography
 \end{appendices}
 
 \end{document}
