@@ -1,25 +1,27 @@
-\begin{table}[h]
-  \centering
-  \begin{tabular}{@{}c|p{10cm}@{}}
+\begin{center}
+  \begin{longtable}{@{}c|p{10cm}@{}}
     \toprule
-    Week 23 & Studying of the load-balancing in OpenMP/MPI systems. Figure out how to generate the workload for the experiment. Start modeling the PSE simulation. Figure out the contstraints of Cavium OCTEON II. \\
-    Week 24 & Continue studies of the load-balancing systems. Designing/planning of the load-balancing mechanism for our needs. Continue modeling. \\
-    Week 25 & Start the concrete implementation of the experiment. \\
-    Week 26 & Implementing. Test the hardware counters of Cavium OCTEON II. \\
-    Week 27 & First implementation of the experiment finished. Vesa and Jussi will be on a vacation and thus those vacation weeks have to be well planned. If analysis and the interpretations of the results are not finished, as is likely, then plan the exact steps for these. Plan for the next iteration. \\
-    Week 28 & Work on the analysis. \\
-    Week 29 & Analysis. \\
-    Week 30 & Interpretation of the results for the experiment. \\
-    Week 31 & Focus on writing the first iteration of the thesis. \\
-    Week 32 & Thesis writing. If Vesa and Jussi are back from vacation, evaluate the experiment results. Work on the experiment according to the results. \\
-    Week 33 & Thesis writing. Work on the experiment according to the results. \\
-    Week 34 & Thesis writing. Work on the experiment according to the results. \\
-    Week 35 & Absolute deadline for the first iteration of the experiment.  \\
-    Week 36 & Figure out how to continue. \\
+    Week 21 & First iteration of the thesis plan. Studied the material related to simulation and task parallelism. \\
+    Week 23 & Studied message passing abstractions, mainly MPI. Ran examples to get familiar with the basic structure and send/receive functions. Quick overview of the MPI I/O. Presented these in the study circle. Also spent some time figuring out how the experiment NPU's work. \\
+    Week 24 & Studied OpenEM. We setup the DPDK based OpenEM implementation together with Risto. However we ran into troubles with the I/O hardware. Also shortly studied the packet\_multi\_stage.c example from the OpenEM reference implementation and represented it in the study circle. \\
+    Week 25 & Studied the event and execution object constructs in OpenEM. Got an overview about the context of OpenEM queues and execution objects. Still room for digging deeper in the subject. \\
+    Week 26 & Spent time figuring out the packet loss problems of the NPU. \\
+    Week 27 & Still debugging the NPU. Figured out how to access the NPU's performance counters through the SDK. Coded initial examples for those. \\
+    Week 28 & Measured the simple loopback times through the NPU. Generated data from external machine and measured the packets' transmit and receive times, as the NPU worked as a simple passthrough. Did 100 measurements for several different packet sizes. The NPU still had problems with the packet dropping so all the tests were done using exactly 32 packets. Also figured out the performance counter problem. The performance counters do work in simple-exec mode, and should be activated on Linux-mode.  \\
+    Week 29 & Debugging the NPU. Simple-exec apps loaded from the flash work, meaning that the problems are in the hardware initialization of the SDK. \\
+    Week 30 & Managed to get some of the packets through the NPU. Still, some of the packets disappear on their way through. Coded some initial instrumentation code. The NPU's turned out to be challenging to measure due to packet dropping and deadlocking. Coded shell scripts for faster reboot and setup of the measurement system. \\
+    Week 31 & Studied the switching and routing to better understand what we need to model. Researched the NPU's input and output phases as a background for the simulation model. \\
+    Week 32 & Started modeling the system with PSE. Simple placeholders for each processing phase in the NPU. \\
+    Week 33 & Continued tweaking the PSE model. First working model ready. Complete overhaul of the model to better model the scheduling and memory of the system. \\
+    \toprule
+    Week 34 & Rewrote the thesis plan and experiment plan. Continue PSE modeling to get the current version to compile properly. \\
+    Week 35 & Enhance the PSE model based on the feedback. More accurate model of the scheduling and memory. Figure out how to continue. \\
+    Week 36 & If we get the NPU's SDK patched, measure the values needed for the model. \\
 
     \bottomrule
-  \end{tabular}
-\end{table}
+
+  \end{longtable}
+\end{center}
 
 %%% Local Variables:
 %%% mode: latex
