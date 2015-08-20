@@ -23,6 +23,9 @@
 *.out
 *.synctex.gz
 
+# LaTeX biber
+*.bcf
+
 # own ignores
 *.run.xml
 *-blx.bib
