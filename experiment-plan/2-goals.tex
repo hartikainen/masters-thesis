@@ -1,8 +1,12 @@
-The goal of this experiment is to study the performance of a network processing system consisting of multiple network processing units. We want to understand what kind of computation is possible with such a system and its suitability as stream computing platform. We hope to understand how event driven programming models, such as OpenEM, could be extended to support inter-node load balancing in stream computation context.
+The higher level goal of this experiment is twofold: firstly we will build a simulation model of a stream computing system consisting several modern network processing units and event-based programming models; secondly, we measure an NPU hardware to obtain the metrics needed for the model to answer real-life behaviour of such a system. These two goals are built of several subgoals presented below.
 
-We need to measure and understand the delays of the processing pipeline. The most crucial is to understand the communication delays between the blades, but also the memory latencies needs to be understood.
+As the simulation model will mainly be used to understand the distribution and load-balancing of the computation, the measurements will be focused on the delays in the processing pipeline of a network processing unit. This means the behaviour of the packet throughput time of the unit under varying workloads. The memory latencies will be measured to amplify the model of the actual packet processing phase of the system.
 
-The system will be modeled by using the in-house PSE simulation tool. One of the goals is to gain further understanding about the tool, and further develop it.
+The accuracy and the modularity of the simulation model are important parts of the experiment. The simulation model should replicate real-world hardware precisely enough so that it can be used for further analysis. The modularity means that the important parts of the system, especially the packet scheduling and software applications, can be remodeled without special comprehension about the actual simulator.
+
+As we have limited time resources for the experiment and plenty of metrics that can be measured, we will have to carefully plan the measurements so that they promote both of our main goals.
+
+The system will be modeled by using the in-house PSE simulation tool. One of the minor goals is to gain further understanding about the tool, and further develop it.
 
 %%% Local Variables:
 %%% mode: latex
