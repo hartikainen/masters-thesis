@@ -1,6 +1,12 @@
-The load-balancing of the dynamic data-stream will be transformed into a task scheduling problem. This will be achieved by extending OpenEM type of processing queue mechanism by MPI's inter-node task scheduling. The actual experiment will not include a full implementation of either OpenEM or MPI, but their characteristics will be measured by experimenting with isolated parts of those systems.
+We will propose a distribution and load-balancing mechanism for event based stream computing system. The mechanisms will be based on existing methods found on literature, and resulting system's behaviour will be demonstrated with an experiment.
 
-The results of the experiments will be evaluated both qualitatively and quantitatively. The experiment will be implemented on a system consisting of 8 Cavium OCTEON II blades, each consisting of 32 MIPS cores. Because the hardware system is sort of a black box, our focus will be heavily on the quantitative results and simulation. Program analysis will be done both statically and dynamically. The main simulation tool will be Performation Simulation Environment (PSE). The analysis results will be compared to the actual measurements of the experiment system.
+The experiment consists of two major parts. First, building a simulation model of a stream computing system, and second, instrumenting and measuring an example hardware. The simulation model will then be used to further demonstrate and understand the possibilities of distributing and load-balancing the stream computation between network processing units.
+
+The actual experiment will not include a full implementation of either event based programming environment or message passing system, but the needed characteristics will be measured by experimenting with isolated parts of those systems.
+
+The results of the experiments will be evaluated both qualitatively and quantitatively. The experiment will be implemented on a system consisting of eight 32 MIPS core network processing units. The example hardware system in use is sort of a black box, and thus our focus will be heavily on the quantitative results and simulation.
+
+More details about the actual methods and experiment can be found from the experiment plan.
 
 %%% Local Variables:
 %%% mode: latex
