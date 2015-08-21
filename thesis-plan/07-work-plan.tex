@@ -2,19 +2,19 @@ The work plan for my thesis consists of five major steps, that can be summarized
 
 \begin{enumerate}
 \setcounter{enumi}{-1}
-\item Study the load-balancing mechanisms in OpenMP and MPI systems
-\item Design a corresponding mechanism for our experiment hardware
-\item Plan how to implement and test such a mechanism for our experiment hardware
-\item Implement a bare load-balancing mechanism for the experiment
-\item Run the experiment using the implemented mechanism
-\item Model the experiment using a simulator
+\item Study the existing message passing systems, event based programming models and the example network processing units
+\item Build a simulation model of the system
+\item Measure the needed attributes from the example hardware and software
+\item Plug in the attributes to the simulation model
+\item Run simulations
+\item Validate that the simulations correspond to the hardware system
 \end{enumerate}
 
-In step 0 we will study the load-balancing mechanisms in OpenMP and MPI systems. In step 1 we will design how to build such a asynchronous task parallelism with distributed-memory parallelism system on top of OpenEM, instead of OpenMP. OpenEM at the moment does not include an MPI or inter-node support.
+In step 0 we have studied the OpenEM, MPI, future-promise constructs, and the example hardware to be able to create a simulation model and measure the needed parameters for it. We are currently working on step 1, during which we will build a simulation model with PSE. The high level model has already been built, however the packet scheduling and applications still need to be enhanced.
 
-In step 2, we will plan how to isolate a suitable part of the system for our experiments needs. The time resources for this thesis are limited, and thus the implementation of a complete model is unfeasible. We will isolate a part of the model, such that we can implement and test the performance of its bare load-balancing mechanism.
+In step 2, we will instrument and measure the needed attributes from the example hardware system. Main interest will be on the communication and memory latencies. We will begin the measurements right after we overcome the packet dropping and deadlocking problems of the system.
 
-Next, we will implement the load-balancing mechanism of the model. That is, we will implement a very bare queue mechanism, such that the workdload can be scheduled between the computing nodes, without using OpenEM, OpenMP or MPI. After that, we will test and measure the implementation. Finally, we will model the mechanism using a simulator software, and interpret the results. The experiment will be reiterated, while need be and the resources are sufficient, starting hopefully from step 2.
+Then, in step 3, the measurement attributes will be plugged in the simulation model. Finally, the simulations will be run and further tests are run to validate correct behaviour of the simulation model. The experiment will be reiterated while need be and the resources are sufficient, starting from step 1.
 
 %%% Local Variables:
 %%% mode: latex
