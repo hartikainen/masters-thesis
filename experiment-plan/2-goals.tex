@@ -1,8 +1,10 @@
-The goal of this experiment is twofold: firstly we will build a simulation model of a stream computing system consisting several modern network processing units and event-based programming models; secondly, will measure a NPU hardware to obtain the metrics needed for the model to answer real-life behaviour of such a system.
+The higher level goal of this experiment is twofold: firstly we will build a simulation model of a stream computing system consisting several modern network processing units and event-based programming models; secondly, will measure a NPU hardware to obtain the metrics needed for the model to answer real-life behaviour of such a system. These two goals are built of several subgoals presented below.
 
 As the simulation model will be mainly used to understand the distribution and load-balancing of an event based stream computation on network processing hardware, the measurements will be focused on the delays in the processing pipeline of a NPU. This means the behaviour of the packet throughput time of the NPU under varying workloads. The memory latencies will also be measured to amplify the model of the actual packet processing phase of the system.
 
 The accuracy and the modularity of the simulation model are part of the goal. The simulation model should replicate real-world hardware precisely enough so that further analysis can be done. The modularity means that the important parts of the system, especially the packet scheduling and software applications, can be remodeled without special comprehension about the actual simulator.
+
+As we have limited time resources for the experiment and plenty of metrics that can be measured, we will have to carefully plan the measurements so that they promote both of our main goals.
 
 The system will be modeled by using the in-house PSE simulation tool. One of the goals is to gain further understanding about the tool, and further develop it.
 
