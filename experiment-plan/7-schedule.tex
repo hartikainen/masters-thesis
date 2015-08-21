@@ -2,11 +2,18 @@
   \centering
   \begin{tabular}{@{}c|p{10cm}@{}}
     \toprule
-    Week 26 (past) & Figuring out why the hardware setup loses packets \\
-    Week 27 (past) & Still debugging the packet loss problem. Contacted Krister from Nokia, but haven't hear back from him. Figuring out how the Octeon perf-counters work, coding some initial examples. Turned out that perf-counters don't work out of the box on Linux, but need to be initialized some how. They work fine on simple exec.\\
-    Week 28 (past) & Measure the loopback time through the blade. Use different packet sizes: 80-1000 bytes. Measure the latencies of the packet generator simply by sending packets to itself. The loopback times has been measure only with 32 packets, since the Cavium lost packets. Create initial PSE model of the setup. Packet loss problem figured out, at least on some level. \\
-    Week 29 & Start variating the packet data. Start measuring the inter-node latencies. \\
-    Week 30 & Vacation? \\
+    Week 26 & Spent time figuring out the packet loss problems of the NPU. \\
+    Week 27 & Still debugging the NPU. Figured out how to access the NPU's performance counters through the SDK. Coded initial examples for those. \\
+    Week 28 & Measured the simple loopback times through the NPU. Generated data from external machine and measured the packets' transmit and receive times, as the NPU worked as a simple passthrough. Did 100 measurements for several different packet sizes. The NPU still had problems with the packet dropping so all the tests were done using exactly 32 packets. Also figured out the performance counter problem. The performance counters do work in simple-exec mode, and should be activated on Linux-mode.  \\
+    Week 29 & Debugging the NPU. Simple-exec apps loaded from the flash work, meaning that the problems are in the hardware initialization of the SDK. \\
+    Week 30 & Vacation \\
+    Week 31 & Managed to get some of the packets through the NPU. Still, some of the packets disappear on their way through. Coded some initial instrumentation code. The NPU's turned out to be challenging to measure due to packet dropping and deadlocking. Coded shell scripts for faster reboot and setup of the measurement system. \\
+    Week 32 & Studied the switching and routing to better understand what we need to model. Researched the NPU's input and output phases as a background for the simulation model. Started modeling the system with PSE. Simple placeholders for each processing phase in the NPU. \\
+    Week 33 & Continued tweaking the PSE model. First working model ready. Complete overhaul of the model to better model the scheduling and memory of the system. \\
+    \toprule
+    Week 34 & Rewrote the thesis plan and experiment plan. Continue PSE modeling to get the current version to compile properly. \\
+    Week 35 & Enhance the PSE model based on the feedback. More accurate model of the scheduling and memory. Figure out how to continue. \\
+    Week 36 & If we get the NPU's SDK patched, measure the values needed for the model. \\
     \bottomrule
   \end{tabular}
 \end{table}
