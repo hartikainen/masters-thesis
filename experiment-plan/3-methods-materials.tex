@@ -28,13 +28,13 @@ Output phase:
 \item PKO free's the Packet Data Buffer back to FPA.
 \end{enumerate}
 
-The delays in the input and output phases are most interesting, and challenging at the same time, for us to understand the inter-node load-balancing. The input and output phases are mostly hardware accelerated which makes the measurements challenging. The measurements will be varied to be able to statistically model the behaviour. Also, the intra-node core-to-core delays are interesting.
+The delays in the input and output phases are most interesting, and challenging at the same time, for us to understand the inter-unit load-balancing. The input and output phases are mostly hardware accelerated which makes the measurements challenging. The measurements will be varied to be able to statistically model the behaviour. Also, the intra-unit core-to-core delays are interesting.
 
 \subsection{OpenEM}
 Understanding the OpenEM's computation context is crucial when creating the simulation model. When we move the computation of from one blade, we need to know how much, and what kind of, data needs to be transferred in order to continue the computation on another blade.
 
 \subsection{Inter-blade Load Balancing}
-Once we undestand the data needed for the inter-blade load-balancing, we need to understand the different options to model and implement the actual message passing between the blades. At the moment Message Passing Interface (MPI) and future-promise constructs both seem valid options.
+Once we undestand the data needed for the inter-blade load-balancing, we need to understand the different options to model and implement the actual message passing between the blades. At the moment MPI- and future-promise-style constructs both seem valid options. Only those parts of the message passing will be implemented that are needed to measure the metrics for the model.
 
 \subsection{Performance Simulation Environment}
 The system will be modeled using Performance Simulation Environment (PSE). The three main parts of PSE  model are workload model, software model and hardware model. The workload model consists of actions which are invoked according to user specified rules, for example probability distributions. These actions are passed to the software model to be processed. Software model utilizes the hardware resources described in the hardware model.
