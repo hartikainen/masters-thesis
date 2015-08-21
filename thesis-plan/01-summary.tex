@@ -1,6 +1,6 @@
-In this thesis, we hope to understand the applicability of NPU devices and event driven programming models in stream computation. We believe that by distributing the computation and using task based programming models both the programmability and the efficiency of the devices can be improved.
+In this thesis, we hope to understand the applicability of NPU devices and event driven programming models in stream computation context. We believe that by distributing the computation and using task based parallel programming models both the programmability and the efficiency of the devices can be improved. We need to understand the load-balancing options, that is the communication latencies and mechanisms, of such a system.
 
-We will measure the performance of a multi-node network processing system, and create a simulation model based on those measurements. The simulation model is used to further understand limitations of such a system and its suitability as stream computing platform.
+We will measure the performance of a multi-node network processing system, and create a simulation model based on those measurements. Especially interesting are the delays in the processing pipeline and memory latencies of the system. The simulation model is used to further understand limitations of such a system and its suitability as stream computing platform.
 
 The modeling will be done using Performance Simulation Environment (PSE), based on the values gathered from various measurements. The measurement setup consists of 8 Cavium Octeon II, 32 MIPS core blades, connected to each other over an ethernet switch. The emphasis of the measurements will be on the communication delays between the blades.
 
