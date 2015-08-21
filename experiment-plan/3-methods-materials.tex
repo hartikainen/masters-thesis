@@ -1,9 +1,9 @@
-The hardware setup that we are interested in, consists of 8 Cavium Octeon II blades, 32 MIPS cores each. Due to the black-box-like nature of the setup, the focus of the experiment will be in the simulation of the system. We will build a realistic simulation model of our hardware running OpenEM application for video processing. The parameters, mainly delays, needed for the simulation model will be gathered from several smaller measurement experiments done with the actual hardware setup.
+The hardware setup that we are interested in, consists of eight 32 MIPS core network processing units, or blades. Due to the black-box-like nature of the setup, the focus of the experiment will be in the simulation of the system. We will build a realistic simulation model of our hardware running OpenEM application for video processing. The parameters, mainly delays, needed for the simulation model will be gathered from several smaller measurement experiments done with the actual hardware setup.
 
 The accuracy of the model must be precise enough so that further studies of the system behaviour can be conducted reliably by the simulation. We will validate and verify the results by comparing the behaviour of the simulation to the real life application.
 
 \subsection{Hardware Setup}
-The Cavium Octeon II blades are connected to each other over ethernet switch. The data packet flow inside each blade can be divided into three main phases namely input phase, sso and core processing phase, and output phase.
+The blades are connected to each other over ethernet switch. The data packet flow inside each blade can be divided into three main phases namely input phase, sso and core processing phase, and output phase.
 
 Input phase:
 \begin{enumerate}
