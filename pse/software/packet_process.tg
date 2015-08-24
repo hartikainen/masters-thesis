@@ -1,26 +1,34 @@
 TG2_FILE_BEGIN
 PACKET_PROCESS
 5
-19
-begin
-69 100 19 100
+14
+ends
+311 100 261 100
 63
 branch
 140 100 100 100
 64
 submodel
 225 70 175 70
+19
+begin
+69 100 19 100
 65
 submodel
 225 130 175 130
-14
-ends
-311 100 261 100
 5
+75
+64
+14
+225.0 70.0 261.0 100.0
 71
 19
 63
 69.0 100.0 100.0 100.0
+76
+65
+14
+225.0 130.0 261.0 100.0
 72
 63
 64
@@ -29,71 +37,8 @@ ends
 63
 65
 140.0 100.0 175.0 130.0
-75
-64
-14
-225.0 70.0 261.0 100.0
-76
-65
-14
-225.0 130.0 261.0 100.0
 0
 5
-19
-36.0 100.0
-16
-IN
-name:IN
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-63
-120.0 60.0
-3
-select app
-name:app_id
-expr:$app_id
-
-64
-200.0 40.0
-10
-packet_forward
-name:PACKET_FORWARD
-type:submodel
-file:PACKET_FORWARD
-
-tag:0
-
-
-
-
-
-65
-200.0 160.0
-10
-IPsec
-name:IPSEC
-type:submodel
-file:IPSEC
-
-tag:1
-
-
-
-
-
 14
 283.0 100.0
 20
@@ -111,6 +56,69 @@ name:OUT
 
 
 
+
+
+
+
+
+
+
+63
+120.0 60.0
+4
+select app
+name:appid
+expr:$appid
+
+
+64
+200.0 40.0
+14
+packet_forward
+name:PACKET_FORWARD
+type:submodel
+file:software/packet_forward_app.tg
+
+tag:0
+
+
+
+
+
+
+
+
+
+19
+36.0 100.0
+17
+IN
+name:IN
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+65
+200.0 160.0
+12
+IPsec
+name:IPSEC
+type:submodel
+file:software/ipsec_app.tg
+
+tag:1
 
 
 

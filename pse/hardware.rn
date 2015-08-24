@@ -20,23 +20,28 @@ submodel
 5
 37
 85.0 80.0
-1
+2
 IN
+name:IN
 
 38
 465.0 80.0
-1
+2
 OUT
+name:OUT
 
 39
 200.0 50.0
-2
+5
 SWITCH
+name:SWITCH
+speed:1000000000
+
 
 
 41
 301.0 63.0
-7
+8
 route
 name:NPU_route
 i=0 ; IN[i] ; NPU[i].IN[i]
@@ -45,13 +50,18 @@ i=0 ; IN[i] ; NPU[i].IN[i]
 
 
 
+
 43
 380.0 50.0
-4
+8
 NPU[8]
-name:NPU
+name:BLADE
 type:submodel
-file:blade.rn
+file:hardware/blade.rn
+
+
+
+
 
 5
 74
