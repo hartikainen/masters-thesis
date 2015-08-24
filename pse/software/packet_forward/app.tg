@@ -1,24 +1,24 @@
 TG2_FILE_BEGIN
-IPSEC
+PACKET_FORWARD
 7
 88
 submodel_queue
 208 120 152 120
+80
+begin
+100 120 50 120
+84
+submodel_server
+302 120 258 120
 89
 submodel_queue
 408 120 352 120
 90
 submodel_queue
 608 120 552 120
-80
-begin
-100 120 50 120
 81
 ends
 710 120 660 120
-84
-submodel_server
-302 120 258 120
 85
 submodel_server
 502 120 458 120
@@ -51,32 +51,21 @@ submodel_server
 7
 88
 180.0 140.0
-6
+15
 SSO schedule
-name:SSO1
+name:SSO
 type:submodel
-file:SSO
-
-
-
-89
-380.0 140.0
-7
-SSO schedule
-name:SSO2
-type:submodel
-file:SSO
+file:./sso.tg
 
 
 
 
-90
-580.0 140.0
-5
-SSO schedule
-name:SSO3
-type:submodel
-file:SSO
+
+
+
+
+
+
 
 
 80
@@ -86,6 +75,47 @@ IN
 name:IN
 
 
+
+
+
+
+
+84
+280.0 120.0
+11
+eo1
+name:PACKET_FORWARD_EO1
+type:submodel
+file:packet_forward/eo1.tg
+
+
+
+
+
+
+
+
+89
+380.0 140.0
+10
+SSO schedule
+name:SSO
+type:submodel
+file:sso.tg
+
+
+
+
+
+
+
+90
+580.0 140.0
+8
+SSO schedule
+name:SSO
+type:submodel
+file:sso.tg
 
 
 
@@ -102,21 +132,18 @@ name:OUT
 
 
 
-84
-280.0 120.0
-4
-eo1
-name:EO1
-type:submodel
-file:PACKET_FORWARD_EO1
-
 85
 480.0 120.0
-4
+9
 eo2
-name:EO2
+name:PACKET_FORWARD_EO2
 type:submodel
-file:PACKET_FORWARD_EO2
+file:packet_forward/eo2.tg
+
+
+
+
+
 
 129
 167
