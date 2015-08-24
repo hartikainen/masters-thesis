@@ -31,7 +31,7 @@ node
 4
 13
 375.0 200.0
-27
+28
 Stream 2 [4Gbps, 85B, app 1]
 name:stream_2
 job:SOFTWARE
@@ -60,9 +60,10 @@ drop:0
 
 
 
+
 14
 600.0 200.0
-23
+25
 Stream 3 [10Gbps, 85B, app 2]
 name:stream_3
 job:SOFTWARE
@@ -72,8 +73,10 @@ size:85*8
 portnumber:3
 portname:IN
 
-appid:1
+appid:2
 drop:0
+
+
 
 
 
@@ -89,11 +92,21 @@ drop:0
 
 15
 380.0 50.0
-12
+22
 TRAFFIC GENERATOR
 name:generator
 lifetime:1
 interval:RNS_random_exponential(0.25)
+
+highestprio:1
+atomicflow:1
+notprocessable:0
+coreready:1
+
+
+
+
+
 
 
 
@@ -105,7 +118,7 @@ interval:RNS_random_exponential(0.25)
 
 12
 165.0 199.0
-29
+33
 Stream 1 [1Gbps, 85B, app 1]
 name:stream_1
 job:SOFTWARE
@@ -118,6 +131,10 @@ ram_access_time: RNS_random_exponential((0.00025) + (0.00025))
 
 appid:0
 drop:0
+
+
+
+
 
 
 
