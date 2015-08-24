@@ -1,33 +1,33 @@
 TG2_FILE_BEGIN
 SOFTWARE
 9
-119
-begin
-100 60 50 60
-120
-ends
-760 60 710 60
+125
+submodel
+595 60 545 60
 121
 block
 180 60 130 60
+126
+branch
+420 60 380 60
 122
 block
 265 60 215 60
+127
+block
+680 60 630 60
 123
 submodel
 345 60 295 60
 124
 submodel
 505 60 455 60
-125
-submodel
-595 60 545 60
-126
-branch
-420 60 380 60
-127
-block
-680 60 630 60
+120
+ends
+760 60 710 60
+119
+begin
+100 60 50 60
 9
 155
 119
@@ -67,47 +67,60 @@ block
 680.0 60.0 710.0 60.0
 0
 9
-119
-60.0 60.0
-9
-IN
-
-
-
-
-
-
-
-
-
-120
-730.0 60.0
-8
-OUT
-
-
-
-
+125
+570.0 35.0
+7
+Packet Output
+name:PACKET_OUTPUT
+type:submodel
+file:PACKET_OUTPUT
 
 
 
 
 121
 155.0 35.0
-5
+7
 switch forward
-name:switch
+name:SWITCH
 type:device
-amout:1
+amount:1
+
+
+
+
+126
+400.0 25.0
+4
+drop?
+name:drop
+expr:$drop
 
 
 122
 240.0 35.0
-6
+10
 enter NPU
-name:NPU
+name:BLADE
 type:enter
 port:IN
+
+
+
+
+
+
+
+127
+655.0 35.0
+9
+exit NPU
+name:OUT
+type:exit
+exits:BLADE
+
+tag:1
+
 
 
 
@@ -134,34 +147,22 @@ tag:0
 
 
 
-125
-570.0 35.0
-7
-Packet Output
-name:PACKET_OUTPUT
-type:submodel
-file:PACKET_OUTPUT
-
-
-
-
-126
-400.0 25.0
-4
-drop?
-name:drop
-expr:$drop
-
-
-127
-655.0 35.0
-7
-exit NPU
+120
+730.0 60.0
+5
+OUT
 name:OUT
-type:exit
-exits:NPU
 
-tag:1
+
+
+
+119
+60.0 60.0
+5
+IN
+name:IN
+
+
 
 
 129
