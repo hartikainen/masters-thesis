@@ -1,46 +1,46 @@
 TG2_FILE_BEGIN
 SSO
 9
-103
-branch
-320 160 280 160
-107
-block
-705 160 655 160
 117
 block
 168 160 118 160
-98
-begin
-80 160 30 160
 101
 branch
 220 160 180 160
 118
 submodel
 251 80 301 80
-99
-ends
-825 160 775 160
 102
 branch
 480 160 440 160
+103
+branch
+320 160 280 160
 106
 branch
 600 160 560 160
+107
+block
+705 160 655 160
+98
+begin
+80 160 30 160
+99
+ends
+825 160 775 160
 12
 152
 102
 118
 480.0 160.0 520.0 160.0 520.0 80.0 301.0 80.0
-153
-118
-117
-251.0 80.0 80.0 80.0 80.0 160.0 118.0 160.0
 117
 102
 106
 480.0 160.0 560.0 160.0
+153
+118
+117
+251.0 80.0 80.0 80.0 80.0 160.0 118.0 160.0
 154
 103
 102
@@ -53,7 +53,7 @@ branch
 106
 107
 600.0 160.0 655.0 160.0
-123
+177
 107
 99
 705.0 160.0 775.0 160.0
@@ -61,14 +61,14 @@ branch
 101
 117
 220.0 160.0 240.0 160.0 240.0 200.0 80.0 200.0 80.0 160.0 118.0 160.0
-109
-101
-103
-220.0 160.0 280.0 160.0
 145
 106
 117
 600.0 160.0 600.0 220.0 80.0 220.0 80.0 160.0 118.0 160.0
+109
+101
+103
+220.0 160.0 280.0 160.0
 146
 117
 101
@@ -79,28 +79,9 @@ branch
 80.0 160.0 118.0 160.0
 0
 9
-103
-300.0 120.0
-6
-atomic flow?
-name:atomic_flow
-expr:$atomicflow
-tag:1
-
-
-
-107
-680.0 130.0
-5
-reserve core
-type:reserve
-name:core_require
-
-tag:1
-
 117
 144.0 188.0
-9
+11
 use SSO core
 type:device
 name:core_SSO
@@ -111,15 +92,11 @@ tag:0
 
 
 
-98
-45.0 130.0
-2
-IN SSO
-name:IN
+
 
 101
 200.0 120.0
-12
+14
 highest flow prio?
 name:highest_prio
 expr:$highestprio
@@ -133,9 +110,11 @@ expr:$highestprio
 
 
 
+
+
 118
 277.0 53.0
-7
+8
 memread
 name:MEMREAD
 type:submodel
@@ -144,16 +123,11 @@ file:./memread.tg
 tag:1
 
 
-99
-795.0 130.0
-2
-OUT SSO
-name:OUT
 
 102
 450.0 120.0
-8
-not_processable?
+10
+processable?
 name:not_processable
 expr:$notprocessable
 
@@ -162,9 +136,22 @@ tag:1
 
 
 
+
+
+103
+300.0 120.0
+7
+atomic flow?
+name:atomic_flow
+expr:$atomicflow
+tag:1
+
+
+
+
 106
 586.0 120.0
-8
+10
 core ready?
 name:core_ready
 expr:$coreready
@@ -174,6 +161,32 @@ tag:0
 
 
 
-129
-167
+
+
+107
+680.0 130.0
+7
+reserve core
+type:reserve
+name:core_require
+
+tag:1
+
+
+
+98
+45.0 130.0
+2
+IN SSO
+name:IN
+
+99
+795.0 130.0
+3
+OUT SSO
+name:OUT
+
+
+136
+178
 TG2_FILE_END
