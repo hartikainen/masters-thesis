@@ -1,55 +1,44 @@
 TG2_FILE_BEGIN
 PACKET_PROCESS
-6
+5
 19
 begin
 69 100 19 100
 63
 branch
 140 100 100 100
-64
-submodel
-225 70 175 70
-65
-submodel
-225 130 175 130
 14
 ends
 311 100 261 100
-68
+70
 submodel
-230 207 180 207
-7
+225 60 175 60
+69
+submodel
+225 140 175 140
+5
 71
 19
 63
 69.0 100.0 100.0 100.0
-72
+80
 63
-64
-140.0 100.0 175.0 70.0
-73
+69
+140.0 100.0 175.0 140.0
+81
+69
+14
+225.0 140.0 261.0 100.0
+82
 63
-65
-140.0 100.0 175.0 130.0
-75
-64
+70
+140.0 100.0 175.0 60.0
+83
+70
 14
-225.0 70.0 261.0 100.0
-76
-65
-14
-225.0 130.0 261.0 100.0
-78
-63
-68
-140.0 100.0 180.0 207.0
-79
-68
-14
-230.0 207.0 261.0 100.0
+225.0 60.0 261.0 100.0
 0
-6
+5
 19
 36.0 100.0
 17
@@ -79,43 +68,6 @@ name:appid
 expr:$appid
 
 
-64
-200.0 40.0
-15
-packet_forward
-name:PACKET_FORWARD
-type:submodel
-file:software/packet_forward_app.tg
-
-tag:0
-
-
-
-
-
-
-
-
-
-
-65
-200.0 160.0
-14
-IPsec
-name:IPSEC
-type:submodel
-file:software/ipsec_app.tg
-
-tag:1
-
-
-
-
-
-
-
-
-
 14
 283.0 100.0
 20
@@ -140,24 +92,27 @@ name:OUT
 
 
 
-68
-217.0 200.0
-14
+70
+200.0 60.0
+6
 IPsec
 name:IPSEC
 type:submodel
-file:software/ipsec_app.tg
+file:software/IPsec/app.tg
 
-tag:2
-
-
-
-
-
-
-
-
+tag:$IPsecAppId
 
 69
-80
+200.0 140.0
+7
+Swap Mac
+name:SWAPMAC
+type:submodel
+file:software/swap_mac/app.tg
+
+tag:$SwapMacAppId
+
+
+71
+84
 TG2_FILE_END
