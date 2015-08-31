@@ -12,7 +12,6 @@ sim: TG_software.c packet_forward_app.c packet_forward_eo1.c packet_forward_eo2.
 #	gcc $(CFLAGS) -o sim blade_submodel.c packet_input_submodel.c packet_forward_app.c ipsec_app.c packet_process_submodel.c packet_output_submodel.c TG_software.c RN_hardware.c WL_workload.c $(pse)/lib/rnc_runtime.o $(LDFLAGS)
 	gcc $(CFLAGS) -o sim \
 	memread.c \
-	sso.c \
 	packet_forward_app.c \
 	packet_forward_eo1.c \
 	packet_forward_eo2.c \
@@ -50,9 +49,6 @@ memwrite.c memwrite.h: software/memwrite.tg $(tgc) RN_hardware.h blade_submodel.
 memread.c memread.h: software/memread.tg $(tgc) RN_hardware.h blade_submodel.h
 	$(tgc) software/memread.tg memread.h memread.c -frame BLADE blade_submodel.h
 
-sso.c sso.h: software/sso.tg $(tgc) RN_hardware.h blade_submodel.h memread.h memwrite.h
-	$(tgc) software/sso.tg sso.h sso.c -frame BLADE blade_submodel.h memread.h memwrite.h
-
 # packet_forward app
 packet_forward_eo1.c packet_forward_eo1.h: software/packet_forward/eo1.tg $(tgc) blade_submodel.h memread.h memwrite.h
 	$(tgc) software/packet_forward/eo1.tg packet_forward_eo1.h packet_forward_eo1.c -frame BLADE blade_submodel.h memread.h memwrite.h
@@ -60,8 +56,8 @@ packet_forward_eo1.c packet_forward_eo1.h: software/packet_forward/eo1.tg $(tgc)
 packet_forward_eo2.c packet_forward_eo2.h: software/packet_forward/eo2.tg $(tgc) blade_submodel.h memread.h memwrite.h
 	$(tgc) software/packet_forward/eo2.tg packet_forward_eo2.h packet_forward_eo2.c -frame BLADE blade_submodel.h memread.h memwrite.h
 
-packet_forward_app.c packet_forward_app.h: software/packet_forward/app.tg $(tgc) blade_submodel.h sso.h packet_forward_eo1.h packet_forward_eo2.h
-	$(tgc) software/packet_forward/app.tg packet_forward_app.h packet_forward_app.c -frame BLADE blade_submodel.h sso.h packet_forward_eo1.h packet_forward_eo2.h
+packet_forward_app.c packet_forward_app.h: software/packet_forward/app.tg $(tgc) blade_submodel.h packet_forward_eo1.h packet_forward_eo2.h
+	$(tgc) software/packet_forward/app.tg packet_forward_app.h packet_forward_app.c -frame BLADE blade_submodel.h packet_forward_eo1.h packet_forward_eo2.h
 
 # IPSec app
 ipsec_eo1.c ipsec_eo1.h: software/IPSec/eo1.tg $(tgc) blade_submodel.h memread.h memwrite.h
@@ -70,8 +66,8 @@ ipsec_eo1.c ipsec_eo1.h: software/IPSec/eo1.tg $(tgc) blade_submodel.h memread.h
 ipsec_eo2.c ipsec_eo2.h: software/IPSec/eo2.tg $(tgc) blade_submodel.h memread.h memwrite.h
 	$(tgc) software/IPSec/eo2.tg ipsec_eo2.h ipsec_eo2.c -frame BLADE blade_submodel.h memread.h memwrite.h
 
-ipsec_app.c ipsec_app.h: software/IPSec/app.tg $(tgc) blade_submodel.h sso.h ipsec_eo1.h ipsec_eo2.h
-	$(tgc) software/IPSec/app.tg ipsec_app.h ipsec_app.c -frame BLADE blade_submodel.h sso.h ipsec_eo1.h ipsec_eo2.h
+ipsec_app.c ipsec_app.h: software/IPSec/app.tg $(tgc) blade_submodel.h ipsec_eo1.h ipsec_eo2.h
+	$(tgc) software/IPSec/app.tg ipsec_app.h ipsec_app.c -frame BLADE blade_submodel.h ipsec_eo1.h ipsec_eo2.h
 
 packet_process_submodel.c packet_process_submodel.h: software/packet_process.tg $(tgc) blade_submodel.h packet_forward_app.h ipsec_app.h
 	$(tgc) software/packet_process.tg packet_process_submodel.h packet_process_submodel.c -frame BLADE blade_submodel.h ipsec_app.h packet_forward_app.h
