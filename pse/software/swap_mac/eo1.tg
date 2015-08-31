@@ -1,0 +1,97 @@
+TG2_FILE_BEGIN
+SWAP_MAC_EO1
+6
+74
+begin
+100 80 50 80
+75
+ends
+690 80 640 80
+76
+block
+185 80 135 80
+111
+block
+580 80 530 80
+129
+block
+385 80 335 80
+133
+block
+285 80 235 80
+5
+173
+129
+111
+385.0 80.0 530.0 80.0
+177
+76
+133
+185.0 80.0 235.0 80.0
+178
+133
+129
+285.0 80.0 335.0 80.0
+80
+74
+76
+100.0 80.0 135.0 80.0
+132
+111
+75
+580.0 80.0 640.0 80.0
+0
+6
+74
+66.0 79.0
+2
+IN
+name:IN
+
+75
+663.0 81.0
+3
+OUT
+name:OUT
+
+
+76
+160.0 55.0
+5
+use cpu
+name:core
+type:device
+amount:200
+
+
+111
+555.0 55.0
+4
+release core
+type:release
+name:core_require
+
+
+129
+360.0 55.0
+7
+use cpu
+name:core
+type:device
+amount:200
+
+
+
+
+133
+260.0 55.0
+5
+write packet
+name:RAM
+type:device
+amount:200
+
+
+134
+179
+TG2_FILE_END

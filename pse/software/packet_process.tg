@@ -94,7 +94,7 @@ name:OUT
 
 70
 200.0 60.0
-6
+7
 IPsec
 name:IPSEC
 type:submodel
@@ -102,11 +102,12 @@ file:software/IPsec/app.tg
 
 tag:$IPsecAppId
 
+
 69
 200.0 140.0
 7
 Swap Mac
-name:SWAPMAC
+name:SWAP_MAC
 type:submodel
 file:software/swap_mac/app.tg
 
