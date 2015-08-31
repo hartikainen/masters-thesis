@@ -1,33 +1,33 @@
 TG2_FILE_BEGIN
 SOFTWARE
 9
-121
-block
-180 60 130 60
-125
-submodel
-595 60 545 60
-122
-block
-265 60 215 60
-126
-branch
-420 60 380 60
-123
-submodel
-345 60 295 60
-127
-block
-680 60 630 60
-119
-begin
-100 60 50 60
 120
 ends
 760 60 710 60
+119
+begin
+100 60 50 60
+121
+block
+180 60 130 60
+122
+block
+265 60 215 60
+123
+submodel
+345 60 295 60
 124
 submodel
 505 60 455 60
+125
+submodel
+595 60 545 60
+126
+branch
+420 60 380 60
+127
+block
+680 60 630 60
 9
 155
 119
@@ -40,7 +40,7 @@ submodel
 157
 122
 123
-265.0 60.0 295.0 60.0
+265.0 60.0 278.0 126.0 295.0 60.0
 158
 123
 126
@@ -64,9 +64,34 @@ submodel
 165
 127
 120
-680.0 60.0 710.0 60.0
-0
-9
+680.0 60.0 694.0 130.0 710.0 60.0
+2
+130
+165
+694.0 130.0 694.0 110.0
+129
+157
+278.0 126.0 278.0 106.0
+11
+120
+730.0 60.0
+5
+OUT
+name:OUT
+
+
+
+
+119
+60.0 60.0
+6
+IN
+name:IN
+
+
+
+
+
 121
 155.0 35.0
 7
@@ -74,17 +99,6 @@ switch forward
 name:SWITCH
 type:device
 amount:1
-
-
-
-
-125
-570.0 35.0
-7
-Packet Output
-name:PACKET_OUTPUT
-type:submodel
-file:PACKET_OUTPUT
 
 
 
@@ -104,14 +118,6 @@ port:RX
 
 
 
-126
-400.0 25.0
-4
-drop?
-name:drop
-expr:$drop
-
-
 123
 325.0 35.0
 5
@@ -119,38 +125,6 @@ Packet Input
 name:PACKET_INPUT
 type:submodel
 file:PACKET_INPUT
-
-
-127
-655.0 35.0
-10
-exit NPU
-name:RX
-type:exit
-exits:BLADE
-
-tag:1
-
-
-
-
-
-119
-60.0 60.0
-5
-IN
-name:IN
-
-
-
-
-120
-730.0 60.0
-5
-OUT
-name:OUT
-
-
 
 
 124
@@ -167,6 +141,65 @@ tag:0
 
 
 
+125
+570.0 35.0
+7
+Packet Output
+name:PACKET_OUTPUT
+type:submodel
+file:PACKET_OUTPUT
+
+
+
+
+126
+400.0 25.0
+4
+drop?
+name:drop
+expr:$drop
+
+
+127
+655.0 35.0
+10
+exit NPU
+name:RX
+type:exit
+exits:BLADE
+
+tag:1
+
+
+
+
+
+130
+696.0 113.0
+10
+out probe
+name:probe_out
+file:output
+type:abs_trace
+
+
+
+
+
+
+
 129
+279.0 114.0
+8
+in probe
+name:probe_in
+file:input
+type:abs_trace
+
+
+
+
+
+131
 167
 TG2_FILE_END
