@@ -1,6 +1,9 @@
 TG2_FILE_BEGIN
 PACKET_INPUT
 11
+20
+block
+675 120 625 120
 2
 begin
 80 160 30 160
@@ -24,13 +27,10 @@ block
 580 50 530 50
 12
 block
-480 130 430 130
+465 120 415 120
 13
 block
-580 130 530 130
-14
-block
-665 130 615 130
+580 120 530 120
 15
 branch
 375 160 335 160
@@ -63,24 +63,33 @@ branch
 10
 11
 465.0 50.0 530.0 50.0
-10
-12
-13
-480.0 130.0 530.0 130.0
 9
 11
 12
-580.0 50.0 600.0 50.0 600.0 80.0 395.0 80.0 395.0 130.0 430.0 130.0
-11
-13
-14
-580.0 130.0 615.0 130.0
+580.0 50.0 600.0 50.0 600.0 75.0 400.0 75.0 400.0 120.0 415.0 120.0
+10
 12
-14
+13
+465.0 120.0 530.0 120.0
+15
+13
+20
+580.0 120.0 625.0 120.0
+16
+20
 3
-665.0 130.0 690.0 130.0 690.0 160.0 715.0 160.0
+675.0 120.0 700.0 120.0 700.0 160.0 715.0 160.0
 0
 11
+20
+650.0 145.0
+5
+send to SSO
+type:device
+name:PKI
+amount:$commcoef*$size + $commconst/(5*$PKIsteps) 
+
+
 2
 45.0 160.0
 2
@@ -98,32 +107,37 @@ tag:1
 
 4
 129.0 135.0
-7
+8
 RX
 type:device
 name:PKI
-amount:$size/10
+amount:$commcoef*$size + $commconst/(5*$PKIsteps)
+
 
 
 
 
 5
 211.0 135.0
-6
+8
 Process
 type:device
 name:PKI
-amount:$size/10
+amount:$commcoef*$size + $commconst/(5*$PKIsteps)
+
+
 
 
 
 6
 286.0 135.0
-8
+10
 Parse
 type:device
 name:PKI
-amount:$size/10
+amount:$commcoef*$size + $commconst/(5*$PKIsteps)
+
+
 
 
 
@@ -131,55 +145,50 @@ amount:$size/10
 
 10
 445.0 25.0
-7
+8
 Allocate WQE
 type:device
 name:PKI
-amount:$size/10
-
+amount:$commcoef*$size + $commconst/(5*$PKIsteps)
 tag:0
+
+
 
 
 11
 555.0 25.0
-6
+7
 Write WQE
 type:device
 name:PKI
-amount:$size/10
+amount:$commcoef*$size + $commconst/(5*$PKIsteps)
+
 
 
 
 12
-460.0 105.0
-7
+445.0 145.0
+8
 Allocate packet
 type:device
 name:PKI
-amount:$size/10
+amount:$commcoef*$size + $commconst/(5*$PKIsteps)
+
 
 
 
 
 13
-555.0 105.0
-8
+555.0 145.0
+9
 Write packet
 type:device
 name:PKI
-amount:$size/10
+amount:$commcoef*$size + $commconst/(5*$PKIsteps)
 
 
 
 
-
-14
-640.0 105.0
-5
-add to SSO
-type:device
-name:PKI
-amount:$size/10
 
 
 15
@@ -189,6 +198,6 @@ drop?
 name:drop
 expr:$drop
 
+21
 17
-13
 TG2_FILE_END
