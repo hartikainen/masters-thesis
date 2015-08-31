@@ -50,11 +50,13 @@ route
 15
 17
 150.0 456.0
-7
+9
 L2 access
 name:L2
 capacity:8
 speed:1200000000
+
+
 
 
 
@@ -65,7 +67,7 @@ speed:1200000000
 RAM access
 name:RAM
 capacity:4
-speed:$RAMspeed * $RAMwidth
+speed:1333000000
 
 21
 358.0 389.0
@@ -99,13 +101,10 @@ name:TX
 
 5
 580.0 389.0
-7
+4
 PKI
 name:PKI
 speed:15000000000
-
-
-
 
 
 6
@@ -134,7 +133,7 @@ type:release
 
 8
 135.0 210.0
-13
+14
 core[32] 1.5GHz
 name:core
 capacity:32
@@ -149,14 +148,17 @@ speed:1200000000
 
 
 
+
 27
 360.0 260.0
-7
+9
 core require (SSO)
 name:core_require
 capacity:32
-discipline:CUSTOM
+discipline:FCFS
 function:insertfunctionhere
+
+
 
 
 
@@ -172,11 +174,12 @@ name:route4
 
 14
 140.0 290.0
-6
+7
 L1 access (core)
 name:L1
 capacity:32
 speed:20000000
+
 
 
 
