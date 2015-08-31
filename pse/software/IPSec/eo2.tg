@@ -1,39 +1,28 @@
 TG2_FILE_BEGIN
 IPSEC_EO2
-8
+7
 71
 block
 395 90 345 90
 72
 block
 495 90 445 90
-113
-block
-705 90 655 90
-14
-ends
-807 90 757 90
-73
-block
-195 90 145 90
 19
 begin
 104 90 54 90
-115
-block_queue
-603 90 547 90
+73
+block
+195 90 145 90
+14
+ends
+807 90 757 90
+113
+block
+705 90 655 90
 70
 block
 295 90 245 90
-7
-135
-115
-113
-603.0 90.0 655.0 90.0
-136
-72
-115
-495.0 90.0 547.0 90.0
+6
 75
 19
 73
@@ -54,8 +43,12 @@ block
 113
 14
 705.0 90.0 757.0 90.0
+167
+72
+113
+495.0 90.0 655.0 90.0
 0
-8
+7
 71
 370.0 65.0
 4
@@ -73,21 +66,11 @@ type:device
 amount:10.0
 
 
-113
-680.0 65.0
-4
-release core
-type:release
-name:core_require
-
-
-14
-781.0 89.0
-17
-OUT
-name:OUT
-
-
+19
+67.0 89.0
+15
+IN
+name:IN
 
 
 
@@ -110,11 +93,11 @@ name:core
 type:device
 amount:10.0
 
-19
-67.0 89.0
-15
-IN
-name:IN
+14
+781.0 89.0
+17
+OUT
+name:OUT
 
 
 
@@ -129,13 +112,14 @@ name:IN
 
 
 
-115
-575.0 110.0
-5
-send to SSO
-name:core_SSO
-type:device
-amount:10.0
+
+
+113
+680.0 65.0
+4
+release core
+type:release
+name:core_require
 
 
 70
@@ -148,5 +132,5 @@ amount:10.0
 
 
 129
-167
+168
 TG2_FILE_END
