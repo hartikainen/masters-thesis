@@ -1,4 +1,4 @@
-The rough of the thesis structure is presented below. The bullets under the subsections are general ideas of what should be included in each chapter, not subsubsections.
+A rough of the thesis structure is presented below. The bullets under the subsections are general ideas of what should be included in each chapter, not subsubsections.
 
 \begin{itemize}
 \item Abstract
@@ -11,8 +11,9 @@ The rough of the thesis structure is presented below. The bullets under the subs
 \item Introduction
   \subitem Research Problem
   \begin{itemize}[leftmargin=45px]
-    \item Distributing stream computing, how to load-balance the computation across the nodes?
-    \item How long delays occur if the computation is moved from node to another?
+    \item Distributing stream computing, how to virtualize dataplane applications using fastpath hardware?
+    \item Several methods to understand dataplane applications: system inspection, modeling, simulation, measurements
+    \item Hard problem, general concepts and own contributions are not in their own sections
   \end{itemize}
   \subitem Contributions
   \subitem Structure
@@ -32,41 +33,44 @@ The rough of the thesis structure is presented below. The bullets under the subs
   \subitem Distributed Computing
   \begin{itemize}[leftmargin=45px]
     \item Distributed computing is widely used e.g. in scientific computing
-    \item Message passing
   \end{itemize}
 
 \item Distributed, Parallel Stream Computing
+  \subitem Dataplane
+  \begin{itemize}[leftmargin=45px]
+    \item Protocols, addresses, ports, packet dropping, flow reordering ...
+    \item Reference implementations: Intel DPDK, ODP
+  \end{itemize}
+  \subitem Fastpath Hardware
+  \begin{itemize}[leftmargin=45px]
+    \item What is required from the hardware for the distributed computing to be feasible
+  \end{itemize}
   \subitem Open Event-Machine
   \begin{itemize}[leftmargin=45px]
+    \item Mapping between fastpath hardware and dataplane application
     \item Event driven parallel programming model
     \item Currently no support for distributed computation
   \end{itemize}
-  \subitem The context of computation
+  \subitem Message Passing
   \begin{itemize}[leftmargin=45px]
     \item What is actually needed to move the computation between the nodes?
   \end{itemize}
-  \subitem Hardware requirements
-  \begin{itemize}[leftmargin=45px]
-    \item What is required from the hardware for the distributed computing to be feasible
-    \item Especially input and output latencies are important
-  \end{itemize}
-
-\item Measuring the system
-  \subitem Measurement Setup
-  \begin{itemize}[leftmargin=45px]
-    \item NPU nodes
-    \item Instrumenting the applications.
-  \end{itemize}
-  \subitem Communication Latencies
-  \begin{itemize}[leftmargin=45px]
-    \item Statistical behaviour of input and output under varying workload
-    \item Simple tests with message passing. MPI or future-promise
-  \end{itemize}
-  \subitem Memory Latencies
-  \subitem Results
 
 \item Simulation Model
   \subitem PSE - Performance Simulation Environment
+  \subitem Reference values
+    \subsubitem Measurement Hardware
+    \begin{itemize}[leftmargin=45px]
+      \item Example of relevant fastpath hardware
+      \item NOT an example of balanced distributed (virtualized) fastpath system
+      \item But helps us figuring out the relevant values of fastpath system needed for the model
+    \end{itemize}
+    \subsubitem Communication Latencies
+    \begin{itemize}[leftmargin=45px]
+      \item Statistical behaviour of input and output under varying workload
+      \item Simple tests with message passing. MPI or future-promise
+    \end{itemize}
+    \subsubitem Memory Latencies
   \subitem Workload model
   \subitem Hardware model
   \begin{itemize}[leftmargin=45px]
@@ -76,6 +80,20 @@ The rough of the thesis structure is presented below. The bullets under the subs
   \begin{itemize}[leftmargin=45px]
     \item Scheduler, OpenEM-type application model
   \end{itemize}
+
+\item Model Evaluation
+  \subitem Simulation Results
+  \subitem Discoveries
+    \begin{itemize}[leftmargin=45px]
+      \item What did we learn from the model about distributing stream computing and virtualizing dataplane?
+    \end{itemize}
+  \subitem Building prototype system based on the model
+    \begin{itemize}[leftmargin=45px]
+      \item Discussion about: distribution is unkown in stream computing context -> the model based of reference measurements hopefully shows us how a real prototype system could work.
+      \item Show that the components needed to build the model actually exist (as shown earlier in the thesis)
+      \item Problems, opportunities...
+    \end{itemize}
+
 
 \item Discussion
   \subitem Challenge
