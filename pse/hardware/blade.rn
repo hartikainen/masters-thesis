@@ -62,11 +62,12 @@ route
 19
 17
 150.0 456.0
-6
+7
 L2 access
 name:L2
 capacity:8
-speed:20000000
+speed:1200000000
+
 
 
 
@@ -83,14 +84,15 @@ name:QoS_route
 4
 RAM access
 name:RAM
-capacity:8
-speed:20000000
+capacity:4
+speed:$RAMspeed * $RAMwidth
 
 3
 690.0 470.0
-2
+3
 RX
 name:RX
+
 
 21
 358.0 389.0
@@ -116,11 +118,12 @@ name:route2
 
 5
 580.0 389.0
-6
+7
 PKI
 name:PKI
-speed:20000000000
-count:1
+speed:15000000000
+
+
 
 
 
@@ -139,11 +142,12 @@ speed:20000000
 
 6
 440.0 520.0
-4
+5
 PKO
 name:PKO
 speed:40000000000
 count:1
+
 
 7
 135.0 50.0
@@ -165,11 +169,14 @@ name:route3
 
 8
 135.0 130.0
-8
+11
 core[32] 1.5GHz
 name:core
 capacity:32
-speed:1500000000
+speed:1200000000
+
+
+
 
 
 
@@ -203,12 +210,11 @@ name:route4
 
 14
 140.0 290.0
-7
+6
 L1 access (core)
 name:L1
 capacity:32
 speed:20000000
-
 
 
 
