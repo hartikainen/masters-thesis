@@ -1,64 +1,40 @@
 TG2_FILE_BEGIN
 PACKET_INPUT
 11
+13
+block
+580 120 530 120
+4
+block
+154 160 104 160
+10
+block
+465 50 415 50
+5
+block
+234 160 184 160
+15
+branch
+375 160 335 160
+11
+block
+580 50 530 50
+6
+block
+313 160 263 160
 20
 block
 675 120 625 120
 2
 begin
 80 160 30 160
-3
-ends
-765 160 715 160
-4
-block
-154 160 104 160
-5
-block
-234 160 184 160
-6
-block
-313 160 263 160
-10
-block
-465 50 415 50
-11
-block
-580 50 530 50
 12
 block
 465 120 415 120
-13
-block
-580 120 530 120
-15
-branch
-375 160 335 160
+3
+ends
+765 160 715 160
 11
-1
-2
-4
-80.0 160.0 104.0 160.0
-2
-4
-5
-154.0 160.0 184.0 160.0
-3
-5
-6
-234.0 160.0 263.0 160.0
-5
-15
-10
-375.0 160.0 375.0 50.0 415.0 50.0
-6
-15
-3
-375.0 160.0 715.0 160.0
-7
-6
-15
-313.0 160.0 335.0 160.0
 8
 10
 11
@@ -71,30 +47,62 @@ branch
 12
 13
 465.0 120.0 530.0 120.0
+5
+15
+10
+375.0 160.0 375.0 50.0 415.0 50.0
+1
+2
+4
+80.0 160.0 92.0 265.0 104.0 160.0
 15
 13
 20
 580.0 120.0 625.0 120.0
+6
+15
+3
+375.0 160.0 715.0 160.0
+2
+4
+5
+154.0 160.0 184.0 160.0
 16
 20
 3
 675.0 120.0 700.0 120.0 700.0 160.0 715.0 160.0
-0
-11
-20
-650.0 145.0
+7
+6
+15
+313.0 160.0 335.0 160.0
+3
 5
-send to SSO
-type:device
-name:PKI
-amount:$commcoef*$size + $commconst/(5*$PKIsteps) 
-
-
+6
+234.0 160.0 263.0 160.0
+2
+22
+16
+700.0 120.0 700.0 100.0
+21
+1
+92.0 265.0 92.0 245.0
+13
 2
 45.0 160.0
 2
 IN
 name:IN
+
+20
+650.0 145.0
+7
+send to SSO
+type:device
+name:PKI
+amount:($commcoef*$size + $commconst)/$IOsteps
+
+
+
 
 3
 735.0 160.0
@@ -105,13 +113,38 @@ name:OUT
 tag:1
 
 
+21
+93.0 234.0
+6
+name:input_start
+file:output/probe_input_start.log
+type:abs_trace
+
+
+
+
+22
+703.0 93.0
+6
+name:input_end
+file:output/probe_input_end.log
+type:abs_trace
+
+
+
+
 4
 129.0 135.0
-8
+13
 RX
 type:device
 name:PKI
-amount:$commcoef*$size + $commconst/(5*$PKIsteps)
+amount:($commcoef*$size + $commconst)/$IOsteps
+
+
+
+
+
 
 
 
@@ -123,7 +156,7 @@ amount:$commcoef*$size + $commconst/(5*$PKIsteps)
 Process
 type:device
 name:PKI
-amount:$commcoef*$size + $commconst/(5*$PKIsteps)
+amount:($commcoef*$size + $commconst)/$IOsteps
 
 
 
@@ -135,7 +168,7 @@ amount:$commcoef*$size + $commconst/(5*$PKIsteps)
 Parse
 type:device
 name:PKI
-amount:$commcoef*$size + $commconst/(5*$PKIsteps)
+amount:($commcoef*$size + $commconst)/$IOsteps
 
 
 
@@ -145,34 +178,43 @@ amount:$commcoef*$size + $commconst/(5*$PKIsteps)
 
 10
 445.0 25.0
-8
+11
 Allocate WQE
 type:device
 name:PKI
-amount:$commcoef*$size + $commconst/(5*$PKIsteps)
+amount:($commcoef*$size + $commconst)/$IOsteps
 tag:0
+
+
+
 
 
 
 
 11
 555.0 25.0
-7
+10
 Write WQE
 type:device
 name:PKI
-amount:$commcoef*$size + $commconst/(5*$PKIsteps)
+amount:($commcoef*$size + $commconst)/$IOsteps
+
+
+
 
 
 
 
 12
 445.0 145.0
-8
+11
 Allocate packet
 type:device
 name:PKI
-amount:$commcoef*$size + $commconst/(5*$PKIsteps)
+amount:($commcoef*$size + $commconst)/$IOsteps
+
+
+
 
 
 
@@ -180,11 +222,15 @@ amount:$commcoef*$size + $commconst/(5*$PKIsteps)
 
 13
 555.0 145.0
-9
+13
 Write packet
 type:device
 name:PKI
-amount:$commcoef*$size + $commconst/(5*$PKIsteps)
+amount:($commcoef*$size + $commconst)/$IOsteps
+
+
+
+
 
 
 
@@ -198,6 +244,6 @@ drop?
 name:drop
 expr:$drop
 
-21
+23
 17
 TG2_FILE_END

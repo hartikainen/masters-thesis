@@ -32,10 +32,12 @@ name:OUT
 
 39
 200.0 50.0
-6
+8
 SWITCH
 name:SWITCH
 speed:1500000000
+capacity:32
+
 
 
 

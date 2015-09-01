@@ -7,21 +7,21 @@ begin
 81
 ends
 510 120 460 120
-129
-block_queue
-208 120 152 120
 84
 submodel_server
 302 120 258 120
-3
-170
 129
-84
-208.0 120.0 258.0 120.0
+block_queue
+208 120 152 120
+3
 169
 80
 129
 100.0 120.0 152.0 120.0
+170
+129
+84
+208.0 120.0 258.0 120.0
 171
 84
 81
@@ -51,19 +51,11 @@ name:OUT
 
 
 
-129
-180.0 140.0
-4
-SSO schedule
-name:core_require
-type:reserve
-
-
 84
 280.0 120.0
-13
+14
 eo1
-name:PACKET_FORWARD_EO1
+name:SWAP_MAC_EO1
 type:submodel
 file:swap_mac/eo1.tg
 
@@ -74,6 +66,15 @@ file:swap_mac/eo1.tg
 
 
 
+
+
+
+129
+180.0 140.0
+4
+SSO schedule
+name:core_require
+type:reserve
 
 
 130
