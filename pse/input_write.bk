@@ -1,0 +1,69 @@
+#include "stdio.h"
+#include "stdlib.h"
+#include "string.h"
+#include "rns.h"
+#include "rnc_runtime.h"
+#include "inttypes.h"
+#include "input_write.h"
+#include "memory_functions.h"
+
+int available_L2_blocks = L2_BLOCKS;
+void SC1_INPUT_WRITE() {
+  RN_Process *p = (RN_Process*)(intptr_t)RNS_peek_int(0);
+  RN_Process *cp;
+  goto SCL136;
+ SCL136:
+  printf("reserve blocks\n");
+  if (available_L2_blocks < 1) {
+    RN_set_binding(p, "reservedRAMblocks",
+                   RN_get_binding(p, "requiredcacheblocks") - RN_get_binding(p, "reservedL2blocks"));
+    goto SCL137;
+  }
+  RN_resource_request_BLADE(p, "L2_block");
+  RNS_reserve_resource(((RN_model_BLADE*)p->fp->node)->L2_block[p->state.node_index], 0, 0);
+  available_L2_blocks--;
+  RN_set_binding(p, "reservedL2blocks", RN_get_binding(p, "reservedL2blocks") + 1);
+  goto SCL139;
+ SCL139:
+  printf("reserved?\n");
+  if (((RN_get_binding(p, "reservedRAMblocks") + RN_get_binding(p, "reservedL2blocks") >= RN_get_binding(p, "requiredcacheblocks"))))
+    goto SCL137; //branched
+  else
+    goto SCL136; //branched
+  fprintf(stderr, "No branch matched\n");
+  exit(1);
+ SCL137:
+  printf("delay\n");
+  RN_resource_request_BLADE(p, "L2_delay");
+  RNS_demand_device(((RN_model_BLADE*)p->fp->node)->L2_delay[p->state.node_index],
+                    get_mem_delay(RN_get_binding(p, "reservedL2blocks"), RN_get_binding(p, "reservedRAMblocks")),
+                    0, 0);
+  goto SCL138;
+ SCL138:
+  printf("release\n");
+  RN_release_request_BLADE(p, "L2_block");
+  RNS_release_resource(((RN_model_BLADE*)p->fp->node)->L2_block[p->state.node_index], 0);
+  available_L2_blocks++;
+  RN_set_binding(p, "reservedL2blocks", RN_get_binding(p, "reservedL2blocks") - 1);
+  goto SCL140;
+ SCL140:
+  printf("released?\n");
+  RN_set_binding(p, "reservedRAMblocks", 0);
+  if (((RN_get_binding(p, "reservedL2blocks") <= 0)) == (0))
+    goto SCL138; //branched
+  else if (((RN_get_binding(p, "reservedL2blocks") <= 0)) == (1))
+    goto SCL131; //branched
+  fprintf(stderr, "No branch matched\n");
+  exit(1);
+ SCL131:
+  return;
+  cp = NULL;
+}
+
+void SC_INPUT_WRITE_open_probes() {
+}
+
+void SC_INPUT_WRITE_close_probes() {
+  FILE *f;
+  f = NULL;
+}
