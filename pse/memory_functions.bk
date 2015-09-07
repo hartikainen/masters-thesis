@@ -1,0 +1,18 @@
+#define BLOCK_SIZE 128
+#define L2_SIZE 4194304
+#define L2_BLOCKS (L2_SIZE / BLOCK_SIZE)
+
+#define L2_CYCLES_PER_INT 1.92
+#define L2_CYCLES_PER_BLOCK (L2_CYCLES_PER_INT / (BLOCK_SIZE / sizeof(int))) // 61.44
+
+#define RAM_CYCLES_PER_INT 12
+#define RAM_CYCLES_PER_BLOCK (RAM_CYCLES_PER_INT / (BLOCK_SIZE / sizeof(int))) // 384
+
+float get_delay(int L2_blocks, int RAM_blocks) {
+  float L2_delay, RAM_delay;
+
+  L2_delay = (float)L2_blocks * L2_CYCLES_PER_BLOCK;
+  RAM_delay = (float)RAM_blocks * RAM_CYCLES_PER_BLOCK;
+
+  return L2_delay + RAM_delay;
+}

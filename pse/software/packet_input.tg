@@ -1,12 +1,12 @@
 TG2_FILE_BEGIN
 PACKET_INPUT
 11
-2
-begin
-80 160 30 160
 20
 block
 675 120 625 120
+2
+begin
+80 160 30 160
 3
 ends
 765 160 715 160
@@ -28,9 +28,9 @@ block
 12
 block
 465 120 415 120
-13
-block
-580 120 530 120
+31
+submodel
+575 120 525 120
 15
 branch
 375 160 335 160
@@ -39,10 +39,18 @@ branch
 5
 6
 234.0 160.0 263.0 160.0
+36
+12
+31
+465.0 120.0 525.0 120.0
 1
 2
 4
 80.0 160.0 92.0 265.0 104.0 160.0
+37
+31
+20
+575.0 120.0 625.0 120.0
 2
 4
 5
@@ -63,18 +71,10 @@ branch
 10
 11
 465.0 50.0 530.0 50.0
-10
-12
-13
-465.0 120.0 530.0 120.0
 9
 11
 12
 580.0 50.0 600.0 50.0 600.0 75.0 400.0 75.0 400.0 120.0 415.0 120.0
-15
-13
-20
-580.0 120.0 625.0 120.0
 16
 20
 3
@@ -87,6 +87,12 @@ branch
 1
 92.0 265.0 92.0 245.0
 13
+2
+45.0 160.0
+2
+IN
+name:IN
+
 20
 650.0 145.0
 7
@@ -98,11 +104,14 @@ amount:($commcoef*$size + $commconst)/$IOsteps
 
 
 
-2
-45.0 160.0
-2
-IN
-name:IN
+3
+735.0 160.0
+5
+OUT
+name:OUT
+
+tag:1
+
 
 21
 93.0 234.0
@@ -114,13 +123,14 @@ type:abs_trace
 
 
 
-3
-735.0 160.0
-5
-OUT
-name:OUT
+22
+703.0 93.0
+6
+name:input_end
+file:output/probe_input_end.log
+type:abs_trace
 
-tag:1
+
 
 
 4
@@ -138,16 +148,6 @@ amount:($commcoef*$size + $commconst)/$IOsteps
 
 
 
-
-
-
-
-22
-703.0 93.0
-6
-name:input_end
-file:output/probe_input_end.log
-type:abs_trace
 
 
 
@@ -223,20 +223,13 @@ amount:($commcoef*$size + $commconst)/$IOsteps
 
 
 
-13
-555.0 145.0
-13
+31
+550.0 145.0
+6
 Write packet
-type:device
-name:PKI
-amount:($commcoef*$size + $commconst)/$IOsteps
-
-
-
-
-
-
-
+name:INPUT_WRITE
+type:submodel
+file:software/memory/input_write.tg
 
 
 
@@ -247,6 +240,6 @@ drop?
 name:drop
 expr:$drop
 
-31
-36
+32
+38
 TG2_FILE_END
