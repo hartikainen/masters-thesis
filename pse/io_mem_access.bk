@@ -4,11 +4,11 @@
 #include "rns.h"
 #include "rnc_runtime.h"
 #include "inttypes.h"
-#include "input_write.h"
+#include "io_mem_access.h"
 #include "memory_functions.h"
 
 int available_L2_blocks = L2_BLOCKS;
-void SC1_INPUT_WRITE() {
+void SC1_IO_MEM_ACCESS() {
   RN_Process *p = (RN_Process*)(intptr_t)RNS_peek_int(0);
   RN_Process *cp;
   goto SCL136;
@@ -60,10 +60,10 @@ void SC1_INPUT_WRITE() {
   cp = NULL;
 }
 
-void SC_INPUT_WRITE_open_probes() {
+void SC_IO_MEM_ACCESS_open_probes() {
 }
 
-void SC_INPUT_WRITE_close_probes() {
+void SC_IO_MEM_ACCESS_close_probes() {
   FILE *f;
   f = NULL;
 }
