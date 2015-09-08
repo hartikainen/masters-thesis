@@ -1,5 +1,5 @@
 TG2_FILE_BEGIN
-INPUT_WRITE
+IO_MEM_ACCESS
 7
 136
 block
@@ -10,12 +10,12 @@ block
 138
 block
 445 120 395 120
-140
-branch
-520 120 480 120
 139
 branch
 280 120 240 120
+140
+branch
+520 120 480 120
 130
 begin
 120 120 70 120
@@ -35,14 +35,14 @@ ends
 139
 137
 280.0 120.0 315.0 120.0
-180
-137
-138
-365.0 120.0 395.0 120.0
 179
 139
 136
 280.0 120.0 280.0 160.0 155.0 160.0 155.0 120.0
+180
+137
+138
+365.0 120.0 395.0 120.0
 181
 138
 140
@@ -107,17 +107,6 @@ tag:0
 
 
 
-139
-260.0 85.0
-7
-all reserved?
-name:allreserved?
-
-expr:(($reservedL2blocks + $reservedRAMblocks) >= $requiredcacheblocks)
-
-
-
-
 140
 500.0 85.0
 21
@@ -139,6 +128,17 @@ expr:($reservedL2blocks <= 0)
 
 
 
+
+
+
+
+139
+260.0 85.0
+7
+all reserved?
+name:allreserved?
+
+expr:(($reservedL2blocks + $reservedRAMblocks) >= $requiredcacheblocks)
 
 
 

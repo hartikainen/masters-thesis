@@ -59,17 +59,11 @@ route
 18
 17
 150.0 516.0
-11
+5
 L2 delay
 name:L2_delay
 speed:1200000000
-
-
-
-
-
-
-
+capacity:100000000
 
 
 18
@@ -192,10 +186,11 @@ function:insertfunctionhere
 
 48
 150.0 440.0
-5
+6
 L2 require
 name:L2_block
 capacity:4194304/128
+
 
 
 
