@@ -1,0 +1,136 @@
+TG2_FILE_BEGIN
+EXPERIMENT_ONE_EO3
+7
+71
+block
+395 90 345 90
+72
+block
+495 90 445 90
+19
+begin
+104 90 54 90
+73
+block
+195 90 145 90
+14
+ends
+807 90 757 90
+113
+block
+705 90 655 90
+70
+block
+295 90 245 90
+6
+75
+19
+73
+104.0 90.0 145.0 90.0
+76
+73
+70
+195.0 90.0 245.0 90.0
+77
+70
+71
+295.0 90.0 345.0 90.0
+78
+71
+72
+395.0 90.0 445.0 90.0
+131
+113
+14
+705.0 90.0 757.0 90.0
+167
+72
+113
+495.0 90.0 655.0 90.0
+0
+7
+71
+370.0 65.0
+4
+use accel
+name:core
+type:device
+amount:10.0
+
+72
+470.0 65.0
+5
+write mem
+name:RAM
+type:device
+amount:10.0
+
+
+19
+67.0 89.0
+15
+IN
+name:IN
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+73
+170.0 65.0
+4
+use cpu
+name:core
+type:device
+amount:10.0
+
+14
+781.0 89.0
+17
+OUT
+name:OUT
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+113
+680.0 65.0
+4
+release core
+type:release
+name:core_require
+
+
+70
+270.0 65.0
+5
+read mem
+name:RAM
+type:device
+amount:10.0
+
+
+129
+168
+TG2_FILE_END
