@@ -1,144 +1,37 @@
 TG2_FILE_BEGIN
 IO_MEM_ACCESS
-7
-136
-block
-205 120 155 120
-137
-block
-365 120 315 120
-138
-block
-445 120 395 120
-139
-branch
-280 120 240 120
-140
-branch
-520 120 480 120
+3
 130
 begin
 120 120 70 120
 131
 ends
 610 120 560 120
-8
-176
-130
-136
-120.0 120.0 155.0 120.0
-177
-136
-139
-205.0 120.0 240.0 120.0
-178
-139
-137
-280.0 120.0 315.0 120.0
-179
-139
-136
-280.0 120.0 280.0 160.0 155.0 160.0 155.0 120.0
-180
-137
-138
-365.0 120.0 395.0 120.0
-181
-138
-140
-445.0 120.0 480.0 120.0
-182
-140
-138
-520.0 120.0 520.0 160.0 395.0 160.0 395.0 120.0
-183
-140
+142
+block
+365 120 315 120
+2
+188
+142
 131
-520.0 120.0 560.0 120.0
+365.0 120.0 560.0 120.0
+189
+130
+142
+120.0 120.0 315.0 120.0
 0
-7
-136
-180.0 95.0
-12
-reserve blocks
-name:L2_block
-type:reserve
-
-tag:0
-
-
-
-
-
-
-
-
-137
-340.0 145.0
-13
-memory delay
-name:L2_delay
+3
+142
+340.0 95.0
+11
+Use mem
+name:L2_cache
 type:device
-amount:4
+amount:$size * $cacheCyclesPerByte
 
 tag:1
 
 
-
-
-
-
-
-
-138
-420.0 95.0
-13
-release blocks
-name:L2_block
-type:release
-
-tag:0
-
-
-
-
-
-
-
-
-
-140
-500.0 85.0
-21
-release blocks
-name:L2_block
-type:release
-
-expr:($reservedL2blocks <= 0)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-139
-260.0 85.0
-7
-all reserved?
-name:allreserved?
-
-expr:(($reservedL2blocks + $reservedRAMblocks) >= $requiredcacheblocks)
 
 
 
@@ -153,13 +46,14 @@ name:in
 
 131
 582.0 122.0
-5
+6
 OUT
 name:out
 tag:1
 
 
 
-141
-184
+
+143
+190
 TG2_FILE_END

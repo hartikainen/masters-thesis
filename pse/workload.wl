@@ -49,10 +49,10 @@ node
 12
 375.0 95.0 101.0 155.0
 0
-7
+9
 22
 570.0 200.0
-17
+18
 Stream 5 [1Gbps, 1024B, app 0]
 name:stream_5
 job:SOFTWARE
@@ -68,6 +68,7 @@ drop:0
 requiredcacheblocks:8
 reservedL2blocks:0
 reservedRAMblocks:0
+
 
 
 
@@ -94,7 +95,7 @@ reservedRAMblocks:0
 
 20
 350.0 200.0
-17
+20
 Stream 3 [1Gbps, 256B, app 0]
 name:stream_3
 job:SOFTWARE
@@ -113,19 +114,25 @@ reservedRAMblocks:0
 
 
 
+
+
+
 19
 200.0 260.0
-17
+47
 Stream 2 [1Gbps, 128B, app 0]
 name:stream_2
 job:SOFTWARE
+
+lifetime:1
+interval:0.1
 
 size:128
 portnumber:1
 portname:IN
 ram_access_time: RNS_random_exponential((0.00025) + (0.00025))
 
-appid:0
+appid:3
 drop:0
 
 requiredcacheblocks:1
@@ -134,16 +141,43 @@ reservedRAMblocks:0
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 15
 380.0 50.0
-44
+54
 TRAFFIC GENERATOR
 name:generator
-interval:RNS_random_exponential(0.25)
 
 SwapMacAppId:0
 PacketForwardAppId:1
 IPsecAppId:2
+ExperimentOneId:3
 
 PKIsteps:8
 PKOsteps:5
@@ -151,6 +185,8 @@ IOsteps:13
 
 commcoef:2.2
 commconst:1287.5
+
+cacheCyclesPerByte:0.6
 
 CACHELINESIZE:128
 L2SIZE:4194304
@@ -182,9 +218,27 @@ reservedcacheblocks:0
 
 
 
+
+
+
+
+
+
+
+
+24
+205.0 212.0
+1
+
+
+16
+350.0 101.0
+1
+
+
 21
 490.0 270.0
-18
+19
 Stream 4 [1Gbps, 512B, app 0]
 name:stream_4
 job:SOFTWARE
@@ -204,24 +258,58 @@ reservedRAMblocks:0
 
 
 
+
 12
 105.0 199.0
-16
+49
 Stream 1 [1Gbps, 64B, app 0]
 name:stream_1
 job:SOFTWARE
+
+lifetime:0.00001
+interval:0.0000001
 
 size:64
 portnumber:1
 portname:IN
 ram_access_time: RNS_random_exponential((0.00025) + (0.00025))
 
-appid:0
+appid:3
 drop:0
 
 requiredcacheblocks:1
 reservedL2blocks:0
 reservedRAMblocks:0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 29

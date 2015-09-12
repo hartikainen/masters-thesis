@@ -1,6 +1,9 @@
 TG2_FILE_BEGIN
 PACKET_PROCESS
-5
+6
+71
+submodel
+225 220 175 220
 19
 begin
 69 100 19 100
@@ -16,7 +19,7 @@ submodel
 69
 submodel
 225 140 175 140
-5
+7
 71
 19
 63
@@ -37,8 +40,32 @@ submodel
 70
 14
 225.0 60.0 261.0 100.0
+84
+63
+71
+140.0 100.0 175.0 220.0
+85
+71
+14
+225.0 220.0 261.0 100.0
 0
-5
+6
+71
+200.0 220.0
+12
+experiment 1
+name:EXPERIMENT_ONE
+type:submodel
+file:software/expermiment_one/app.tg
+
+tag:$ExperimentOneId
+
+
+
+
+
+
+
 19
 36.0 100.0
 17
@@ -62,10 +89,11 @@ name:IN
 
 63
 120.0 60.0
-4
+5
 select app
 name:appid
 expr:$appid
+
 
 
 14
@@ -94,7 +122,7 @@ name:OUT
 
 70
 200.0 60.0
-7
+9
 IPsec
 name:IPSEC
 type:submodel
@@ -103,9 +131,11 @@ file:software/IPsec/app.tg
 tag:$IPsecAppId
 
 
+
+
 69
 200.0 140.0
-7
+9
 Swap Mac
 name:SWAP_MAC
 type:submodel
@@ -114,6 +144,8 @@ file:software/swap_mac/app.tg
 tag:$SwapMacAppId
 
 
-71
-84
+
+
+72
+86
 TG2_FILE_END
