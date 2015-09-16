@@ -1,27 +1,27 @@
 TG2_FILE_BEGIN
 SWAP_MAC
 4
+84
+submodel_server
+302 120 258 120
+129
+block_queue
+208 120 152 120
 80
 begin
 100 120 50 120
 81
 ends
 510 120 460 120
-129
-block_queue
-208 120 152 120
-84
-submodel_server
-302 120 258 120
 3
-170
-129
-84
-208.0 120.0 258.0 120.0
 169
 80
 129
 100.0 120.0 152.0 120.0
+170
+129
+84
+208.0 120.0 258.0 120.0
 171
 84
 81
@@ -51,20 +51,6 @@ name:OUT
 
 
 
-129
-180.0 140.0
-10
-SSO schedule
-name:core_require
-type:reserve
-
-
-
-
-
-
-
-
 84
 280.0 120.0
 14
@@ -82,6 +68,15 @@ file:swap_mac/eo1.tg
 
 
 
+
+129
+180.0 140.0
+5
+SSO schedule
+name:core_require
+type:reserve
+
+queue_priority:5
 
 130
 172
