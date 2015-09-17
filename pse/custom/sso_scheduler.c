@@ -18,11 +18,6 @@ uint64_t CUSTOM_select(RNS_Resource *r, uint64_t release_index) {
   char *queue_id;
   int already_processing, atomic;
 
-  if (r->waiting_count > 971) {
-    i = 0;
-  }
-
-
   for (i=0; i<r->waiting_count; i++) {
     waiting = r->waiting_queue[i];
     if (!CHECK_COREMASK(waiting.attrs->queue_coremask, release_index)) continue;
@@ -56,13 +51,6 @@ uint64_t CUSTOM_reserve(RNS_Resource *r, uint64_t pc, RNS_Client **queue,
   int atomic, already_processing;
 
   atomic = (!strcmp(new_attrs->queue_type, "atomic"));
-  if (r->waiting_count > 971) {
-    i = 0;
-  }
-
-  if (new_attrs->queue_coremask == 0b01 && r->processing_count == 0) {
-    i = 0;
-  }
 
   // first try to place the client in the processing queue
   if (r->processing_count < r->capacity) {
