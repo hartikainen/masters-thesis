@@ -34,11 +34,11 @@ uint64_t CUSTOM_select(RNS_Resource *r, uint64_t release_index) {
 
       already_processing = 0;
       for (j=0; j<r->capacity; j++) {
-        if (r->processing_queue[j].processing &&
-            !strncmp(r->processing_queue[j].attrs->queue_id, queue_id, strlen(queue_id))) {
-          already_processing = 1;
-          break;
-        }
+        if (!r->processing_queue[j].processing) continue;
+        if (j == release_index) continue;
+        if (strncmp(r->processing_queue[j].attrs->queue_id, queue_id, strlen(queue_id))) continue;
+        already_processing = 1;
+        break;
       }
 
       if (already_processing) continue;
@@ -80,7 +80,6 @@ uint64_t CUSTOM_reserve(RNS_Resource *r, uint64_t pc, RNS_Client **queue,
         if (atomic &&
             !strncmp(r->processing_queue[i].attrs->queue_id, queue_id, strlen(queue_id))) {
           already_processing = 1;
-          printf("already processing\n");
           break;
         } else continue;
       }
