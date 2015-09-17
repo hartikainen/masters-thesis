@@ -4,21 +4,21 @@ EXPERIMENT_ONE_EO1
 71
 block
 395 90 345 90
-14
-ends
-807 90 757 90
-113
-block
-705 90 655 90
 72
 block
 495 90 445 90
-19
-begin
-104 90 54 90
+113
+block
+605 90 555 90
+14
+ends
+727 90 677 90
 73
 block
 195 90 145 90
+19
+begin
+104 90 54 90
 70
 block
 295 90 245 90
@@ -27,22 +27,22 @@ block
 19
 73
 104.0 90.0 145.0 90.0
-131
-113
-14
-705.0 90.0 757.0 90.0
 76
 73
 70
 195.0 90.0 245.0 90.0
-167
-72
+131
 113
-495.0 90.0 655.0 90.0
+14
+605.0 90.0 677.0 90.0
 77
 70
 71
 295.0 90.0 345.0 90.0
+167
+72
+113
+495.0 90.0 555.0 90.0
 78
 71
 72
@@ -51,11 +51,13 @@ block
 7
 71
 370.0 65.0
-9
+11
 use cpu
 name:core
 type:device
-amount:100.0
+amount:1000.0
+
+
 
 
 
@@ -64,11 +66,33 @@ amount:100.0
 
 72
 470.0 65.0
-9
+5
 write mem
 name:L2_cache
 type:device
-amount:$size * $cacheCyclesPerByte
+amount:($size*10) * $cacheCyclesPerByte
+
+
+73
+170.0 65.0
+22
+use cpu
+name:core
+type:device
+amount:1000.0
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -94,33 +118,17 @@ name:IN
 
 
 
-73
-170.0 65.0
-21
-use cpu
-name:core
-type:device
-amount:1000.0
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+113
+580.0 65.0
+5
+release core
+type:release
+name:core_require
 
 
 
 14
-781.0 89.0
+701.0 89.0
 17
 OUT
 name:OUT
@@ -140,22 +148,15 @@ name:OUT
 
 
 
-113
-680.0 65.0
-5
-release core
-type:release
-name:core_require
-
-
-
 70
 270.0 65.0
-10
+12
 read mem
 name:L2_cache
 type:device
-amount:$size * $cacheCyclesPerByte
+amount:($size*10) * $cacheCyclesPerByte
+
+
 
 
 

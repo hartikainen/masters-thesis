@@ -56,48 +56,20 @@ device
 route
 148.0 420.0 134.0 420.0
 2
-53
-27
-rightresource
 55
 27
 leftresource
+56
+27
+rightqueue
 20
-53
-421.0 263.0
-25
-sso queue
-
-name:sso_queue
-file:./output/sso_queue
-type:metric_trace
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 17
 150.0 516.0
-11
+12
 L2 delay
 name:L2_cache
 speed:1200000000
+
 
 
 
@@ -128,6 +100,33 @@ name:sso_utilization
 file:./output/sso_utilization
 type:metric_trace
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+56
+376.0 264.0
+23
+sso queue
+
+name:sso_queue
+file:./output/sso_queue
+type:metric_trace
 
 
 
@@ -186,11 +185,12 @@ name:route2
 
 5
 594.0 466.0
-10
+11
 PKI
 name:PKI
 speed:1200000000
 capacity:32
+
 
 
 
@@ -456,7 +456,7 @@ name:route5
 85
 50
 21
-583.0 425.0 583.0 418.0 569.0 418.0 569.0 395.0 350.0 395.0 350.0 389.0
+583.0 425.0 583.0 418.0 569.0 418.0 569.0 396.0 349.0 396.0 350.0 389.0
 14
 13
 16
@@ -477,6 +477,6 @@ name:route5
 25
 6
 451.0 480.0 420.0 480.0 420.0 520.0
-56
+57
 88
 RN2_FILE_END

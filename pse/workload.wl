@@ -165,7 +165,7 @@ reservedcacheblocks:0
 
 19
 200.0 260.0
-71
+73
 Stream 2 [1Gbps, 128B, app 0]
 name:stream_2
 job:SOFTWARE
@@ -184,6 +184,8 @@ drop:0
 requiredcacheblocks:1
 reservedL2blocks:0
 reservedRAMblocks:0
+
+
 
 
 
@@ -271,13 +273,13 @@ reservedRAMblocks:0
 
 12
 105.0 199.0
-85
+99
 Stream 1 [1Gbps, 64B, app 0]
 name:stream_1
 job:SOFTWARE
 
-lifetime:0.00001
-interval:0.00000001
+lifetime:0.0001
+interval:0.000000001
 
 size:64
 portnumber:1
@@ -290,6 +292,20 @@ drop:0
 requiredcacheblocks:1
 reservedL2blocks:0
 reservedRAMblocks:0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -386,7 +402,8 @@ reservedRAMblocks:0
 
 16
 350.0 101.0
-1
+2
+
 
 
 29
