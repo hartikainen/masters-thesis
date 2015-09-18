@@ -32,14 +32,14 @@ block_queue
 block_queue
 488 80 432 80
 10
+173
+84
+134
+302.0 120.0 340.05 120.0
 174
 134
 136
 379.95 120.0 432.0 160.0
-183
-138
-135
-582.0 160.0 620.05 120.0
 175
 134
 137
@@ -48,26 +48,26 @@ block_queue
 136
 138
 488.0 160.0 538.0 160.0
-184
-135
-81
-659.95 120.0 680.0 120.0
 181
 137
 139
 488.0 80.0 538.0 80.0
-167
-80
-129
-100.0 120.0 152.0 120.0
-173
-84
-134
-302.0 120.0 340.05 120.0
 182
 139
 135
 582.0 80.0 620.05 120.0
+183
+138
+135
+582.0 160.0 620.05 120.0
+184
+135
+81
+659.95 120.0 680.0 120.0
+167
+80
+129
+100.0 120.0 152.0 120.0
 168
 129
 84
@@ -111,12 +111,17 @@ name:join
 
 136
 460.0 180.0
-33
-parallel, 4
+38
+parallel 2
 name:core_require
 type:reserve
 
-queue_priority:4
+queue_id:exp1eo3
+queue_priority:2
+queue_type:parallel
+
+
+
 
 
 
@@ -148,12 +153,12 @@ queue_priority:4
 
 137
 460.0 100.0
-40
-atomic, 1
+44
+atomic 1
 name:core_require
 type:reserve
 
-queue_id:test1
+queue_id:exp1eo2
 queue_type:atomic
 queue_priority:1
 
@@ -190,13 +195,18 @@ queue_priority:1
 
 
 
+
+
+
+
 138
 560.0 160.0
-15
+16
 eo3
 name:EXPERIMENT_ONE_EO3
 type:submodel
 file:experiment_one/eo3.tg
+
 
 
 
@@ -277,14 +287,17 @@ file:experiment_one/eo1.tg
 
 129
 180.0 140.0
-34
-parallel, 2
+37
+parallel 3
 name:core_require
 type:reserve
 
 queue_id:exp1eo1
 queue_type:parallel
-queue_priority:$size
+queue_priority:3
+
+
+
 
 
 

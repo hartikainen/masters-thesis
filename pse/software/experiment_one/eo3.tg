@@ -51,64 +51,11 @@ block
 7
 71
 370.0 65.0
-11
+12
 use cpu
 name:core
 type:device
-amount:1000.0
-
-
-
-
-
-
-
-
-72
-470.0 65.0
-5
-write mem
-name:L2_cache
-type:device
-amount:($size*10) * $cacheCyclesPerByte
-
-
-19
-67.0 89.0
-15
-IN
-name:IN
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-73
-170.0 65.0
-22
-use cpu
-name:core
-type:device
-amount:1000.0
-
-
-
-
-
-
-
-
-
-
+amount:400.0
 
 
 
@@ -141,20 +88,78 @@ name:OUT
 
 113
 580.0 65.0
-5
-release core
+6
+release core eo3
 type:release
 name:core_require
 
 
 
+
+72
+470.0 65.0
+6
+write mem
+name:L2_cache
+type:device
+amount:($size*4.0) * $cacheCyclesPerByte
+
+
+
+19
+67.0 89.0
+15
+IN
+name:IN
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+73
+170.0 65.0
+23
+use cpu
+name:core
+type:device
+amount:400.0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 70
 270.0 65.0
-12
+13
 read mem
 name:L2_cache
 type:device
-amount:($size*10) * $cacheCyclesPerByte
+amount:($size*4.0) * $cacheCyclesPerByte
+
 
 
 

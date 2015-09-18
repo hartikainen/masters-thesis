@@ -20,6 +20,7 @@ uint64_t CUSTOM_select(RNS_Resource *r, uint64_t release_index) {
 
   for (i=0; i<r->waiting_count; i++) {
     waiting = r->waiting_queue[i];
+
     if (!CHECK_COREMASK(waiting.attrs->queue_coremask, release_index)) continue;
 
     atomic = (!strcmp(waiting.attrs->queue_type, "atomic"));

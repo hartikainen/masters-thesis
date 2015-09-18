@@ -1,6 +1,6 @@
 TG2_FILE_BEGIN
 PACKET_PROCESS
-5
+6
 71
 submodel
 225 150 175 150
@@ -10,13 +10,16 @@ ends
 63
 branch
 140 100 100 100
+72
+submodel
+225 260 175 260
 19
 begin
 69 100 19 100
 69
 submodel
 225 50 175 50
-5
+7
 84
 63
 71
@@ -37,11 +40,19 @@ submodel
 69
 14
 225.0 50.0 261.0 100.0
+86
+63
+72
+140.0 100.0 175.0 260.0
+87
+72
+14
+225.0 260.0 261.0 100.0
 0
-5
+6
 71
 200.0 180.0
-12
+6
 experiment 1
 name:EXPERIMENT_ONE
 type:submodel
@@ -49,7 +60,15 @@ file:software/expermiment_one/app.tg
 
 tag:$ExperimentOneId
 
+72
+200.0 285.0
+10
+experiment 2
+name:EXPERIMENT_TWO
+type:submodel
+file:software/expermiment_two/app.tg
 
+tag:$ExperimentTwoId
 
 
 
@@ -111,7 +130,7 @@ name:OUT
 
 69
 205.0 20.0
-9
+10
 Swap Mac
 name:SWAP_MAC
 type:submodel
@@ -122,6 +141,7 @@ tag:$SwapMacAppId
 
 
 
-72
-86
+
+73
+88
 TG2_FILE_END
