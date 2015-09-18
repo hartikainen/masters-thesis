@@ -1,27 +1,56 @@
 WL_FILE_BEGIN
 main
 43.0
-2
+3
 15
 node
 332.0 65.0 418.0 95.0
+29
+node
+437.0 185.0 523.0 215.0
 21
 node
-332.0 185.0 418.0 215.0
-1
+232.0 185.0 318.0 215.0
+2
 26
 15
 21
-375.0 95.0 375.0 185.0
+375.0 95.0 275.0 185.0
+30
+15
+29
+375.0 95.0 480.0 185.0
 0
-2
+4
+26
+351.0 115.0
+18
+probability:0.35
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 15
 380.0 50.0
-83
+90
 TRAFFIC GENERATOR
 name:generator
 
-lifetime:0.01
+lifetime:0.05
 interval:RNS_random_uniform(0.00005, 0.00015)
 
 SwapMacAppId:0
@@ -102,12 +131,18 @@ reservedcacheblocks:0
 
 
 
-21
-375.0 230.0
-75
-Stream 1 [xGbps, 512B, exp2]
-name:stream_1
-job:SOFTWARE
+
+
+
+
+
+
+
+29
+480.0 230.0
+81
+Stream 2 [xGbps, 512B, exp2]
+name:stream_2
 
 lifetime:0.00005
 interval:RNS_random_uniform(0.0000001, 0.000001)
@@ -181,5 +216,121 @@ reservedRAMblocks:0
 
 
 
-29
+
+
+
+
+
+
+
+21
+275.0 230.0
+105
+Stream 1 [xGbps, 512B, exp2]
+name:stream_1
+job:SOFTWARE
+
+lifetime:0.00005
+interval:0.0000003 * RNS_random_lognormal(-10.0, 0.9)
+
+size:512
+portnumber:1
+portname:IN
+ram_access_time: RNS_random_exponential((0.00025) + (0.00025))
+
+appid:4
+drop:0
+
+requiredcacheblocks:1
+reservedL2blocks:0
+reservedRAMblocks:0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+31
 WL_FILE_END
