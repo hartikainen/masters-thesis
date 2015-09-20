@@ -65,11 +65,13 @@ rightqueue
 20
 17
 150.0 516.0
-14
+16
 L2 delay
 name:L2_cache
 speed:1200000000
-capacity:100
+capacity:10000
+
+
 
 
 
@@ -192,11 +194,13 @@ name:route2
 
 5
 594.0 466.0
-11
+13
 PKI
 name:PKI
 speed:1200000000
-capacity:32
+capacity:10000
+
+
 
 
 
@@ -207,11 +211,13 @@ capacity:32
 
 6
 440.0 520.0
-9
+11
 PKO
 name:PKO
 speed:1200000000
-capacity:32
+capacity:10000
+
+
 
 
 
@@ -240,11 +246,12 @@ type:release
 
 8
 135.0 210.0
-20
+21
 core[32] 1.5GHz
 name:core
 capacity:32
 speed:1200000000
+
 
 
 

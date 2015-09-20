@@ -7,7 +7,7 @@
  * notice that the the processing queue is mirror of the coremask
  * TODO: clear these functions
  */
-#define CHECK_COREMASK(coremask, position) ( (1ULL << position) & (coremask) )
+#define CHECK_COREMASK(coremask, position) ( ((1ULL << 31) >> position) & (coremask) )
 
 /*
  * CUSTOM_select expects that the clients are sorted in the priority order.
