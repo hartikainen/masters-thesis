@@ -21,22 +21,11 @@ node
 29
 375.0 95.0 480.0 185.0
 0
-4
+5
 26
 351.0 115.0
-18
-probability:0.35
-
-
-
-
-
-
-
-
-
-
-
+7
+probability:0.5
 
 
 
@@ -46,7 +35,7 @@ probability:0.35
 
 15
 380.0 50.0
-90
+105
 TRAFFIC GENERATOR
 name:generator
 
@@ -58,6 +47,8 @@ PacketForwardAppId:1
 IPsecAppId:2
 ExperimentOneId:3
 ExperimentTwoId:4
+ExperimentThreeId:5
+ExperimentFourId:6
 
 PKIsteps:8
 PKOsteps:5
@@ -138,35 +129,69 @@ reservedcacheblocks:0
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+30
+426.0 138.0
+24
+probability:1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 29
 480.0 230.0
-81
+74
 Stream 2 [xGbps, 512B, exp2]
 name:stream_2
+job:SOFTWARE
 
-lifetime:0.00005
-interval:RNS_random_uniform(0.0000001, 0.000001)
+lifetime:0.00001
+interval:0.000001 * RNS_random_int(5,10)
+0.00001
+
 size:512
-portnumber:1
+portnumber:4
 portname:IN
 ram_access_time: RNS_random_exponential((0.00025) + (0.00025))
 
-appid:4
+appid:6
 drop:0
 
 requiredcacheblocks:1
 reservedL2blocks:0
 reservedRAMblocks:0
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -225,25 +250,48 @@ reservedRAMblocks:0
 
 21
 275.0 230.0
-105
+128
 Stream 1 [xGbps, 512B, exp2]
 name:stream_1
 job:SOFTWARE
 
-lifetime:0.00005
-interval:0.0000003 * RNS_random_lognormal(-10.0, 0.9)
+lifetime:0.00004
+interval:0.00000051 * RNS_random_lognormal(-10.0, 0.9)
 
 size:512
 portnumber:1
 portname:IN
 ram_access_time: RNS_random_exponential((0.00025) + (0.00025))
 
-appid:4
+appid:5
 drop:0
 
 requiredcacheblocks:1
 reservedL2blocks:0
 reservedRAMblocks:0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
