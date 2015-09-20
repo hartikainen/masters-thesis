@@ -8,7 +8,7 @@ LDFLAGS := -L$(lib_dir) -lRNS `pth-config --ldflags` `pth-config --libs` -lm
 override includes += -I$(pse)/include
 override CFLAGS += $(includes) -g -Winline -Wshadow `pth-config --cflags`
 
-sim: TG_software.c custom/sso_scheduler.c custom/memory_functions.c io_mem_access.c experiment_one_app.c experiment_one_eo1.c experiment_one_eo2.c experiment_one_eo3.c swap_mac_app.c swap_mac_eo1.c packet_forward_app.c packet_forward_eo1.c packet_forward_eo2.c packet_input_submodel.c packet_process_submodel.c packet_output_submodel.c RN_hardware.c blade_submodel.c WL_workload.c $(lib)/rnc_runtime.o $(pse)/include/rnc_runtime.h $(lib_dir)/libRNS.a
+sim: TG_software.c custom/sso_scheduler.c custom/memory_functions.c io_mem_access.c experiment_three_app.c experiment_three_eo1.c experiment_four_app.c experiment_four_eo1.c experiment_two_app.c experiment_two_eo1.c experiment_two_eo2.c experiment_one_app.c experiment_one_eo1.c experiment_one_eo2.c experiment_one_eo3.c swap_mac_app.c swap_mac_eo1.c packet_forward_app.c packet_forward_eo1.c packet_forward_eo2.c packet_input_submodel.c packet_process_submodel.c packet_output_submodel.c RN_hardware.c blade_submodel.c WL_workload.c $(lib)/rnc_runtime.o $(pse)/include/rnc_runtime.h $(lib_dir)/libRNS.a
 	gcc $(CFLAGS) -o sim \
 	custom/memory_functions.c \
 	custom/sso_scheduler.c \
@@ -17,6 +17,13 @@ sim: TG_software.c custom/sso_scheduler.c custom/memory_functions.c io_mem_acces
 	experiment_one_eo2.c \
 	experiment_one_eo3.c \
 	experiment_one_app.c \
+	experiment_two_app.c \
+	experiment_two_eo1.c \
+	experiment_two_eo2.c \
+	experiment_three_app.c \
+	experiment_three_eo1.c \
+	experiment_four_app.c \
+	experiment_four_eo1.c \
 	swap_mac_eo1.c \
 	swap_mac_app.c \
 	packet_forward_app.c \
@@ -31,6 +38,21 @@ sim: TG_software.c custom/sso_scheduler.c custom/memory_functions.c io_mem_acces
 	WL_workload.c \
 	$(pse)/lib/rnc_runtime.o \
 	$(LDFLAGS)
+
+SOFTWARE_APPS	:=	swap_mac	packet_forward \
+			experiment_one	experiment_two
+
+SOFTWARE_MODELS	:=	packet_input	packet_process \
+			packet_output	io_mem_access
+
+swap_mac_parts		:=	app	eo1
+swap_mac_hardware	:=	blade
+
+packet_forward_parts 	:=	app	eo1	eo2
+packet_forward_hardware :=	blade
+
+experiment_one_parts	:=	app	eo1	eo2	eo3
+experiment_one_hardware	:=	blade
 
 ################################################################################
 # HARDWARE MODELS ##############################################################
@@ -62,6 +84,30 @@ experiment_one_eo3.c experiment_one_eo3.h: software/experiment_one/eo3.tg $(tgc)
 
 experiment_one_app.c experiment_one_app.h: software/experiment_one/app.tg $(tgc) blade_submodel.h
 	$(tgc) software/experiment_one/app.tg experiment_one_app.h experiment_one_app.c -frame BLADE blade_submodel.h
+
+# experiment_two app
+experiment_two_eo1.c experiment_two_eo1.h: software/experiment_two/eo1.tg $(tgc) blade_submodel.h
+	$(tgc) software/experiment_two/eo1.tg experiment_two_eo1.h experiment_two_eo1.c -frame BLADE blade_submodel.h
+
+experiment_two_eo2.c experiment_two_eo2.h: software/experiment_two/eo2.tg $(tgc) blade_submodel.h
+	$(tgc) software/experiment_two/eo2.tg experiment_two_eo2.h experiment_two_eo2.c -frame BLADE blade_submodel.h
+
+experiment_two_app.c experiment_two_app.h: software/experiment_two/app.tg $(tgc) blade_submodel.h
+	$(tgc) software/experiment_two/app.tg experiment_two_app.h experiment_two_app.c -frame BLADE blade_submodel.h
+
+# experiment_three app
+experiment_three_eo1.c experiment_three_eo1.h: software/experiment_three/eo1.tg $(tgc) blade_submodel.h
+	$(tgc) software/experiment_three/eo1.tg experiment_three_eo1.h experiment_three_eo1.c -frame BLADE blade_submodel.h
+
+experiment_three_app.c experiment_three_app.h: software/experiment_three/app.tg $(tgc) blade_submodel.h
+	$(tgc) software/experiment_three/app.tg experiment_three_app.h experiment_three_app.c -frame BLADE blade_submodel.h
+
+# experiment_four app
+experiment_four_eo1.c experiment_four_eo1.h: software/experiment_four/eo1.tg $(tgc) blade_submodel.h
+	$(tgc) software/experiment_four/eo1.tg experiment_four_eo1.h experiment_four_eo1.c -frame BLADE blade_submodel.h
+
+experiment_four_app.c experiment_four_app.h: software/experiment_four/app.tg $(tgc) blade_submodel.h
+	$(tgc) software/experiment_four/app.tg experiment_four_app.h experiment_four_app.c -frame BLADE blade_submodel.h
 
 # swap_mac app
 swap_mac_eo1.c swap_mac_eo1.h: software/swap_mac/eo1.tg $(tgc) blade_submodel.h
