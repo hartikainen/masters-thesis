@@ -1,98 +1,86 @@
 TG2_FILE_BEGIN
 PACKET_PROCESS
-5
-19
-begin
-69 100 19 100
+8
+71
+submodel
+225 150 175 150
+72
+submodel
+225 260 175 260
 63
 branch
 140 100 100 100
-64
-submodel
-225 70 175 70
-65
-submodel
-225 130 175 130
 14
 ends
 311 100 261 100
-5
+73
+submodel
+225 340 175 340
+19
+begin
+69 100 19 100
+74
+submodel
+225 400 175 400
+69
+submodel
+225 50 175 50
+11
+88
+63
+73
+140.0 100.0 175.0 340.0
 71
 19
 63
 69.0 100.0 100.0 100.0
-72
+80
 63
-64
-140.0 100.0 175.0 70.0
+69
+140.0 100.0 175.0 50.0
+84
+63
+71
+140.0 100.0 175.0 150.0
+90
+63
+74
+140.0 100.0 175.0 400.0
+89
 73
+14
+225.0 340.0 261.0 100.0
+81
+69
+14
+225.0 50.0 261.0 100.0
+85
+71
+14
+225.0 150.0 261.0 100.0
+91
+74
+14
+225.0 400.0 261.0 100.0
+86
 63
-65
-140.0 100.0 175.0 130.0
-75
-64
+72
+140.0 100.0 175.0 260.0
+87
+72
 14
-225.0 70.0 261.0 100.0
-76
-65
-14
-225.0 130.0 261.0 100.0
+225.0 260.0 261.0 100.0
 0
-5
-19
-36.0 100.0
-16
-IN
-name:IN
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-63
-120.0 60.0
-3
-select app
-name:app_id
-expr:$app_id
-
-64
-200.0 40.0
-10
-packet_forward
-name:PACKET_FORWARD
+8
+71
+200.0 180.0
+6
+experiment 1
+name:EXPERIMENT_ONE
 type:submodel
-file:PACKET_FORWARD
+file:software/expermiment_one/app.tg
 
-tag:0
-
-
-
-
-
-65
-200.0 160.0
-10
-IPsec
-name:IPSEC
-type:submodel
-file:IPSEC
-
-tag:1
-
-
-
-
+tag:$ExperimentOneId
 
 14
 283.0 100.0
@@ -118,6 +106,99 @@ name:OUT
 
 
 
-68
-78
+63
+120.0 60.0
+6
+select app
+name:appid
+expr:$appid
+
+
+
+
+72
+200.0 285.0
+11
+experiment 2
+name:EXPERIMENT_TWO
+type:submodel
+file:software/expermiment_two/app.tg
+
+tag:$ExperimentTwoId
+
+
+
+
+
+
+73
+180.0 320.0
+12
+experiment 3
+name:EXPERIMENT_THREE
+type:submodel
+file:software/expermiment_three/app.tg
+
+tag:$ExperimentThreeId
+
+
+
+
+
+
+
+19
+36.0 100.0
+17
+IN
+name:IN
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+74
+200.0 380.0
+13
+experiment 4
+name:EXPERIMENT_FOUR
+type:submodel
+file:software/expermiment_four/app.tg
+
+tag:$ExperimentFourId
+
+
+
+
+
+
+
+
+69
+205.0 20.0
+10
+Swap Mac
+name:SWAP_MAC
+type:submodel
+file:software/swap_mac/app.tg
+
+tag:$SwapMacAppId
+
+
+
+
+
+75
+92
 TG2_FILE_END

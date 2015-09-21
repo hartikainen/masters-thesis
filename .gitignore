@@ -32,6 +32,7 @@
 
 # PSE stuff
 /pse/*.[ch]
+/pse/sim
 
 # Random PDF's
 material/

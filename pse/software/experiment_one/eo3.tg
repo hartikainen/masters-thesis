@@ -1,0 +1,174 @@
+TG2_FILE_BEGIN
+EXPERIMENT_ONE_EO3
+7
+71
+block
+395 90 345 90
+14
+ends
+727 90 677 90
+113
+block
+605 90 555 90
+72
+block
+495 90 445 90
+19
+begin
+104 90 54 90
+73
+block
+195 90 145 90
+70
+block
+295 90 245 90
+6
+75
+19
+73
+104.0 90.0 145.0 90.0
+131
+113
+14
+605.0 90.0 677.0 90.0
+76
+73
+70
+195.0 90.0 245.0 90.0
+167
+72
+113
+495.0 90.0 555.0 90.0
+77
+70
+71
+295.0 90.0 345.0 90.0
+78
+71
+72
+395.0 90.0 445.0 90.0
+0
+7
+71
+370.0 65.0
+12
+use cpu
+name:core
+type:device
+amount:400.0
+
+
+
+
+
+
+
+
+
+14
+701.0 89.0
+17
+OUT
+name:OUT
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+113
+580.0 65.0
+6
+release core eo3
+type:release
+name:core_require
+
+
+
+
+72
+470.0 65.0
+6
+write mem
+name:L2_cache
+type:device
+amount:($size*4.0) * $cacheCyclesPerByte
+
+
+
+19
+67.0 89.0
+15
+IN
+name:IN
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+73
+170.0 65.0
+23
+use cpu
+name:core
+type:device
+amount:400.0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+70
+270.0 65.0
+13
+read mem
+name:L2_cache
+type:device
+amount:($size*4.0) * $cacheCyclesPerByte
+
+
+
+
+
+
+
+
+
+
+129
+168
+TG2_FILE_END
