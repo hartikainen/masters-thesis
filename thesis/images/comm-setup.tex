@@ -1,0 +1,48 @@
+\tikzstyle{block} = [draw, rectangle, thick, minimum height=2em, minimum width=2em]
+\tikzstyle{dot} = [circle, inner sep=0pt, minimum size=1mm, fill=black,draw=black]
+\tikzstyle{connector} = [->, thick]
+\tikzstyle{line} = [thick]
+
+\begin{tikzpicture}
+  \small
+  % node placement with matrix library: 5x4 array
+  \matrix[ampersand replacement=\&, row sep=0.2cm, column sep=0.4cm] {
+    \node[block] (l1) {External Traffic-Generator}; \& \& \&
+    \node[block] (c1) {Forward Blade}; \& \& \&
+    \node[block] (r1) {Swap Blade}; \& \\
+  };
+
+  %% Traffic gen probes
+  \node [dot] (ld1) at ($(l1.10) + (0cm, 0.4cm)$) {};
+  \draw [line] (l1.10) -- node[] {} (ld1);
+
+  \node [dot] (ld2) at ($(l1.-10) + (0cm, -0.4cm)$) {};
+  \draw [line] (l1.-10) -- node[] {} (ld2);
+
+  %% Forward blade probes
+  \node [dot] (cd1) at ($(c1.18) + (0cm, 0.4cm)$) {};
+  \draw [line] (c1.18) -- node[] {} (cd1);
+
+  \node [dot] (cd2) at ($(c1.-18) + (0cm, -0.4cm)$) {};
+  \draw [line] (c1.-18) -- node[] {} (cd2);
+
+  %% Swap blade probes
+  \node [dot] (rd1) at ($(r1.157) + (0cm, 0.4cm)$) {};
+  \draw [line] (r1.157) -- node[] {} (rd1);
+
+  \node [dot] (rd2) at ($(r1.-157) + (0cm, -0.4cm)$) {};
+  \draw [line] (r1.-157) -- node[] {} (rd2);
+
+  %% Arrows connecting the nodes
+
+  \draw [connector] (l1.7) -- node[] {} (c1.168);
+  \draw [connector] (c1.12) -- node[] {} (r1.166);
+  \draw [connector] (r1.-166) -- node[] {} (c1.-12);
+  \draw [connector] (c1.-168) -- node[] {} (l1.-7);
+
+\end{tikzpicture}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../thesis-hartikainen.tex"
+%%% End:
