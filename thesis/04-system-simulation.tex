@@ -1,24 +1,24 @@
 \chapter{System Performance Analysis and Simulation}
 \label{chapter:system-performance-analysis-and-simulation}
-In this thesis, we study and evaluate the performance of distributed stream computing system. As with many other packet processing systems, we are mostly interested in the throughput and latency of the system \ref{cavium fundamentals}. Our evaluations are based on the modeling and simulation techniques.
+In this thesis, we study and evaluate the performance of a distributed stream computing system. As with many other packet processing systems, we are mostly interested in the communication delays, namely throughput and latency, of the system \ref{cavium fundamentals}. Our evaluations are based on the modeling and simulation techniques, while measurements are also needed to build the model.
 
-\fixme{We want to show present and develop a new simulation technique/tool}
-
-This chapter introduces the methods used in our experiments. We will start by introducing the common performance analysis techniques and measures, and then further examine the modeling and simulation techniques. After that, \fixme{TODO: blablabla}
+This chapter introduces the methods used in our experiments. We will start by introducing the common performance analysis techniques and metrics, and then further examine the modeling and simulation techniques. After that, \fixme{TODO: blablabla}
 
 \section{Performance Analysis}
-For almost every computer system -- whether it be a high performance application on the cloud \ref{jackson:2010:HPCOC} or an army fuel-supply system \ref{sabuncuoglu:2005:TAS} -- the performance is one of the most sought-after criterion. The choice of criteria and techniques used to evaluate the system performance vary between systems. These two problems are discussed in the following subsections.
+For almost every computer system -- whether it be a high performance application on the cloud \ref{jackson:2010:HPCOC} or an army fuel-supply system \ref{sabuncuoglu:2005:TAS} -- the performance is one of the most sought-after criterion. To achieve the highest performance for the lowest cost, different performance evaluation techniques are required at different system life cycle stages. The choice of criteria and techniques, used to evaluate the system performance, vary between systems. These two choices are discussed in the following subsections. \cite{jain:1991:AOCSPA}
 
 \subsection{Evaluation Techniques}
-Performance evaluation can be done using various techniques. These techniques are generally divided into three categories: analytical modeling, simulation, and measurement. The former two techniques are based on a symbolic model of the real-life system, where as the measurements are done on the system itself. Analytical approaches use mathematical methods to solve the model. In simulation the model is executed using suitable simulator software. Measurements are done by instrumenting the system with various hardware and software tools.
+Performance evaluation can be done using various techniques. These techniques are generally divided into three categories: analytical modeling, simulation, and measurement. The former two techniques are based on a symbolic model of the real-life system, where as the measurements are done on the system itself. Analytical approaches use mathematical methods to solve the model. In simulation the model is executed using suitable simulator software. Measurements are done by instrumenting the system with various hardware and software tools. \cite{jain:1991:AOCSPA}
 
-No strict algorithm  \fixme{what's the correct term} can be given to select the right technique. However, there are some considerations that can be used to guide the decisions: system life-cycle stage; available resources, such as time, money and tools; required level of accuracy; trade-off evaluation; and saleability.
+No strict algorithm  \fixme{what's the correct term} can be given to select the right technique. However, there are some considerations that can be used to guide the decisions: system life-cycle stage; available resources, such as time, money and tools; required level of accuracy; trade-off evaluation; and saleability. \cite{jain:1991:AOCSPA}
 
-The life-cycle stage of the system is often the first consideration. In early design stage, the evaluation is often done by using analytical methods or simulation, as it is impossible to measure a yet non-existing system. Measurements are, thus, often used for improving existing systems.
+The life-cycle stage of the system is often the first consideration. In early design stage, the evaluation is often done by using analytical methods or simulation, as it is impossible to measure a yet non-existing system. Measurements are, thus, often used for improving an existing systems. \cite{jain:1991:AOCSPA}
 
-Available resources also dictate the technique selection. Running the measurements and simulations are often more time consuming \cite{Fujimoto:1990:PDE} than the analytic approach, and especially the time variation is large in the measurements. They both also require special equipment and tools, which are expensive and require special skills to operate. The analytical methods are generally considered less time consuming and less expensive than measurement and simulation. \fixme{PDES stuff?}
+Available resources also dictate the technique selection. Running the measurements and simulations are often more time consuming \cite{Fujimoto:1990:PDE} than the analytic approach, and the required time can be hard to predict. They both also require special equipment and tools, which are expensive and require special skills to operate. The analytical methods are generally considered less time consuming and less expensive than measurement and simulation. \fixme{PDES stuff?} \cite{jain:1991:AOCSPA}
 
-The required level of accuracy should also be considered. For analytical models to be solvable, they often have to be very high level abstractions of the system. Thus, the results of the analytical methods are often approximative. Simulations, like analytical methods, are abstract, but often much closer to the real system. Even measurements often produce results that do not agree with the actual system behavior. Generally measurements can be considered the most accurate, and the analytical methods more inaccurate than the simulation. The accuracy of simulations and measurements can often be enhanced by spending more time and money to them.
+The required level of accuracy should also be considered. For analytical models to be solvable, they often have to be very simple abstractions of the system. Thus, the results of the analytical methods are often approximative. Simulations, like analytical methods, are abstract, but often much closer to the real system. Even measurements often produce results that do not agree with the actual system behavior. Generally measurements can be considered the most accurate, and analytical methods more inaccurate than the simulation. The accuracy of simulations and measurements can often be enhanced by spending more time and money to them. \cite{jain:1991:AOCSPA}
+
+Different evaluation techniques are often used together. Using two or more methods simultaneously can be used validate and verify the analysis results. On the other hand, different methods can be used to complement each other to enhance the analysis process. \cite{jain:1991:AOCSPA}
 
 \fixme{TODO:}
 \begin{itemize}
@@ -26,13 +26,14 @@ The required level of accuracy should also be considered. For analytical models 
 \item performance analysis like art?
 \end{itemize}
 
-
-The performance evaluation can be done at every system life cycle stage.
-
 \subsection{Performance Metrics}
-Every performance study needs
+Every performance study needs a set of performance criteria or metrics, which vary with the service provided by the system. Service requests made to the system produce different outcomes: the system either performs the service -- correctly or incorrectly -- or refuses to perform it. The metrics associated with these outcomes are called speed, reliability, and availability, respectively. \cite{jain:1991:AOCSPA}
 
-Different performance metrics are used for different systems. To achieve the highest performance for the lowest cost, different performance evaluation techniques are required at every system life cycle stage.
+When the service result is correct, the performance metrics are used to measure the responsiveness, productivity and utilization of the system. For example, in a network packet processing system, the responsiveness could be measured as the packet response time, the productivity as the throughput, and the utilization as the percentage of time the cores are busy \cite{Cavium FUNDAMENTALS}. \cite{jain:1991:AOCSPA}
+
+If the service result is incorrect, the metrics would describe the probabilities of the error. For example, how probably an unintentional packet drops or out-of-orderings occur. When the system fails to perform requested service, it is helpful the classify the different causes of failure, and determine the probabilities and the durations for each. It should be noted that many systems provide multiple services, and the number of metrics can be large. \cite{jain:1991:AOCSPA}
+
+Different evaluation techniques provide measurements at different times of the service. For example, some simulators allow white-box-like view of the system states during the simulation, where as, with analytical methods, the details of the hardware system are often unavailable. \cite{jain:1991:AOCSPA}
 
 \section{System Modeling}
 \begin{itemize}
