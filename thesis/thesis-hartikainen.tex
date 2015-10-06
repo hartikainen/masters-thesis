@@ -203,6 +203,20 @@
 % Datetime for automatic date output
 \usepackage{datetime}
 
+% Listings package for displaying source code
+\usepackage{listings}
+\lstset{
+  basicstyle=\small\sffamily,
+  numbers=left,
+  numberstyle=\tiny,
+  numbersep=5pt,
+  frame=tb,
+  columns=fullflexible,
+  showstringspaces=false,
+  %float=t,
+  language=C,
+}
+
 % The TikZ package allows you to create professional technical figures.
 % The learning curve is quite steep, but it is definitely worth it if
 % you wish to have really good-looking technical figures.
@@ -485,15 +499,17 @@
 
 \input{03-distributed-parallel-stream-computing.tex}
 
-\input{04-performance-simulation-environment.tex}
+\input{04-system-simulation.tex}
 
-\input{05-example-simulation-model.tex}
+\input{05-performance-simulation-environment.tex}
 
-\input{06-model-evaluation.tex}
+\input{06-example-simulation-model.tex}
 
-\input{07-discussion.tex}
+\input{07-model-evaluation.tex}
 
-\input{08-conclusions.tex}
+\input{08-discussion.tex}
+
+\input{09-conclusions.tex}
 
 
 % Load the bibliographic references

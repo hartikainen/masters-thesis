@@ -1,0 +1,60 @@
+\chapter{System Performance Analysis and Simulation}
+\label{chapter:system-performance-analysis-and-simulation}
+In this thesis, we study and evaluate the performance of distributed stream computing system. As with many other packet processing systems, we are mostly interested in the throughput and latency of the system \ref{cavium fundamentals}. Our evaluations are based on the modeling and simulation techniques.
+
+\fixme{We want to show present and develop a new simulation technique/tool}
+
+This chapter introduces the methods used in our experiments. We will start by introducing the common performance analysis techniques and measures, and then further examine the modeling and simulation techniques. After that, \fixme{TODO: blablabla}
+
+\section{Performance Analysis}
+For almost every computer system -- whether it be a high performance application on the cloud \ref{jackson:2010:HPCOC} or an army fuel-supply system \ref{sabuncuoglu:2005:TAS} -- the performance is one of the most sought-after criterion. The choice of criteria and techniques used to evaluate the system performance vary between systems. These two problems are discussed in the following subsections.
+
+\subsection{Evaluation Techniques}
+Performance evaluation can be done using various techniques. These techniques are generally divided into three categories: analytical modeling, simulation, and measurement. The former two techniques are based on a symbolic model of the real-life system, where as the measurements are done on the system itself. Analytical approaches use mathematical methods to solve the model. In simulation the model is executed using suitable simulator software. Measurements are done by instrumenting the system with various hardware and software tools.
+
+No strict algorithm  \fixme{what's the correct term} can be given to select the right technique. However, there are some considerations that can be used to guide the decisions: system life-cycle stage; available resources, such as time, money and tools; required level of accuracy; trade-off evaluation; and saleability.
+
+The life-cycle stage of the system is often the first consideration. In early design stage, the evaluation is often done by using analytical methods or simulation, as it is impossible to measure a yet non-existing system. Measurements are, thus, often used for improving existing systems.
+
+Available resources also dictate the technique selection. Running the measurements and simulations are often more time consuming \cite{Fujimoto:1990:PDE} than the analytic approach, and especially the time variation is large in the measurements. They both also require special equipment and tools, which are expensive and require special skills to operate. The analytical methods are generally considered less time consuming and less expensive than measurement and simulation. \fixme{PDES stuff?}
+
+The required level of accuracy should also be considered. For analytical models to be solvable, they often have to be very high level abstractions of the system. Thus, the results of the analytical methods are often approximative. Simulations, like analytical methods, are abstract, but often much closer to the real system. Even measurements often produce results that do not agree with the actual system behavior. Generally measurements can be considered the most accurate, and the analytical methods more inaccurate than the simulation. The accuracy of simulations and measurements can often be enhanced by spending more time and money to them.
+
+\fixme{TODO:}
+\begin{itemize}
+\item Two or more techniques often needed!
+\item performance analysis like art?
+\end{itemize}
+
+
+The performance evaluation can be done at every system life cycle stage.
+
+\subsection{Performance Metrics}
+Every performance study needs
+
+Different performance metrics are used for different systems. To achieve the highest performance for the lowest cost, different performance evaluation techniques are required at every system life cycle stage.
+
+\section{System Modeling}
+\begin{itemize}
+\item abstraction levels
+\subitem flexibility
+\subitem performance
+\end{itemize}
+
+\section{Simulation}
+\begin{itemize}
+\item DES vs. continuous
+\end{itemize}
+
+\section{Probing}
+\begin{itemize}
+\item white box vs. black box
+\end{itemize}
+
+\section{PSE}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "thesis-hartikainen"
+%%% End:
