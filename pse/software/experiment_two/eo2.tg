@@ -51,11 +51,16 @@ block
 7
 71
 370.0 65.0
-14
+19
 use cpu
 name:core
 type:device
-amount:500.0
+amount:100.0
+
+
+
+
+
 
 
 
@@ -102,11 +107,13 @@ name:core_require
 
 72
 470.0 65.0
-9
+11
 write mem
 name:L2_cache
 type:device
-amount:($size*5.0) * $cacheCyclesPerByte
+amount:($size) * $cacheCyclesPerByte
+
+
 
 
 
@@ -134,11 +141,15 @@ name:IN
 
 73
 170.0 65.0
-28
+32
 use cpu
 name:core
 type:device
-amount:500.0
+amount:100.0
+
+
+
+
 
 
 
@@ -166,11 +177,13 @@ amount:500.0
 
 70
 270.0 65.0
-19
+21
 read mem
 name:L2_cache
 type:device
-amount:($size*5.0) * $cacheCyclesPerByte
+amount:($size) * $cacheCyclesPerByte
+
+
 
 
 

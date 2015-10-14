@@ -4,21 +4,21 @@ EXPERIMENT_ONE_EO1
 71
 block
 395 90 345 90
-14
-ends
-727 90 677 90
-113
-block
-605 90 555 90
 72
 block
 495 90 445 90
-19
-begin
-104 90 54 90
+113
+block
+605 90 555 90
+14
+ends
+727 90 677 90
 73
 block
 195 90 145 90
+19
+begin
+104 90 54 90
 70
 block
 295 90 245 90
@@ -65,6 +65,18 @@ amount:1000.0
 
 
 
+113
+580.0 65.0
+8
+release core eo1
+type:release
+name:core_require
+
+
+
+
+
+
 14
 701.0 89.0
 17
@@ -86,17 +98,6 @@ name:OUT
 
 
 
-113
-580.0 65.0
-7
-release core eo1
-type:release
-name:core_require
-
-
-
-
-
 72
 470.0 65.0
 6
@@ -107,28 +108,9 @@ amount:($size*10) * $cacheCyclesPerByte
 
 
 
-19
-67.0 89.0
-15
-IN
-name:IN
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 73
 170.0 65.0
-24
+25
 use cpu
 name:core
 type:device
@@ -140,6 +122,26 @@ amount:1000.0
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+19
+67.0 89.0
+15
+IN
+name:IN
 
 
 

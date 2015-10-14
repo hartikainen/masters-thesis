@@ -1,86 +1,65 @@
 TG2_FILE_BEGIN
 PACKET_PROCESS
-8
+5
 71
 submodel
 225 150 175 150
-72
-submodel
-225 260 175 260
-63
-branch
-140 100 100 100
 14
 ends
 311 100 261 100
-73
-submodel
-225 340 175 340
+63
+branch
+140 100 100 100
 19
 begin
 69 100 19 100
-74
-submodel
-225 400 175 400
 69
 submodel
 225 50 175 50
-11
-88
-63
-73
-140.0 100.0 175.0 340.0
-71
-19
-63
-69.0 100.0 100.0 100.0
-80
-63
-69
-140.0 100.0 175.0 50.0
+5
 84
 63
 71
 140.0 100.0 175.0 150.0
-90
+80
 63
-74
-140.0 100.0 175.0 400.0
-89
-73
-14
-225.0 340.0 261.0 100.0
-81
 69
-14
-225.0 50.0 261.0 100.0
+140.0 100.0 175.0 50.0
+71
+19
+63
+69.0 100.0 100.0 100.0
 85
 71
 14
 225.0 150.0 261.0 100.0
-91
-74
+81
+69
 14
-225.0 400.0 261.0 100.0
-86
-63
-72
-140.0 100.0 175.0 260.0
-87
-72
-14
-225.0 260.0 261.0 100.0
+225.0 50.0 261.0 100.0
 0
-8
+5
 71
 200.0 180.0
-6
-experiment 1
-name:EXPERIMENT_ONE
+8
+experiment 2
+name:EXPERIMENT_TWO
 type:submodel
-file:software/expermiment_one/app.tg
+file:software/experiment_two/app.tg
 
-tag:$ExperimentOneId
+tag:$ExperimentTwoId
+
+
+
+63
+120.0 60.0
+6
+select app
+name:appid
+expr:$appid
+
+
+
 
 14
 283.0 100.0
@@ -99,47 +78,6 @@ name:OUT
 
 
 
-
-
-
-
-
-
-
-63
-120.0 60.0
-6
-select app
-name:appid
-expr:$appid
-
-
-
-
-72
-200.0 285.0
-11
-experiment 2
-name:EXPERIMENT_TWO
-type:submodel
-file:software/expermiment_two/app.tg
-
-tag:$ExperimentTwoId
-
-
-
-
-
-
-73
-180.0 320.0
-12
-experiment 3
-name:EXPERIMENT_THREE
-type:submodel
-file:software/expermiment_three/app.tg
-
-tag:$ExperimentThreeId
 
 
 
@@ -168,32 +106,17 @@ name:IN
 
 
 
-74
-200.0 380.0
-13
-experiment 4
-name:EXPERIMENT_FOUR
-type:submodel
-file:software/expermiment_four/app.tg
-
-tag:$ExperimentFourId
-
-
-
-
-
-
-
-
 69
 205.0 20.0
-10
-Swap Mac
-name:SWAP_MAC
+12
+experiment 1
+name:EXPERIMENT_ONE
 type:submodel
-file:software/swap_mac/app.tg
+file:software/experiment_one/app.tg
 
-tag:$SwapMacAppId
+tag:$ExperimentOneId
+
+
 
 
 
