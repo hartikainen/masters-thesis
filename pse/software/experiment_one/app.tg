@@ -1,81 +1,178 @@
 TG2_FILE_BEGIN
 EXPERIMENT_ONE
 10
-134
-fork
-379.95 120 340.05 120
-138
-submodel_server
-582 160 538 160
-80
-begin
-100 120 50 120
-84
-submodel_server
-302 120 258 120
 129
 block_queue
-208 120 152 120
-135
-join
-659.95 120 620.05 120
-139
+168 80 112 80
+84
 submodel_server
-582 80 538 80
+242 80 198 80
+80
+begin
+80 80 30 80
+138
+submodel_server
+482 120 438 120
+134
+fork
+319.95 80 280.05 80
 81
 ends
-730 120 680 120
-136
-block_queue
-488 160 432 160
-137
-block_queue
-488 80 432 80
-10
-173
-84
-134
-302.0 120.0 340.05 120.0
-174
-134
-136
-379.95 120.0 432.0 160.0
-175
-134
-137
-379.95 120.0 432.0 80.0
-180
-136
-138
-488.0 160.0 538.0 160.0
-181
-137
+630 80 580 80
 139
-488.0 80.0 538.0 80.0
-182
-139
+submodel_server
+482 40 438 40
 135
-582.0 80.0 620.05 120.0
+join
+559.95 80 520.05 80
+136
+block_queue
+408 120 352 120
+137
+block_queue
+408 40 352 40
+10
 183
 138
 135
-582.0 160.0 620.05 120.0
+482.0 120.0 520.05 80.0
+174
+134
+136
+319.95 80.0 352.0 120.0
 184
 135
 81
-659.95 120.0 680.0 120.0
+559.95 80.0 580.0 80.0
+180
+136
+138
+408.0 120.0 438.0 120.0
+175
+134
+137
+319.95 80.0 352.0 40.0
 167
 80
 129
-100.0 120.0 152.0 120.0
+80.0 80.0 112.0 80.0
+181
+137
+139
+408.0 40.0 438.0 40.0
 168
 129
 84
-208.0 120.0 258.0 120.0
+168.0 80.0 198.0 80.0
+182
+139
+135
+482.0 40.0 520.05 80.0
+173
+84
+134
+242.0 80.0 280.05 80.0
 0
 10
+129
+140.0 100.0
+37
+parallel 3
+name:core_require
+type:reserve
+
+queue_id:exp1eo1
+queue_type:parallel
+queue_priority:3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+84
+220.0 80.0
+18
+eo1
+name:EXPERIMENT_ONE_EO1
+type:submodel
+file:experiment_one/eo1.tg
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+80
+45.0 50.0
+10
+IN
+name:IN
+
+
+
+
+
+
+
+
+
+138
+460.0 120.0
+16
+eo3
+name:EXPERIMENT_ONE_EO3
+type:submodel
+file:experiment_one/eo3.tg
+
+
+
+
+
+
+
+
+
+
+
+
+
 134
-366.0 121.0
+306.0 81.0
 13
 fork
 name:fork
@@ -91,8 +188,38 @@ name:fork
 
 
 
+81
+600.0 50.0
+7
+OUT
+name:OUT
+
+
+
+
+
+
+139
+460.0 40.0
+15
+eo2
+name:EXPERIMENT_ONE_EO2
+type:submodel
+file:experiment_one/eo2.tg
+
+
+
+
+
+
+
+
+
+
+
+
 135
-635.0 120.0
+535.0 80.0
 14
 join
 name:join
@@ -110,7 +237,7 @@ name:join
 
 
 136
-460.0 180.0
+380.0 140.0
 38
 parallel 2
 name:core_require
@@ -152,7 +279,7 @@ queue_type:parallel
 
 
 137
-460.0 100.0
+380.0 60.0
 44
 atomic 1
 name:core_require
@@ -168,133 +295,6 @@ queue_priority:1
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-138
-560.0 160.0
-16
-eo3
-name:EXPERIMENT_ONE_EO3
-type:submodel
-file:experiment_one/eo3.tg
-
-
-
-
-
-
-
-
-
-
-
-
-
-139
-560.0 80.0
-15
-eo2
-name:EXPERIMENT_ONE_EO2
-type:submodel
-file:experiment_one/eo2.tg
-
-
-
-
-
-
-
-
-
-
-
-
-80
-65.0 90.0
-10
-IN
-name:IN
-
-
-
-
-
-
-
-
-
-81
-700.0 90.0
-7
-OUT
-name:OUT
-
-
-
-
-
-
-84
-280.0 120.0
-18
-eo1
-name:EXPERIMENT_ONE_EO1
-type:submodel
-file:experiment_one/eo1.tg
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-129
-180.0 140.0
-37
-parallel 3
-name:core_require
-type:reserve
-
-queue_id:exp1eo1
-queue_type:parallel
-queue_priority:3
 
 
 
