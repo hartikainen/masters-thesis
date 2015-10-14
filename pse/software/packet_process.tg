@@ -4,12 +4,12 @@ PACKET_PROCESS
 71
 submodel
 225 150 175 150
-14
-ends
-311 100 261 100
 63
 branch
 140 100 100 100
+14
+ends
+311 100 261 100
 19
 begin
 69 100 19 100
@@ -17,46 +17,37 @@ begin
 submodel
 225 50 175 50
 5
-84
-63
-71
-140.0 100.0 175.0 150.0
-80
-63
-69
-140.0 100.0 175.0 50.0
 71
 19
 63
 69.0 100.0 100.0 100.0
-85
+80
+63
+69
+140.0 100.0 175.0 50.0
+84
+63
 71
-14
-225.0 150.0 261.0 100.0
+140.0 100.0 175.0 150.0
 81
 69
 14
 225.0 50.0 261.0 100.0
+85
+71
+14
+225.0 150.0 261.0 100.0
 0
 5
 71
 200.0 180.0
-8
-experiment 2
+9
+app 2
 name:EXPERIMENT_TWO
 type:submodel
 file:software/experiment_two/app.tg
 
 tag:$ExperimentTwoId
-
-
-
-63
-120.0 60.0
-6
-select app
-name:appid
-expr:$appid
 
 
 
@@ -85,6 +76,16 @@ name:OUT
 
 
 
+63
+120.0 60.0
+6
+select app
+name:appid
+expr:$appid
+
+
+
+
 19
 36.0 100.0
 17
@@ -108,13 +109,14 @@ name:IN
 
 69
 205.0 20.0
-12
-experiment 1
+13
+app 1
 name:EXPERIMENT_ONE
 type:submodel
 file:software/experiment_one/app.tg
 
 tag:$ExperimentOneId
+
 
 
 
