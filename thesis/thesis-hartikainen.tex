@@ -147,8 +147,8 @@
 % \usepackage{alltt}
 
 % Use biblatex instead of natbib.
-\usepackage[style=numeric, backend=biber, firstinits=true]{biblatex}
-\addbibresource[]{sources.bib}
+\usepackage[style=numeric, backend=bibtex, firstinits=true]{biblatex}
+\addbibresource[datatype=bibtex]{sources.bib}
 
 % The eurosym package provides a euro symbol. Use with \euro{}
 % \usepackage{eurosym}
@@ -202,6 +202,9 @@
 
 % Datetime for automatic date output
 \usepackage{datetime}
+
+% todonotes for the missing figures
+\usepackage[textwidth=90pt]{todonotes}
 
 % Listings package for displaying source code
 \usepackage{listings}
@@ -517,9 +520,8 @@
 % You can use several .bib files:
 % \bibliography{thesis_sources,ietf_sources}
 % \bibliography{sources}
+\nocite{*}
 \printbibliography
-
-
 % Appendices go here
 % ------------------------------------------------------------------
 % If you do not have appendices, comment out the following lines

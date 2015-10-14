@@ -1,100 +1,89 @@
 \chapter{Performance Simulation Environment}
-\label{chapter:pse}
+\label{chapter:performance-simulation-environment}
 
-\fixme{banks et al. simulation stuff?}
+This chapter describes Performance Simulation Environment (PSE) and its usage for performance analysis of a stream computing system. We begin with an overview of PSE tools and concepts, and continue by describing the three components that describe a PSE model. After that, we go through the simulation and monitoring of PSE applications. Finally, we address the problems and deficiencies that needed to be resolved before PSE could be used for performance analysis of a stream computing system.
 
-This chapter describes Performance Simulation Environment (PSE) and its suitability for performance analysis of a stream computing system. We begin with an overview of PSE tools and concepts, and continue by describing the three components that describe a PSE model. After that, we go through the simulation and monitoring of PSE applications. Finally, we address the problems and deficiencies that needed to be resolved before PSE could be used for performance analysis of a stream computing system.
-\fixme{correct this}
+\section{PSE Overview}
+\label{sec:pse-overview}
 
-\section{Overview}
+PSE is a toolset and simulation environment for dynamic performance analysis of, initially designed but not limited to, parallel computing systems. The tools consist of graphical model editors, compiler tools, and discrete event simulator runtime.
 
-\fixme{TODO:
-  \begin{enumerate}
-  \item What can be modeled?? What can't be?
-  \item Reusability
-  \item Different simulation techniques: discrete, continuous, parallel
-  \item Different modeling mechanisms: functional vs. performance etc...
-  \item describe the simulation type somewhere. e.g. Discrete event simulation
-  \item Model represents a system.
-  \item In PSE, the simulation model is created by graphical user interfaces. Internally the model is presented as a simple text format that is then parsed by tgc.
-  \item reusable components
-  \item stochastic model?
-  \end{enumerate}
-}
+\begin{figure}[ht]
+  \begin{center}
+    %% \input{images/pse-toolset.tex}
+    \missingfigure{\Huge pse toolset overview}
+    \caption{PSE toolset includes the model editors, compiler tools and the simulator runtime libraries.}
+    \label{fig:pse-toolset}
+  \end{center}
+\end{figure}
 
+The graphical model editors -- workload editor, wle; task graph editor, tge; sequence chart editor, sce; and resource network editor, rne -- are used to build and edit the PSE model representation of a system. Each model editor has a corresponding compiler (wlc, tgc, scc, and rnc), that are used to compile the textual model representations into C-code.
 
+The generated model code and the built-in simulator runtime libraries are compiled into an executable simulator program, using generic C compiler such as GCC \cite{stallman:2009:gcc}. The resulting program can be run on top of Linux operating system on commodity hardware.
 
-PSE is a toolset for performance analysis of -- initially designed, but not limited to -- parallel computing systems. The tools can be divided into graphical model editors, compiler tools, and runtime libraries. Their usage is best described together with the typical modeling workflow: first the model editors are used to build the PSE model representation of a system; then the compilers are used to generate C-code of the model description; finally the generated C-code is compiled together with the runtime libraries into an executable simulation program. The resulting program runs on top of Linux operating system on commodity hardware.
+\todo[inline]{yadayada}
+\todo[inline]{What can be modeled?? What can't be?}
+\todo[inline]{Reusability}
+\todo[inline]{Model represents a system.}
+\todo[inline]{In PSE, the simulation model is created by graphical user interfaces. Internally the model is presented as a simple text format that is then parsed by tgc.}
 
-Rsim: More detailed hardware simulation, with focus on ILP effects of processors
-      Detailed shared-memory multiprocessor models
-      They show that the previous simple-processor-models cannot demonstrate the complicated dynamically scheduled processors with sufficient detail.
+\section{PSE Model}
 
-Simics: ``Reliable performance estimates require simulation of the full system''
-        Their simulator includes device models accurate enough to run unmodified operating system kernels, firmware and device driver.
-        They simulate a network of heterogeneous computers.
-        Commercial product
-        Two dimensional classification:
-          scope (what is modeled),
-          abstraction level (level at which the system is modeled)
-            two perspectives: functional, timing (performance)
+In PSE, the system under study is modeled as a resource network \cite{Menasce:1994:CPP:174466}. The complete model consists of three main components: resource provision model, resource usage model and workload model. Each of the components are presented as directed graphs, where the nodes represent model entities and the arcs represent the possible flow directions of the tasks.
 
-SimpleScalar:
-  Hardware development is often accelerated by software simulations of the hardware under development.
-  Basic idea: Implement a software model of the hardware, stress then with appropriate workload
-  Gains: The availability of the simulation model is much faster than building the hardware. Thus the hardware can be tested faster. Shorter time to market, cut down development costs.
-  Simulation modeling is driven by three factors: performance, flexibility, detail
-    Performance measures the system's ability to process workload
-    Flexibility reflects the ability to modify the models, enabling measurements of different designs
-    Detail means the level of abstraction the model captures from the actual system
-    -> Getting all three is hard, practically impossible.
-    -> trade offs
+The resource provision model represents the available system resources, for example a computer hardware. The graph nodes represent resource entities, and arcs represent the possible usage order of the resources. The resources are consumed by the tasks generated by the workload model.
 
+A resource can be either active or passive. Active resources provide service and introduce service delay to the tasks using them. An example of active resource could be a processor core, which can serve certain amount of processing cycles per unit time. Passive resources do not induce direct delay to the jobs, but their possession is required to access certain other resources. Locks \todo{cite something} could be an example of passive resource.
 
-\section{Model representation}
-In PSE, the system under study is modeled as a resource reservation based mechanism \fixme{resource network?} \cite{Menasce:1994:CPP:174466}. The complete model consists of three main components: resource provision model, resource usage model and workload model. Each of the components are presented as directed graphs, which guide the simulation. The components are described in more detail in the following subchapters.
+\begin{figure}[h!]
+  \begin{center}
+    \missingfigure{\Huge resource provision model?}
+    % \includegraphics[width=\textwidth]{images/.pdf}
+    \caption{An example of resource provision model.}
+    \label{fig:resource-provision-model}
+  \end{center}
 
-The model representations are built by using graphical user interfaces (workload editor, wle; task graph editor, tge; sequence chart editor, sce; resource network editor, rne). Each of the models are presented as directed graphs and the graph is saved as a text file.
+\end{figure}
 
+Figure \ref{fig:resource-provision-model} presents an example of a resource provision model ...
+\todo[inline]{Explain the figure}
 
- it presents the mechanisms for the needed to build a PSE model of a stream processing system consisting of a network processing hardware running a datapath (OpenEM) software.
+The resource usage models can represented as message sequence charts or tasks graphs. We omit the description of the sequence chart in this thesis. A task graph is a representation of the resource usage of the tasks arriving to the system. The nodes in the task graph can be divided into three categories: execution nodes describe the resource usage events and activities, branching nodes conditionally guide the tasks through the graph, and fork/join nodes represent task subdivision. The arcs represent the flow of control in the system.
 
+\begin{figure}[h!]
+  \begin{center}
+    \missingfigure{\Huge resource usage model?}
+    % \includegraphics[width=\textwidth]{images/.pdf}
+    \caption{An example of resource usage model.}
+    \label{fig:resource-usage-model}
+  \end{center}
+\end{figure}
 
-PSE editor tools are used to present a system in PSE presentation format.
+Figure \ref{fig:resource-usage-model} presents an example of a resource usage model ...
+\todo[inline]{Explain the figure}
 
-TRAVERSE
+The workload model generates tasks, which traverse through the system according to the rules defined in the resource usage model, consuming the resources defined in the resource provision model. The nodes in the workload graph describe the task generating processes, and the arcs define the relationships between them. The graph representing the workload model must be acyclic.
 
-The events, generated by the workload model, traverse by the rules defined in the resource usage model consuming the resources defined in the resource provision model.
-
-Workload model generates events, which consume the resources, defined in the resource provision model, according to the rules defined in the resource usage model.
-
-
-\subsection{Resource provision model}
-The resource provision model describes the resources, typically the hardware, of the system. The graph nodes present resources. Arcs present the possible usage order of the resources. The resources are consumed by the jobs \fixme{make the terminology constistent throughout the text} generated by the workload model.
-
-A resource can be either active or passive. Active resources provide service and introduce delay to the events' using them. An example of active resource is processor core, which can serve certain amount of processing cycles per unit time. Passive resources do not induce delay to the jobs, but their possession is required to access certain other resources. Locks are an example of passive resource.
-
-The resources can be limited in quantity.
-
-Resources are represented as entities with attributes that describe ...
-
-\subsection{Resource usage model}
-
-The resource usage model is presented either as a task graph or a sequence chart
-
-The resource usage model can viewed as a software, which guides the jobs' resource usage.
-
-\subsection{Workload model}
 The event spawn rate can be constant or random (specified for example with probability distribution).
 
 When an event is spawned, it progresses through the resource provision model triggering the resource usages. -> gets delayed.
 
-\section{Simulation and monitoring}
-PSE provides a built-in discrete event simulator engine, RNS (Resource Network Simulator).
+\section{PSE Tools}
 
-PSE models are simulated by Resource Network Simulator, RNS, which is a discrete event simulator engine.
+\todo[inline]{Should the tools be described in more detail, or should this section be omitted?}
 
-The RNS simulator engine
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=\textwidth]{images/rne-example.pdf}
+    \caption{The graphical user interface of the resource network editor. The actual resource network model is presented in the middle, and the toolbar on the left.}
+    \label{fig:rne-example}
+  \end{center}
+\end{figure}
+
+\section{Monitoring}
+
+\todo[inline]{Correct place for this?}
+The probes can be used to capture every state change of the system.
 
 % - Events from workload model
 %   - Workload model creates new events with the event spawn rate described by the user
@@ -112,6 +101,9 @@ The RNS simulator engine
 %   - Release happens when the event arrives at the function corresponding the release node specified in the resource usage network
 %   - Unlike in the active resource usage, the resource is held by the event for a time unknown at the reserve time
 
+\section{RNS Runtime}
+\label{sec:rns-runtime}
+
 \lstinputlisting[caption=RNS\_demand\_device,
                  label=RNS_demand_device]{listings/RNS_demand_device.c}
 \lstinputlisting[caption=RNS\_use\_device,
@@ -122,12 +114,6 @@ The RNS simulator engine
                  label=RNS_delay_process]{listings/RNS_delay_process.c}
 \lstinputlisting[caption=RNS\_release\_resource,
                  label=RNS_release_resource]{listings/RNS_release_resource.c}
-
-\subsection{Probing}
-The probes can be used to capture every state change of the system.
-
-\subsection{Running the Simulation}
-\subsection{Data pre-processing}
 
 
 %%% Local Variables:

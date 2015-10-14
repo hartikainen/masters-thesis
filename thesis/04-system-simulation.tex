@@ -2,29 +2,27 @@
 \label{chapter:system-performance-analysis-and-simulation}
 In this thesis, we study and evaluate the performance of a distributed stream computing system. Our evaluations are based on the modeling and simulation techniques, while measurements are also needed to build the model. Similarly to many other packet processing system studies, we are mostly interested in the communication delays, namely throughput and latency, of the system \ref{cavium fundamentals}.
 
-This chapter introduces the methods used in our experiments. We will start by introducing the common performance analysis techniques and metrics, and then further examine the modeling and simulation techniques. After that, \fixme{TODO: blablabla}
+This chapter introduces the methods used in our experiments. We will start by introducing the common performance analysis techniques and metrics, and then further examine the modeling and simulation techniques. After that, \todo[inline]{yadayada}
 
 \section{Performance Analysis}
-For almost every computer system -- whether it be a high performance application on the cloud \ref{jackson:2010:HPCOC} or an army fuel-supply system \ref{sabuncuoglu:2005:TAS} -- the performance is one of the most sought-after criterion. To achieve the highest performance for the lowest cost, different performance evaluation techniques are required at different system life cycle stages. The choice of evaluation criteria and techniques, used to evaluate the system performance, vary between systems. These two choices are discussed in the following subsections. \cite{jain:1991:AOCSPA}
+For almost every computer system -- whether it be a high performance application on the cloud \cite{jackson:2010:HPCOC} or an army fuel-supply system \cite{sabuncuoglu:2005:TAS} -- the performance is one of the most sought-after criterion. To achieve the highest performance for the lowest cost, different performance evaluation techniques are required at different system life cycle stages. The choice of evaluation criteria and techniques, used to evaluate the system performance, vary between systems. These two choices are discussed in the following subsections. \cite{jain:1991:AOCSPA}
 
 \subsection{Evaluation Techniques}
-Performance evaluation can be done using various techniques. These techniques are generally divided into three categories: analytical modeling, simulation, and measurement. The former two techniques are based on a symbolic models of the real-life system, whereas the measurements are done on the system itself. Analytical approaches use mathematical methods to solve the model, and simulation imitates the operation of the system by executing the model on a simulator \cite{Banks:2010:DES}. Measurements are done by instrumenting the real system with various hardware and software tools. \cite{jain:1991:AOCSPA}
+Performance evaluation can be done using various techniques. These techniques are generally divided into three categories: analytical modeling, simulation, and measurement. The former two techniques are based on symbolic models of the real-life system, whereas the measurements are done on the system itself. Analytical approaches use mathematical methods to solve the model, and simulation imitates the operation of the system by executing the model on a simulator \cite{Banks:2010:DES}. Measurements are done by instrumenting the real system with various hardware and software tools. \cite{jain:1991:AOCSPA}
 
-No strict algorithm  \fixme{what's the correct term} can be given to select the right technique. However, there are some considerations that can be used to guide the decisions: system life-cycle stage; available resources, such as time, money and tools; required level of accuracy; trade-off evaluation; and saleability. \cite{jain:1991:AOCSPA}
+No strict \todo{what's the correct term} algorithm can be given to select the right technique. However, there are some considerations that can be used to guide the decisions: system life-cycle stage; available resources, such as time, money and tools; required level of accuracy; trade-off evaluation; and saleability. \cite{jain:1991:AOCSPA}
 
 The life-cycle stage of the system is often the first consideration. In early design stage, the evaluation is often done by using analytical methods or simulation, as it is impossible to measure a yet non-existing system. Measurements are, thus, often used for improving an existing systems. \cite{jain:1991:AOCSPA}
 
-Available resources also dictate the technique selection. Running the measurements and simulations are often more time consuming \cite{Fujimoto:1990:PDE} than the analytic approach, and the required time can be hard to predict. They both also require special equipment and tools, which are expensive and require special skills to operate. The analytical methods are generally considered less time consuming and less expensive than measurement and simulation. \fixme{PDES stuff: parallelizing is hard - scaling simulation is non-trivial?} \cite{jain:1991:AOCSPA}
+Available resources also dictate the technique selection. Running the measurements and simulations are often more time consuming \cite{Fujimoto:1990:PDE} than the analytic approach, and the required time can be hard to predict. They both also require special equipment and tools, which are expensive and need special skills to operate. The analytical methods are generally considered less time consuming and less expensive than measurement and simulation.
+\cite{jain:1991:AOCSPA}
+\todo[inline]{PDES stuff: parallelizing is hard - scaling simulation is non-trivial?}
 
 The required level of accuracy should also be considered. For analytical models to be solvable, they often have to be very simple abstractions of the original system. Thus, the results of the analytical methods are often approximate. Simulations, like analytical methods, are abstract, but often much closer to the real system. Even measurements can produce results that do not agree with the actual system behavior. Generally measurements can be considered the most accurate, and analytical methods more inaccurate than the simulation. The accuracy of simulations and measurements can often be enhanced by spending more time and money to them. \cite{jain:1991:AOCSPA}
 
 Different evaluation techniques are often used together. Using two or more methods simultaneously can be used validate and verify the analysis results. On the other hand, different methods can be used to complement each other to enhance the analysis process. \cite{jain:1991:AOCSPA}
 
-\fixme{TODO:}
-\begin{itemize}
-\item Two or more techniques often needed!
-\item performance analysis like art?
-\end{itemize}
+\todo[inline]{performance analysis like art?}
 
 \subsection{Performance Metrics}
 Every performance study needs a set of performance criteria or metrics, which vary with the service provided by the system. Service requests made to the system produce different outcomes: the system either performs the service -- correctly or incorrectly -- or refuses to perform it. The metrics associated with these outcomes are called speed, reliability, and availability, respectively. \cite{jain:1991:AOCSPA}
@@ -33,17 +31,17 @@ When the service result is correct, the performance metrics are used to measure 
 
 If the service result is incorrect, the metrics describe the probabilities of the error. For example, how probably an unintentional packet drops or out-of-orderings occur. When the system fails to perform requested service, it is helpful the classify the different causes of failure, and determine the probability and the duration for each. \cite{jain:1991:AOCSPA}
 
-It should be noted that many systems provide multiple services, and the number of metrics can be large. Different evaluation techniques provide measurements at different times of the service. For example, some simulators allow white-box-like view of the system states during the simulation, whereas, with analytical methods, the details of the hardware system are often unavailable. \cite{jain:1991:AOCSPA} \cite{TODO: find reference for the white-box black-box stuff}
+It should be noted that many systems provide multiple services, and the number of metrics can be large. Also, different evaluation techniques provide different metrics at different times of the service. For example, some simulators allow white-box-like view of the system states during the simulation, whereas, with analytical methods, the details of the system are often unavailable. \cite{jain:1991:AOCSPA} \cite{TODO: find reference for the white-box black-box stuff}
 
 \section{Simulation}
 This sections describes the basic principles related to simulation. Note that, despite the most of the examples in this chapter being about computing, simulation is widely used in several other contexts, even outside science. The concepts described below, e.g. entities, attributes, or activities, to name a few, have different realizations from system to system.
 
-Simulation is an artificial imitation of the operation of a real-life system over time. The system behavior is studied by developing a simulation model, based on a set assumptions concerning the characteristics and functions of the system. The assumptions are presented in mathematical, logical, and symbolic relationships between the objects of interest of the system. An artificial operation history is generated by executing the simulation model, generally on a simulator program, with respect to input and time. Data are collected from the simulation similarly as if the real system was being measured.
+Simulation is an artificial imitation of the operation of a real-life system over time. The system behavior is studied by developing a simulation model, based on a set assumptions concerning the characteristics and functions of the system. The assumptions are presented in mathematical, logical, and symbolic relationships between the objects of interest of the system. An artificial operation history is generated by executing the simulation model, generally on a simulator program, with respect to system input and time. Data are collected from the simulation similarly as if the real system was being measured.
 
 \subsection{System components and environment}
 \label{sec:syst-comp-envir}
 
-In simulation, a \emph{system} is defined to be a set of objects that work together, in regular interaction or interdependence, to accomplish some goal or purpose. Every system is a subsystem of broader \emph{system environment}, and the changes in the system environment can affect the system. For every simulation study, a \emph{boundary} between the system and its environment must be set. \cite{Banks:2010:DES}
+In simulation, a \emph{system} is defined to be a set of objects that work together, in regular interaction or interdependence, to accomplish some goal or purpose. Every system is a subsystem of broader \emph{system environment}, whose changes can affect the system. For every simulation study, a \emph{boundary} between the system and its environment must be set. \cite{Banks:2010:DES}
 
 For example, computer systems are often enormously complex. The complexity is managed by designing them as a hierarchy of smaller subsystems, and combining them with compatible interfaces. In a study of a network processing system, such as \cite{cavium OCTEON}, the higher level system can be viewed to consist of several processors, auxiliary memory, memory controllers, and other smaller subsystems. These subsystems can further be viewed as a set of smaller subsystems of subsystems: the processor has several processing cores, each core consists of different functional units, and each functional unit consists of logical circuitry. \cite{Banks:2010:DES}
 
@@ -60,7 +58,7 @@ Simulation \emph{model} is a representation of either hypothetical or real-life 
 
 Like the system representation, the basic building blocks of the simulation model are entities, attributes, activities and events. The model does not necessarily contain the exact replica of the components of the system, but rather simplified components that represent the system with enough detail. \cite{Banks:2010:DES}
 
-In the example study of network processing unit, the likely goals would be determining the packet throughput and latency of the system. In that case, the system could be modeled with sufficient accuracy by omitting all the lower level details of the CPU. On the other hand, a detailed performance study of a specific CPU, might require the minute details of the functional units or logical circuitry. \cite{TODO: find some simulation example for this}
+In the example study of network processing unit, the likely goals would be determining the packet throughput and latency of the system. In that case, the system could be modeled with sufficient accuracy by omitting all the lower level details of the CPU. On the other hand, a detailed performance study of a specific CPU, might require even the minute details of the functional units or logical circuitry. \cite{TODO: find some simulation example for this}
 
 The models may be categorized as being static or dynamic, and deterministic or stochastic. Static simulation models represent a steady-state time-invariant systems, whereas the dynamic simulation models represent systems as time-variant. Deterministic models contain no random variables, meaning that for the known set of inputs, the simulation result will be a unique set of outputs. Stochastic models on the other hand include random variables, thus leading to a random set of outputs. \cite{Banks:2010:DES}
 
@@ -71,7 +69,34 @@ Three different simulation advancement designs are presented in \cite{PEROS}: ev
 \subsection{Resource Networks}
 \label{sec:resource-networks}
 
-\fixme{TODO: add the resource network stuff somewhere?}
+\todo[inline]{add the resource network stuff somewhere?}
+
+\subsection{Simulator Software}
+\todo[inline]{describe available simulator software here?}
+
+\todo[inline]{Rsim: More detailed hardware simulation, with focus on ILP effects of processors
+      Detailed shared-memory multiprocessor models
+      They show that the previous simple-processor-models cannot demonstrate the complicated dynamically scheduled processors with sufficient detail.}
+
+\todo[inline]{Simics: ``Reliable performance estimates require simulation of the full system''
+        Their simulator includes device models accurate enough to run unmodified operating system kernels, firmware and device driver.
+        They simulate a network of heterogeneous computers.
+        Commercial product
+        Two dimensional classification:
+          scope (what is modeled),
+          abstraction level (level at which the system is modeled)
+            two perspectives: functional, timing (performance)}
+
+\todo[inline]{SimpleScalar:
+  Hardware development is often accelerated by software simulations of the hardware under development.
+  Basic idea: Implement a software model of the hardware, stress then with appropriate workload
+  Gains: The availability of the simulation model is much faster than building the hardware. Thus the hardware can be tested faster. Shorter time to market, cut down development costs.
+  Simulation modeling is driven by three factors: performance, flexibility, detail
+    Performance measures the system's ability to process workload
+    Flexibility reflects the ability to modify the models, enabling measurements of different designs
+    Detail means the level of abstraction the model captures from the actual system
+    -> Getting all three is hard, practically impossible.
+    -> trade offs}
 
 % In discrete-event simulation models the system's state at each point of discrete times. The system is modeled in terms of the entities flowing through the system utilizing other entities that represent the system resources. \cite{Banks:2010:DES}
 
