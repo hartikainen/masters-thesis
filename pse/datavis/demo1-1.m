@@ -1,5 +1,6 @@
 clear all;
 
+PDF_DESTINATION = '~/code/mestari/masters-thesis/notes/meetit/2015-10-15-pse-presentation/figures/'
 FIGURES = [1 2 3 4];
 PACKET_SIZE = 512;
 GIGA = 1e9;
@@ -21,12 +22,18 @@ for i=1:2
     queue_times = sso_queue.time(idx);
     queue_lengths = cumsum(sso_queue.waitingChange(idx));
 
-    figure(FIGURES(i)); clf;
-    plot(queue_times, queue_lengths);
-    title(sprintf('EO%s queue length', i));
-    xlabel('simulation time', 'FontSize', 15);
-    ylabel('queue length', 'FontSize', 15);
-end
-    
+    fig = figure(FIGURES(i)); clf; axis tight;
+    set(fig, 'Position', [0, 0, 1280, 600]);
+    set(fig, 'PaperSize', [16, 10]);
 
-plotpacketlatency(start_data, end_data, FIGURES(4));
+    plot(queue_times, queue_lengths);
+
+
+    title(sprintf('EO%d queue length', i), 'FontSize', 20);
+    xlabel('simulation time', 'FontSize', 20);
+    ylabel('queue length', 'FontSize', 20);
+    filename = fullfile(PDF_DESTINATION, sprintf('demo-1-1-eo%d-queue', i));
+    saveas(fig, filename, 'pdf');
+end
+
+plotpacketlatency(start_data, end_data, FIGURES(4), PDF_DESTINATION, 'demo-1-1-latency');
