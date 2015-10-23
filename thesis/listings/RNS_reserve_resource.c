@@ -4,7 +4,6 @@ uint64_t RNS_reserve_resource(RNS_Resource *r, char *taskname,
   RNS_Client *queue = NULL;
   uint64_t position, processing_position;
   ...
-  RNS_current_process->status = r->name;
   r->reserve(r, pc, &queue, &position, attrs);
   ...
   set_client(queue, position, RNS_current_process, usage_group, pc, attrs);
