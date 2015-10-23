@@ -1,7 +1,6 @@
 \chapter{Example Model of Packet Processing System}
 \label{chapter:example-simulation-model}
-
-In this chapter, we present an example simulation model of Cavium OCTEON II CN6880 network processing unit \cite{Cavium OCTEON}.
+In this chapter, we present an example simulation model of Cavium OCTEON II CN6880 network processing unit~\cite{Cavium OCTEON}.
 
 \todo[inline]{We will first demonstrate the measurement hardware and the setup needed to obtain the reference values for the simulation model. Two different measurements will be done, one to measure the communication latencies and another to measure the memory latencies. After that, we will plug in the reference values to the model and describe the relevant details of it.}
 
@@ -10,17 +9,17 @@ In this chapter, we present an example simulation model of Cavium OCTEON II CN68
 
 Cavium Octeon II CN6880 is a 32 MIPS core network processing unit, optimized for high-performance, high-bandwidth, and low power consumption software-defined control-plane~\cite{control-plane} and data-plane~\cite{data-plane} applications.
 
-CN6880 provides several hardware acceleration units for enhanced packet processing and minimized software development complexity. The packet management accelerators offload the actual packet processing cores from many general packet receive, buffering, buffer management, flow classification, quality of service, and transmit processing. The accelerator functions can be customized using software, and accessing the configuration registers.~\cite{Cavium FUNDAMENTALS}
+CN6880 provides several hardware acceleration units for enhanced packet processing and minimized software development complexity. The packet management accelerators offload the actual packet processing cores from many general packet receive, buffering, buffer management, flow classification, quality of service, and transmit processing. The accelerator functions can be customized using software, and accessing the configuration registers.~\cite{cavium:2010:fundamentals}
 
-The packet input processor unit (PKI) and input packet data unit (IPD) work together to manage the received packets and to perform needed processing before scheduling the packets to cores as works. They automatically handle most of the processing requirements of the layer 2 to layer 7 open systems interconnection model~\cite{OSI model}. Once the required computation is done, the PKI unit sends the packet's work entry to the SSO unit to be scheduled for processing.~\cite{Cavium FUNDAMENTALS}
+The packet input processor unit (PKI) and input packet data unit (IPD) work together to manage the received packets and to perform needed processing before scheduling the packets to cores as works. They automatically handle most of the processing requirements of the layer 2 to layer 7 open systems interconnection model~\cite{OSI model}. Once the required computation is done, the PKI unit sends the packet's work entry to the SSO unit to be scheduled for processing.~\cite{cavium:2010:fundamentals}
 
-The packet transmission is handled by the packet transmission unit (PKO). When a core finishes a packet processing, it notifies the PKO that the packet is ready for transmission. The PKO then directly copies the packet data from the shared memory into its internal memory, optionally computes checksums for the packet header, transmits the packet, and optionally frees the packet data from the memory.~\cite{Cavium FUNDAMENTALS}
+The packet transmission is handled by the packet transmission unit (PKO). When a core finishes a packet processing, it notifies the PKO that the packet is ready for transmission. The PKO then directly copies the packet data from the shared memory into its internal memory, optionally computes checksums for the packet header, transmits the packet, and optionally frees the packet data from the memory.~\cite{cavium:2010:fundamentals}
 
-One of the key features of the CN6880 is its scheduling/synchronization and order unit (SSO). It frees the actual packet processing applications, running on the 32 MIPS cores, from the complex packet scheduling and ordering tasks. The cores execute a loop, and when a core is ready for the next packet, it requests work from the SSO, which then schedules the next work based on the quality of service priority and work group.~\cite{Cavium FUNDAMENTALS}
+One of the key features of the CN6880 is its scheduling/synchronization and order unit (SSO). It frees the actual packet processing applications, running on the 32 MIPS cores, from the complex packet scheduling and ordering tasks. The cores execute a loop, and when a core is ready for the next packet, it requests work from the SSO, which then schedules the next work based on the quality of service priority and work group.~\cite{cavium:2010:fundamentals}
 
-The SSO also provides efficient locking mechanisms for protecting the critical regions without explicit software locking, and allows packet processing to be done in parallel or atomically, while still maintaining the packet flow order. The processing cores can also be dedicated for specific flows. One of our goals is to be able to model the scheduling functionality with PSE, as it is crucial to the packet latency and throughput when processing several flows at the time.~\cite{Cavium FUNDAMENTALS}
+The SSO also provides efficient locking mechanisms for protecting the critical regions without explicit software locking, and allows packet processing to be done in parallel or atomically, while still maintaining the packet flow order. The processing cores can also be dedicated for specific flows. One of our goals is to be able to model the scheduling functionality with PSE, as it is crucial to the packet latency and throughput when processing several flows at the time.~\cite{cavium:2010:fundamentals}
 
-The memory latencies have large effect in the packet processing times. The CN6880 provides several memory policies for optimized multi-core packet processing. Each of the 32 cores have dedicated L1 data and instruction cache, and a shared L2 cache. The L1 data cache provides a hybrid write-through, write-back policy, using a write buffer mechanism, and the L2 cache implements a write-back policy. Several other cache related features are offered, for example to avoid unnecessary data writes after the packet transmission, and to automatically send the received packet header to L2 cache and the packet data to main memory, bypassing the L2 cache.~\cite{Cavium FUNDAMENTALS}
+The memory latencies have large effect in the packet processing times. The CN6880 provides several memory policies for optimized multi-core packet processing. Each of the 32 cores have dedicated L1 data and instruction cache, and a shared L2 cache. The L1 data cache provides a hybrid write-through, write-back policy, using a write buffer mechanism, and the L2 cache implements a write-back policy. Several other cache related features are offered, for example to avoid unnecessary data writes after the packet transmission, and to automatically send the received packet header to L2 cache and the packet data to main memory, bypassing the L2 cache.~\cite{cavium:2010:fundamentals}
 
 \section{Simulation Model}
 \label{sec:simulation-model}
@@ -29,7 +28,7 @@ We created a simulation model of the Cavium OCTEON II CN6880 network processing 
 
 \begin{figure}[h]
   \begin{center}
-    \includegraphics[width=\textwidth]{images/fullmodel-crop.pdf}
+    %\includegraphics[width=\textwidth]{images/fullmodel-crop.pdf}
     \caption{Graphical presentation of the OCTEON II CN6880 PSE model. The workload model (top) generates network packets, which then flow through the software model, consuming the hardware resources. The orange arrows represent an example of a packet's flow through the software model, and the blue arrows the resource usage at each software model node.}
     \label{fig:full-model}
   \end{center}
@@ -45,14 +44,14 @@ The packet processing submodel is presented in the middle software layer. The se
 
 The hardware model is a simple one level model containing no submodels. In the bottom left hand corner, there are PKI and PKO devices providing processor cycles for the packet input and packet output phases. The only passive resource node, SSO, provides core access resources, that can be released with the core release node. The application cores are shown in the top left corner of the hardware layer. There are 32 cores, and a specific L1 cache access for each of them. The L2 and RAM memory resources provide the delay for reading and writing to memory.
 
-The probes attached to the SSO unit, the cores, and the memory nodes, are used to gather statistics from the execution. Each of the units have two probes, one that measures the resource usage, and other that measures the queue for the corresponding resource. In this hardware model, the routing nodes (squares) and the edges connecting the resources do not have any functional meaning, but are used solely to mimic the graphical models of the unit presented in \cite{Cavium FUNDAMENTAL}.
+The probes attached to the SSO unit, the cores, and the memory nodes, are used to gather statistics from the execution. Each of the units have two probes, one that measures the resource usage, and other that measures the queue for the corresponding resource. In this hardware model, the routing nodes (squares) and the edges connecting the resources do not have any functional meaning, but are used solely to mimic the graphical models of the unit presented in~\cite{cavium:2010:fundamentals}.
 
 \section{Characteristic Measurements}
 \label{sec:characteristic-measurements}
 
-For the model to represent the packet latencies and through put with enough accuracy, the model needs to be filled with apposite entity parameters. The model is fairly high level abstraction of the real CN6880, and some of the hardware model parameters are simple enough to obtained directly from \cite{Cavium FUNDAMENTAL}. But at the same time there are several characteristics of the system that are either unavailable, or are presented in a form unsuitable for our simulation model. These characteristics are obtained by conducting characteristic measurements on the real CN6880 hardware.
+For the model to represent the packet latencies and through put with enough accuracy, the model needs to be filled with apposite entity parameters. The model is fairly high level abstraction of the real CN6880. Some of model parameters are simple enough to be obtained directly from~\cite{cavium:2010:fundamentals}, while others are either unavailable, or are presented in a form unsuitable for our simulation model. The missing parameters are obtained by conducting measurements on the real CN6880 hardware.
 
-We believe that, by determining the input and output phase latencies, the memory behavior, and modeling the packet scheduler with enough accuracy, the sought applications' effects to the packet latencies and throughput come up.
+We believe that, by determining the latecies of input phase and output phase, the behaviour of memory, and modeling the packet scheduler with enough accuracy, the sought applications' effects to the packet latencies and throughput come up with .
 
 % For our approach to be valid, i.e. the abstraction of the communication latencies to be precise enough, we have to assume the fastpath is not the bottleneck in the processing phase. This assumption is reasonable because ...
 
@@ -64,7 +63,6 @@ We believe that, by determining the input and output phase latencies, the memory
 %   \item maybe justify the stuff with some kind of rough back-of-the-envelope calculation?
 %   \end{itemize}
 % }
-
 
 \subsection{Communication Latencies}
 
