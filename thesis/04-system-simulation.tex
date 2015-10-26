@@ -1,5 +1,6 @@
 \chapter{System Performance Analysis and Simulation}
 \label{chapter:system-performance-analysis-and-simulation}
+
 In this thesis, we study and evaluate the performance of a distributed stream computing system. Our evaluations are based on the modeling and simulation techniques, while measurements are also needed to build the model. Similarly to many other packet processing system studies~\cite{cavium:2010:fundamentals}, we are mostly interested in the communication delays, namely throughput and latency, of the system.
 
 This chapter introduces the methods used in our experiments. We will start by introducing the common performance analysis techniques and metrics, and then further examine the modeling and simulation techniques. After that, \todo[inline]{yadayada}
@@ -62,13 +63,15 @@ In the example study of network processing unit, the likely goals would be to de
 
 The models may be categorized as being static or dynamic, and deterministic or stochastic. Static simulation models represent a steady-state time-invariant systems, whereas the dynamic simulation models represent systems as time-variant. Deterministic models contain no random variables, meaning that for the known set of inputs, the simulation result will be a unique set of outputs. Stochastic models on the other hand include random variables, thus leading to a random set of outputs.~\cite{Banks:2010:DES}
 
-Simulation models are further divided into discrete and continuous, analogously with the discrete and continuous systems described in Section \ref{sec:syst-comp-envir}. However, it is possible to model continuous systems with discrete models, and vice versa. Just as the real-life systems, the simulation models can be a mix of both continuous and discrete models. ~\cite{Banks:2010:DES}
+Simulation models are further divided into discrete and continuous, analogously with the discrete and continuous systems described in Section \ref{sec:syst-comp-envir}. However, it is possible to model continuous systems with discrete models, and vice versa. Just as the real-life systems, the simulation models can be a mix of both continuous and discrete models.~\cite{Banks:2010:DES}
 
 Three different simulation advancement designs are presented in~\cite{peros:2009:simulation}: event-advance, unit-time advance and activity based. In event-advance design the system state changes only when the event occurs. Thus the system state advances from snapshot to snapshot, meaning that the state is unchanged between two successive events. In unit-time advance design, the master clock is advanced in fixed time increments. Activity based design is a continuous design method, which models the system as a set of conditions that determine when the activities start or stop.~\cite{peros:2009:simulation}
 
 \subsection{Monitoring}
 
-There are two generally used approaches for gathering simulation metrics: trace-based and on-the-fly. The tracing approaches produce raw data from the execution, which are then often post-processed in suitable way. In on-the-fly approaches, the simulator program aggregates the data during the simulation, thus reducing the amount of output.\todo{cite}
+To make conclusion about simulation, the information about the simulation system needs to be gathered. Similarily to the measurement based techniques, the system is instrumented and the data are saved during the execution.
+
+There are two generally used approaches for gathering simulation metrics: trace-based and on-the-fly. The tracing approaches produce raw data from the execution, which are then often post-processed in suitable way. In on-the-fly approaches, the simulator program aggregates the data during the simulation, thus reducing the amount of output.\todo{cite, jain?}
 
 \todo[inline]{add the resource network stuff somewhere?}
 
