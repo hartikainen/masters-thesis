@@ -11,7 +11,7 @@ Cavium Octeon II CN6880 is a 32 MIPS core network processing unit, optimized for
 
 CN6880 provides several hardware acceleration units for enhanced packet processing and minimized software development complexity. The packet management accelerators offload the actual packet processing cores from many general packet receive, buffering, buffer management, flow classification, quality of service, and transmit processing. The accelerator functions can be customized using software, and accessing the configuration registers.~\cite{cavium:2010:fundamentals}
 
-The packet input processor unit (PKI) and input packet data unit (IPD) work together to manage the received packets and to perform needed processing before scheduling the packets to cores as works. They automatically handle most of the processing requirements of the layer 2 to layer 7 open systems interconnection model~\cite{OSI model}. Once the required computation is done, the PKI unit sends the packet's work entry to the SSO unit to be scheduled for processing.~\cite{cavium:2010:fundamentals}
+The packet input processor unit (PKI) and input packet data unit (IPD) work together to manage the received packets, and to perform needed processing before scheduling the packets to application cores. They automatically handle most of the processing requirements of the layer 2 to layer 7 open systems interconnection model~\cite{OSI model}. Once the required computation is done, the PKI unit sends the packet's work entry to the SSO unit to be scheduled for processing.~\cite{cavium:2010:fundamentals}
 
 The packet transmission is handled by the packet transmission unit (PKO). When a core finishes a packet processing, it notifies the PKO that the packet is ready for transmission. The PKO then directly copies the packet data from the shared memory into its internal memory, optionally computes checksums for the packet header, transmits the packet, and optionally frees the packet data from the memory.~\cite{cavium:2010:fundamentals}
 
@@ -24,17 +24,15 @@ The memory latencies have large effect in the packet processing times. The CN688
 \section{Simulation Model}
 \label{sec:simulation-model}
 
-We created a simulation model of the Cavium OCTEON II CN6880 network processing unit with Performance Simulation Environment. The model is a high level abstraction of the real unit. As our interests are mainly in the applications' effect on the packet throughput and latency, we will not model the specific details of the hardware components.
+We created a simulation model of the Cavium OCTEON II CN6880 network processing unit with Performance Simulation Environment. The model is a high level abstraction of the real unit. As our interests are mainly in the applications' effect on the packet throughput and latency, we will not model the specific details of the hardware components. Figure \ref{fig:full-model} shows a layered representation of the main components of the model: workload, hardware, and software.
 
 \begin{figure}[h]
   \begin{center}
     %\includegraphics[width=\textwidth]{images/fullmodel-crop.pdf}
-    \caption{Graphical presentation of the OCTEON II CN6880 PSE model. The workload model (top) generates network packets, which then flow through the software model, consuming the hardware resources. The orange arrows represent an example of a packet's flow through the software model, and the blue arrows the resource usage at each software model node.}
+    \caption{Graphical presentation of the OCTEON II CN6880 PSE model. The workload model (top) generates network packets, which then flow through the software model, consuming the hardware resources. The orange arrows represent an example of a packet's path through the software model, and the blue arrows the resource usage at each software model node.}
     \label{fig:full-model}
   \end{center}
 \end{figure}
-
-Figure \ref{fig:full-model} shows a layered representation of the main components of the model: workload, hardware, and software.
 
 The workload model, at the top of the picture, consists of two packet streams. The TRAFFIC GENERATOR node has a lifetime of 0.5 seconds, and it triggers the streams with interval drawn from a uniform distribution with parameters 0.00005 and 0.00015. The streams have lifetime of 0.0004 seconds, and interval drawn from a lognormal distribution. The packet sizes of the streams are defined with the size attribute. Both of the streams also specify an appId attribute that is used to define the processing application in the software model. The packets from both streams enter the IN node of the top level software model.
 
@@ -44,14 +42,14 @@ The packet processing submodel is presented in the middle software layer. The se
 
 The hardware model is a simple one level model containing no submodels. In the bottom left hand corner, there are PKI and PKO devices providing processor cycles for the packet input and packet output phases. The only passive resource node, SSO, provides core access resources, that can be released with the core release node. The application cores are shown in the top left corner of the hardware layer. There are 32 cores, and a specific L1 cache access for each of them. The L2 and RAM memory resources provide the delay for reading and writing to memory.
 
-The probes attached to the SSO unit, the cores, and the memory nodes, are used to gather statistics from the execution. Each of the units have two probes, one that measures the resource usage, and other that measures the queue for the corresponding resource. In this hardware model, the routing nodes (squares) and the edges connecting the resources do not have any functional meaning, but are used solely to mimic the graphical models of the unit presented in~\cite{cavium:2010:fundamentals}.
+The probes, attached to the SSO unit, the cores, and the memory nodes, are used to gather statistics from the execution. Each of the units have two probes, one that measures the resource usage, and other that measures the queue for the corresponding resource. In this hardware model, the routing nodes (squares) and the edges connecting the resources do not have any functional meaning, but are used solely to mimic the graphical models of the unit presented in~\cite{cavium:2010:fundamentals}.
 
 \section{Characteristic Measurements}
 \label{sec:characteristic-measurements}
 
-For the model to represent the packet latencies and through put with enough accuracy, the model needs to be filled with apposite entity parameters. The model is fairly high level abstraction of the real CN6880. Some of model parameters are simple enough to be obtained directly from~\cite{cavium:2010:fundamentals}, while others are either unavailable, or are presented in a form unsuitable for our simulation model. The missing parameters are obtained by conducting measurements on the real CN6880 hardware.
+For the model to represent the packet latencies and throughput with enough accuracy, the model needs to be filled with apposite entity parameters. Some of model parameters are simple enough to be obtained directly from~\cite{cavium:2010:fundamentals}, while others are either unavailable, or are presented in a form unsuitable for our simulation model. The missing parameters are obtained by conducting measurements on the real CN6880 hardware.
 
-We believe that, by determining the latecies of input phase and output phase, the behaviour of memory, and modeling the packet scheduler with enough accuracy, the sought applications' effects to the packet latencies and throughput come up with .
+% We believe that, by determining the latecies of input phase and output phase, the behaviour of memory, and modeling the packet scheduler with enough accuracy, the sought applications' effects to the packet latencies and throughput come up with enough accuracy.
 
 % For our approach to be valid, i.e. the abstraction of the communication latencies to be precise enough, we have to assume the fastpath is not the bottleneck in the processing phase. This assumption is reasonable because ...
 
@@ -66,7 +64,7 @@ We believe that, by determining the latecies of input phase and output phase, th
 
 \subsection{Communication Latencies}
 
-The input and output phase latencies are measured by generating traffic from external machine, and sending it through two OCTEON II blades back to the generator. The measurements were done at two independent points in the processing path, to validate the accuracy of the measurements.
+The input and output phase latencies are measured by generating traffic from external machine, and passing it through two CN6880 units back to the generator itself. The measurements were done at two independent points in the processing path, to validate the accuracy of the measurements.
 
 \begin{figure}[ht]
   \begin{center}
@@ -77,13 +75,13 @@ The input and output phase latencies are measured by generating traffic from ext
 \end{figure}
 \todo[inline]{Make figure \ref{fig:comm-setup} clearer, Emphasize the input and output parts of the flow.}
 
-In figure~\ref{fig:comm-setup}, the rectangles represent three different computing units (traffic generator, forward blade, and swap blade), and the probes present the points of time measurements. The traffic generator used is a typical desktop computer running Linux and the traffic was generated by Mausezahn \ref{MAUSEZAHN}. Both of the OCTEON II blades are running Linux.
+In figure~\ref{fig:comm-setup}, the rectangles represent three different computing units (traffic generator, forward unit, and swap unit), and the probes present the points of time measurements. The traffic generator is a typical desktop computer running Linux operating system, and the traffic was generated by Mausezahn~\cite{mausezahn}. Both of the CN6880 units are running Linux operating systems.
 
-The packet is first generated at the packet generator and sent to the forward blade at time $t_{d0}$. Forwarding blade receives the packet, does the needed processing and forwards the packet to the swap blade at time $t_{d1}$. The swap blade receives the packet at time $t_{r2}$, does the same processing as the forward blade (except with different destination address), and forwards the packet back to the forward blade at time $t_{d2}$. Finally the forward blade receives the packet at time $t_{r1}$ and forwards it to the traffic generator, which marks it received at time $t_{r0}$. The time $t_{f}$ spent in the fastpath (input and output) phase of one blade is then
+The packet is first generated at the packet generator and sent to the forward unit at time $t_{d0}$. Forwarding unit receives the packet, does the needed processing and forwards the packet to the swap unit at time $t_{d1}$. The swap unit receives the packet at time $t_{r2}$, does the same processing as the forward unit (except with different destination address), and forwards the packet back to the forward unit at time $t_{d2}$. Finally the forward unit receives the packet at time $t_{r1}$ and forwards it to the traffic generator, which marks it received at time $t_{r0}$. The time $t_{f}$ spent in the input and output phase of one unit is then
 
 \begin{equation}
   \label{eq:1}
-  t_{f} = \frac{t_{r1} - t_{d1} - (t_{d2} - t_{r2})}{2}
+  t_{f} = \frac{t_{r1} - t_{d1} - (t_{d2} - t_{r2})}{2}.
 \end{equation}
 
 We measured the times for packet sizes of 64B, 128B, 256B, 512B, 1024B, and 1500B, repeating the measurement for each packet 10000 times. Figure~\ref{fig:comm-latency} shows the resulting times $t_{f}$ for the different packet sizes.
@@ -91,21 +89,21 @@ We measured the times for packet sizes of 64B, 128B, 256B, 512B, 1024B, and 1500
 \begin{figure}[h]
   \begin{center}
     \includegraphics[width=\textwidth]{images/comm-latency.pdf}
-    \caption{Latency of the fastpath (input and output) phase of the OCTEON II board. Averages shown marked as red x, and the 99\% confidence intervals with +. The trendline is of equation.}
+    \caption{Latency of the input and output phase of the CN6880 unit. Averages shown marked as red x, and the 99\% confidence intervals with +. The trendline is of equation.}
     \label{fig:comm-latency}
   \end{center}
 \end{figure}
 \todo[inline]{check the confint}
 \todo[inline]{latency = a*packetsize + constant}
 
-As figure ~\ref{fig:comm-latency} shows us, the time spent in the input and output phase of the board is linear regarding to the packet size. The variation of the data is relatively small, and all the measurements correspond to the values measured with the external traffic-generator.
+As shown in the Figure ~\ref{fig:comm-latency}, the time spent in the input and output phase of the unit is linear regarding to the packet size. The variation of the data is relatively small, and all the measurements correspond to the values measured with the external traffic-generator.
 
 \todo[inline]{the following needs to be explained somewhere with the other fastpath stuff.}
 \todo[inline]{Regardless of the packet size, the size of the work queue entry handled by the input/output units is the same.}
 \todo[inline]{Also, the forward/swap code is constant in terms of packet size.}
 \todo[inline]{Only operation that is dependent on the packet size is the copy from input to L2/RAM and from L2/RAM to output unit.}
 
-As explained earlier \todo{actually explain this}, the only packet size dependent operations in the fastpath are the  memory transfers between the memory (L2/RAM) and PKI or PKO.
+As explained earlier\todo{actually explain this}, the only packet size dependent operations in the input/output phase are the  memory transfers between the memory (L2/RAM) and PKI or PKO.
 
 \subsection{Memory Delays}
 
