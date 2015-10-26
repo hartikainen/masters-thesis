@@ -2,7 +2,7 @@
 \label{chapter:example-simulation-model}
 In this chapter, we present an example simulation model of Cavium OCTEON II CN6880 network processing unit~\cite{Cavium OCTEON}.
 
-\todo[inline]{We will first demonstrate the measurement hardware and the setup needed to obtain the reference values for the simulation model. Two different measurements will be done, one to measure the communication latencies and another to measure the memory latencies. After that, we will plug in the reference values to the model and describe the relevant details of it.}
+We will introduce the CN6880 hardware, and then describe the model components and entities of the simulation model, without diving into the details of the entity attributes. After that, we will go through the measurement setup required to obtain the reference values for the model. Two different measurements will be done, one to measure the communication latencies and another to measure the memory latencies. Then, the gathered reference values are plugged in to the model and describe the relevant details of it.
 
 \section{Cavium OCTEON II CN6880}
 \label{sec:cavium-octeon}
@@ -11,7 +11,7 @@ Cavium Octeon II CN6880 is a 32 MIPS core network processing unit, optimized for
 
 CN6880 provides several hardware acceleration units for enhanced packet processing and minimized software development complexity. The packet management accelerators offload the actual packet processing cores from many general packet receive, buffering, buffer management, flow classification, quality of service, and transmit processing. The accelerator functions can be customized using software, and accessing the configuration registers.~\cite{cavium:2010:fundamentals}
 
-The packet input processor unit (PKI) and input packet data unit (IPD) work together to manage the received packets, and to perform needed processing before scheduling the packets to application cores. They automatically handle most of the processing requirements of the layer 2 to layer 7 open systems interconnection model~\cite{OSI model}. Once the required computation is done, the PKI unit sends the packet's work entry to the SSO unit to be scheduled for processing.~\cite{cavium:2010:fundamentals}
+The packet input processor unit (PKI) and input packet data unit (IPD) work together to manage the received packets, and to perform required processing before scheduling the packets to application cores. They automatically handle most of the processing requirements of the layer 2 to layer 7 open systems interconnection model~\cite{OSI model}. Once the required computation is done, the PKI unit sends the packet's work entry to the SSO unit to be scheduled for processing.~\cite{cavium:2010:fundamentals}
 
 The packet transmission is handled by the packet transmission unit (PKO). When a core finishes a packet processing, it notifies the PKO that the packet is ready for transmission. The PKO then directly copies the packet data from the shared memory into its internal memory, optionally computes checksums for the packet header, transmits the packet, and optionally frees the packet data from the memory.~\cite{cavium:2010:fundamentals}
 
@@ -26,9 +26,9 @@ The memory latencies have large effect in the packet processing times. The CN688
 
 We created a simulation model of the Cavium OCTEON II CN6880 network processing unit with Performance Simulation Environment. The model is a high level abstraction of the real unit. As our interests are mainly in the applications' effect on the packet throughput and latency, we will not model the specific details of the hardware components. Figure \ref{fig:full-model} shows a layered representation of the main components of the model: workload, hardware, and software.
 
-\begin{figure}[h]
+\begin{figure}[]
   \begin{center}
-    %\includegraphics[width=\textwidth]{images/fullmodel-crop.pdf}
+    \includegraphics[width=\textwidth]{images/fullmodel-crop.pdf}
     \caption{Graphical presentation of the OCTEON II CN6880 PSE model. The workload model (top) generates network packets, which then flow through the software model, consuming the hardware resources. The orange arrows represent an example of a packet's path through the software model, and the blue arrows the resource usage at each software model node.}
     \label{fig:full-model}
   \end{center}
@@ -63,10 +63,11 @@ For the model to represent the packet latencies and throughput with enough accur
 % }
 
 \subsection{Communication Latencies}
+\label{sec:communication-latencies}
 
 The input and output phase latencies are measured by generating traffic from external machine, and passing it through two CN6880 units back to the generator itself. The measurements were done at two independent points in the processing path, to validate the accuracy of the measurements.
 
-\begin{figure}[ht]
+\begin{figure}[]
   \begin{center}
     \input{images/comm-setup.tex}
     \caption{The setup used to measure the communication latencies. The measurement points shown with the probes.}
@@ -77,7 +78,7 @@ The input and output phase latencies are measured by generating traffic from ext
 
 In figure~\ref{fig:comm-setup}, the rectangles represent three different computing units (traffic generator, forward unit, and swap unit), and the probes present the points of time measurements. The traffic generator is a typical desktop computer running Linux operating system, and the traffic was generated by Mausezahn~\cite{mausezahn}. Both of the CN6880 units are running Linux operating systems.
 
-The packet is first generated at the packet generator and sent to the forward unit at time $t_{d0}$. Forwarding unit receives the packet, does the needed processing and forwards the packet to the swap unit at time $t_{d1}$. The swap unit receives the packet at time $t_{r2}$, does the same processing as the forward unit (except with different destination address), and forwards the packet back to the forward unit at time $t_{d2}$. Finally the forward unit receives the packet at time $t_{r1}$ and forwards it to the traffic generator, which marks it received at time $t_{r0}$. The time $t_{f}$ spent in the input and output phase of one unit is then
+The packet is first generated at the packet generator and sent to the forward unit at time $t_{d0}$. Forwarding unit receives the packet, does the required processing and forwards the packet to the swap unit at time $t_{d1}$. The swap unit receives the packet at time $t_{r2}$, does the same processing as the forward unit (except with different destination address), and forwards the packet back to the forward unit at time $t_{d2}$. Finally the forward unit receives the packet at time $t_{r1}$ and forwards it to the traffic generator, which marks it received at time $t_{r0}$. The time $t_{f}$ spent in the input and output phase of one unit is then
 
 \begin{equation}
   \label{eq:1}
@@ -86,7 +87,7 @@ The packet is first generated at the packet generator and sent to the forward un
 
 We measured the times for packet sizes of 64B, 128B, 256B, 512B, 1024B, and 1500B, repeating the measurement for each packet 10000 times. Figure~\ref{fig:comm-latency} shows the resulting times $t_{f}$ for the different packet sizes.
 
-\begin{figure}[h]
+\begin{figure}[]
   \begin{center}
     \includegraphics[width=\textwidth]{images/comm-latency.pdf}
     \caption{Latency of the input and output phase of the CN6880 unit. Averages shown marked as red x, and the 99\% confidence intervals with +. The trendline is of equation.}
@@ -96,7 +97,7 @@ We measured the times for packet sizes of 64B, 128B, 256B, 512B, 1024B, and 1500
 \todo[inline]{check the confint}
 \todo[inline]{latency = a*packetsize + constant}
 
-As shown in the Figure ~\ref{fig:comm-latency}, the time spent in the input and output phase of the unit is linear regarding to the packet size. The variation of the data is relatively small, and all the measurements correspond to the values measured with the external traffic-generator.
+As shown in the Figure~\ref{fig:comm-latency}, the time spent in the input and output phase of the unit is linear regarding to the packet size. The variation of the data is relatively small, and all the measurements correspond to the values measured with the external traffic-generator.
 
 \todo[inline]{the following needs to be explained somewhere with the other fastpath stuff.}
 \todo[inline]{Regardless of the packet size, the size of the work queue entry handled by the input/output units is the same.}
@@ -105,14 +106,18 @@ As shown in the Figure ~\ref{fig:comm-latency}, the time spent in the input and 
 
 As explained earlier\todo{actually explain this}, the only packet size dependent operations in the input/output phase are the  memory transfers between the memory (L2/RAM) and PKI or PKO.
 
+We can not make a distinction between the input and output phase.
+In our model, we will adjust the input/output phase amount so that they consume the PKI and PKO units for the amount that corresponds the constant term of equation \ref{eq:1}. The variable (non-constant) term is caused by the memory copies in the input/output phases, and are proportional to the packet size.
+
 \subsection{Memory Delays}
+\label{sec:memory-delays}
 
 Memory delays were measured using Multi-core Processor Architecture and Communication (MPAC) benchmarking library. \ref{referenssi} Both, latency and throughput, were measured using for different dataset sizes and number of threads.
 
-\begin{figure}[h]
+\begin{figure}[]
   \begin{center}
     \includegraphics[width=\textwidth]{images/mem-latency.pdf}
-    \caption{Memory latencies of the example NPU, measure by MPAC.}
+    \caption{Memory latencies of the CN6880, measure by MPAC.}
     \label{fig:mem-latency}
   \end{center}
 \end{figure}
@@ -120,26 +125,66 @@ Memory delays were measured using Multi-core Processor Architecture and Communic
 \todo[inline]{logarithmic Y-scale}
 \todo[inline]{explain the figure}
 
-\begin{figure}[h]
+\begin{figure}[]
   \begin{center}
     \includegraphics[width=\textwidth]{images/mem-throughput.pdf}
-    \caption{Memory throughput of the example NPU, measure by MPAC.}
+    \caption{Memory throughput of the CN6880, measure by MPAC.}
     \label{fig:mem-throughput}
   \end{center}
 \end{figure}
 
 \todo[inline]{explain the figure}
 
-\section{Workload Model}
-\todo[inline]{ workload }
+\section{Task Scheduling}
+\label{sec:SSO}
+
+The SSO unit assigns the tasks to the processing cores.
+
+SSO unit needs to have a global
+
+The Schedule/Synchronization/Order (SSO) unit has an important effect on the packet throughput times, as it controls the order in which the packets get service from the application cores.
+
+The SSO unit schedules the tasks for the cores based on the
+
+Modeling a packet processing application
+
+Figure~\ref{fig:full-model} has two different packet processing applications.
+
+Before the packet can be processed, it must wait for the SSO to schedule it on the core.
+
+When modeling the applications on PSE, it is helpful to consider the flow from the packet's perspective. When a packet has passed the input processing, it is put into the SSO queue to wait to be scheduled on the application cores. Each time a core finishes its previous task, it requests for a new work from the SSO-unit, which then schedules a task based on the flow QoS priority and work group.
+
+Because the packet processing in CN6880 is done in run-to-completion manner, we can model the SSO-unit as a passive resource. Each time when a packet is entering a processing application, it must acquire the passive SSO resource. The amount of available passive SSO resources are equal to the processing cores in the system, and a packet cannot use processing core without holding the SSO resource.
+
+The SSO scheduling is done in the SSO node presented in the hardware level in Figure~\ref{fig:full-model}. The actual scheduler function is written as a plug-in code, using the interface provided by PSE. The custom scheduling in PSE requires two functions, which can be written in C-code: the selection function, and the reserve function. Each time a task enters a resource usage node in the task graph, the reserve function is called. The reserve function either
+
+\subsection{Custom Scheduler}
+\label{sec:custom-scheduler}
+
+To model the SSO unit, a custom scheduling functions are required. PSE enables fully customizable resource scheduling through its plug-in interface. The actual scheduling functions are written in C-code, and the resource node parameters are changed to use these functions. The parameters of the SSO node used in the example model are presented in the Listing~\ref{lst:RNS-attributes}.
+
+\lstinputlisting[caption=The attributes of the SSO node to determine the custom scheduler.,
+                 label=lst:RNS-attributes]{listings/SSO-attributes.txt}
+
+The first three lines specify the node title, name, and capacity. The capacity is set to the amount of available processing cores, so no more than 32 packets can be processed simultaneously. Lines 5 and 6 specify the use of custom scheduling. The \emph{discipline} parameter CUSTOM specifies that a custom scheduler is used, instead of the built-in scheduling functions. The \emph{file} parameter specifies the path for the header file that defines the scheduling functions. The \emph{select\_function} and the \emph{reserve\_function} parameters specify the two functions that implement the scheduling logic.
+
+The reserve function is called each time a task enters a resource usage node in the task graph, and it determines whether the task can immediately be served, or if it has to wait for the service. If the task can be processed immediately, it is inserted to the processing queue of the resource, and otherwise, to the waiting queue. If the task gets put to the waiting queue, the reserve function also needs to order the queue.
+
+\lstinputlisting[caption=The CUSTOM\_reserve function for SSO.,
+                 label=lst:CUSTOM_reserve]{listings/CUSTOM_reserve.c}
+
+Listing~\ref{lst:CUSTOM_reserve} presents the reserve function used to model the SSO. The function takes four input arguments: r contains the data of the resource being reserved; queue is a pointer whose value is assigned either to the processing queue or the waiting queue; position is a pointer, whose values is assigned to the position in the queue; new_client holds the parameters, defined in the workload and resource usage models, of the new task.
+
+On the lines 11-39\todo{check the lines if the code changes!}, the reserve function attempts to place the task in the processing queue.
 
 
-\section{Hardware Model}
-\todo[inline]{ Scheduler, input/output, NPU nodes }
+
+\subsection{Processing Application}
+\label{sec:processing-application}
 
 
-\section{Software Model}
-\todo[inline]{ Scheduler, OpenEM-type application model }
+
+
 
 %%% Local Variables:
 %%% mode: latex
