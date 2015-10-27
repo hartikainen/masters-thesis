@@ -1,0 +1,4 @@
+eo2
+name:APP2EO2
+type:submodel
+file:app2/eo2.tg

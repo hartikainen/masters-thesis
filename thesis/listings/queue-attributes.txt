@@ -1,0 +1,7 @@
+queue 2 [atomic]
+name:core_require
+type:reserve
+
+queue_type:atomic
+queue_id:eo2queue
+queue_priority:3
