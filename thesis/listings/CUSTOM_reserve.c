@@ -2,7 +2,7 @@ uint64_t CUSTOM_reserve(RNS_Resource *r, RNS_Client **queue,
                         uint64_t *position, RNS_Queue_Attribute *new_client) {
   uint64_t i, j;
   char *queue_id = new_client->queue_id;
-  int atomic, already_processing;
+  int atomic, flow_already_processing;
   RNS_Client client;
 
   atomic = (!strcmp(new_client->queue_type, "atomic"));
@@ -17,34 +17,36 @@ uint64_t CUSTOM_reserve(RNS_Resource *r, RNS_Client **queue,
      * 3) check if the client's coremask allows processing on this core
      */
     j = r->capacity + 1;
-    already_processing = 0;
+    flow_already_processing = 0;
     for (i=0; i<r->capacity; i++) {
       client = r->processing_queue[i];
 
       if (client.processing) {
         if (atomic &&
             !strncmp(client.attrs->queue_id, queue_id, strlen(queue_id))) {
-          already_processing = 1;
+          flow_already_processing = 1;
           break;
         } else continue;
       }
       if (CHECK_COREMASK(new_client->queue_coremask, i)) j = i;
     }
 
-    if (j <= r->capacity && !already_processing) {
+    if (j <= r->capacity && !flow_already_processing) {
       *queue = r->processing_queue;
       *position = j;
       return 0;
     }
   }
 
-  /* if there's no suitable cores (available or accepted by this client's coremask),
+  /* no suitable cores (available or accepted by this client's coremask),
      place the client to waiting queue */
   *queue = r->waiting_queue;
 
-  // find the first waiting client with higher priority, place the client right before it
+  /* find the first waiting client with higher priority,
+     place the client right before it */
   for (i=0; i<r->waiting_count; i++) {
-    if (r->waiting_queue[i].attrs->queue_priority > new_client->queue_priority) break;
+    client = r->waiting_queue[i];
+    if (client.attrs->queue_priority > new_client->queue_priority) break;
   }
 
   // move the clients
