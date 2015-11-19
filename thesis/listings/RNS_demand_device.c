@@ -1,0 +1,6 @@
+void RNS_demand_device(RNS_Device *d, double service_amount,
+                       char *taskname, char *group, uint64_t pc) {
+  ...
+  RNS_use_device(d, service_amount/d->speed, taskname, group, pc);
+  ...
+}
