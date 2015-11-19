@@ -8,10 +8,22 @@ LDFLAGS := -L$(lib_dir) -lRNS `pth-config --ldflags` `pth-config --libs` -lm
 override includes += -I$(pse)/include
 override CFLAGS += $(includes) -g -Winline -Wshadow `pth-config --cflags`
 
-sim: TG_software.c swap_mac_app.c swap_mac_eo1.c packet_forward_app.c packet_forward_eo1.c packet_forward_eo2.c ipsec_app.c ipsec_eo1.c ipsec_eo2.c packet_input_submodel.c packet_process_submodel.c packet_output_submodel.c RN_hardware.c blade_submodel.c WL_workload.c $(lib)/rnc_runtime.o $(pse)/include/rnc_runtime.h $(lib_dir)/libRNS.a
-#	gcc $(CFLAGS) -o sim blade_submodel.c packet_input_submodel.c packet_forward_app.c ipsec_app.c packet_process_submodel.c packet_output_submodel.c TG_software.c RN_hardware.c WL_workload.c $(pse)/lib/rnc_runtime.o $(LDFLAGS)
+sim: TG_software.c custom/sso_scheduler.c custom/memory_functions.c io_mem_access.c experiment_three_app.c experiment_three_eo1.c experiment_four_app.c experiment_four_eo1.c experiment_two_app.c experiment_two_eo1.c experiment_two_eo2.c experiment_one_app.c experiment_one_eo1.c experiment_one_eo2.c experiment_one_eo3.c swap_mac_app.c swap_mac_eo1.c packet_forward_app.c packet_forward_eo1.c packet_forward_eo2.c packet_input_submodel.c packet_process_submodel.c packet_output_submodel.c RN_hardware.c blade_submodel.c WL_workload.c $(lib)/rnc_runtime.o $(pse)/include/rnc_runtime.h $(lib_dir)/libRNS.a
 	gcc $(CFLAGS) -o sim \
-	memread.c \
+	custom/memory_functions.c \
+	custom/sso_scheduler.c \
+	io_mem_access.c \
+	experiment_one_eo1.c \
+	experiment_one_eo2.c \
+	experiment_one_eo3.c \
+	experiment_one_app.c \
+	experiment_two_app.c \
+	experiment_two_eo1.c \
+	experiment_two_eo2.c \
+	experiment_three_app.c \
+	experiment_three_eo1.c \
+	experiment_four_app.c \
+	experiment_four_eo1.c \
 	swap_mac_eo1.c \
 	swap_mac_app.c \
 	packet_forward_app.c \
@@ -130,7 +142,6 @@ WL_workload.c: workload.wl $(wlc) TG_software.h RN_hardware.h
 	$(wlc) workload.wl WL_workload.h WL_workload.c HARDWARE TG_software.h RN_hardware.h
 
 all: sim
-
 
 .PHONY: clean cleanmetric
 clean:
