@@ -92,8 +92,7 @@
 % going to use.
 % Examples of valid language codes: english (or USenglish), british,
 % finnish, swedish; and so on.
-\usepackage[finnish,swedish,english]{babel}
-
+\usepackage[finnish,english]{babel}
 
 % Font selection
 % ------------------------------------------------------------------
@@ -131,7 +130,7 @@
 
 % Natbib allows you to select the format of the bibliography references.
 % The first example uses numbered citations:
-\usepackage[square,sort&compress,numbers]{natbib}
+% \usepackage[square,sort&compress,numbers]{natbib}
 % The second example uses author-year citations.
 % If you use author-year citations, change the bibliography style (below);
 % acm style does not work with author-year citations.
@@ -146,8 +145,12 @@
 % you want to use this environment.
 % \usepackage{alltt}
 
+% Use biblatex instead of natbib.
+\usepackage[style=numeric, backend=bibtex, firstinits=true]{biblatex}
+\addbibresource[datatype=bibtex]{sources.bib}
+
 % The eurosym package provides a euro symbol. Use with \euro{}
-\usepackage{eurosym}
+% \usepackage{eurosym}
 
 % Verbatim provides a standard teletype environment that renderes
 % the text exactly as written in the tex file. Useful for code
@@ -158,7 +161,7 @@
 % The listing package provides automatic code formatting utilities
 % so that you can copy-paste code examples and have them rendered
 % nicely. See the package documentation for details.
-% \usepackage{listings}
+\usepackage{listings}
 
 % The fancuvrb package provides fancier verbatim environments
 % (you can, for example, put borders around the verbatim text area
@@ -171,6 +174,12 @@
 % Longtable provides a tabular environment that can span multiple
 % pages. This is used in the example acronyms file.
 \usepackage{longtable}
+
+% Csvsimple is used to import csv data to the latex file
+\usepackage{csvsimple}
+
+% Booktabs, array are used to ease table creation
+\usepackage{array, booktabs}
 
 % The fancyhdr package allows you to set your the page headers
 % manually, and allows you to add separator lines and so on.
@@ -190,6 +199,27 @@
 % documentation.
 \usepackage[medium]{titlesec}
 
+% Datetime for automatic date output
+\usepackage{datetime}
+
+% todonotes for the missing figures
+\usepackage[textwidth=90pt]{todonotes}
+
+% Listings package for displaying source code
+\usepackage{listings}
+\lstset{
+  basicstyle=\small\sffamily,
+  numbers=left,
+  numberstyle=\tiny,
+  numbersep=5pt,
+  frame=tb,
+  columns=fullflexible,
+  showstringspaces=false,
+  %float=t,
+  language=C,
+  morekeywords={RNS_Resource}
+}
+
 % The TikZ package allows you to create professional technical figures.
 % The learning curve is quite steep, but it is definitely worth it if
 % you wish to have really good-looking technical figures.
@@ -201,6 +231,7 @@
 \usetikzlibrary{decorations.pathmorphing,decorations.markings}
 \usetikzlibrary{shapes}
 \usetikzlibrary{patterns}
+\usetikzlibrary{matrix} % for block alignment
 
 
 % The aalto-thesis package provides typesetting instructions for the
@@ -215,7 +246,8 @@
 %                     first page of the first chapter
 %   twoinstructors  - changes the title of instructors to plural form
 %   twosupervisors  - changes the title of supervisors to plural form
-\usepackage[mydraft,twosupervisors]{aalto-thesis}
+\usepackage[mydraft,doublenumbering,twosupervisors]{aalto-thesis}
+%\usepackage[mydraft,twosupervisors]{aalto-thesis}
 %\usepackage[mydraft,doublenumbering]{aalto-thesis}
 %\usepackage{aalto-thesis}
 
@@ -239,7 +271,6 @@
 % Hyperref can also set up the PDF metadata fields. These are
 % set a bit later on, after the thesis setup.
 
-
 % Thesis setup
 % ==================================================================
 % Change these to fit your own thesis.
@@ -257,15 +288,12 @@
 % You can just fix the texts there. Just remember to check all the language
 % variants you use (they are all there in the same place).
 % ------------------------------------------------------------------
-\newcommand{\TITLE}{Software Processes for Dummies:}
-\newcommand{\FTITLE}{Ohjelmistoprosessit mänteille:}
-\newcommand{\STITLE}{Den stora stygga vargen:}
-\newcommand{\SUBTITLE}{Re-inventing the Wheel}
-\newcommand{\FSUBTITLE}{Uusi organisaatio, uudet pyörät}
-\newcommand{\SSUBTITLE}{Lilla Vargens universum}
-\newcommand{\DATE}{June 18, 2011}
-\newcommand{\FDATE}{18. kesäkuuta 2011}
-\newcommand{\SDATE}{Den 18 Juni 2011}
+\newcommand{\TITLE}{title todo:}
+\newcommand{\FTITLE}{otsikko todo:}
+\newcommand{\SUBTITLE}{subtitle}
+\newcommand{\FSUBTITLE}{alaotsikko}
+\newcommand{\DATE}{\usdate \today}
+\newcommand{\FDATE}{\datefinnish \today}
 
 % Supervisors and instructors
 % ------------------------------------------------------------------
@@ -275,35 +303,30 @@
 % ``twoinstructors'' to the aalto-thesis package so that the titles are in
 % plural.
 % Example of one supervisor:
-%\newcommand{\SUPERVISOR}{Professor Antti Ylä-Jääski}
-%\newcommand{\FSUPERVISOR}{Professori Antti Ylä-Jääski}
-%\newcommand{\SSUPERVISOR}{Professor Antti Ylä-Jääski}
+\newcommand{\SUPERVISOR}{\fixme{Professor supervisor}}
+\newcommand{\FSUPERVISOR}{\fixme{Professori valvoja}}
+%\newcommand{\SSUPERVISOR}{Professor Antti YlÃ¤-JÃ¤Ã¤ski}
 % Example of twosupervisors:
-\newcommand{\SUPERVISOR}{Professor Antti Ylä-Jääski\\
-  Professor Pekka Perustieteilijä}
-\newcommand{\FSUPERVISOR}{Professori Antti Ylä-Jääski\\
-  Professori Pekka Perustieteilijä}
-\newcommand{\SSUPERVISOR}{Professor Antti Ylä-Jääski\\
-  Professor Pekka Perustieteilijä}
+% \newcommand{\SUPERVISOR}{Professor Antti YlÃ¤-JÃ¤Ã¤ski\\
+%   Professor Pekka PerustieteilijÃ¤}
+% \newcommand{\FSUPERVISOR}{Professori Antti YlÃ¤-JÃ¤Ã¤ski\\
+%   Professori Pekka PerustieteilijÃ¤}
 
 % If you have only one instructor, just write one name here
-\newcommand{\INSTRUCTOR}{Olli Ohjaaja M.Sc. (Tech.)}
-\newcommand{\FINSTRUCTOR}{Diplomi-insinööri Olli Ohjaaja}
-\newcommand{\SINSTRUCTOR}{Diplomingenjör Olli Ohjaaja}
+\newcommand{\INSTRUCTOR}{Vesa Hirvisalo D.Sc. (Tech.)}
+\newcommand{\FINSTRUCTOR}{Tekniikan tohtori Vesa Hirvisalo}
 % If you have two instructors, separate them with \\ to create linefeeds
 % \newcommand{\INSTRUCTOR}{Olli Ohjaaja M.Sc. (Tech.)\\
 %  Elli Opas M.Sc. (Tech)}
-%\newcommand{\FINSTRUCTOR}{Diplomi-insinööri Olli Ohjaaja\\
-%  Diplomi-insinööri Elli Opas}
-%\newcommand{\SINSTRUCTOR}{Diplomingenjör Olli Ohjaaja\\
-%  Diplomingenjör Elli Opas}
+%\newcommand{\FINSTRUCTOR}{Diplomi-insinÃ¶Ã¶ri Olli Ohjaaja\\
+%  Diplomi-insinÃ¶Ã¶ri Elli Opas}
 
 % If you have two supervisors, it is common to write the schools
 % of the supervisors in the cover page. If the following command is defined,
 % then the supervisor names shown here are printed in the cover page. Otherwise,
 % the supervisor names defined above are used.
-\newcommand{\COVERSUPERVISOR}{Professor Antti Ylä-Jääski, Aalto University\\
-  Professor Pekka Perustieteilijä, University of Helsinki}
+% \newcommand{\COVERSUPERVISOR}{Professor Antti YlÃ¤-JÃ¤Ã¤ski, Aalto University\\
+%   Professor Pekka PerustieteilijÃ¤, University of Helsinki}
 
 % The same option is for the instructors, if you have multiple instructors.
 % \newcommand{\COVERINSTRUCTOR}{Olli Ohjaaja M.Sc. (Tech.), Aalto University\\
@@ -312,23 +335,17 @@
 
 % Other stuff
 % ------------------------------------------------------------------
-\newcommand{\PROFESSORSHIP}{Data Communication Software}
-\newcommand{\FPROFESSORSHIP}{Tietoliikenneohjelmistot}
-\newcommand{\SPROFESSORSHIP}{Datakommunikationsprogram}
+\newcommand{\PROFESSORSHIP}{Software systems}
+\newcommand{\FPROFESSORSHIP}{Ohjelmistotekniikka}
 % Professorship code is the same in all languages
-\newcommand{\PROFCODE}{T-110}
-\newcommand{\KEYWORDS}{ocean, sea, marine, ocean mammal, marine mammal, whales,
-cetaceans, dolphins, porpoises}
-\newcommand{\FKEYWORDS}{AEL, aineistot, aitta, akustiikka, Alankomaat,
-aluerakentaminen, Anttolanhovi, Arcada, ArchiCad, arkki}
-\newcommand{\SKEYWORDS}{omsättning, kassaflöde, värdepappersmarknadslagen,
-yrkesutövare, intresseföretag, verifieringskedja}
+\newcommand{\PROFCODE}{T-106}
+\newcommand{\KEYWORDS}{\fixme{keywords}}
+\newcommand{\FKEYWORDS}{\fixme{keywords}}
 \newcommand{\LANGUAGE}{English}
 \newcommand{\FLANGUAGE}{Englanti}
-\newcommand{\SLANGUAGE}{Engelska}
 
 % Author is the same for all languages
-\newcommand{\AUTHOR}{Stella Student}
+\newcommand{\AUTHOR}{Kristian Hartikainen}
 
 
 % Currently the English versions are used for the PDF file metadata
@@ -366,7 +383,7 @@ yrkesutövare, intresseföretag, verifieringskedja}
 % Bibliography style
 % acm style gives you a basic reference style. It works only with numbered
 % references.
-\bibliographystyle{acm}
+% \bibliographystyle{acm}
 % Plainnat is a plain style that works with both numbered and name citations.
 % \bibliographystyle{plainnat}
 
@@ -410,77 +427,11 @@ yrkesutövare, intresseföretag, verifieringskedja}
 
 % Abstract in English
 % ------------------------------------------------------------------
-\thesisabstract{english}{
-A dissertation or thesis is a document submitted in support of candidature
-for a degree or professional qualification presenting the author's research and
-findings. In some countries/universities, the word thesis or a cognate is used
-as part of a bachelor's or master's course, while dissertation is normally
-applied to a doctorate, whilst, in others, the reverse is true.
-
-\fixme{Abstract text goes here (and this is an example how to use fixme).}
-Fixme is a command that helps you identify parts of your thesis that still
-require some work. When compiled in the custom \texttt{mydraft} mode, text
-parts tagged with fixmes are shown in bold and with fixme tags around them. When
-compiled in normal mode, the fixme-tagged text is shown normally (without
-special formatting). The draft mode also causes the ``Draft'' text to appear on
-the front page, alongside with the document compilation date. The custom
-\texttt{mydraft} mode is selected by the \texttt{mydraft} option given for the
-package \texttt{aalto-thesis}, near the top of the \texttt{thesis-example.tex}
-file.
-
-The thesis example file (\texttt{thesis-example.tex}), all the chapter content
-files (\texttt{1introduction.tex} and so on), and the Aalto style file
-(\texttt{aalto-thesis.sty}) are commented with explanations on how the Aalto
-thesis works. The files also contain some examples on how to customize various
-details of the thesis layout, and of course the example text works as an
-example in itself. Please read the comments and the example text; that should
-get you well on your way!}
+\input{00-abstract-english.tex}
 
 % Abstract in Finnish
 % ------------------------------------------------------------------
-\thesisabstract{finnish}{
-Kivi on materiaali, joka muodostuu mineraaleista ja luokitellaan
-mineraalisisältönsä mukaan. Kivet luokitellaan yleensä ne muodostaneiden
-prosessien mukaan magmakiviin, sedimenttikiviin ja metamorfisiin kiviin.
-Magmakivet ovat muodostuneet kiteytyneestä magmasta, sedimenttikivet vanhempien
-kivilajien rapautuessa ja muodostaessa iskostuneita yhdisteitä, metamorfiset
-kivet taas kun magma- ja sedimenttikivet joutuvat syvällä maan kuoressa
-lämpötilan ja kovan paineen alaiseksi.
-
-Kivi on epäorgaaninen eli elottoman luonnon aine, mikä tarkoittaa ettei se
-sisällä hiiltä tai muita elollisen orgaanisen luonnon aineita. Niinpä kivestä
-tehdyt esineet säilyvät maaperässä tuhansien vuosien ajan mätänemättä. Kun
-orgaaninen materiaali jättää jälkensä kiveen, tulos tunnetaan nimellä fossiili.
-
-Suomen peruskallio on suurimmaksi osaksi graniittia, gneissiä ja
-Kaakkois-Suomessa rapakiveä.
-
-Kiveä käytetään teollisuudessa moniin eri tarkoituksiin, kuten keittiötasoihin.
-Kivi on materiaalina kalliimpaa mutta kestävämpää kuin esimerkiksi puu.}
-
-% Abstract in Swedish
-% ------------------------------------------------------------------
-\thesisabstract{swedish}{
-Lilla Vargens universum är det tredje fiktiva universumet inom huvudfåran av de
-tecknade disneyserierna - de övriga två är Kalle Ankas och Musse Piggs
-universum. Figurerna runt Lilla Vargen kommer huvudsakligen från tre källor ---
-dels persongalleriet i kortfilmen Tre små grisar från 1933 och dess uppföljare,
-dels långfilmen Sången om Södern från 1946, och dels från episoden ``Bongo'' i
-långfilmen Pank och fågelfri från 1947. Framför allt de två första har
-sedermera även kommit att leva vidare, utvidgas och införlivas i varandra genom
-tecknade serier, främst sådana producerade av Western Publishing för
-amerikanska Disneytidningar under åren 1945--1984.
-
-Världen runt Lilla Vargen är, i jämförelse med den runt Kalle Anka eller Musse
-Pigg, inte helt enhetlig, vilket bland annat märks i Bror Björns skiftande
-personlighet. Den har även varit betydligt mer öppen för influenser från andra
-Disneyvärldar, inte minst de tecknade långfilmerna. Ytterligare en skillnad är
-att varelserna i vargserierna förefaller stå närmare sina förebilder inom den
-verkliga djurvärlden. Att vargen Zeke vill äta upp grisen Bror Duktig är till
-exempel ett ständigt återkommande tema, men om katten Svarte Petter skulle få
-för sig att äta upp musen Musse Pigg skulle detta antagligen höja ett och annat
-ögonbryn bland läsarna.}
-
+\input{00-abstract-finnish.tex}
 
 % Acknowledgements
 % ------------------------------------------------------------------
@@ -494,25 +445,16 @@ för sig att äta upp musen Musse Pigg skulle detta antagligen höja ett och annat
 % The star means that the chapter isn't numbered and does not
 % show up in the TOC
 \chapter*{Acknowledgements}
-
-I wish to thank all students who use \LaTeX\ for formatting their theses,
-because theses formatted with \LaTeX\ are just so nice.
-
-Thank you, and keep up the good work!
-\vskip 10mm
-
-\noindent Espoo, \DATE
-\vskip 5mm
-\noindent\AUTHOR
+\input{"00-acknowledgements.tex"}
 
 % Acronyms
 % ------------------------------------------------------------------
 % Use \cleardoublepage so that IF two-sided printing is used
 % (which is not often for masters theses), then the pages will still
 % start correctly on the right-hand side.
-\cleardoublepage
+% \cleardoublepage
 % Example acronyms are placed in a separate file, acronyms.tex
-\input{acronyms}
+% \input{acronyms}
 
 % Table of contents
 % ------------------------------------------------------------------
@@ -554,35 +496,36 @@ Thank you, and keep up the good work!
 % The contents of the thesis are separated to their own files.
 % Edit the content in these files, rename them as necessary.
 % ------------------------------------------------------------------
-\input{1introduction.tex}
+\input{01-introduction.tex}
 
-\input{2background.tex}
+\input{02-background.tex}
 
-\input{3environment.tex}
+\input{03-system-simulation.tex}
 
-\input{4methods.tex}
+\input{04-performance-simulation-environment.tex}
 
-\input{5implementation.tex}
+\input{05-example-simulation-model.tex}
 
-\input{6evaluation.tex}
+\input{06-demonstrative-experiment.tex}
 
-\input{7discussion.tex}
+\input{07-discussion.tex}
 
-\input{8conclusions.tex}
+\input{08-conclusions.tex}
 
 
 % Load the bibliographic references
 % ------------------------------------------------------------------
 % You can use several .bib files:
 % \bibliography{thesis_sources,ietf_sources}
-\bibliography{sources}
-
-
+% \bibliography{sources}
+\nocite{*}
+\todo[inline]{remove nocite}
+\printbibliography
 % Appendices go here
 % ------------------------------------------------------------------
 % If you do not have appendices, comment out the following lines
-\appendix
-\input{appendices.tex}
+% \appendix
+% \input{appendices.tex}
 
 % End of document!
 % ------------------------------------------------------------------
@@ -592,3 +535,8 @@ Thank you, and keep up the good work!
 % floats (that is, figures, tables, and such) to the end of the
 % document.
 \end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

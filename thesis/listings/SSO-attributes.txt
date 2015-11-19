@@ -1,0 +1,8 @@
+SSO
+name:core_require
+capacity:32
+
+discipline:CUSTOM
+file:custom/sso_scheduler.h
+select_function:CUSTOM_select
+reserve_function:CUSTOM_reserve
