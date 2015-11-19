@@ -9,6 +9,8 @@ override includes += -I$(pse)/include
 override CFLAGS += $(includes) -g -Winline -Wshadow `pth-config --cflags`
 
 sim: TG_software.c custom/sso_scheduler.c custom/memory_functions.c io_mem_access.c experiment_three_app.c experiment_three_eo1.c experiment_four_app.c experiment_four_eo1.c experiment_two_app.c experiment_two_eo1.c experiment_two_eo2.c experiment_one_app.c experiment_one_eo1.c experiment_one_eo2.c experiment_one_eo3.c packet_input_submodel.c packet_process_submodel.c packet_output_submodel.c RN_hardware.c blade_submodel.c WL_workload.c $(lib)/rnc_runtime.o $(pse)/include/rnc_runtime.h $(lib_dir)/libRNS.a
+	sh customization.sh
+
 	gcc $(CFLAGS) -o sim \
 	custom/memory_functions.c \
 	custom/sso_scheduler.c \

@@ -1,27 +1,41 @@
 WL_FILE_BEGIN
 main
 43.0
-3
+5
+33
+node
+58.0 22.0 144.0 52.0
 15
 node
 332.0 65.0 418.0 95.0
-29
+34
 node
-437.0 185.0 523.0 215.0
+11.0 125.0 97.0 155.0
 21
 node
 232.0 185.0 318.0 215.0
-2
+29
+node
+437.0 185.0 523.0 215.0
+4
+35
+33
+15
+101.0 52.0 375.0 65.0
 26
 15
 21
 375.0 95.0 275.0 185.0
+36
+33
+34
+101.0 52.0 54.0 125.0
 30
 15
 29
 375.0 95.0 480.0 185.0
 0
-5
+7
 26
 351.0 115.0
 7
@@ -33,9 +47,15 @@ probability:0.5
 
 
 
+33
+115.0 35.0
+2
+main
+name:main
+
 15
 380.0 50.0
-105
+30
 TRAFFIC GENERATOR
 name:generator
 
@@ -67,126 +87,22 @@ RAMwidth:9
 
 reservedcacheblocks:0
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-30
-426.0 138.0
-24
-probability:1
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-29
-480.0 230.0
-74
-Stream 2 [xGbps, 512B, exp2]
-name:stream_2
+34
+74.0 132.0
+160
+long delay
+name:longdelay
+
+name:longdelay
 job:SOFTWARE
-
-lifetime:0.00001
-interval:0.000001 * RNS_random_int(5,10)
-0.00001
+delay:15.0
 
 size:512
-portnumber:4
+portnumber:1
 portname:IN
 ram_access_time: RNS_random_exponential((0.00025) + (0.00025))
 
-appid:6
+appid:5
 drop:0
 
 requiredcacheblocks:1
@@ -248,9 +164,96 @@ reservedRAMblocks:0
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SwapMacAppId:0
+PacketForwardAppId:1
+IPsecAppId:2
+ExperimentOneId:3
+ExperimentTwoId:4
+ExperimentThreeId:5
+ExperimentFourId:6
+
+PKIsteps:8
+PKOsteps:5
+IOsteps:13
+
+commcoef:2.2
+commconst:1287.5
+
+cacheCyclesPerByte:0.6
+
+CACHELINESIZE:128
+L2SIZE:4194304
+L2LINES:4194304/128
+RAMspeed:1333000000
+RAMwidth:9
+
+reservedcacheblocks:0
+
+
+
+
+
+
 21
 275.0 230.0
-128
+129
 Stream 1 [xGbps, 512B, exp2]
 name:stream_1
 job:SOFTWARE
@@ -380,5 +383,112 @@ reservedRAMblocks:0
 
 
 
-31
+
+29
+480.0 230.0
+74
+Stream 2 [xGbps, 512B, exp2]
+name:stream_2
+job:SOFTWARE
+
+lifetime:0.00001
+interval:0.000001 * RNS_random_int(5,10)
+0.00001
+
+size:512
+portnumber:4
+portname:IN
+ram_access_time: RNS_random_exponential((0.00025) + (0.00025))
+
+appid:6
+drop:0
+
+requiredcacheblocks:1
+reservedL2blocks:0
+reservedRAMblocks:0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+30
+426.0 138.0
+24
+probability:1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+37
 WL_FILE_END
