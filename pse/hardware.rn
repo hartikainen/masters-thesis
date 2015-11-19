@@ -36,6 +36,7 @@ name:OUT
 SWITCH
 name:SWITCH
 speed:1200000000
+capacity:32
 
 41
 301.0 63.0
