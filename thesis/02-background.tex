@@ -243,6 +243,34 @@ Home Subscriber Server database has two main function. It contains information r
 \todo[inline]{MPSoC devices}
 \todo[inline]{From threads to tasks. Why do we need new parallel programming methods such as OpenEM?}
 
+\section{EPC}
+\label{sec:epc}
+
+\subsection{EPC protocols}
+\label{sec:epc-protocols}
+S1AP [http://www.codenomicon.com/products/defensics/datasheets/s1ap-server-suite.html]:
+S1AP is the control plane signalling protocol between E-UTRAN and Evolved Packet Core. S1AP uses S1-MME interface, which is located between eNodeB and the MME. S1AP functions can be divided into two categories: UE associated services and non UE associated services. UE associated services relate to a single UE, whereas the non UE associated services is comprised of all the other S1-MME interface related services.
+
+S1AP is transferred over SCTP protocol, and is defined in TS 36.413.
+
+S1AP/NAS:
+S1AP protocol offers NAS signal transport, which enables transport functionality between UE and MME. The NAS protocol enables the mobility- and session management between the UE and MME. NAS is defined in the TS 24.301.
+
+DIAMETER:
+Diameter is the base protocol for authentication, authorization and accounting (AAA) in EPS, which can be extended to provide AAA services for different access technologies.
+
+GTPv2:
+
+PMIPv6:
+PMIPv6 (Proxy Mobile IPv6) protocol enables IPv6 nodes to remain reachable while moving (physically?) around in the IPv6 Internet.
+
+X2AP:
+[http://www.eventhelix.com/lte/handover/LTE-X2-Handover-Messaging.pdf]
+RAB - radio access bearer
+GTP - GPS Tunneling protocol
+
+
+
 \section{Dataplane}
 \label{sec:dataplane}
 
