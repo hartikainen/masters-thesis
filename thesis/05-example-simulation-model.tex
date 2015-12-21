@@ -9,6 +9,8 @@ We will introduce the CN6880 hardware, and then describe the model components an
 \section{Cavium OCTEON II CN6880}
 \label{sec:cavium-octeon}
 
+% https://www.reddit.com/r/networking/comments/2kamp1/eli5_why_are_cavium_chipsets_so_popular_with/
+
 Cavium Octeon II CN6880 is a 32 MIPS core network processing unit, optimized for high-performance, high-bandwidth, and low power consumption software-defined control-plane~\cite{control-plane} and data-plane~\cite{data-plane} applications.
 
 CN6880 provides several hardware acceleration units for enhanced packet processing and minimized software development complexity. The packet management accelerators offload the actual packet processing cores from many general packet receive, buffering, buffer management, flow classification, quality of service, and transmit processing. The accelerator functions can be customized using software, and accessing the configuration registers.~\cite{cavium:2010:fundamentals}

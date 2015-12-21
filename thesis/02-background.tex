@@ -4,6 +4,238 @@
 \todo[inline]{write introduction to the backgroup chapter}
 \todo[inline]{rename the background}
 
+\section{Mobile-edge Computing}
+% scale up vs. scale out
+% NIST definiton of cloud computing: http://www.nist.gov/itl/cloud/upload/cloud-def-v15.pdf
+
+% Use cases:
+% Device location tracking
+% Agumented Reality Content Delivery
+% Video Analytics
+% Radio Access Network (RAN) -aware Content Optimization
+% Distributed Content and DNS caching
+% Application-aware Performance Optimization
+
+% Edge: at the base station or at the aggregation point? ETSI specification mentions both!
+%   - at base station, the mec would provide minimal latency
+%   - at aggregation point, the solution can be more cost effective
+
+% World's first content delivery network (CDN): http://www.saguna.net/news-events/press-releases/saguna-and-akamai-showcase-the-world-s-first-content-delivery-network-operating-from-the-mobile-base-station/?utm_source=Blog?utm_medium=website?utm_campaign=Q2-2015
+
+% PERFORMANCE PARAMETERS!
+
+% !!Service-oriented Architecture (SOA)
+
+% Load balancing problems and congestion on all the levels
+
+% In cloud environment, the computing nodes are heterogeneous
+% -> Load balancing is very important, but complex
+
+% CIA model!
+% CAP model?
+% SNMP protocol?
+
+% ``Move the computation code to the data, not the other way''
+
+% CPU bound vs. IO bound: Florence at al. Energy Aware Load Balancing for Computational Cloud
+
+% ``Cloud computing is the key mantra of todayÃ¢ÂÂs technology
+% era. It caters anything as a service. It promotes resource
+% sharing through internet. Eventually in cloud computing load
+% balancing is a major concern used to allocate the tasks across
+% several computers. Major concerns of load balancing are:
+% optimal resource utilization, maximize processor throughput,
+% minimize task response time, and avoid overloading''
+
+% ``To achieve maximum throughput, in turn to improve the
+% overall system performance [3], tasks can be migrated from
+% overloaded nodes to lightly loaded nodes. In a cloud
+% environment, to enhance the system performance workload is
+% divided effectively across the participating nodes[5].There are
+% two types of load balancing algorithms [9] existing such as:
+% - Static Ã¢ÂÂ It is non-preemptive. The master distributes the
+% workload between the slaves according to their
+% performance.Once a host is allocated for a process, it
+% cannot be pre-empted at run time. Here workload
+% allocation is static.
+% - Dynamic Ã¢ÂÂWork load is distributed at run time
+% dynamically. Processes are migrated dynamically from
+% over loaded nodes to under loaded nodes in order to
+% keep all the nodes busy with balanced load.''
+
+% % [1] M. Kocaoglu, D. Malak, O. Akan, âFundamentals of Green Communications and Computing: Modeling and Simulation,â Computer, Vol. 45, pp. 40-46, July 2012.
+% % [7] K. Abbas, F. Zarafshan, Adznan, B. Jantan, âA New Fuzzy Approach  for Dynamic Load Balancing Algorithm,â International Journal of Computer Science and Information Security, Vol. 6, pp. 1-5, 2009.
+% % [11] George Cybenko, âDynamic Load Balancing for Distributed Memory Multiprocessors,â Journal of Parallel and Distributed Computing, Vol. 7, pp. 279-301, 1989.
+% % [12] A.H.Harp, âProgramming for Parallelismâ, IEEE Computer, Vol. 20, pp. 41 â 47, 1987.
+% %https://portal.etsi.org/Portals/0/TBpages/MEC/Docs/Mobile-edge_Computing_-_Introductory_Technical_White_Paper_V1%2018-09-14.pdf
+
+% ``Load balancing is a core networking solution responsible for distributing incoming traffic among servers hosting the same application content. By balancing application requests across multiple servers, a load balancer prevents any application server from becoming a single point of failure, thus improving overall application availability and responsiveness. For example, when one application server becomes unavailable, the load balancer simply directs all new application requests to other available servers in the pool.
+
+% Load balancers also improve server utilization and maximize availability. Load balancing is the most straightforward method of scaling out an application server infrastructure. As application demand increases, new servers can be easily added to the resource pool, and the load balancer will immediately begin sending traffic to the new server.
+
+% Early generation server load balancers are tried and true solutions for improving the availability and scalability of an organizationâs application infrastructure. Nonetheless, enterprises that persist in using such products run the risk of exposing themselves and their customers to increasingly poor application performance and a seemingly endless stream of application layer security threats.''
+% % https://www.citrix.com/glossary/load-balancing.html
+
+% Proactive vs. reactive
+
+% % https://www.usenix.org/legacy/event/hotice11/tech/full_papers/Wang_Richard.pdf
+% % [5] S.Lee,R.Panigrahy,V.Prabhakaran,V.Ramasubramanian,K.Talwar,L.Uyeda, U.Wieder,Validatingheuristicsforvirtualmachinesconsolidation,Technical Report,2011.
+% % [6] M. Sindelar, R.K. Sitaraman, P. Shenoy, Sharing-aware algorithms for virtual machine colocation, in: Proc. of the 23rd ACM Symposium on Parallelism in AlgorithmsandArchitectures,SPAAâ11,2011.
+% % [7] C. Isci, J.E. Hanson, I. Whalley, M. Steinder, J.O. Kephart, Runtime demand estimation for effective dynamic resource management, in: Proc. of the IEEE NetworkOperationsandManagementSymposium,NOMS,2010.
+% % https://www.cct.lsu.edu/~xuelin/openflow/sigcomm09-demo-loadbalancer.pdf
+
+% % !! http://www.cs.yale.edu/homes/jf/nox.pdf
+
+% % laja Load-balancing viitteita:
+% % Zhang et al. Web server load balancing: A queueing analysis
+
+% Centralized. vs. distributed load balancing
+%   - centralized creates overhead, but provides better overview
+%   - in centralized design, the network is more fault toleranec
+% static vs. dynamic load balancing
+% cloud vs. grid. vs. cluster
+
+% eucalyptus greedy first-fit with round-robin vm mapping
+
+% % [15] Lee, R. & Jeng, B. (2011). Load-balancing tactics in cloud . In proc. International Conference on Cyber- Enabled Distributed Computing and Knowledge Discovery (CyberC), IEEE, (pp. 447-454).
+% % [16] Wang, S. C., Yan, K. Q., Liao, W. P. & Wang, S. S. (2010). Towards a load balancing in a three- level cloud computing network . Proceedings of 3 rd International Conference on Computer Science and Information Technology (ICCSIT), IEEE, July, 1, 108-113
+
+% % A Comparative Study of Load Balancing Algorithms in Cloud Computing Environment
+% % http://arxiv.org/pdf/1403.6918.pdf
+
+% % OpenStack: Toward an Open-Source Solution for Cloud Computing [http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.245.229&rep=rep1&type=pdf]
+
+
+% Unified computing system: https://kemptechnologies.com/server-load-balancing-appliances/loadmaster-for-ucs/overview/
+
+% ``Cloud computing promises to increase the velocity with which applications are deployed, enhance
+% modernization, and lower expenses, all at the same time increasing business agility. Cloud Computing is a
+% concept that has many computers interconnected through a real time network like internet. Cloud computing
+% mainly refers to distributed computing. Cloud computing enables well-situated, on-demand, dynamic and
+% reliable utilization of distributed computing assets. The cloud is altering our life by providing users with new
+% kinds of services. Users acquire service from a cloud without paying attention to the details. Cloud computing is
+% a on demand service in which shared resources work together to perform a task to get the results in minimum
+% possible time by distribution of any dataset among all the connected processing units. Cloud computing is also
+% referred to refer the network based services which give an illusion of providing a real server hardware but in real
+% it is simulated by the software's running on one or more real machines. Such virtual servers do not exist
+% physically so they can be scaled up and down at any point of time [1]. Cloud computing is high utility software
+% having the ability to change the IT software industry and making the software even more attractive [2]. Hence, It
+% helps to accommodate changes in demand and helps any organization in avoiding the capital costs of software
+% and hardware [3] [4]''
+% % <-Haryani, Jagli: Dynamic Method for Load Balancing in Cloud Computing
+
+% % https://f5.com/resources/white-papers/cloud-balancing-the-evolution-of-global-server-load-balancing
+
+% % Load Balancing in the Cloud Computing Using Virtual Machine Migration: A Review [http://www.ijaiem.org/volume3issue5/IJAIEM-2014-05-31-131.pdf]
+
+% % Load Balancing Cloud Computing: State of Art [http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6249253]
+
+% % Join-Idle-Queue: A novel load balancing algorithm for dynamically scalable web services [http://dl.acm.org/citation.cfm?id=2039718]
+
+
+% In \ref{churhc et al. On Delivering Embarrassingly Distributed Cloud Services} Church et al. highlight the advantages of small scale data centers over a mega centers.
+
+% % An architecture for Load Balancing Techniques for Fog Computing Environment  [http://csjournals.com/IJCSC/PDF6-2/43.%20Manisha.pdf]
+
+% % Cisco: [http://www.cisco.com/c/en/us/td/docs/solutions/Enterprise/Data_Center/VMDC/ASA_Cluster/ASA_Cluster/ASA_Cluster.html]
+
+% `` Hierarchical Network Layers
+
+% The data center within the VMDC reference architecture is based on the classic multi-layer hierarchical network model. Hierarchical model benefits include scalability, resilience, performance, maintainability, and manageability and its design represents a structured approach to building the infrastructure, allowing for relatively easy expansion in modular increments. Redundant nodes and links at each level insure no single point of failure, while link aggregation can be engineered for optimal bandwidth and performance through the aggregation and core layers. In general, this hierarchical model uses three layers:
+
+% •Core Layer—Characterized by a high degree of redundancy and bandwidth capacity and thus optimized for availability and performance.
+
+% •Aggregation Layer—Characterized by a high degree of high-bandwidth port density capacity and thus optimized for traffic distribution and link fan-out capabilities to access layer switches. Functionally, the nodes in the aggregation layer typically serve as the Layer 2/Layer 3 boundary.
+
+% •Access Layer—Serves to connect hosts to the infrastructure, providing network access, typically at Layer 2 (L2) (i.e., LANs or VLANs).''
+
+% http://web.stanford.edu/class/ee380/Abstracts/091118-DataCenterSwitch.pdf
+
+% % A Scalable Commodity Data Center Network Architecture,
+% % Data Center Switch Architecture in the Age of Merchant Silicon
+% % PortLand: A Scalable Fault Tolerant Layer 2 Data Center Network Fabric
+
+% % http://ccr.sigcomm.org/online/files/p63-alfares.pdf
+
+
+% The goal of load balancing system is to provide optimal resource, e.g. central processing units, memory, or storage, utilization and desired performance metrics, usually maximal throughput, minimizing response time, and avoiding congestion and overloading parts of the system.
+
+% Traditional web server load balancing algorithms are not sufficient for the large scale and distinct structure of so-called service-oriented data centers.
+
+% One on the main requirements for cloud, or fog, computing is efficient load-balancing.
+% Telecommunication industry is facing difficult challenges to keep up with more demanding needs of end users and businesses.
+% \begin{itemize}
+% \item end users need:
+%   \item personalization
+%   \item performance
+%   \item ux
+% \item businesses need:
+%   \item information from consumers
+%   \item easier, secure access to devices
+%   \item more flexible provisioning of new services
+% \end{itemize}
+
+% Mobile traffic has been growing, and no end to that is in sight. number of sensor expected to grow exponentially. cellular network is becoming uniquitous.
+% \begin{itemize}
+% \item IOT, huge amount of (wireless) sensors
+% \item MACHINE TO MACHINE!
+% \item smart phones
+% \item streaming video
+% \item messaging
+% \item P2P
+% \end{itemize}
+
+% The IT and Telecommunication Networking evolutions are coming closer to each other.
+% -> new possibilities
+% -> computation is moving to the network edge, closer to the end user and sensors.
+
+% ``Mobile-edge Computing can be seen as a cloud server running at the edge of a mobile network and performing specific tasks that could not be achieved with traditional network infrastructure. Machine-to-Machine gateway and control functions are one example, but there are many others.''
+
+\section{Virtualization}
+\label{section:virtualization}
+\todo[inline]{What is virtualization? Why is virtualization used? How does it change (complicate) the way things (i.e. routing etc) is done?}
+
+Virtualization is an act of dividing physical computing resources, for example central processing units, memory, or storage, into a multiple execution environments.
+
+Snapshot of a virtual machine describes the state of the machine at a certain point of time. Storing a snapshot of a virtual machine allows the machine to be shut and restarted again with possibly exact state.
+
+Snapshot of a virtual machine can be migrated into another physical host.
+
+\section{Evolved Packet Core}
+\label{section:evolved-packet-core}
+
+The main components of Evolved Packet Core are
+  - Home Subscriber Server (HSS)
+    HSS contains the information about the network subscribers
+  - Packet Data Network Gateway (P-Gw)
+    P-GW works as the communicator between the EPC and the core networks (PDNs).
+    uses SGi interface
+    PDN's are identified by an access point name (APN).
+  - Serving gateway (S-GW)
+    the router which forwards data between the base station and P-GW
+  - Mobility Management Entity (MME)
+    signals messages and utilizes Home Subscriber Server (HSS) to control the high-level operations of the mobile
+  - Policy Control and Charding Rules Function (PCRF)
+    PCRF responsibility is to handle the policy control decisions, and charging functionality in the Policy Control Enforcement Function (PCEF) inside P-GW
+
+% http://www.3gpp.org/technologies/keywords-acronyms/100-the-evolved-packet-core
+% Introduction to Evolved Packet Core - Alcatel-Lucent
+
+HSS:
+Home Subscriber Server database has two main function. It contains information related to the network users and subscribers. Its second function is to provide support functions in mobility management, call and session setup, user authentication and access authorization. HSS is based on Home Location Register (HLR) and Authentication center (AuC).
+
+% Simulation of LTE Signaling [http://www.dasconference.ro/cd2010/data/papers/B118.pdf]
+% Cisco virtual EPC [http://www.cisco.com/c/en/us/solutions/service-provider/virtualized-packet-core/index.html] [https://www.cisco.com/c/dam/en/us/solutions/collateral/service-provider/mobile-internet/Cisco_LTE_Policy_Management_WP.pdf]
+% Ericsson vEPC [http://www.ericsson.com/ourportfolio/products/evolved-packet-core?nav=productcategory004]
+% random EPC thesis [http://ece.engineering.ualberta.ca/en/Graduate/~/media/ece/Graduate/Documents/GradDocs/Intro_to__Evolved_packet_core_network.pdf]
+% good looking slides [http://www.cvt-dallas.org/Aug12-Sridhar.pdf]
+
+% LTE QCI (QoS Class Identifier), as defined by 3GPP TS23.203
+
+\section{NFV in mobile networks}
+\label{section:NFV}
+
+
 \section{Parallel Computing}
 \label{section:parallel-computing}
 
