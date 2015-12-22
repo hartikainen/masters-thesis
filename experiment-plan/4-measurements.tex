@@ -13,7 +13,7 @@ At the moment, the traffic generation is planned to be done by using external ma
 
 For this setup, the delays in the actual traffic generator might be very large. We will have to measure the latencies of that machine as well.
 
-The passthrough.c example from the Cavium SDK can be used as a base for this experiment. We might also need to implement some simple application that also includes processing and termination of the packets. With a simple OpenEM queue implementations, we can measure the load-balancing overhead when the amount of data transferred exceeds the computation capacity of the blades.
+The passthrough.c example from the Cavium SDK can be used as a base for this experiment. We might also need to implement some simple application that also includes processing and termination of the packets. With a simple OpenEM queue implementations, we can measure the load balancing overhead when the amount of data transferred exceeds the computation capacity of the blades.
 
 \subsection{Intra-unit Delays}
 We will also need to measure the delays, mainly memory latencies of a single blade. This will be done by running some multi-threaded application, implemented for example with OpenMP, and measure it's performance, for example with MPAC.
