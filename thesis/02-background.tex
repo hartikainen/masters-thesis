@@ -6,88 +6,88 @@
 
 \section{Fog Computing}
 \label{section:fog-computing}
-% http://www.datacenterknowledge.com/archives/2013/08/23/welcome-to-the-fog-a-new-type-of-distributed-computing/
-% Fog Computing and Its Role in the Internet of Things [http://conferences.sigcomm.org/sigcomm/2012/paper/mcc/p13.pdf]
-% https://techradar.cisco.com/technology/fog-computing#prettyPhoto
+% % http://www.datacenterknowledge.com/archives/2013/08/23/welcome-to-the-fog-a-new-type-of-distributed-computing/
+% % Fog Computing and Its Role in the Internet of Things [http://conferences.sigcomm.org/sigcomm/2012/paper/mcc/p13.pdf]
+% % https://techradar.cisco.com/technology/fog-computing#prettyPhoto
 
-fog computing is a paradigm that extends cloud computing to the edge of the network
-in fog computing, intelligent nodes are deployed at strategic locations of the network between the centers and the cloud
-fog computing is similar to the cloud computing, but closer to the end user, the edge, or the ground.
-scalability, reliability, faster response time, reduced cost
+% fog computing is a paradigm that extends cloud computing to the edge of the network
+% in fog computing, intelligent nodes are deployed at strategic locations of the network between the centers and the cloud
+% fog computing is similar to the cloud computing, but closer to the end user, the edge, or the ground.
+% scalability, reliability, faster response time, reduced cost
 
-fc enables capabilities that are not possible otherwise
-trains, plane, oil rig generate huge amount of data
-wireless network dont have bandwidth
-too expensive to deliver the data
-sending packet from end user to cloud might be too slow
-manufacturing: decision need to be made in fractions of seconds
-bring processing to the data, not vice versa
+% fc enables capabilities that are not possible otherwise
+% trains, plane, oil rig generate huge amount of data
+% wireless network dont have bandwidth
+% too expensive to deliver the data
+% sending packet from end user to cloud might be too slow
+% manufacturing: decision need to be made in fractions of seconds
+% bring processing to the data, not vice versa
 
-improved reliability:
-network connection to the cloud goes down -> decisions can still be made
-fog computing does not contradict cloud computing, nor replace it, it complements it with much needed compute, storage and networking capabilities, at stratetig loc between sensors and data
-real-time analytics, machine learning algorithms
-analytics and ml algorithms are essential ingredients in many fog computing applications
-data into actionable insights and BI
+% improved reliability:
+% network connection to the cloud goes down -> decisions can still be made
+% fog computing does not contradict cloud computing, nor replace it, it complements it with much needed compute, storage and networking capabilities, at stratetig loc between sensors and data
+% real-time analytics, machine learning algorithms
+% analytics and ml algorithms are essential ingredients in many fog computing applications
+% data into actionable insights and BI
 
-huge business opportunity
+% huge business opportunity
 
-% Finding your Way in the Fog: Towards a Comprehensive Definition of Fog Computing [http://delivery.acm.org/10.1145/2680000/2677052/p27-vaquero.pdf?ip=130.233.87.116&id=2677052&acc=ACTIVE%20SERVICE&key=74A0E95D84AAE420%2E1D2200B0A299939C%2E4D4702B0C3E38B35%2E4D4702B0C3E38B35&CFID=562969494&CFTOKEN=64137578&__acm__=1448197233_c568466fa204a88d9106d97b20594a8d]
-A definition for fog
-challenges: privacy, volatility, bandwidth, mobility, billions of devices
-According to [https://www.cisco.com/web/about/ac79/docs/innov/IoT_IBSG_0411FINAL.pdf], there will be 50 billion devices connected to the Internet in year 2020.
-This growth is explained by not only the growth in number of mobile devices (mobile phones and tablets, especially in developing countries)
-+!! the proliferation of IoT devices and sensors. (not included in the 50 billion)
+% % Finding your Way in the Fog: Towards a Comprehensive Definition of Fog Computing [http://delivery.acm.org/10.1145/2680000/2677052/p27-vaquero.pdf?ip=130.233.87.116&id=2677052&acc=ACTIVE%20SERVICE&key=74A0E95D84AAE420%2E1D2200B0A299939C%2E4D4702B0C3E38B35%2E4D4702B0C3E38B35&CFID=562969494&CFTOKEN=64137578&__acm__=1448197233_c568466fa204a88d9106d97b20594a8d]
+% A definition for fog
+% challenges: privacy, volatility, bandwidth, mobility, billions of devices
+% According to [https://www.cisco.com/web/about/ac79/docs/innov/IoT_IBSG_0411FINAL.pdf], there will be 50 billion devices connected to the Internet in year 2020.
+% This growth is explained by not only the growth in number of mobile devices (mobile phones and tablets, especially in developing countries)
+% +!! the proliferation of IoT devices and sensors. (not included in the 50 billion)
 
-``Configuring and keeping updated and secure fog networks,
-services and devices is done separately (e.g. routers, servers,
-services and devices are separately managed by different
-people). These tasks are labour intensive and error prone.
-For instance, well-known Internet companies claim a single
-admin handles thousands of machines running a single service
-type. Configuring and maintaining many different types
-of services running on billions of heterogeneous devices will
-only exacerbate our current management problems. The
-fog needs heterogeneous devices and their running services
-to be handled in a more homogeneous manner; ideally fully
-automated by software.
-Network Function Virtualisation (NFV) is arguably the
-most remarkable technology in this regard. NFV is the reaction
-of telco operators to their lack of agility and constant
-need for reliable infrastructures. NFV tries to provide
-the ability of dynamically deploying on-demand network services
-(e.g. a firewall, a router or a WAN accelerator, a new
-LAN or a VPN) or user-services (e.g. a database) where
-and when needed. Software Defined Networks SDN are one
-of the pillars needed for NFV, since some network services
-(e.g. creating new “virtual” networks on top of the physical
-infrastructure) can be done by software only. For instance,
-some gateways can be deployed as virtual machines and their
-traffic can be tightly controlled thanks to SDN capabilities
-in a local edge cloud, see Figure 1. The “softwareisation” of
-a classically hardware-driven business built around routers
-and servers where services got deployed will result in cheaper
-and more agile operations.
-A complementary approximation is proposed by Cisco
-with its first software-only version of the IOS wrapped in
-with a Linux distribution (IOx)3
-. The router itself becomes
-an SDN-enabled virtualisation infrastructure where
-NFV and application services are deployed close to the place
-where they are actually going to be used. But IOx’s computing
-capabilities will still be limited (edge routers are not
-carrier grade after all).''
+% ``Configuring and keeping updated and secure fog networks,
+% services and devices is done separately (e.g. routers, servers,
+% services and devices are separately managed by different
+% people). These tasks are labour intensive and error prone.
+% For instance, well-known Internet companies claim a single
+% admin handles thousands of machines running a single service
+% type. Configuring and maintaining many different types
+% of services running on billions of heterogeneous devices will
+% only exacerbate our current management problems. The
+% fog needs heterogeneous devices and their running services
+% to be handled in a more homogeneous manner; ideally fully
+% automated by software.
+% Network Function Virtualisation (NFV) is arguably the
+% most remarkable technology in this regard. NFV is the reaction
+% of telco operators to their lack of agility and constant
+% need for reliable infrastructures. NFV tries to provide
+% the ability of dynamically deploying on-demand network services
+% (e.g. a firewall, a router or a WAN accelerator, a new
+% LAN or a VPN) or user-services (e.g. a database) where
+% and when needed. Software Defined Networks SDN are one
+% of the pillars needed for NFV, since some network services
+% (e.g. creating new virtual networks on top of the physical
+% infrastructure) can be done by software only. For instance,
+% some gateways can be deployed as virtual machines and their
+% traffic can be tightly controlled thanks to SDN capabilities
+% in a local edge cloud, see Figure 1. The softwareisation of
+% a classically hardware-driven business built around routers
+% and servers where services got deployed will result in cheaper
+% and more agile operations.
+% A complementary approximation is proposed by Cisco
+% with its first software-only version of the IOS wrapped in
+% with a Linux distribution (IOx)3
+% . The router itself becomes
+% an SDN-enabled virtualisation infrastructure where
+% NFV and application services are deployed close to the place
+% where they are actually going to be used. But IO computing
+% capabilities will still be limited (edge routers are not
+% carrier grade after all).''
 
-according to [http://www.tmcnet.com/tmc/whitepapers/documents/whitepapers/2013/9378-bell-labs-metro-network-traffic-growth-an-architecture.pdf]4G LITE/EPC is supposed to be ready in 2017. It will expand the bandwidth of edge networks.
+% according to [http://www.tmcnet.com/tmc/whitepapers/documents/whitepapers/2013/9378-bell-labs-metro-network-traffic-growth-an-architecture.pdf]4G LITE/EPC is supposed to be ready in 2017. It will expand the bandwidth of edge networks.
 
 
-% Overview of fog: [http://annals-csis.org/Volume_2/pliks/503.pdf]
-% [http://csjournals.com/IJITKM/PDF%208-2/13.%20Sagar.pdf]
+% % Overview of fog: [http://annals-csis.org/Volume_2/pliks/503.pdf]
+% % [http://csjournals.com/IJITKM/PDF%208-2/13.%20Sagar.pdf]
 
-% Power aware load balancing for cloud computing [http://www.iaeng.org/publication/WCECS2011/WCECS2011_pp127-132.pdf]
-% hyvaa kamaa? [Raghava & Singh: Comparative Study on Load Balancing Techniques in Cloud Computing]
+% % Power aware load balancing for cloud computing [http://www.iaeng.org/publication/WCECS2011/WCECS2011_pp127-132.pdf]
+% % hyvaa kamaa? [Raghava & Singh: Comparative Study on Load Balancing Techniques in Cloud Computing]
 
-% Power Aware Load Balancing for Cloud Computing [http://www.iaeng.org/publication/WCECS2011/WCECS2011_pp127-132.pdf]
+% % Power Aware Load Balancing for Cloud Computing [http://www.iaeng.org/publication/WCECS2011/WCECS2011_pp127-132.pdf]
 
 \section{Parallel Computing}
 \label{section:parallel-computing}
