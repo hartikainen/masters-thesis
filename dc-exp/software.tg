@@ -1,204 +1,207 @@
 TG2_FILE_BEGIN
 SOFTWARE
-14
-36
-begin
-80 80 30 80
-37
-block_queue
-188 80 132 80
-38
-block_queue
-388 80 332 80
-40
-block_queue
-388 160 332 160
-39
-block_queue
-188 160 132 160
-41
-block_queue
-188 240 132 240
-42
-block_queue
-388 240 332 240
-43
-block_queue
-188 320 132 320
-44
-block_queue
-388 320 332 320
-45
-block
-285 80 235 80
-46
-block
-285 160 235 160
-47
-block
-285 240 235 240
-48
-block
-285 320 235 320
-49
-ends
-510 320 460 320
 13
+53
+block
+245 140 195 140
 54
-37
-45
-188.0 80.0 235.0 80.0
+branch
+320 140 280 140
 55
-45
-38
-285.0 80.0 332.0 80.0
+block
+405 120 355 120
+56
+block
+485 120 435 120
 57
-38
-39
-388.0 80.0 132.0 160.0
+block
+565 120 515 120
 58
-39
-46
-188.0 160.0 235.0 160.0
+block
+405 160 355 160
 60
-40
-41
-388.0 160.0 132.0 240.0
+block
+565 160 515 160
 59
-46
-40
-285.0 160.0 332.0 160.0
+block
+485 160 435 160
 61
-41
-47
-188.0 240.0 235.0 240.0
+block
+665 140 615 140
 62
-47
-42
-285.0 240.0 332.0 240.0
+block
+765 140 715 140
 63
-42
-43
-388.0 240.0 132.0 320.0
-64
-43
-48
-188.0 320.0 235.0 320.0
-65
-48
-44
-285.0 320.0 332.0 320.0
-66
-44
-49
-388.0 320.0 460.0 320.0
+ends
+870 140 820 140
 51
-36
-37
-80.0 80.0 132.0 80.0
+begin
+100 140 50 140
+52
+block
+165 140 115 140
+13
+71
+54
+55
+320.0 140.0 355.0 120.0
+72
+54
+58
+320.0 140.0 355.0 160.0
+73
+58
+59
+405.0 160.0 435.0 160.0
+74
+55
+56
+405.0 120.0 435.0 120.0
+75
+56
+57
+485.0 120.0 515.0 120.0
+76
+59
+60
+485.0 160.0 515.0 160.0
+77
+57
+61
+565.0 120.0 615.0 140.0
+78
+60
+61
+565.0 160.0 615.0 140.0
+80
+62
+63
+765.0 140.0 820.0 140.0
+79
+61
+62
+665.0 140.0 715.0 140.0
+68
+51
+52
+100.0 140.0 115.0 140.0
+70
+53
+54
+245.0 140.0 280.0 140.0
+69
+52
+53
+165.0 140.0 195.0 140.0
 0
-12
-37
-120.0 100.0
-3
-req server-leaf
-name:selectServerLeaf
-type:resource
-
-38
-380.0 100.0
-3
-rel server-leaf
-name:selectServerLeaf
-type:release
-
-40
-380.0 180.0
+13
+53
+220.0 100.0
 4
-rel leaf-spine
-name:selectLeafSpine
-type:release
+leaf0
+name:leaf0
+type:device
+amount:1
 
-
-39
-120.0 180.0
+54
+300.0 180.0
 3
-req leaf-spine
-name:selectLeafSpine
-type:resource
+choose spine
+name:choosespine
+expr:1
 
-41
-120.0 260.0
-5
-req spine-leaf
-name:selectLeafSpine
-type:resource
-
-
-
-42
-380.0 260.0
-3
-rel spine-leaf
-name:selectLeafSpine
-type:release
-
-43
-120.0 340.0
+55
+380.0 80.0
 6
-req leaf-server
-name:selectServerLeaf
-type:resource
-
-
-
-
-44
-380.0 340.0
-4
-rel leaf-server
-name:selectServerLeaf
-type:release
-
-
-45
-240.0 100.0
-4
-transmit server-leaf
-name:transmitServerLeaf
+leaf0->spine0
+name:leaf0Spine0
 type:device
-amount:1
+amount:512
 
-46
-240.0 180.0
-5
-transmit leaf-spine
-name:transmitLeafSpine
-type:device
-amount:1
+tag:0
 
-
-47
-240.0 260.0
+56
+460.0 80.0
 6
-transmit spine-leaf
-name:transmitSpineLeaf
+spine0
+name:spine0
+type:device
+amount:512
+
+
+
+57
+540.0 80.0
+5
+spine0->leaf1
+name:spine0Leaf1
+type:device
+amount:512
+
+
+58
+380.0 200.0
+6
+leaf0->spine1
+name:leaf0Spine1
+type:device
+amount:512
+
+tag:1
+
+60
+540.0 200.0
+5
+spine1->leaf1
+name:spine1Leaf1
+type:device
+amount:512
+
+
+59
+460.0 200.0
+4
+spine1
+name:spine1
+type:device
+amount:512
+
+61
+640.0 100.0
+4
+leaf1
+name:leaf1
 type:device
 amount:1
 
-
-
-48
-240.0 340.0
-7
-transmit leaf-server
-name:transmitLeafServer
+62
+740.0 180.0
+4
+leaf1->server
+name:leafServer
 type:device
-amount:1
+amount:512
 
+63
+840.0 140.0
+2
+OUT
+name:OUT
 
+51
+72.0 144.0
+2
+IN
+name:IN
 
+52
+140.0 180.0
+4
+server->leaf0
+name:serverLeaf
+type:device
+amount:512
 
-50
-67
+64
+81
 TG2_FILE_END

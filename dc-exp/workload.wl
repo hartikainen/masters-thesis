@@ -17,33 +17,29 @@ node
 2
 0
 356.0 88.0
-10
+5
 TRAFFIC GENERATOR
 name:generator
 
 lifetime:1
-interval:RNS_random_poisson(1)
-
-
-
-
-
+interval:RNS_random_poisson(0.1)
 
 1
 323.0 187.0
-13
+14
 test left
-name:testleft
+name:test
 job:SOFTWARE
 
-portnumber:RNS_random_int(0,1)
-portname:LEFT
-source:RNS_random_int(0, 31)
+portname:IN
+portnumber:RNS_random_int(0,31)
 target:RNS_random_int(0, 31)
 
 lifetime:1
-interval:0.1
+interval:1
 size:512
+
+
 
 
 6
