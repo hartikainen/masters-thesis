@@ -8,8 +8,11 @@ LDFLAGS := -L$(lib_dir) -lRNS `pth-config --ldflags` `pth-config --libs` -lm
 override includes += -I$(pse)/include
 override CFLAGS += $(includes) -g -Winline -Wshadow `pth-config --cflags`
 
-sim: TG_software.c RN_hardware.c WL_workload.c $(lib)/rnc_runtime.o $(pse)/include/rnc_runtime.h $(lib_dir)/libRNS.a
+sim: TG_software.c RN_hardware.c WL_workload.c custom/routing.c $(lib)/rnc_runtime.o $(pse)/include/rnc_runtime.h $(lib_dir)/libRNS.a
+	sh -x customization.sh
+
 	gcc $(CFLAGS) -o sim \
+	custom/routing.c \
 	TG_software.c \
 	RN_hardware.c \
 	WL_workload.c \

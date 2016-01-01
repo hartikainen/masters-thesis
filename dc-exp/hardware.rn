@@ -63,10 +63,14 @@ speed:40000000000
 
 118
 900.0 180.0
-3
+7
 select server
 name:selectServer2
 i=0..31 ; IN[i] ; leafServer[i]
+
+
+
+
 
 119
 1080.0 200.0
@@ -83,30 +87,35 @@ i=0..31 ; IN[i] ; serverLeaf[i]
 
 103
 220.0 240.0
-4
+5
 server->leaf0[32x10Gbps]
 name:serverLeaf
 count:32
 speed:10000000000
 
+
 105
 340.0 240.0
-4
+5
 leaf0
 name:leaf0
 count:1000
 speed:10000000000
 
+
 107
 980.0 240.0
-7
+10
 leaf1->server[32x10Gbps]
 name:leafServer
-count:32
+capacity:32
 speed:10000000000
 
-discipline:FCFS
-file:test.c
+discipline:CUSTOM
+file:custom/routing.h
+select_function:CUSTOM_select
+reserve_function:CUSTOM_reserve
+
 
 108
 820.0 240.0
@@ -128,18 +137,24 @@ speed:40000000000
 
 83
 60.0 200.0
-3
-IN[32]
+2
+IN
 name:IN
-count:32
 
 113
 460.0 140.0
-4
+11
 leaf0->spine0[2x40Gbps]
 name:leaf0Spine0
-count:2
+capacity:2
 speed:40000000000
+
+discipline:CUSTOM
+file:custom/routing.h
+select_fn:select_fn
+reserve_fn:reserve_fn
+
+
 
 114
 580.0 140.0
@@ -175,18 +190,10 @@ speed:10000000000
 102
 103
 147.0 200.0 180.0 200.0
-222
-105
-113
-380.0 200.0 420.0 180.0
 204
 114
 116
 620.0 180.0 660.0 180.0
-223
-105
-109
-380.0 200.0 420.0 220.0
 205
 115
 117
@@ -215,6 +222,14 @@ speed:10000000000
 107
 119
 1020.0 200.0 1060.0 200.0
-123
-226
+230
+105
+109
+380.0 200.0 420.0 220.0
+229
+105
+113
+380.0 200.0 420.0 180.0
+124
+231
 RN2_FILE_END

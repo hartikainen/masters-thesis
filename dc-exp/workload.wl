@@ -26,20 +26,19 @@ interval:RNS_random_poisson(0.1)
 
 1
 323.0 187.0
-14
+13
 test left
 name:test
 job:SOFTWARE
 
 portname:IN
-portnumber:RNS_random_int(0,31)
+source:RNS_random_int(0,31)
 target:RNS_random_int(0, 31)
 
 lifetime:1
 interval:1
 size:512
-
-
+throughSpine:RNS_random_int(0,1)
 
 
 6

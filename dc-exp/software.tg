@@ -76,7 +76,7 @@ block
 80
 62
 63
-765.0 140.0 820.0 140.0
+765.0 140.0 785.0 105.0 820.0 140.0
 79
 61
 62
@@ -84,7 +84,7 @@ block
 68
 51
 52
-100.0 140.0 115.0 140.0
+100.0 140.0 110.0 90.0 115.0 140.0
 70
 53
 54
@@ -93,8 +93,14 @@ block
 52
 53
 165.0 140.0 195.0 140.0
-0
-13
+2
+64
+68
+110.0 90.0 110.0 70.0
+65
+80
+785.0 105.0 785.0 85.0
+15
 53
 220.0 100.0
 4
@@ -105,10 +111,11 @@ amount:1
 
 54
 300.0 180.0
-3
+4
 choose spine
 name:choosespine
-expr:1
+expr:$throughSpine
+
 
 55
 380.0 80.0
@@ -176,17 +183,36 @@ amount:1
 
 62
 740.0 180.0
-4
+6
 leaf1->server
 name:leafServer
 type:device
 amount:512
+
+queue_id:0
 
 63
 840.0 140.0
 2
 OUT
 name:OUT
+
+64
+112.0 74.0
+5
+in probe
+name:probein
+file:output/in.log
+type:abs_trace
+
+
+65
+784.0 89.0
+4
+out probe
+name:probeout
+file:output/out.log
+type:abs_trace
 
 51
 72.0 144.0
@@ -202,6 +228,6 @@ name:serverLeaf
 type:device
 amount:512
 
-64
+66
 81
 TG2_FILE_END
