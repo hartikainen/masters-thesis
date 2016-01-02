@@ -111,11 +111,10 @@ amount:1
 
 54
 300.0 180.0
-4
+3
 choose spine
 name:choosespine
-expr:$throughSpine
-
+expr:$spineId
 
 55
 380.0 80.0
@@ -183,13 +182,14 @@ amount:1
 
 62
 740.0 180.0
-6
+7
 leaf1->server
 name:leafServer
 type:device
 amount:512
 
 queue_id:0
+
 
 63
 840.0 140.0

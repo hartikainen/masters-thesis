@@ -1,45 +1,75 @@
 WL_FILE_BEGIN
 main
 35
-2
+3
+8
+node
+317.0 232.0 387.0 262.0
 0
 node
 317.0 72.0 387.0 102.0
 1
 node
-311.0 169.0 381.0 199.0
+317.0 152.0 387.0 182.0
+2
+9
 1
+8
+352.0 182.0 352.0 232.0
 2
 0
 1
-352.0 102.0 346.0 169.0
+352.0 102.0 352.0 152.0
 0
-2
+3
+8
+352.0 250.0
+28
+flow
+name:flow
+job:SOFTWARE
+portname:IN
+
+
+lifetime: custom
+
+source:RNS_random_int(0,31)
+target:RNS_random_int(0, 31)
+leafSpine:RNS_random_int(0,1)
+spineLeaf:RNS_random_int(0,1)
+spineId:RNS_random_int(0,1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 0
 356.0 88.0
-5
+2
 TRAFFIC GENERATOR
 name:generator
 
-lifetime:1
-interval:RNS_random_poisson(0.1)
-
 1
-323.0 187.0
-13
-test left
-name:test
-job:SOFTWARE
+349.0 165.0
+7
+server
+name:server
 
-portname:IN
-source:RNS_random_int(0,31)
-target:RNS_random_int(0, 31)
-
-lifetime:1
-interval:1
-size:512
-throughSpine:RNS_random_int(0,1)
+lifetime:5
+interval:RNS_random_exponential(1)
 
 
-6
+
+10
 WL_FILE_END
