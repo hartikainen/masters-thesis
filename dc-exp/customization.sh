@@ -83,6 +83,13 @@ FROM='void WL_flow() {'
 TO='void WL_flow() {\
   int BYTES = 8\;\
   int PACKET_SIZE = 1024 * BYTES\;\
+
+  int spineId = RNS_random_int(0,1);
+  int spineLeaf = RNS_random_int(0,1);
+  int leafSpine = RNS_random_int(0,1);
+  int target = RNS_random_int(0, 31);
+  int source = RNS_random_int(0,31);
+
   int flow_size = RNS_random_weibull(100, 0.1)\;\
   if (flow_size < 128) flow_size = 128\;\
   int packets = (flow_size \/ PACKET_SIZE)\;\
