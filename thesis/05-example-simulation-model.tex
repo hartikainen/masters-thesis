@@ -6,6 +6,8 @@ In this chapter, we present an example simulation model of Cavium OCTEON II CN68
 
 We will introduce the CN6880 hardware, and then describe the model components and entities of the simulation model, without diving into the details of the entity attributes. After that, we will go through the measurement setup required to obtain the reference values for the model. Two different measurements will be done, one to measure the communication latencies and another to measure the memory latencies. Then, the gathered reference values are plugged in to the model and the relevant details are discussed. Finally, we describe the implementation of the task scheduler, using the PSE plug-in interface.
 
+\todo[inline]{sort this thing out}
+
 \section{Cavium OCTEON II CN6880}
 \label{sec:cavium-octeon}
 
@@ -28,7 +30,7 @@ The memory latencies have large effect in the packet processing times. The CN688
 \section{Characteristic Measurements}
 \label{sec:characteristic-measurements}
 
-For the model to represent the packet latencies and throughput with enough accuracy, the model needs to be filled with apposite entity parameters. Some of the model parameters are simple enough to be obtained directly from~\cite{cavium:2010:fundamentals}, while others are either unavailable, or are presented in a form unsuitable for our simulation model. The missing parameters are obtained by conducting measurements on the real CN6880 hardware.
+For the model to represent the packet latencies and throughput with enough accuracy, the model needs to be filled with apposite entity parameters. Some of the model parameters are simple enough to be obtained directly from~\cite{cavium:2010:fundamentals}, while others are either unavailable, or are presented in a form unsuitable for our simulation model. The missing communication and memory related parameters are obtained by conducting measurements on the real CN6880 hardware. These are discussed in the following sections, respectively.
 
 % We believe that, by determining the latecies of input phase and output phase, the behaviour of memory, and modeling the packet scheduler with enough accuracy, the sought applications' effects to the packet latencies and throughput come up with enough accuracy.
 
@@ -45,6 +47,8 @@ For the model to represent the packet latencies and throughput with enough accur
 
 \subsection{Communication Latencies}
 \label{sec:communication-latencies}
+
+By communication latencies, we refer to the time in the input and output phase of the packet processing, between physical receive/transmit ports and the actual core processing, as described in the Section~\ref{sec:cavium-octeon}. We will include the times spent in the SSO unit for both of these metrics, as due to our resource constraints, we were unable to do the measurements with the required detail to break down these delays. Also, for our modeling purposes, it is accurate enough to assume that the input and output phases consume equal amount of processing time.
 
 The input and output phase latencies are measured by generating traffic from external machine, and passing it through two CN6880 units back to the generator itself. The measurements were done at two independent points in the processing path, to validate the accuracy of the measurements.
 
