@@ -1,0 +1,233 @@
+TG2_FILE_BEGIN
+SOFTWARE
+13
+53
+block
+245 140 195 140
+54
+branch
+320 140 280 140
+55
+block
+405 120 355 120
+56
+block
+485 120 435 120
+57
+block
+565 120 515 120
+58
+block
+405 160 355 160
+60
+block
+565 160 515 160
+59
+block
+485 160 435 160
+61
+block
+665 140 615 140
+62
+block
+765 140 715 140
+63
+ends
+870 140 820 140
+51
+begin
+100 140 50 140
+52
+block
+165 140 115 140
+13
+71
+54
+55
+320.0 140.0 355.0 120.0
+72
+54
+58
+320.0 140.0 355.0 160.0
+73
+58
+59
+405.0 160.0 435.0 160.0
+74
+55
+56
+405.0 120.0 435.0 120.0
+75
+56
+57
+485.0 120.0 515.0 120.0
+76
+59
+60
+485.0 160.0 515.0 160.0
+77
+57
+61
+565.0 120.0 615.0 140.0
+78
+60
+61
+565.0 160.0 615.0 140.0
+80
+62
+63
+765.0 140.0 784.0 140.0 820.0 140.0
+79
+61
+62
+665.0 140.0 715.0 140.0
+68
+51
+52
+100.0 140.0 102.0 140.0 115.0 140.0
+69
+52
+53
+165.0 140.0 195.0 140.0
+70
+53
+54
+245.0 140.0 280.0 140.0
+2
+64
+68
+102.0 140.0 102.0 120.0
+65
+80
+784.0 140.0 784.0 120.0
+15
+53
+220.0 100.0
+4
+leaf0
+name:leaf0
+type:device
+amount:1
+
+54
+300.0 180.0
+3
+choose spine
+name:choosespine
+expr:$spineId
+
+55
+380.0 80.0
+6
+leaf0->spine0
+name:leaf0Spine0
+type:device
+amount:512
+
+tag:0
+
+56
+460.0 80.0
+6
+spine0
+name:spine0
+type:device
+amount:512
+
+
+
+57
+540.0 80.0
+5
+spine0->leaf1
+name:spine0Leaf1
+type:device
+amount:512
+
+
+58
+380.0 200.0
+6
+leaf0->spine1
+name:leaf0Spine1
+type:device
+amount:512
+
+tag:1
+
+60
+540.0 200.0
+5
+spine1->leaf1
+name:spine1Leaf1
+type:device
+amount:512
+
+
+59
+460.0 200.0
+4
+spine1
+name:spine1
+type:device
+amount:512
+
+61
+640.0 100.0
+4
+leaf1
+name:leaf1
+type:device
+amount:1
+
+62
+740.0 180.0
+7
+leaf1->server
+name:leafServer
+type:device
+amount:512
+
+queue_id:0
+
+
+63
+840.0 140.0
+2
+OUT
+name:OUT
+
+64
+104.0 110.0
+5
+in probe
+name:probein
+file:output/in.log
+type:abs_trace
+
+
+65
+784.0 110.0
+4
+out probe
+name:probeout
+file:output/out.log
+type:abs_trace
+
+51
+72.0 144.0
+2
+IN
+name:IN
+
+52
+140.0 180.0
+4
+server->leaf0
+name:serverLeaf
+type:device
+amount:512
+
+66
+81
+TG2_FILE_END
