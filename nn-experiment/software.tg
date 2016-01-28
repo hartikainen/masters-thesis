@@ -1,0 +1,179 @@
+TG2_FILE_BEGIN
+SOFTWARE
+13
+0
+begin
+80 140 30 140
+1
+block
+165 140 115 140
+2
+block
+265 140 215 140
+3
+block
+145 320 95 320
+6
+branch
+320 140 280 140
+7
+block
+225 320 175 320
+8
+block
+385 400 335 400
+9
+block
+485 400 435 400
+10
+block
+605 400 555 400
+11
+block
+625 320 575 320
+12
+block
+225 400 175 400
+13
+branch
+320 320 280 320
+14
+ends
+790 320 740 320
+14
+17
+11
+14
+625.0 320.0 740.0 320.0
+0
+0
+1
+80.0 140.0 115.0 140.0
+1
+1
+2
+165.0 140.0 215.0 140.0
+2
+2
+6
+265.0 140.0 280.0 140.0
+3
+6
+3
+320.0 140.0 420.0 140.0 400.0 260.0 20.0 260.0 20.0 320.0 95.0 320.0
+5
+6
+2
+320.0 140.0 300.0 200.0 220.0 200.0 215.0 140.0
+6
+3
+7
+145.0 320.0 175.0 320.0
+8
+12
+8
+225.0 400.0 335.0 400.0
+9
+7
+13
+225.0 320.0 280.0 320.0
+10
+13
+12
+320.0 320.0 320.0 360.0 140.0 360.0 140.0 400.0 175.0 400.0
+11
+13
+14
+320.0 320.0 360.0 280.0 680.0 280.0 740.0 320.0
+13
+8
+9
+385.0 400.0 435.0 400.0
+14
+9
+10
+485.0 400.0 555.0 400.0
+15
+10
+11
+605.0 400.0 575.0 320.0
+0
+10
+8
+360.0 420.0
+7
+mini DC forward
+name:classification
+amount: based on classification result
+
+
+
+
+
+10
+560.0 400.0
+3
+datacenter receive
+name:dcReceive
+amount:based on classification result
+
+9
+460.0 380.0
+3
+use core network
+name:coreNetwork
+amount: based on classification result
+
+1
+140.0 120.0
+2
+use camera
+name:camera
+
+11
+580.0 320.0
+3
+use server
+name:useServer
+amount:based on classification result
+
+6
+300.0 100.0
+2
+packet lost?
+name:packetLost
+
+2
+240.0 120.0
+4
+network link
+name:link
+
+
+
+12
+200.0 420.0
+5
+NN classification
+name:classification
+
+
+
+
+7
+200.0 300.0
+3
+mini DC host
+name:minidc
+possible filtering
+
+3
+100.0 300.0
+3
+LTE base station
+name:baseStation
+
+
+17
+18
+TG2_FILE_END
