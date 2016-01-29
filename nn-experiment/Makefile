@@ -8,41 +8,69 @@ LDFLAGS := -L$(lib_dir) -lRNS `pth-config --ldflags` `pth-config --libs` -lm
 override includes += -I$(pse)/include
 override CFLAGS += $(includes) -g -Winline -Wshadow `pth-config --cflags`
 
-sim: TG_software.c RN_hardware.c WL_workload.c $(lib)/rnc_runtime.o $(pse)/include/rnc_runtime.h $(lib_dir)/libRNS.a
-	sh -x customization.sh
+BUILD_DIR = ./build
 
+## RESOURCES
+RESOURCES:=	hardware	main-datacenter	edge-datacenter
+MAIN_FRAME:=	RN_HARDWARE
+MAIN_RESOURCE_H:=	$(BUILD_DIR)/RN_hardware.h
+RN_CODEFILES:= $(foreach model, $(RESOURCES), $(BUILD_DIR)/RN_$(model).c)
+
+## TASKS
+TASKS:=		classification	retrain	\
+		edge-datacenter	main-datacenter	image
+MAIN_TASK_H:= 	$(BUILD_DIR)/TG_image.h
+image_FRAME:=	RN_HARDWARE RN_hardware.h
+classification_FRAME:=	RN_MAIN_DATACENTER RN_main-datacenter.h
+retrain_FRAME:=	RN_MAIN_DATACENTER RN_main-datacenter.h
+edge-datacenter_FRAME:=	RN_EDGE_DATACENTER RN_edge-datacenter.h
+main-datacenter_FRAME:=	RN_MAIN_DATACENTER RN_main-datacenter.h
+TG_CODEFILES:= $(foreach model, $(TASKS), $(BUILD_DIR)/TG_$(model).c)
+
+## WORKLOADS
+WORKLOADS:=	workload
+WL_CODEFILES:= $(foreach model, $(WORKLOADS), $(BUILD_DIR)/WL_$(model).c)
+
+sim: $(TG_CODEFILES) $(RN_CODEFILES)$(WL_CODEFILES) $(lib)/rnc_runtime.o $(pse)/include/rnc_runtime.h $(lib_dir)/libRNS.a
 	gcc $(CFLAGS) -o sim \
-	TG_software.c \
-	RN_hardware.c \
-	WL_workload.c \
+	$(TG_CODEFILES) \
+	$(RN_CODEFILES) \
+	$(WL_CODEFILES) \
 	$(pse)/lib/rnc_runtime.o \
 	$(LDFLAGS)
 
 ################################################################################
-# HARDWARE MODELS ##############################################################
+# RESOURCE MODELS ##############################################################
 ################################################################################
-RN_hardware.c RN_hardware.h: hardware.rn $(rnc)
-	$(rnc) hardware.rn RN_hardware.h RN_hardware.c
+#.PHONY: $(RN_CODEFILES)
+$(RN_CODEFILES): $(BUILD_DIR)/RN_%.c: %.rn $(rnc)
+	$(rnc) $*.rn $(BUILD_DIR)/RN_$*.h $(BUILD_DIR)/RN_$*.c
+	@echo $*
 
 ################################################################################
-# SOFTWARE MODELS ##############################################################
+# TASK MODELS ##################################################################
 ################################################################################
-TG_software.c TG_software.h: software.tg $(tgc)
-	$(tgc) software.tg TG_software.h TG_software.c -frame HARDWARE RN_hardware.h
+#.PHONY: $(TG_CODEFILES)
+$(TG_CODEFILES): $(BUILD_DIR)/TG_%.c: %.tg $(tgc)
+	$(tgc) $*.tg $(BUILD_DIR)/TG_$*.h $(BUILD_DIR)/TG_$*.c -frame $($*_FRAME)
+	@echo $*
 
 ################################################################################
 # WORKLOAD MODELS ##############################################################
 ################################################################################
-WL_workload.c: workload.wl $(wlc) TG_software.h RN_hardware.h
-	$(wlc) workload.wl WL_workload.h WL_workload.c HARDWARE TG_software.h RN_hardware.h
+#.PHONY: $(WL_CODEFILES)
+$(WL_CODEFILES): $(BUILD_DIR)/WL_%.c: %.wl $(MAIN_TASK_H) $(MAIN_RESOURCE_H) $(wlc)
+	$(wlc) $*.wl $(BUILD_DIR)/WL_$*.h $(BUILD_DIR)/WL_$*.c \
+	$(MAIN_FRAME) $(MAIN_TASK_H) $(MAIN_RESOURCE_H)
+	@echo $*
 
 all: sim
 
+.PHONY: cleanall clean cleanmetric
+cleanall: clean cleanmetric
 
-.PHONY: clean cleanmetric
 clean:
-	-rm ./*.c ./*.h sim
-#	-rm WL_workload.c WL_workload.h RN_hardware.c RN_hardware.h TG_software.c TG_software.h blade_submodel.c blade_submodel.h memory_submodel.c memory_submodel.h packet_input_submodel.c packet_input_submodel.h packet_process_submodel.c packet_process_submodel.h packet_output_submodel.c packet_output_submodel.h sim
+	-rm $(BUILD_DIR)/*.c $(BUILD_DIR)/*.h sim
 
 cleanmetric:
-	-rm .output/*.log
+	-rm ./output/*.log

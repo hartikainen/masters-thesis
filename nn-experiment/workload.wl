@@ -1,61 +1,93 @@
 WL_FILE_BEGIN
 main
 35
-5
+6
 4
 node
-245.0 205.0 315.0 235.0
-10
-node
-545.0 185.0 615.0 215.0
+145.0 85.0 215.0 115.0
 9
 node
-545.0 125.0 615.0 155.0
+345.0 25.0 415.0 55.0
+10
+node
+345.0 145.0 415.0 175.0
 2
 node
-125.0 205.0 195.0 235.0
+45.0 85.0 115.0 115.0
+12
+node
+45.0 165.0 115.0 195.0
 7
 node
-365.0 205.0 435.0 235.0
-1
+245.0 85.0 315.0 115.0
+2
+13
+2
+12
+80.0 115.0 80.0 165.0
 11
 9
 10
-580.0 155.0 580.0 185.0
+380.0 55.0 380.0 145.0
 0
-5
+6
 4
-260.0 200.0
-3
+180.0 140.0
+6
 DC image classification job
-interval: 10min
-tarkemmin anomaaliset kuvat
+name:classificationJob
+job:TG_CLASSIFICATION
+portname:IN
 
-10
-560.0 200.0
-3
-exit
-name:exit
-control:exit
+interval:10*60
 
 9
-580.0 140.0
+380.0 40.0
 3
 run sim
 name:start
 delay:2.0
 
-2
-140.0 200.0
-2
-camera data
-interval:RNS_random_normal(..., ...)
+10
+360.0 160.0
+3
+exit
+name:exit
+control:exit
 
-7
-400.0 200.0
 2
-NN retrain
-interval:x hours
+80.0 60.0
+5
+camera data
+name:cameraData
+interval:1
+
+diffFromPrevious: RNS_random_uniform(0, 1)
 
 12
+80.0 180.0
+11
+flowlets
+name:flowlets
+job:TG_IMAGE
+interval:0.05/*RNS_random_normal(0.05, 0.01)*/
+lifetime:1
+scale:1
+
+packetLost: RNS_random_uniform(0, 1)
+portname:IN
+
+size:1000000/(1500*(1/0.05))
+
+7
+280.0 60.0
+6
+NN retrain
+name:retrainJob
+job:TG_RETRAIN
+portname:IN
+
+interval:10*60*60
+
+14
 WL_FILE_END

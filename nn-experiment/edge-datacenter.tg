@@ -1,0 +1,69 @@
+TG2_FILE_BEGIN
+TG_EDGE_DATACENTER
+5
+26
+begin
+120 140 70 140
+27
+ends
+250 140 200 140
+28
+block
+185 220 135 220
+29
+block
+305 200 255 200
+30
+block
+307 287 257 287
+2
+42
+26
+30
+120.0 140.0 257.0 287.0
+43
+30
+27
+307.0 287.0 200.0 140.0
+0
+5
+26
+80.0 140.0
+2
+IN
+name:IN
+
+27
+220.0 140.0
+2
+OUT
+name:OUT
+
+28
+160.0 200.0
+5
+enter datacenter
+name:RN_EDGE_DATACENTER
+type:enter
+enters:RN_EDGE_DATACENTER
+port:IN
+
+29
+280.0 180.0
+4
+exit datacenter
+name:RN_EDGE_DATACENTER
+type:exit
+exits:RN_EDGE_DATACENTER
+
+30
+288.0 288.0
+4
+use NPU
+type:device
+name:NPU
+amount:5
+
+32
+44
+TG2_FILE_END
