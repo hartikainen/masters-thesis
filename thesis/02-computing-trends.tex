@@ -2,7 +2,7 @@
 \label{chapter:computing-trends}
 
 \section{Modern Computing}
-This chapter introduces the context of this thesis. We present the challenges and reasons that have lead the traditional single threaded computing to concurrent, multi-threaded and parallelized programming, and further to a paradigms called cloud- and mobile-edge computing.
+This chapter introduces the context of this thesis. We present the challenges and reasons that have led the traditional single threaded computing to concurrent, multi-threaded and parallelized programming, and further to a paradigms called cloud and fog computing.
 
 The terminology around the parallelized computation is somewhat ambiguous. Throughout this chapter, we will be using the term \emph{parallel computing} as a general term referring to the opposite of \emph{single-threaded} or \emph{sequential} computing, unless explicitly stated to mean the act of \emph{parallel computing}, in which multiple calculations are carried out \emph{simultaneously}. The general term comprises many different types of computing, such as \emph{concurrent}- and \emph{distributed computing}, as well as the type of \emph{parallel computing} itself.
 
@@ -17,21 +17,29 @@ However, in the mid 2000s, the CPU performance gains hit the wall. Despite the f
 \begin{figure}[]
   \begin{center}
     \includegraphics[width=\textwidth]{images/free-lunch-is-over.png}
-    \caption{Intel CPU trends. The transistor density follows the Moore's Law, while the growth of CPU speed have stopped. The dashed lines present forecasts in 2005.~\cite{Sutter:2005:FLiO}}
+    \caption{Intel CPU trends. The transistor density follows the Moore's Law, while the growth of CPU speed have stopped.~\cite{Sutter:2005:FLiO}}
     \label{fig:rne-example}
   \end{center}
 \end{figure}
 
-These chip manufacturing challenges have lead the chips into an era of \emph{dark silicon}, meaning that we cannot afford to switch all the transistors on and off at each clock cycle due to the power constraints. To answer the hardware development challenges and the ever increasing computation need, software developers were forced to adopt new programming paradigms.~\cite{Sutter:2005:FLiO}
+These chip manufacturing challenges have led into an era of \emph{dark silicon}, meaning that we cannot afford to switch all the transistors on and off at each clock cycle due to the power constraints. To answer the hardware development challenges and the ever increasing computation need, software developers were forced to adopt new programming paradigms.~\cite{Sutter:2005:FLiO}
 
 \subsection{Parallel, Concurrent, and Distributed Computing}
 \label{subsection:parallel-concurrent-and-distributed-computing}
 
 The parallelization of computing has been researched for several decades. Before the sequential execution speedup gains hit the wall, it remained a minor but important field of research mainly in high-performance computing. Parallel-, concurrent-, and distributed computing, to name a few, quickly became the dominant answers for mainstream computing, to continue enjoying the benefits of the exponential computing speedups.
 
-The \emph{parallel computing type} refers to computing in which a smaller part of a program are solved at the same time. \emph{Concurrent computing}, on the other hand, executes multiple computations on overlapping time periods. In \emph{distributed computing}, the overlapping or simultaneous executions are carried out on multiple computers connected to each other.
+\todo[inline]{
+TODO:
+Eri parallel computing tavat vois tuoda jarkevamming esille.
+Esimerkkeja? GPU? NodeJS? OS:n scheduleri?
+}
 
-There exists a vast amount of frameworks to ease the development of the efficient parallel applications. The focus of this thesis is on the packet processing applications. We will present some of the frameworks more comprehensively in subsection~\ref{subsection:dataplane-frameworks}.
+The \emph{parallel computing type} refers to computing in which a subparts of a program are solved at the same time. \emph{Concurrent computing}, on the other hand, executes multiple computations on overlapping time periods. In \emph{distributed computing}, the overlapping or simultaneous executions are carried out on multiple computers connected to each other.
+
+\todo[inline]{TODO: Frameworks -> practices? Methods?}
+
+There exists a vast amount of frameworks to ease the development of the efficient parallel applications. The focus of this thesis is on the packet processing applications. We will present some of the frameworks more comprehensively in subsection~\ref{section:packet-processing}.
 
 Introducing parallelism into the computing brings various new challenges in the software development. For example, the lack of a global clock, and possible failure of components demands extensive care from the developers, on top the already challenging software development.
 
@@ -41,13 +49,13 @@ While implementing parallel systems is challenging for software developers, ther
   \frac{1}{(1-P) + \frac{P}{N}}
 \end{equation*}
 
-The implication of Amdahl's Law is that the speedup of a program is always limited by its non-parallezable proportion, and it also brings new challenges to the utilization of the available computing resources.
+The implication of Amdahl's Law is that the speedup of a program is always limited by its non-parallelizable proportion, and it also brings new challenges to the utilization of the available computing resources.
 
 \section{Virtualization}
 \label{section:virtualization}
-Virtualization is an act of dividing a common set of computing resources into a multiple isolated execution environments. Before the existence of multi-user operating systems and the rapid drop in hardware cost around 1980s, the virtualization was used to allow multiple users to share the same mainframe hardware. Until the end of 1990s, it remained mainly a practice of computing industry and academic research, often requiring special hardware with explicit support for virtualization. VMware's introduction of virtualization to the x86 architecture and the personal computer industry introduced the benefits of virtualization to the wider masses.~\cite{Bugnion:2012:BVX}
+Virtualization is an act of dividing a common set of computing resources into a multiple isolated execution environments. Before the existence of multi-user operating systems and the rapid drop in hardware cost around 1980s, the virtualization was used to allow multiple users to share the same mainframe hardware. Until the end of 1990s, it remained mainly a practice of computing industry and academic research, often requiring special hardware with explicit support for virtualization. VMWare's introduction of virtualization to the x86 architecture~\cite{Walters:1999:VVP} and the personal computer industry introduced the benefits of virtualization to the wider masses.~\cite{Bugnion:2012:BVX}
 
-In the traditional, nonvirtualized system, the hardware platform resources are controller by a single operating system. Virtualization introduces a new layer, the \emph{virtual machine monitor} (VMM), to the software stack. The VMM lies underneath the existing software components, abstracting the hardware inputs, outputs, and the behaviour for the use of multiple operating systems. The virtualized system is called a \emph{virtual machine}.~\cite{Uhlig:2005:IVT, Bugnion:2012:BVX}
+In the traditional, nonvirtualized system, the hardware platform resources are controlled by a single operating system. Virtualization introduces a new layer, the \emph{virtual machine monitor} (VMM), to the software stack. The VMM lies underneath the existing software components, abstracting the hardware inputs, outputs, and the behaviour for the use of multiple operating systems. The virtualized system is called a \emph{virtual machine}.~\cite{Uhlig:2005:IVT, Bugnion:2012:BVX}
 
 The benefits of the virtualization are numerous, mainly due to the software implementation of the virtual machines. It enables scalability and flexible migration of computation loads across different infrastructures, leading to improved hardware utilization, dynamic resource allocation and management, isolation, security, and automation.~\cite{Pearce:2013:VIS}
 
@@ -55,9 +63,16 @@ The virtual machines can be \emph{live migrated} over to another physical machin
 
 To enable fully functional virtualized environments, the virtualization of different system components, such as CPU, memory, I/O, and storage, need to be considered. CPU virtualization techniques are often divided into three categories: binary translation (full virtualization), paravirtualization, and hardware-assisted virtualization.~\cite{Bugnion:2012:BVX, Pearce:2013:VIS}
 
-Full virtualization refers to the situation where the communication between the virtualized operating system (guest) and the underlying host operating system is emulated. In Paravirtualization, instead of emulating the hardware environment, the guest operating systems are executed in isolated environments. The hardware virtualization allows the guest operating system to intercept and emulate privileged operations of the underlying hardware, through processor extensions.~\cite{Pearce:2013:VIS}
+\todo[inline]{
+Communication -> hardware usage? Add information about the hardware operations
+The guest operating systems are executed in isolated hardware environments
+What does hardware virtualization actually mean?
+}
+
+Full virtualization refers to the situation where the communication between the virtualized operating system (guest) and the underlying host operating system is emulated. In paravirtualization, instead of emulating the hardware environment, the guest operating systems are executed in isolated environments. Hardware assisted virtualization allows the guest operating system to intercept and emulate privileged operations of the underlying hardware through processor extensions.~\cite{Pearce:2013:VIS}
 
 \section{Cloud Computing}
+\todo[inline]{Emphasize the relationship to virtualization!}
 % scale up vs. scale out
 % NIST definiton of cloud computing: http://www.nist.gov/itl/cloud/upload/cloud-def-v15.pdf
 
@@ -68,7 +83,7 @@ According to the definition of The National Institute of Standards and Technolog
 \subsection{Characteristics}
 The \emph{on-demand self-service} characteristic means that the consumer of the service can provision computing resources, such as server time and network storage, automatically without requiring human interaction with each service provider. \emph{Broad network access} requires the service to be available over the network and accessible using standard mechanisms which promote use by heterogeneous platforms such as mobile phones, tablets, laptops, or personal computers. \emph{Resource pooling} refers to virtualization techniques discussed in the subsection~\ref{subsection:virtualization}. \emph{Rapid elasticity} means that the consumer is able to elastically and automatically, provision and release the seemingly untlimited resources on demand. The last characteristic, \emph{measured service}, refers to the automatic control and optimization of the resources by metering the usage of the services.~\cite{Mell:2011:ccdef}
 
-The characteristics of cloud computing make it tempting for both customers and service providers. From the customer perspective, it provides advantages of high computing power, cheap service costs, high performance, flexible scalability and accessibility as well as high availability. It reduces the upfront infrastructure costs for companies, allowing them to focus on their core businesses instead of on infrastructure, and getting their applications running faster, with improved manageability and less maintenance.[4] On the other hand, it provides completely new business models for the service providers.\todo[inline]{CITE}
+The characteristics of cloud computing make it tempting for both customers and service providers. From the customer perspective, it provides advantages of high computing power, cheap service costs, high performance, flexible scalability and accessibility as well as high availability. It reduces the upfront infrastructure costs for companies, allowing them to focus on their core businesses instead of on infrastructure, and getting their applications running faster, with improved manageability and less maintenance. On the other hand, it provides completely new business models for the service providers.~\cite{Mell:2011:ccdef, Dikaiakos:2009:Cloud}
 
 \subsection{Service Models}
 The three service models divide the cloud services into logical levels based on the computing layers provided by the cloud service. Figure~\ref{fig:cloud-computing-service-models} presents the comparison these levels together with the on-premise solution. On-premise solution refers to model where the complete computation stack is managed by the customer.
@@ -81,16 +96,16 @@ The three service models divide the cloud services into logical levels based on 
   \end{center}
 \end{figure}
 
-The lowest of the three levels, \emph{Infrastructure as a service (IaaS)} model, provides the customer the services which abstract the details of typical hardware resources and operating systems. The computing resources are typically abstracted using a hypervisor, such as VirtualBox, KVM, Hyper-V that runs the virtual machines visible to customers as guests. Examples of IaaS providers are Amazon Web Service, Rackspace, and VMware vCloud.
+The lowest of the three levels, \emph{Infrastructure as a service (IaaS)} model, provides the customer the services which abstract the details of typical hardware resources and operating systems. The computing resources are typically abstracted using a hypervisor, such as VirtualBox, KVM, Hyper-V that runs the virtual machines visible to customers as guests. Examples of IaaS providers are Amazon Web Services~\cite{Murty:2008:AWS} and Rackspace~\cite{Rackspace:2010:Inc}.~\cite{Mell:2011:ccdef}
 
-In the next service level, \emph{Platform as a service (PaaS)} model, the service provider takes care of the platform-level middleware and runtime components. These components typically include programming-language execution environment, databases, and web servers. Google AppEngine and Windows Azure Platform are examples of PaaS providers.
+In the next service level, \emph{Platform as a service (PaaS)} model, the service provider takes care of the platform-level middleware and runtime components. These components typically include programming-language execution environment, databases, and web servers. Google AppEngine~\cite{Sanderson:2009:GoogleAppEngine} and Windows Azure Platform~\cite{Redkar:2011:Azure} are examples of PaaS providers.~\cite{Mell:2011:ccdef}
 
-\emph{Software as a service (SaaS)} model provides, on top of the IaaS and PaaS, the management of the application and data level. The customers access the software from cloud clients, typically web browsers via personal computers, laptops, tablets or smartphones. SaaS has become a common model for delivering wide range of different applications, such as Facebook, Salesforce, and Google Gmail.
+\emph{Software as a service (SaaS)} model provides, on top of the IaaS and PaaS, the management of the application and data level. The customers access the software from cloud clients, typically web browsers via personal computers, laptops, tablets or smartphones. SaaS has become a common model for delivering wide range of different applications, such as Facebook~\cite{facebook}, Salesforce~\cite{salesforce}, and Google Gmail~\cite{Teeter:2011:Gmail}.~\cite{Mell:2011:ccdef}
 
 \subsection{Deployment Models}
-\emph{Private Cloud} infrastructure is hosted internally by a company or organization, targeting a specific set of customers. Private clouds are typically more affordable to setup and offer more flexibility, while also providing the companies full privacy on their data and applications. \emph{Public Cloud}, on the other hand, is exposed to any customer over a public network. The data, applications and other resources are stored over the service provider's data center, and thus the security has to be considered. The underlying infrastructure is often similar between these two models.
+\emph{Private Cloud} infrastructure is hosted internally by a company or organization, targeting a specific set of customers. Private clouds are typically more affordable to setup and offer more flexibility, while also providing the companies full privacy on their data and applications. \emph{Public Cloud}, on the other hand, is exposed to any customer over a public network. The data, applications and other resources are stored over the service provider's data center, and thus the security has to be considered. The underlying infrastructure is often similar between these two models.~\cite{Mell:2011:ccdef}
 
-The cloud service can also be a combination of the public and private clouds. This kind of deployment model is referred to as a \emph{hybrid cloud}. In hybrid cloud allows the utilization of the flexibility and cost of the public cloud solutions, while at the same time maintaining the security sensitive data over their own infrastructure. \emph{Community cloud} refers to cloud infrastructure that is shared between multiple organizations, typically with common security, jurisdiction, and compliance concerns in mind. Community clouds can be hosted and managed either internally or externally from the sharing organizations.[58]
+The cloud service can also be a combination of the public and private clouds. This kind of deployment model is referred to as a \emph{hybrid cloud}. Hybrid cloud allows the utilization of the flexibility and cost of the public cloud solutions, while at the same time maintaining the security sensitive data in their own infrastructure. \emph{Community cloud} refers to cloud infrastructure that is shared between multiple organizations, typically with common security, jurisdiction, and compliance concerns in mind. Community clouds can be hosted and managed either internally or externally from the sharing organizations.~\cite{Mell:2011:ccdef}
 
 ========
 
@@ -112,7 +127,7 @@ The cloud service can also be a combination of the public and private clouds. Th
 
 To fulfill these promises, cloud computing introduces new requirements to the underlying infrastructure. Server and networking.
 
-The development of data center technology and virtualization, together with faster telecommunication networks and proliferation of mobile devices have lead in the adoption of cloud computing.
+The development of data center technology and virtualization, together with faster telecommunication networks and proliferation of mobile devices have lad in the adoption of cloud computing.
 
 % However, to efficiently utilize data center resources, and to provide the required performance guarantees, efficient load balancing mechanisms are needed on various locations in the data center, all the way from single server core utilization up to the efficient network routing.
 
@@ -142,9 +157,7 @@ The development of data center technology and virtualization, together with fast
 % Netflix is collecting 1 PB of data per month from its video service user behaviour
 % Rovio is collecting in the order of 1 TB of data per day of games logs
 
-
-
-While the benefits of Cloud Computing provide efficient alternative to the traditional on-premise solutions, there are certain issues which have to be addressed to enable enable a new breed of ever demanding applications and services. Characteristics, such as mobility, geo-distribution, location awareness and low latency are intractable to achieve due to the centralized nature of cloud computing. Also, the Internet traffic volumes are growing rapidly. The proliferation of devices and sensors have lead to a situation where the data are produced faster than can be transmitted or stored.~\cite{bonomi:2012:fog, vaquero:2014:FYW}
+While the benefits of Cloud Computing provide efficient alternative to the traditional on-premise solutions, there are certain issues which have to be addressed to enable a new breed of ever demanding applications and services. Characteristics, such as mobility, geo-distribution, location awareness and low latency are intractable to achieve due to the centralized nature of cloud computing. Also, the Internet traffic volumes are growing rapidly. The proliferation of devices and sensors have led to a situation where the data are produced faster than can be transmitted or stored.~\cite{bonomi:2012:fog, vaquero:2014:FYW}
 
 Fog computing is an extension to the traditional cloud computing architecture, where parts of the cloud computing services, mainly computation, storage, and networking, are carried out in the edge of the communication network. It is defined to provide the following characteristics on top of the existing cloud computing architectures: low latency and location awareness; wide-spread geographical distribution; mobility; very large number of nodes, predominant role of wireless access, strong presence of streaming and real time applications, heterogeneity.~\cite{bonomi:2012:fog}
 
@@ -156,7 +169,7 @@ The nature of the data in fog computing entails new types of constraints to the 
 In the traditional von Neumann model of computing~\cite{Neumann:1993:EDVAC}, the computation is carried out by modifying the data stored in memory. However, the growing volumes of data and strict latency requirements, require not only distributing the computation, but also changes the nature of it more towards stream processing. The manipulation of the data streams passing through the system must be done on the on-the-fly.~\cite{Bonomi:2012:Fog, Thies:2002:StreamIt}
 
 \subsection{Fog Networks}
-Until recently, a typical network architectures have been implemented on proprietary or special purpose hardware. The growing networking traffic and competition in communication services have lead to the development of software based solutions able to measure up the tight standards for stability, protocol adherence, and quality, previously achievable only with the hardware solutions.~\cite{Kim:2013:SDN}
+Until recently, the typical network architectures have been implemented on proprietary or special purpose hardware. The growing networking traffic and competition in communication services have led to the development of software based solutions able to measure up the tight standards for stability, protocol adherence, and quality, previously achievable only with the hardware solutions.~\cite{Kim:2013:SDN}
 
 The main enabling technologies of fog computing are the software-defined networking (SDN), and further the network functions virtualization (NFV). Software defined networking separates the data plane and the control plane of the network. This separation makes the data plane switches simple packet forwarding devices, while leaving the routing decision control logic for the control plane.~\cite{Kim:2013:SDN, Demestichas:2013:NFV}
 
@@ -214,8 +227,30 @@ Long Term Evolution (LTE)~\cite{Sesia:2009:LTE} and Evolved Packet Core (EPC) wo
 % A definition for fog
 % challenges: privacy, volatility, bandwidth, mobility, billions of devices
 
-\section{Dataplane Frameworks}
-\label{sec:dataplane-frameworks}
+\section{Packet Processing}
+\label{sec:packet-processing}
+%  DATAPLANE: - hw support for sw
+
+Packet processing refers to the methods applied to transport the data packets through the various network elements of the communication network. The network routers, switchs, and other elements such as computers and smartphones have their own packet processing subsystems to manage the packet traversal between the network elements.
+
+The packet processing is divided into multiple abstraction layers, which define and stadardize the communication functions between the physical transfer level and the application level of a system. Widely adopted Open Systems Interconnection model (OSI) partitions the communication system into seven abstraction layers.
+
+
+
+\subsection{Fastpath Architecture}
+Fully packet based architectures are becoming more common in every part of the data communication networks. This, together with the introduction of increasing Ethernet speeds introduces strict requirements to the electronic network elements. While the control- and management planes will require non-trivial solutions, the main bottleneck, to keep up with the scalability of optical transmission technology, seems to be the data plane processing.~\cite{Hauger:2009:PP}
+
+The comparison of the speeds of Ethernet based transport networks and the processor speeds gives a perspective of the data path processing requirements. A typical Ethernet link with 100Gbps speed and minimum frame size of 64 bytes, leaves the packet processing system 6.7ns to process each packet.~\cite{Hauger:2009:PP, TODO:CiteForCPU}
+
+Different architectural approaches have been employed for the packet processing units.
+
+The performance and functionality requirements of the modern fog- and cloud computing networks introduce strict requirements for the packet processing units.
+
+% Packet switching[23] also introduces some architectural compromises. Performing packet processing functions in the transmission of information introduces delays that may be detrimental to the application being performed. For example, in voice and video applications, the necessary conversion from analog-to-digital and back again at the destination along with delays introduced by the network can cause noticeable gaps that are disruptive to the users. Latency is a measure of the time delay experienced by a complex system.
+
+% Multiple architectural approaches to packet processing have been developed[24] to address the performance and functionality requirements of a specific network and to address the latency issue.
+
+
 
 \todo[inline]{clean API with a set of coherent libraries and drivers}
 
@@ -237,8 +272,25 @@ Long Term Evolution (LTE)~\cite{Sesia:2009:LTE} and Evolved Packet Core (EPC) wo
 
 \todo[inline]{Protocols, addresses, ports, packet dropping, flow reordering}
 \todo[inline]{Reference implementations: Intel DPDK, ODP}
-
+\subsection{Data Plane Development Kit}
+\subsection{OpenDataPlane}
 \subsection{Open Event-Machine}
+% TODO:
+% - vs. löytyykö vielä jotain muita task processing malleja jotka samankaltaisia kuin OpenEM?
+% - onko missään näistä tukea hajautetulle laskennalle?
+
+% The OpenEM framework provides a programming model for scalable and dynamically load balanced applications. The key components of the OpenEM programming model are events, execution objects, queues and the scheduler. OpenEM operates with so-called run-to-completion principle. The run-to- completion principle means that once an event starts executing it will not be interrupted. New events cannot be scheduled until a core has completed its current task even if the events in execution had lower priorities than the events forced to wait. This implies limitations within which well performing applications must be designed. The program has to be divided to small events, so that the scheduler may efficiently distribute the computation and adhere to scheduling rules and priorities. Another limitation implied by the run-to-completion principle is that application needs to be implemented lock- free for good performance. [26]
+
+% The OpenEM framework structure and functionality are loosely defined by the source code distribution available at [26]. Apart from the source dis- tribution, there exists no public declaration of the structure and functionality of the framework. This lack of detail is explained by the OpenEM design principles, which are stated in the OpenEM source files at [26]. A selection of the design principles is presented here. The following list is not in any particular order.
+
+% - OpenEM has been designed to be easy to implement on different mul- ticore SoCs.
+% - Easy integration with modern hardware accelerators is stated to have been a major driver in the OpenEM concept design.
+% - All of the calls in the OpenEM API are multicore safe meaning no data structure gets broken if multiple cores make calls simultaneously. However the application designer needs to take the parallelism into con- sideration with regards to the application data structures and execution order.
+% - The API attempts to guide the application designer towards portable architecture.
+% - The API is not defined for portability through recompilation.
+% - OpenEM does not implement a full software platform or a middleware solution. OpenEM implements a driver-level layer of such a solution but can be used by the application directly for best performance.
+
+% Another factor explaining the loose definitions is how NSN views the status of its own public OpenEM implementation targeted for Intel DPDK. The disclaimer in the NSN source distribution at [26] states: ``The implementation of OpenEM for Intel CPUs in this package should NOT be considered a Reference OpenEM implementation'', but rather an ``Example of an all-SW implementation of OpenEM for Intel CPU'' This helps put the differences between the OpenEM API specification and the TI OpenEM implementation introduced in 3.2 in context.
 
 Queues, Execution Objects, Scheduler
 
@@ -247,7 +299,7 @@ Queues, Execution Objects, Scheduler
 \todo[inline]{Event driven parallel programming model}
 \todo[inline]{Currently no support for distributed computation}
 
-\section{Mobile-edge Computing}
+% \section{Mobile-edge Computing}
 % Use cases:
 % Device location tracking
 % Agumented Reality Content Delivery

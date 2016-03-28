@@ -8,7 +8,9 @@ This chapter presents a demonstrative simulation experiment done on the CN6880 P
 
 The experiment consists of two different simulations and measurements. We will first demonstrate a packet processing application whose throughput is limited due to the bottleneck occurring from a slow atomic processing. We will then modify the application, splitting part of the atomic processing into parallel, thus breaking the bottleneck.
 
-The simulation consists of a single packet stream, which is generated from a two level workload model. The first workload node is similar workload generator node as presented in Figure~\ref{fig:full-model}. It trigger its child node with interval $RNS\_random\_uniform(5e^{-5}, 15e^{-5})$ seconds, and lifetime of 0.05 seconds. The child node creates 512B packets with interval $5.1e^{-8}$ * $RNS\_random\_lognormal(-10, 0.9)$ seconds for $4e^{-5}$ seconds.
+The simulation consists of a single packet stream, which is generated from a two level workload model. The first workload node is similar workload generator node as presented in Figure~\ref{fig:full-model}. It triggers its child node with interval $RNS\_random\_uniform(5*10^{-5}, 15*10^{-5})$ seconds, and lifetime of 0.05 seconds. The child node creates 512B packets with interval $5.1~*~10^{-8}$~*~$RNS\_random\_lognormal(-10, 0.9)$ seconds for $4*10^{-5}$ seconds.
+
+The software and hardware  models are presented in figure~\ref{fig:full-model}.
 
 The first packet processing application is shown in the Figure~\ref{fig:application-1}. It consists of two processing steps, each consuming CPU and memory for the range of 5000 clock cycles. The first step consists of parallel, priority 2 queue, and the second one is done atomically with priority 1 queue.
 
@@ -55,7 +57,7 @@ Figures~\ref{fig:app1-queue2} and~\ref{fig:app1-latency} present the data from t
   \end{center}
 \end{figure}
 
-It is clear from the figures, that the second processing step is a bottleneck in the system. The processing in the second execution object is so heavy that the tasks accumulate into the waiting queue, and thus the packet latency keeps growing.
+It is clear from the figures, that the second processing step is a bottleneck in the system. The processing in the second execution object is so heavy that the tasks accumulate into the waiting queue, and thus the packet latency keeps growing until the workload ceases.
 
 The second application removes this problem, by parallelizing part of the atomic processing. Figures~\ref{fig:app2-queue2} and~\ref{fig:app2-latency} present the data from the second application simulation. Figure~\ref{fig:app2-queue2} shows the number of tasks in the SSO/core queue, that are from the atomic resource usage queue, with respect to simulation time. Figure~\ref{fig:app2-latency} presents the latency of the packets through the whole system. Neither of the parallel queues have tasks in the waiting queue of the SSO/core during the simulation.
 
@@ -78,6 +80,9 @@ The second application removes this problem, by parallelizing part of the atomic
 As the figures show, the bottleneck is removed from the system, and the latencies stay within 22$\mu$s during the simulation.
 
 \section{Discoveries}
+
+
+% The demonstrative experiment shows how accelerated processing can be modeled. In the experiment model, we connected a GPU into a NPU for video stream process- ing. Simulating the model, were able to point bottleneck formation and attainable performance with throughput and latency information based on the simulation. Ac- cording to the results obtained from the presented experiment, abstract simulation seems to be a viable approach in early phase design space exploration. Results suggest that even when there is no physical prototype available, it is possible to estimate individual system parameters from existing individual system components. A simulation model can be constructed, and the model can then be used to estimate the performance of different system configurations.
 
 % \section{Building prototype system based on the model}
 

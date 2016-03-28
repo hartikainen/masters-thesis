@@ -1,19 +1,51 @@
 \chapter{Introduction}
 \label{chapter:intro}
+In this thesis, we investigate the use of measurement, modeling, and simulation methods for the use of packet processing system development. We present a way to model the packet scheduling behaviour of a modern network processing unit, by building a simulation model, and further simulating the system using an existing in-house discrete event simulator, Performance Simulation Environment (PSE).
 
-\todo[inline]{write the introduction}
+Performance Simulation Environment provides a toolset for performance analysis of hardware and software co-scheduled manycore systems. It is a discrete event simulator based on resource network methodology. The major contribution of this thesis is the extension of PSE, to enable modeling and simulation of customized packet scheduling algorithms. We show that this type of simulation methods can speed up the modeling work by abstracting the system and decoupling the complex hardware and software models, while also maintaining the correct behaviour of the system under study.
 
 \section{Problem statement}
+The performance requirements for the packet processing systems are high. At the same time the performance analysis of these systems is hard, due to the complex non-deterministic behaviour, parallelism, communication delays, and memory systems. Also, the scheduling mechanisms are difficult, sometimes even impossible, to reason about, and the dynamic nature of the input data streams make the worst case analysis extremely non-trivial.
 
-\todo[inline]{problem statement}
+Similarly, the modeling and simulation of these systems are difficult. Raising the abstraction level of the simulator often makes both the modeling and simulation easier and faster. On the other hand, low enough abstraction level is needed to correctly model the behaviour of different solutions.
+
+The research problem of this thesis is: How to model the packet processing systems, or more accurately the hardware schedulers of the packet systems, to achieve feasible modeling capability, fast enough simulation times, and correct behaviour of the system at the same time.
 
 \section{Contributions}
+We will present a method for modeling and simulation of packet processing systems, with emphasis on the hardware accelerated packet scheduling. We extend the in-house discrete event simulator, Performance Simulation Environment (PSE), to enable use of customized scheduling algorithms. We will also modeled a modern network processing unit using the tools provided by PSE. The simulations of the model are carried out by the PSE's discrete event simulation engine.
 
-\todo[inline]{contributions}
+The major contribution of this thesis is the extension of PSE, to enable modeling and simulation of customized packet scheduling algorithms. We show that this type of simulation methods can speed up the modeling work by abstracting the system and decoupling the complex hardware and software models, while also maintaining the correct behaviour of the system under study. The new scheduling mechanisms and the example model have been presented to the industry partners in the ParallaX\footnote{ParallaX is an industry-driven research consortium lead by Finnish universities. Parallax's research focuses in parallel systems.~\cite{Lilius:2012:ParallaX}} research group's fall assembly, gaining major interest amongst the participants.
+
+Our contributions are summarized as:
+\begin{itemize}
+\item Instrumenting and measuring the critical characteristics of a modern network processing unit
+\item Extending an existing in-house simulation framework, Performance Simulation Environment (PSE), to support more complex hardware scheduling functions
+\item Refactoring the existing PSE functionalities and fixing several software bugs that made critical parts of the simulator unusable
+\item Designing and building a fully functional simulation model of a modern network processing unit
+\item The results were presented to the industry partners at the ParallaX group's fall assembly, working as a concrete example of the Embedded Systems Group's work in progress
+\item The PSE extensions and the network processing unit model has been used as the building blocks for the experiment of further research on Fog computing
+\end{itemize}
+
+Our first contribution includes setting up of a functioning experiment environment for measuring the memory and communication delays of the network processing system. The setup required vast amount of configuration and modifications done to the partly broken software development kit. The automization scripts and test programs are documented and ready to be used in further experiments on this hardware.
+
+The hardware scheduling extensions of PSE includes a new plugin code mechanism, that allows external C-programs to be used as the scheduling functions. The design and implementation required extensive understanding of nearly all parts of the underlying simulation program. During the development of these features, we noticed several critical memory bugs in the software, that inhibited the use of the existing fork-join mechanism on any meaningful sized workloads. Together the extension and bug fixes consisted of roughly 700 edited and 600 new lines of code. These features are documented to be further utilized by PSE users.
+
+Our third major contribution is the implementation of functional simulation model of a modern network processing unit. The model is based on the measurement results of the measurement results of the reference unit and other required characteristics found in literature. The model acts as a working example of modeling non-trivial parts of network processing units using PSE. The model highlights the ability to decouple the hardware and software model; The software modelers can work on their parts of the system without having to dive into the details of the hardware, and vice versa.
+
+Finally, these results are presented to the industry partners showing much interest in the possibilities of PSE. The results has been an inspiration, and the PSE extensions a de rigueur, for the Embedded System Group's future experiments and research that includes PSE simulation.
 
 \section{Structure}
+Chapter~\ref{chapter:computing-trends} presents an overview to the context of this thesis. We will describe the reasons that has led IT industry to widely adapt paradigms called cloud and fog computing. It describes the cloud and fog computing together with the relevant technologies, such as virtualization and software defined networking, enabling these paradigms. Finally, it will motivate the use and present the problems of simulating packet processing systems.
 
-\todo[inline]{structure stuff}
+In chapter~\ref{chapter:system-performance-analysis-and-simulation}, we will present the basic concepts of performance analysis and simulation. We will begin by presenting different evaluation techniques and performance metrics, further defining the components of system under a performance study. Finally, we will describe the simulation model and monitoring, with a short survey of the existing simulation software.
+
+Chapter~\ref{chapter:performance-simulation-environment} presents a deeper view on the simulation tool, Performance Simulation Environment (PSE), used in this thesis. The chapter begins with an overview of the PSE's toolset. After that, we will describe the three main components of a PSE model. Finally, we will present the built-in discrete event simulator of PSE.
+
+In chapter~\ref{chapter:example-simulation-model} we present the example model of the Cavium OCTEON II CN6800 network processing unit. We will first present the main characteristics of the system under modeling, followed by the characteristic measurements of the system. We describe the measurements of memory and communication latencies. After the measurement results, we will present the actual simulation model and explain the custom scheduler functionality.
+
+The demonstrative experiments are presented in chapter~\ref{chapter:demonstrative-experiment}. We will describe the two experiment setups used, and the simulation results of them. Finally, we will analyze the experiments results in the discoveries section.
+
+The last two chapters~\ref{chapter:discussion, chapter:conclusions} presents the discussion about the challenges, discoveries, together with the related and future work,  and finally concludes the thesis.
 
 %%% Local Variables:
 %%% mode: latex
