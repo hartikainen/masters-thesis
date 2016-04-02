@@ -51,7 +51,7 @@ The input and output phase latencies are measured by generating traffic from ext
 
 \begin{figure}[]
   \begin{center}
-    \includegraphics[width=\textwidth]{images/comm-measurement-setup-crop.pdf}
+    \includegraphics[width=\textwidth]{images/comm-measurement-setup.pdf}
     \caption{The setup used to measure the communication latencies. The communication between the nodes, packet processing on the main cores, and the input and output processing, are marked with the dashed arrows, solid black arrows, and orange arrows respectively. The probes present the points of measurement.}
     \label{fig:comm-setup}
   \end{center}
@@ -70,7 +70,7 @@ We measured the times for packet sizes of 64B, 128B, 256B, 512B, 1024B, and 1500
 
 \begin{figure}[]
   \begin{center}
-    \includegraphics[width=\textwidth]{images/comm-latency-boxplot-crop.pdf}
+    \includegraphics[width=\textwidth]{images/comm-latency-boxplot.pdf}
     \caption{Latency of the input and output phase of the CN6880 unit. On each box, the central mark is the median, the edges of the box are the 25th and 75th percentiles. 99.3\% of the points lie within the whiskers, and the most extreme points are presented as red crosses. Both of the axes are on logarithmic scale.}
     \label{fig:comm-latency-boxplot}
   \end{center}
@@ -78,7 +78,7 @@ We measured the times for packet sizes of 64B, 128B, 256B, 512B, 1024B, and 1500
 
 \begin{figure}[]
   \begin{center}
-    \includegraphics[width=\textwidth]{images/comm-latency-histograms-crop.pdf}
+    \includegraphics[width=\textwidth]{images/comm-latency-histograms.pdf}
     \caption{Latency frequency histograms for each packet size, along with a normal density function with parameters, estimated with maximum likelihood method from the data.}
     \label{fig:comm-latency-histograms}
   \end{center}
@@ -133,7 +133,7 @@ We created a high level simulation model of the Cavium OCTEON II CN6880 network 
 
 \begin{figure}[]
   \begin{center}
-    \includegraphics[width=\textwidth]{images/fullmodel-crop.pdf}
+    \includegraphics[width=\textwidth]{images/fullmodel.pdf}
     \caption{Graphical presentation of the OCTEON II CN6880 PSE model. The workload model (top) generates network packets, which then flow through the software model (middle), consuming the hardware resources (bottom). The orange arrows represent an example of a packet's path through the software model, and the blue arrows the resource usage at each software model node.}
     \label{fig:full-model}
   \end{center}
