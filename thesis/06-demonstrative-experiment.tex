@@ -10,7 +10,7 @@ The experiment consists of two different simulations and measurements. We will f
 
 The simulation consists of a single packet stream, which is generated from a two level workload model. The first workload node is similar workload generator node as presented in Figure~\ref{fig:full-model}. It triggers its child node with interval $RNS\_random\_uniform(5*10^{-5}, 15*10^{-5})$ seconds, and lifetime of 0.05 seconds. The child node creates 512B packets with interval $5.1~*~10^{-8}$~*~$RNS\_random\_lognormal(-10, 0.9)$ seconds for $4*10^{-5}$ seconds.
 
-The software and hardware  models are presented in figure~\ref{fig:full-model}.
+The software and hardware models are presented in figure~\ref{fig:full-model}.
 
 The first packet processing application is shown in the Figure~\ref{fig:application-1}. It consists of two processing steps, each consuming CPU and memory for the range of 5000 clock cycles. The first step consists of parallel, priority 2 queue, and the second one is done atomically with priority 1 queue.
 
