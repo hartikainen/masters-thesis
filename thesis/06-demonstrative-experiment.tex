@@ -63,7 +63,7 @@ Figures~\ref{fig:app1-queue2} and~\ref{fig:app1-latency} present the data from t
 
 \begin{figure}[]
   \begin{center}
-    \includegraphics[width=\textwidth]{images/app1-queue2.pdf}
+    \includegraphics[width=\textwidth]{images/experiment/app1-queue2-crop.pdf}
     \caption{Application 1: The number of tasks in the SSO/core queue, with respect to simulation time, from the second resource usage queue.}
     \label{fig:app1-queue2}
   \end{center}
@@ -71,7 +71,7 @@ Figures~\ref{fig:app1-queue2} and~\ref{fig:app1-latency} present the data from t
 
 \begin{figure}[]
   \begin{center}
-    \includegraphics[width=\textwidth]{images/app1-latency.pdf}
+    \includegraphics[width=\textwidth]{images/experiment/app1-latency-crop.pdf}
     \caption{Application 1: Latency of the packets through the system.}
     \label{fig:app1-latency}
   \end{center}
@@ -83,7 +83,7 @@ The second application removes this problem by parallelizing part of the atomic 
 
 \begin{figure}[]
   \begin{center}
-    \includegraphics[width=\textwidth]{images/app2-queue2.pdf}
+    \includegraphics[width=\textwidth]{images/experiment/app2-queue2-crop.pdf}
     \caption{Application 2: The number of tasks in the SSO/core queue, from the second resource usage queue.}
     \label{fig:app2-queue2}
   \end{center}
@@ -91,19 +91,19 @@ The second application removes this problem by parallelizing part of the atomic 
 
 \begin{figure}[]
   \begin{center}
-    \includegraphics[width=\textwidth]{images/app2-latency.pdf}
+    \includegraphics[width=\textwidth]{images/experiment/app2-latency-crop.pdf}
     \caption{Application 2: Latency of the packets through the system.}
     \label{fig:app2-latency}
   \end{center}
 \end{figure}
 
-As the figures show, the bottleneck is removed from the system, and the latencies stay within 22$\mu$s during the simulation.
+As the figures show, the second application removes the bottleneck from the system. The latencies stay within 22$\mu$s, and the limiting queue length is always below 40, over the simulation period.
 
 \section{Discoveries}
 
-The experiment presents an example usage of the PSE's pluging code mechanism and simulation of network processing unit. The simulation results are encouraging. First, they show that PSE can be used for performance analysis of more complex hardware accelerated systems. This brings advantages especially in the early design space exploration, when there are no real life system available, or when individual system parameters are explored.
+The experiment presents an example usage of the PSE's plugin code mechanism and simulation of network processing unit. The simulation results are encouraging. First, they show that PSE can be used for performance analysis of more complex hardware accelerated systems. This brings advantages especially in the early design space exploration, when there are no real life system available, or when individual system parameters are explored.
 
-The pluging code mechanism extends to any resource network based simulation task, providing flexibility, and allowing even more complex systems to be modeled.
+The plugin code mechanism extends to any resource network based simulation task, providing flexibility, and allowing even more complex systems to be modeled.
 
 %%% Local Variables:
 %%% mode: latex

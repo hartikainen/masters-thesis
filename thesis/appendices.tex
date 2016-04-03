@@ -13,7 +13,7 @@ RNS\_demand\_device routine in~\ref{lst:RNS-demand-device} is a simple wrapper r
 \lstinputlisting[caption=RNS\_reserve\_resource,
                  label=lst:RNS-reserve-resource]{listings/RNS_reserve_resource.c}
 
-\ref{lst:RNS-reserve-resource} summarizes the RNS\_reserve\_resource routine. RNS\_reserve\_resource calls the reserve function bound to the resource entity as explained in section \ref{TODO}. The reserve function assigns the task either in the resource's processing queue or waiting queue.
+\ref{lst:RNS-reserve-resource} summarizes the RNS\_reserve\_resource routine. RNS\_reserve\_resource calls the reserve function bound to the resource entity as explained in section~\ref{chapter:performance-simulation-environment}. The reserve function assigns the task either in the resource's processing queue or waiting queue.
 
 If the reserve function assigns the task to the waiting queue, the thread yields the execution to the scheduler.
 
