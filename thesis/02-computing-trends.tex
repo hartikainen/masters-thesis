@@ -12,7 +12,7 @@ Until the turn of the millenium, the main drivers for the speedups in computing 
 
 A notable fact about all these drivers is that, while they lead to speedups in parallel computing, they also provide direct speedups for sequential programs. Partly for this reason, until the end of 1990s, the majority of the software applications were single-threaded and sequential.~\cite{Sutter:2005:FLiO}
 
-However, in the mid 2000s, the CPU performance gains hit the wall. Despite the fact that the transistor densities continued following the Moore's Law~\cite{Moore:1998:MooresLaw}, several physical problems limited the development of higher clock speeds. Dennard scaling, a law proposed by in 1974 stating that the power density of transistors stays constant while the transistor themselves get smaller, seems to be broken down around 2005. As the transistors got even smaller, new current leakage and chip heating problems arose and the silicon industry hit the so-called \emph{powerwall}.~\cite{Esmaeilzadeh:2011:DSE, Sutter:2005:FLiO}
+However, in the mid 2000s, the CPU performance gains hit the wall. Despite the fact that the transistor densities continued following the Moore's Law~\cite{Moore:1998:MooresLaw}, several physical problems limited the development of higher clock speeds. Dennard scaling, a law proposed by in 1974 stating that the power density of transistors stays constant while the transistor themselves get smaller, seems to be broken down around 2005. As the transistors got even smaller, new current leakage and chip heating problems arose and the silicon industry hit the so-called \emph{powerwall}.~\cite{Esmaeilzadeh:2011:DSE, Sutter:2005:FLiO, Ributzka:2013:Concurrency}
 
 \begin{figure}[]
   \begin{center}
@@ -22,18 +22,14 @@ However, in the mid 2000s, the CPU performance gains hit the wall. Despite the f
   \end{center}
 \end{figure}
 
-These chip manufacturing challenges have led into an era of \emph{dark silicon}, meaning that we cannot afford to switch all the transistors on and off at each clock cycle due to the power constraints. To answer the hardware development challenges and the ever increasing computation need, software developers were forced to adopt new programming paradigms.~\cite{Sutter:2005:FLiO}
+These chip manufacturing challenges have led into an era of \emph{dark silicon}, meaning that we cannot afford to switch all the transistors on and off at each clock cycle due to the power constraints. Before the power wall, the forefront of the silicon industry was to maximize the chip speeds. However, in the era of dark silicon, the power consumption has become perhaps the most important performance indicator, especially in the datacenter scale computing.~\cite{Sutter:2005:FLiO, Asanovic:2006:Landscape, Ributzka:2013:Concurrency, Zhang:2010:CloudComputing}
+
+And while the silicon industry are facing various hardware development challenges, the software developers are also forced to adopt new programming paradigms to keep up with the ever increasing performance requirements.~\cite{Sutter:2005:FLiO}
 
 \subsection{Parallel, Concurrent, and Distributed Computing}
 \label{subsection:parallel-concurrent-and-distributed-computing}
 
-The parallelization of computing has been researched for several decades. Before the sequential execution speedup gains hit the wall, it remained a minor but important field of research mainly in high-performance computing. Parallel-, concurrent-, and distributed computing, to name a few, quickly became the dominant answers for mainstream computing, to continue enjoying the benefits of the exponential computing speedups.
-
-\todo[inline]{
-TODO:
-Eri parallel computing tavat vois tuoda jarkevamming esille.
-Esimerkkeja? GPU? NodeJS? OS:n scheduleri?
-}
+The parallelization of computing has been researched for several decades. Before the sequential execution speedup gains hit the wall, it remained a minor but important field of research, mainly in high-performance computing. Parallel-, concurrent-, and distributed computing quickly became the dominant answers for mainstream computing, to continue enjoying the benefits of the exponential computing speedups.
 
 The \emph{parallel computing type} refers to computing in which a subparts of a program are solved at the same time. \emph{Concurrent computing}, on the other hand, executes multiple computations on overlapping time periods. In \emph{distributed computing}, the overlapping or simultaneous executions are carried out on multiple computers connected to each other.
 
@@ -169,17 +165,18 @@ The nature of the data in fog computing entails new types of constraints to the 
 In the traditional von Neumann model of computing~\cite{Neumann:1993:EDVAC}, the computation is carried out by modifying the data stored in memory. However, the growing volumes of data and strict latency requirements, require not only distributing the computation, but also changes the nature of it more towards stream processing. The manipulation of the data streams passing through the system must be done on the on-the-fly.~\cite{Bonomi:2012:Fog, Thies:2002:StreamIt}
 
 \subsection{Fog Networks}
-Until recently, the typical network architectures have been implemented on proprietary or special purpose hardware. The growing networking traffic and competition in communication services have led to the development of software based solutions able to measure up the tight standards for stability, protocol adherence, and quality, previously achievable only with the hardware solutions.~\cite{Kim:2013:SDN}
 
-The main enabling technologies of fog computing are the software-defined networking (SDN), and further the network functions virtualization (NFV). Software defined networking separates the data plane and the control plane of the network. This separation makes the data plane switches simple packet forwarding devices, while leaving the routing decision control logic for the control plane.~\cite{Kim:2013:SDN, Demestichas:2013:NFV}
+Until recently, the typical network architectures have been implemented on proprietary or special purpose hardware. The growing networking traffic and competition in communication services have led to the development of software based solutions. Today's software based solutions are able to measure up the tight standards for stability, protocol adherence, and quality, previously achieved only with the hardware solutions.~\cite{Kim:2013:SDN}
+
+The main enabling technologies of fog computing are the software-defined networking (SDN), and further the network functions virtualization (NFV). Software defined networking separates the data plane and the control plane functionalities of the network, making the data plane switches simple packet forwarding devices, while leaving the routing decision control logic for the control plane.~\cite{Kim:2013:SDN, Demestichas:2013:NFV}
 
 The control plane refers to the parts of the routing architecture, that carries and consumes the control packets needed to describe the network topology and correctly route the actual data packets. The control packets originate from and are destined for a router.~\cite{Chao:2007:HPS:1202844, Yang:2004:FCE:RFC3746}
 
 The data plane, often referred as forwarding plane, defines the part of the routing architecture, which decides destination and takes action for the data arriving to it. The decision is typically determined by a look-up table, which the incoming packet is compared to.~\cite{Chao:2007:HPS:1202844, Yang:2004:FCE:RFC3746}
 
-SDN introduces completely new possibilities for network management and configuration practices, and enables the network functions virtualization. In NFV, the network node functions are virtualized, using similar methods as described in~\ref{section:virtualization}, to building blocks that may connect or chain together, to create communication services.~\cite{Demestichas:2013:NFV}
+SDN is often complemented with network functions virtualization. In NFV, the network devices are virtualized (using similar techniques as discussed in section~\ref{section:virtualization}) and the network functionalities of the devices are implemented in software packages.~\cite{Demestichas:2013:NFV}
 
-Long Term Evolution (LTE)~\cite{Sesia:2009:LTE} and Evolved Packet Core (EPC) work as a natural for the fog's edge data centers. Small cloud stations can be deployed to the EPCs, and the routers can be utilized as the virtualization infrastructure. This also enables the applications services to be co-located where needed.~\cite{vaquero:2014:FYW}
+Long Term Evolution (LTE)~\cite{Sesia:2009:LTE} and Evolved Packet Core (EPC) work as a natural platforms for the fog's edge data centers. Small cloud stations can be deployed to the EPCs, and the routers can be utilized as the virtualization infrastructure. This also enables the applications services to be co-located where needed.~\cite{vaquero:2014:FYW}
 
 % The softwareisation of
 % a classically hardware-driven business built around routers
@@ -229,29 +226,22 @@ Long Term Evolution (LTE)~\cite{Sesia:2009:LTE} and Evolved Packet Core (EPC) wo
 
 \section{Packet Processing}
 \label{sec:packet-processing}
-%  DATAPLANE: - hw support for sw
-
 Packet processing refers to the methods applied to transport the data packets through the various network elements of the communication network. The network routers, switchs, and other elements such as computers and smartphones have their own packet processing subsystems to manage the packet traversal between the network elements.
 
 The packet processing is divided into multiple abstraction layers, which define and stadardize the communication functions between the physical transfer level and the application level of a system. Widely adopted Open Systems Interconnection model (OSI) partitions the communication system into seven abstraction layers.
 
 
 
-\subsection{Fastpath Architecture}
+\subsection{Fast path Architecture}
 Fully packet based architectures are becoming more common in every part of the data communication networks. This, together with the introduction of increasing Ethernet speeds introduces strict requirements to the electronic network elements. While the control- and management planes will require non-trivial solutions, the main bottleneck, to keep up with the scalability of optical transmission technology, seems to be the data plane processing.~\cite{Hauger:2009:PP}
 
-The comparison of the speeds of Ethernet based transport networks and the processor speeds gives a perspective of the data path processing requirements. A typical Ethernet link with 100Gbps speed and minimum frame size of 64 bytes, leaves the packet processing system 6.7ns to process each packet.~\cite{Hauger:2009:PP, TODO:CiteForCPU}
+The comparison of the speeds of Ethernet based transport networks and the processor speeds gives a perspective of the data path processing requirements. A typical Ethernet link with 100Gbps speed and minimum frame size of 64 bytes, leaves the packet processing system 6.7ns to process each packet. Completely software based solutions are insufficient to answer these requirements.~\cite{Hauger:2009:PP}
 
-Different architectural approaches have been employed for the packet processing units.
+Fast path architecture refers to an path through a computer program, which incorporates smaller number of instructions or other optimization methods, compared to the 'normal path'. In packet processing systems, only minority of the data require complex processing. Thus, the data plane processing is often split into two layers: fast path and slow path.~\cite{cavium:2010:fundamentals, 6wind:2016:FP}
 
-The performance and functionality requirements of the modern fog- and cloud computing networks introduce strict requirements for the packet processing units.
+The typical slow path of the data plane is run on top of an operating system stack. The fast path layer processes packet outside the operating system environment, often with hardware acceleration, thus avoiding the overheads occuring from the thick software stack. This leaves only a small number of packets, that require special processing, to be forwarded to the slow path able to do more complex processing. Typical examples of packets requiring slow path handling are IP options and ARP packets. In MPSoC packet processing systems, such as Cavium OCTEON II CN6880, the processing cores can often be dynamically configured to run fast path or slow path.~\cite{cavium:2010:fundamentals, 6wind:2016:FP}
 
-% Packet switching[23] also introduces some architectural compromises. Performing packet processing functions in the transmission of information introduces delays that may be detrimental to the application being performed. For example, in voice and video applications, the necessary conversion from analog-to-digital and back again at the destination along with delays introduced by the network can cause noticeable gaps that are disruptive to the users. Latency is a measure of the time delay experienced by a complex system.
-
-% Multiple architectural approaches to packet processing have been developed[24] to address the performance and functionality requirements of a specific network and to address the latency issue.
-
-
-
+\subsection{Data Plane Development Kit}
 \todo[inline]{clean API with a set of coherent libraries and drivers}
 
 \todo[inline]{generic support for many CPUs/NICs}
@@ -272,7 +262,6 @@ The performance and functionality requirements of the modern fog- and cloud comp
 
 \todo[inline]{Protocols, addresses, ports, packet dropping, flow reordering}
 \todo[inline]{Reference implementations: Intel DPDK, ODP}
-\subsection{Data Plane Development Kit}
 \subsection{OpenDataPlane}
 \subsection{Open Event-Machine}
 % TODO:
@@ -295,7 +284,7 @@ The performance and functionality requirements of the modern fog- and cloud comp
 Queues, Execution Objects, Scheduler
 
 \todo[inline]{vs. Intel DPDK, ODP??}
-\todo[inline]{Mapping between fastpath hardware and dataplane application}
+\todo[inline]{Mapping between fast path hardware and dataplane application}
 \todo[inline]{Event driven parallel programming model}
 \todo[inline]{Currently no support for distributed computation}
 
@@ -425,7 +414,7 @@ Queues, Execution Objects, Scheduler
 % % Join-Idle-Queue: A novel load balancing algorithm for dynamically scalable web services [http://dl.acm.org/citation.cfm?id=2039718]
 
 
-% In \ref{churhc et al. On Delivering Embarrassingly Distributed Cloud Services} Church et al. highlight the advantages of small scale data centers over a mega centers.
+% In~\ref{churhc et al. On Delivering Embarrassingly Distributed Cloud Services} Church et al. highlight the advantages of small scale data centers over a mega centers.
 
 % % An architecture for Load Balancing Techniques for Fog Computing Environment  [http://csjournals.com/IJCSC/PDF6-2/43.%20Manisha.pdf]
 
