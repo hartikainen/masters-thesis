@@ -33,11 +33,15 @@ The parallelization of computing has been researched for several decades. Before
 
 The \emph{parallel computing type} refers to computing in which a subparts of a program are solved at the same time. \emph{Concurrent computing}, on the other hand, executes multiple computations on overlapping time periods. In \emph{distributed computing}, the overlapping or simultaneous executions are carried out on multiple computers connected to each other.
 
-\todo[inline]{TODO: Frameworks -> practices? Methods?}
+There exist many different forms of parallel computing, often divided into four high level categories: bit-level, instruction-level, task, and data parallelism. Parallelism can be implemented in both software and hardware levels.~\cite{Culler:1997:PCA}
 
-There exists a vast amount of frameworks to ease the development of the efficient parallel applications. The focus of this thesis is on the packet processing applications. We will present some of the frameworks more comprehensively in subsection~\ref{section:packet-processing}.
+Bit-level parallelism increases refers to increasing the processor word size, thus reducing the needed number of instructions to be executed. In instruction level parallelism, the processor executes multiple instructions at the same time. Instruction level parallelism can happen in both hardware or software level.~\cite{Culler:1997:PCA}
 
-Introducing parallelism into the computing brings various new challenges in the software development. For example, the lack of a global clock, and possible failure of components demands extensive care from the developers, on top the already challenging software development.
+The data parallelism refers to the simultaneous execution of the same function, on multiple cores, across the elements of the input data. Modern graphics processing units (GPU's), often implemented as wide single instruction, multiple data (SIMD) principle, are examples of data parallelism.~\cite{Culler:1997:PCA}
+
+In contrast to data parallelism, task parallelism refers to execution of multiple cores of (possibly) completely different functions, across the same or different input data. In a typical multi-core processor, task parallelism is achieved by executing different threads or processes, on each core.~\cite{Culler:1997:PCA}
+
+Introducing parallelism into the computing brings various new challenges in the software development. For example, the lack of a global clock, and possible failure of components demands extensive care from the developers, on top of the already challenging software development. Different frameworks and methods have been implemented, to ease the software development of efficient parallel applications. The focus of this thesis is on task level parallelism, especially in the context of packet processing applications. We will present some of the task processing frameworks more comprehensively in subsection~\ref{sec:packet-processing}.~\cite{Asanovic:2006:Landscape}
 
 While implementing parallel systems is challenging for software developers, there are also clear limitations in the speedup gains that these methods can achieve. Amdahl's Law states the rather obvious maxima in the speedup that the program can achieve by scaling the computation over N processors. Suppose that the parallelizable proportion of a program is P (and thus the non-parallelizable proportion being P-1), then the maximum speedup, as denoted by Amdahl's Law, is:~\cite{Amdahl:1967:VSP}
 
@@ -49,23 +53,26 @@ The implication of Amdahl's Law is that the speedup of a program is always limit
 
 \section{Virtualization}
 \label{section:virtualization}
-Virtualization is an act of dividing a common set of computing resources into a multiple isolated execution environments. Before the existence of multi-user operating systems and the rapid drop in hardware cost around 1980s, the virtualization was used to allow multiple users to share the same mainframe hardware. Until the end of 1990s, it remained mainly a practice of computing industry and academic research, often requiring special hardware with explicit support for virtualization. VMWare's introduction of virtualization to the x86 architecture~\cite{Walters:1999:VVP} and the personal computer industry introduced the benefits of virtualization to the wider masses.~\cite{Bugnion:2012:BVX}
+Virtualization is an act of dividing a common set of computing resources into a multiple isolated execution environments. It enables multiple operating systems to be run, in parallel, on a single processing unit, thus alleviating the efficiency problems of parallel computing.
 
-In the traditional, nonvirtualized system, the hardware platform resources are controlled by a single operating system. Virtualization introduces a new layer, the \emph{virtual machine monitor} (VMM), to the software stack. The VMM lies underneath the existing software components, abstracting the hardware inputs, outputs, and the behaviour for the use of multiple operating systems. The virtualized system is called a \emph{virtual machine}.~\cite{Uhlig:2005:IVT, Bugnion:2012:BVX}
+Before the existence of multi-user operating systems and the rapid drop in hardware cost around 1980s, the virtualization was used to allow multiple users to share the same mainframe hardware. Until the end of 1990s, it remained mainly a practice of computing industry and academic research, often requiring special hardware with explicit support for virtualization. VMWare's introduction of virtualization to the x86 architecture~\cite{Walters:1999:VVP} and the personal computer industry introduced the benefits of virtualization to the wider masses.~\cite{Bugnion:2012:BVX, Barham:2003:XAV}
+
+In the traditional, nonvirtualized system, the hardware platform resources are controlled by a single operating system. Virtualization introduces a new layer, the \emph{virtual machine monitor} (VMM), to the software stack. The VMM lies underneath the existing software components, abstracting the hardware inputs, outputs, and the behaviour for the use of multiple operating systems. The virtualized system is called a \emph{virtual machine}.~\cite{Uhlig:2005:IVT, Bugnion:2012:BVX, Barham:2003:XAV}
 
 The benefits of the virtualization are numerous, mainly due to the software implementation of the virtual machines. It enables scalability and flexible migration of computation loads across different infrastructures, leading to improved hardware utilization, dynamic resource allocation and management, isolation, security, and automation.~\cite{Pearce:2013:VIS}
 
-The virtual machines can be \emph{live migrated} over to another physical machine. While the nonvirtualized systems are often under utilized, the flexibility of software enables the machines often to be run on optimal usage level. Maintenance costs can be reduced by software automation and security can be increased by additional software services, such as workload isolation. These benefits have encouraged companies to seek savings, by adopting virtualization in various contexts, ranging from the desktops and datacenters to network switching.~\cite{Pearce:2013:VIS}
+The virtual machines can be \emph{live migrated} over to another physical machine. While the nonvirtualized systems are often under utilized, the flexibility of software enables the machines often to be run on optimal usage level. Maintenance costs can be reduced by software automation and security can be increased by additional software services, such as workload isolation. These benefits have encouraged companies to seek savings, by adopting virtualization in various contexts, ranging from the desktops and datacenters to network switching.~\cite{Uhlig:2005:IVT, Pearce:2013:VIS}
 
-To enable fully functional virtualized environments, the virtualization of different system components, such as CPU, memory, I/O, and storage, need to be considered. CPU virtualization techniques are often divided into three categories: binary translation (full virtualization), paravirtualization, and hardware-assisted virtualization.~\cite{Bugnion:2012:BVX, Pearce:2013:VIS}
+To enable fully functional virtualized environments, the virtualization of different system components, such as CPU, memory, I/O, and storage, need to be considered. CPU virtualization techniques are often divided into three categories: binary translation (full virtualization), paravirtualization, and hardware-assisted virtualization.~\cite{Bugnion:2012:BVX, Pearce:2013:VIS, Horne:2007:Understanding}
 
-\todo[inline]{
-Communication -> hardware usage? Add information about the hardware operations
-The guest operating systems are executed in isolated hardware environments
-What does hardware virtualization actually mean?
-}
+Full virtualization refers to a method where the communication between the virtualized operating system (guest) and the underlying host operating system is (nearly) completely emulated, meaning that the virtual hardware is functionally identical to the underlying machine. Unmodified guest operating systems can be run similarly as on native hardware, as the virtualization layer completely decouples them from the underlying hardware. On the other hand, the complete emulation of the hardware instructions induces performance overhead to the full virtualization.~\cite{Bugnion:2012:BVX, Barham:2003:XAV, Horne:2007:Understanding}
 
-Full virtualization refers to the situation where the communication between the virtualized operating system (guest) and the underlying host operating system is emulated. In paravirtualization, instead of emulating the hardware environment, the guest operating systems are executed in isolated environments. Hardware assisted virtualization allows the guest operating system to intercept and emulate privileged operations of the underlying hardware through processor extensions.~\cite{Pearce:2013:VIS}
+In paravirtualization, instead of emulating the hardware environment, the guest operating systems are executed in isolated environments. It enables the communication between the guest operating system and the virtual machine monitor, and thus improving the performance and efficiency of the virutalization.~\cite{Barham:2003:XAV, Horne:2007:Understanding}
+
+However, paravirtualization requires modifying the guest operating system kernel to enable direct communication with the virtualization layer monitor. For this reason, paravirtualization compatibility and portability is limited, and it can cause significant support and maintainability costs.~\cite{Barham:2003:XAV, Horne:2007:Understanding}
+
+Hardware assisted virtualization introduces new hardware features to ease the virtualization. A common method is to provide a new privilage level below the ring 0, to allow the guest operating system to intercept and emulate privileged operations of the underlying hardware. Hardware assisted virtualization removes the need for binary translation and paravirtualization, thus, at least theoretically, solving many of the current virtualization problems.~\cite{Horne:2007:Understanding, Pearce:2013:VIS}
+
 
 \section{Cloud Computing}
 \todo[inline]{Emphasize the relationship to virtualization!}
