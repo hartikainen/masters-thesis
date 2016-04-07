@@ -26,8 +26,8 @@ These chip manufacturing challenges have led into an era of \emph{dark silicon},
 
 And while the silicon industry are facing various hardware development challenges, the software developers are also forced to adopt new programming paradigms to keep up with the ever increasing performance requirements.~\cite{Sutter:2005:FLiO}
 
-\subsection{Parallel, Concurrent, and Distributed Computing}
-\label{subsection:parallel-concurrent-and-distributed-computing}
+\subsection{Parallel Computing}
+\label{subsection:parallel-computing}
 
 The parallelization of computing has been researched for several decades. Before the sequential execution speedup gains hit the wall, it remained a minor but important field of research, mainly in high-performance computing. Parallel-, concurrent-, and distributed computing quickly became the dominant answers for mainstream computing, to continue enjoying the benefits of the exponential computing speedups.
 
@@ -51,13 +51,22 @@ While implementing parallel systems is challenging for software developers, ther
 
 The implication of Amdahl's Law is that the speedup of a program is always limited by its non-parallelizable proportion, and it also brings new challenges to the utilization of the available computing resources.
 
+\section{Big Data}
+\label{section:big-data}
+The Internet traffic volumes are growing rapidly. For the first time, in 2010, the number of devices connected to the Internet (12.5 billion) passed the world's human population (6.8 billion). This growth is explained by not only the number of mobile devices (mobile phones and tablets, especially in developing countries), but also the proliferation Internet of Things (IoT) devices and sensors. Cisco projects the number of mobile devices, connected to the Internet, to grow up to 50 billion through 2020. IoT devices and sensors included, this number will double to over 100 billion.~\cite{Evans:2011:IoT}
+
+According to EMC corporation sponsored IDC study~\cite{Turner:2014:Digital}, the size of the digital universe is estimated to grow ten-fold, from 4.4 zettabytes to 44 zettabytes, between 2013 and 2020. The data comes from several different sources and in many different forms. At the same time the processing requirements are growing. Everyday end users are expecting services to be delivered in higher quality near real-time, and growing number of industry, medical, and other performance critical applications are depended on the processed data.
+
+With the enormous data masses, data diversity, and with complex processing requirements, often referred as Big Data, the traditional traditional data processing methods become inadequate.
+
 \section{Virtualization}
 \label{section:virtualization}
 Virtualization is an act of dividing a common set of computing resources into a multiple isolated execution environments. It enables multiple operating systems to be run, in parallel, on a single processing unit, thus alleviating the efficiency problems of parallel computing.
 
 Before the existence of multi-user operating systems and the rapid drop in hardware cost around 1980s, the virtualization was used to allow multiple users to share the same mainframe hardware. Until the end of 1990s, it remained mainly a practice of computing industry and academic research, often requiring special hardware with explicit support for virtualization. VMWare's introduction of virtualization to the x86 architecture~\cite{Walters:1999:VVP} and the personal computer industry introduced the benefits of virtualization to the wider masses.~\cite{Bugnion:2012:BVX, Barham:2003:XAV}
 
-In the traditional, nonvirtualized system, the hardware platform resources are controlled by a single operating system. Virtualization introduces a new layer, the \emph{virtual machine monitor} (VMM), to the software stack. The VMM lies underneath the existing software components, abstracting the hardware inputs, outputs, and the behaviour for the use of multiple operating systems. The virtualized system is called a \emph{virtual machine}.~\cite{Uhlig:2005:IVT, Bugnion:2012:BVX, Barham:2003:XAV}
+\subsection{Hypervisor Virtualization}
+In the traditional, nonvirtualized system, the hardware platform resources are controlled by a single operating system. Virtualization introduces a new layer, the \emph{hypervisor} (also referred as virtual machine monitor), to the software stack. The hypevisor lies underneath the existing software components, abstracting the hardware inputs, outputs, and the behaviour for the use of multiple operating systems. The virtualized system is called a \emph{virtual machine}.~\cite{Uhlig:2005:IVT, Bugnion:2012:BVX, Barham:2003:XAV}
 
 The benefits of the virtualization are numerous, mainly due to the software implementation of the virtual machines. It enables scalability and flexible migration of computation loads across different infrastructures, leading to improved hardware utilization, dynamic resource allocation and management, isolation, security, and automation.~\cite{Pearce:2013:VIS}
 
@@ -67,19 +76,21 @@ To enable fully functional virtualized environments, the virtualization of diffe
 
 Full virtualization refers to a method where the communication between the virtualized operating system (guest) and the underlying host operating system is (nearly) completely emulated, meaning that the virtual hardware is functionally identical to the underlying machine. Unmodified guest operating systems can be run similarly as on native hardware, as the virtualization layer completely decouples them from the underlying hardware. On the other hand, the complete emulation of the hardware instructions induces performance overhead to the full virtualization.~\cite{Bugnion:2012:BVX, Barham:2003:XAV, Horne:2007:Understanding}
 
-In paravirtualization, instead of emulating the hardware environment, the guest operating systems are executed in isolated environments. It enables the communication between the guest operating system and the virtual machine monitor, and thus improving the performance and efficiency of the virutalization.~\cite{Barham:2003:XAV, Horne:2007:Understanding}
+In paravirtualization, instead of emulating the hardware environment, the guest operating systems are executed in isolated environments. It enables the communication between the guest operating system and the hypervisor, and thus improving the performance and efficiency of the virutalization.~\cite{Barham:2003:XAV, Horne:2007:Understanding}
 
 However, paravirtualization requires modifying the guest operating system kernel to enable direct communication with the virtualization layer monitor. For this reason, paravirtualization compatibility and portability is limited, and it can cause significant support and maintainability costs.~\cite{Barham:2003:XAV, Horne:2007:Understanding}
 
 Hardware assisted virtualization introduces new hardware features to ease the virtualization. A common method is to provide a new privilage level below the ring 0, to allow the guest operating system to intercept and emulate privileged operations of the underlying hardware. Hardware assisted virtualization removes the need for binary translation and paravirtualization, thus, at least theoretically, solving many of the current virtualization problems.~\cite{Horne:2007:Understanding, Pearce:2013:VIS}
 
+\subsection{Operating System Level Virtualization}
+Running multiple operating systems on single hardware, as done with hypervisor based virtualization, comes with the cost of efficiency. In many scenarios, such as high performance computing, game hosting, or MapReduce~\cite{Dean:2008:MR}, the overhead from running multiple kernels on the same machine becomes a problem. Another common method for server virtualization is to run the virtualization layer within the operating system.~\cite{Soltesz:2007:COS, Xavier:2014:Containers}
+
+Operating system level virtualization is based on the kernel's ability to support multiple isolated user-space instances, or software \emph{containers}. Instead of emulation, programs running in containers consume the host operating system's standard system call interface, resulting in negligible virtualization overhead compared to hypervisor based virtualization. The drawback of container based virtualization is its inflexibility; each guest must be running on the same operating system kernel as the host machine.~\cite{Soltesz:2007:COS, Xavier:2014:Containers}
+
+Examples of operating system level virtualization implementations include for example Linux Containers (LXC)~\cite{LinuxContainers:2013:LXC}, Linux-VServer~\cite{Des:2005:Virtualization}, OpenVZ~\cite{OpenVZ:2013}, and Docker~\cite{Merkel:2014:Docker}. While most of the container implementations seem to achieve near-native performance, the management capabilities, such as, performance isolation, vary between them.
 
 \section{Cloud Computing}
-\todo[inline]{Emphasize the relationship to virtualization!}
-% scale up vs. scale out
-% NIST definiton of cloud computing: http://www.nist.gov/itl/cloud/upload/cloud-def-v15.pdf
-
-Cloud computing paradigm provides a shared pool of easily configurable and flexible computing resources via convenient, on-demand network access. [3] One of the driving forces for cloud computing has been its promise of economics of scale; cloud computing centers, compared to traditional on-premise solutions, can be built using cheaper hardware, cooling, electricity, network capacity and smaller number of administrators per computer, while at the same time alleviating the problem of inefficient resource usage.~\cite{Mell:2011:ccdef}
+Cloud computing paradigm provides a shared pool of easily configurable and flexible computing resources via convenient, on-demand network access. One of the driving forces for cloud computing has been its promise of economics of scale. Virtualization techniques enable cloud computing centers, compared to traditional on-premise solutions, to be built using cheaper hardware, cooling, electricity, network capacity and smaller number of administrators per computer. At the same time, it alleviates the problem of inefficient resource usage, caused by the challenges discussed in section~\ref{subsection:the-end-of-free-lunch}.~\cite{Mell:2011:ccdef}
 
 According to the definition of The National Institute of Standards and Technology, cloud computing is composed of five essential characteristics (on-demand self-service, broad network access, resource pooling, rapid elasticity, and measured service), three service models (software as a service, platform as a service, and infrastructure as a service), and four deployment models (private cloud, public cloud, community cloud, and hybrid cloud).~\cite{Mell:2011:ccdef}
 
@@ -119,57 +130,25 @@ The datacenter costs can be optimized by more efficient hardware implementations
 
 Google's Summa datacenter is a good example of the scale of the cloud datacenter. Google, a company residing in California, invested over \$200M to build a datacenter in Hamina, Finland. The benefits from Finland's energy infrastructure, cold climate, developable land and available workforce, outweighed all the negative qualities of building the datacenter on the other continent, nearly 9000km away from the company's head quarters.~\cite{Google:2016:Summa}
 
-========
+\subsection{Datacenter Networks}
+For compatibility and cost reasons, datacenter networks are often built from commodity Ethernet switches and routers (scaling out), rather than from expensive high end hardware (scaling in). Due to the limits in the switch port densities even in the high end hardware, the traditional single rooted topologies are replaced with multi-rooted tree topologies such as fat-tree or leaf-spine. Multi-rooted network design allows to scale the data center networks' bisection bandwidth by adding new spine switches into the network.~\cite{Al-Fares:2010:SO, Al-Fares:2008:SCD}
 
+Cloud computing datacenters can consist of hundreds of thousands of servers, supporting large variety of services, such as high performance computing, MapReduce~\cite{Dean:2008:MR} and web services. Many of these applications have several inter-dependent components divided across the servers. Thus, the inter-node network bandwidth has become the major bottleneck in data centers.~\cite{Al-Fares:2008:SCD}
 
-
-% The “pay-as-you-go” Cloud Computing model is an effi-
-% cient alternative to owning and managing private data centers
-% (DCs) for customers facing Web applications and batch
-% processing. Several factors contribute to the economy of
-% scale of mega DCs: higher predictability of massive aggregation,
-% which allows higher utilization without degrading
-% performance; convenient location that takes advantage of
-% inexpensive power; and lower OPEX achieved through the
-% deployment of homogeneous compute, storage, and networking
-% components.
-% Cloud computing frees the enterprise and the end user
-% from the specification of many details. This bliss becomes
-% a problem for latency-sensitive applications, which require
-
-To fulfill these promises, cloud computing introduces new requirements to the underlying infrastructure. Server and networking.
-
-The development of data center technology and virtualization, together with faster telecommunication networks and proliferation of mobile devices have lad in the adoption of cloud computing.
-
-% However, to efficiently utilize data center resources, and to provide the required performance guarantees, efficient load balancing mechanisms are needed on various locations in the data center, all the way from single server core utilization up to the efficient network routing.
-
-
-% [https://www.researchgate.net/post/What_is_the_main_difference_between_Mobile_Edge_Computing_MEC_and_Fog_Computing]
-% Both MEC and Fog have the goal to create a platform that provides storage, computing power, and services at the edge of the cloud rather than at the core cloud. I still confused about how to distinguish between them, rather than fog computing is a paradigm for dealing with Internet of Things (IoT).
-
-% " Mobile cloud computing (MCC) and mobile-edge computing
-% (MEC) are similar to fog computing. MCC refers to an infrastructure
-% in which both the data storage and the data processing happen outside of the
-% mobile devices. MEC focus on resource-rich fog servers like cloudlets running
-% at the edge of mobile networks. Fog computing distinguishes itself as a more
-% generalized computing paradigm especially in the context of Internet of Things."
+To efficiently utilize datacenter resources, and to answer the required performance guarantees, efficient network traffic load balancing mechanisms are needed. Several different proposals, such as CONGA~\cite{Alizadeh:2014:Conga},  Presto~\cite{He:2015:Presto}, and Hedera~\cite{Al-Fares:2010:Hedera}, have been made to overcome the issues of traditional hash based schemes.
 
 \section{Fog Computing}
 \label{section:fog-computing}
-% According to [https://www.cisco.com/web/about/ac79/docs/innov/IoT_IBSG_0411FINAL.pdf], there will be 50 billion devices connected to the Internet in year 2020.
-% This growth is explained by not only the growth in number of mobile devices (mobile phones and tablets, especially in developing countries)
-% +!! the proliferation of IoT devices and sensors. (not included in the 50 billion)
 
-% EMC sponsored IDC study estimates the Digital Universe to be 4.4 Zettabytes (4
-% 400 000 000 TB) in 2013
-% The amount of data is estimated to grow to 44 Zettabytes by 2020
-% Data comes from: Video, digital images, sensor data, biological data, Internet
-% sites, social media, Internet of Things, . . .
-% Some examples:
-% Netflix is collecting 1 PB of data per month from its video service user behaviour
-% Rovio is collecting in the order of 1 TB of data per day of games logs
+% The IT and Telecommunication Networking evolutions are coming closer to each other.
+% -> new possibilities
+% -> computation is moving to the network edge, closer to the end user and sensors.
 
-While the benefits of Cloud Computing provide efficient alternative to the traditional on-premise solutions, there are certain issues which have to be addressed to enable a new breed of ever demanding applications and services. Characteristics, such as mobility, geo-distribution, location awareness and low latency are intractable to achieve due to the centralized nature of cloud computing. Also, the Internet traffic volumes are growing rapidly. The proliferation of devices and sensors have led to a situation where the data are produced faster than can be transmitted or stored.~\cite{Bonomi:2012:Fog, Vaquero:2014:FYW}
+% ``Mobile-edge Computing can be seen as a cloud server running at the edge of a mobile network and performing specific tasks that could not be achieved with traditional network infrastructure. Machine-to-Machine gateway and control functions are one example, but there are many others.''
+
+% ``Move the computation code to the data, not the other way''
+
+While the benefits of Cloud Computing provide efficient alternative to the traditional on-premise solutions, there are certain issues which have to be addressed to enable a new breed of ever demanding applications and services. Characteristics, such as mobility, geo-distribution, location awareness and low latency are intractable to achieve due to the centralized nature of cloud computing. The proliferation of devices and sensors have led to a situation where the data are produced faster than can be transmitted or stored.~\cite{Bonomi:2012:Fog, Vaquero:2014:FYW}
 
 Fog computing is an extension to the traditional cloud computing architecture, where parts of the cloud computing services, mainly computation, storage, and networking, are carried out in the edge of the communication network. It is defined to provide the following characteristics on top of the existing cloud computing architectures: low latency and location awareness; wide-spread geographical distribution; mobility; very large number of nodes, predominant role of wireless access, strong presence of streaming and real time applications, heterogeneity.~\cite{Bonomi:2012:Fog}
 
@@ -194,59 +173,11 @@ SDN is often complemented with network functions virtualization. In NFV, the net
 
 Long Term Evolution (LTE)~\cite{Sesia:2009:LTE} and Evolved Packet Core (EPC) work as a natural platforms for the fog's edge data centers. Small cloud stations can be deployed to the EPCs, and the routers can be utilized as the virtualization infrastructure. This also enables the applications services to be co-located where needed.~\cite{Vaquero:2014:FYW}
 
-% The softwareisation of
-% a classically hardware-driven business built around routers
-% and servers where services got deployed will result in cheaper
-% and more agile operations.
-% The router itself becomes
-% an SDN-enabled virtualisation infrastructure where
-% NFV and application services are deployed close to the place
-% where they are actually going to be used. But IO computing
-% capabilities will still be limited (edge routers are not
-% carrier grade after all).''
-% ~\cite{vaquero:2014:FYW}
-
-% The volumes of tr affic in the Internet are growing. Different sensors attached to networked systems are producing more data that can be transmitted or stored. Stream processing techniques are required to process the data streams on-the-fly. Fog computing extends the traditional Cloud computing to the edge of the communication network. Using stream processing methods in the Fog, it is possible to reduce the  pressure on transmission and storage infrastructure.
-
-% Introduction of computational capacity to the edge of the network adds new energy consuming elements. But, the computational capacity could be used to reduce the energy consumption of a larger system. This paper studies the energy consumption of a system that uses GPUs located at the edge of the network to process video streams. The effect to the system energy consumption is compared using different communication technologies, system workloads and by deploying a Fog based filter application to limit the amount of transferred data.
-
-% % http://www.datacenterknowledge.com/archives/2013/08/23/welcome-to-the-fog-a-new-type-of-distributed-computing/
-% % Fog Computing and Its Role in the Internet of Things [http://conferences.sigcomm.org/sigcomm/2012/paper/mcc/p13.pdf]
-% % https://techradar.cisco.com/technology/fog-computing#prettyPhoto
-
-% fog computing is a paradigm that extends cloud computing to the edge of the network
-% in fog computing, intelligent nodes are deployed at strategic locations of the network between the centers and the cloud
-% fog computing is similar to the cloud computing, but closer to the end user, the edge, or the ground.
-% scalability, reliability, faster response time, reduced cost
-
-% fc enables capabilities that are not possible otherwise
-% trains, plane, oil rig generate huge amount of data
-% wireless network dont have bandwidth
-% too expensive to deliver the data
-% sending packet from end user to cloud might be too slow
-% manufacturing: decision need to be made in fractions of seconds
-% bring processing to the data, not vice versa
-
-% improved reliability:
-% network connection to the cloud goes down -> decisions can still be made
-% fog computing does not contradict cloud computing, nor replace it, it complements it with much needed compute, storage and networking capabilities, at stratetig loc between sensors and data
-% real-time analytics, machine learning algorithms
-% analytics and ml algorithms are essential ingredients in many fog computing applications
-% data into actionable insights and BI
-
-% huge business opportunity
-
-% % Finding your Way in the Fog: Towards a Comprehensive Definition of Fog Computing [http://delivery.acm.org/10.1145/2680000/2677052/p27-vaquero.pdf?ip=130.233.87.116&id=2677052&acc=ACTIVE%20SERVICE&key=74A0E95D84AAE420%2E1D2200B0A299939C%2E4D4702B0C3E38B35%2E4D4702B0C3E38B35&CFID=562969494&CFTOKEN=64137578&__acm__=1448197233_c568466fa204a88d9106d97b20594a8d]
-% A definition for fog
-% challenges: privacy, volatility, bandwidth, mobility, billions of devices
-
 \section{Packet Processing}
 \label{sec:packet-processing}
 Packet processing refers to the methods applied to transport the data packets through the various network elements of the communication network. The network routers, switchs, and other elements such as computers and smartphones have their own packet processing subsystems to manage the packet traversal between the network elements.
 
 The packet processing is divided into multiple abstraction layers, which define and stadardize the communication functions between the physical transfer level and the application level of a system. Widely adopted Open Systems Interconnection model (OSI) partitions the communication system into seven abstraction layers.
-
-
 
 \subsection{Fast path Architecture}
 Fully packet based architectures are becoming more common in every part of the data communication networks. This, together with the introduction of increasing Ethernet speeds introduces strict requirements to the electronic network elements. While the control- and management planes will require non-trivial solutions, the main bottleneck, to keep up with the scalability of optical transmission technology, seems to be the data plane processing.~\cite{Hauger:2009:PP}
@@ -281,8 +212,8 @@ The typical slow path of the data plane is run on top of an operating system sta
 \subsection{OpenDataPlane}
 \subsection{Open Event-Machine}
 % TODO:
-% - vs. löytyykö vielä jotain muita task processing malleja jotka samankaltaisia kuin OpenEM?
-% - onko missään näistä tukea hajautetulle laskennalle?
+% - vs. lÃÂ¶ytyykÃÂ¶ vielÃÂ¤ jotain muita task processing malleja jotka samankaltaisia kuin OpenEM?
+% - onko missÃÂ¤ÃÂ¤n nÃÂ¤istÃÂ¤ tukea hajautetulle laskennalle?
 
 % The OpenEM framework provides a programming model for scalable and dynamically load balanced applications. The key components of the OpenEM programming model are events, execution objects, queues and the scheduler. OpenEM operates with so-called run-to-completion principle. The run-to- completion principle means that once an event starts executing it will not be interrupted. New events cannot be scheduled until a core has completed its current task even if the events in execution had lower priorities than the events forced to wait. This implies limitations within which well performing applications must be designed. The program has to be divided to small events, so that the scheduler may efficiently distribute the computation and adhere to scheduling rules and priorities. Another limitation implied by the run-to-completion principle is that application needs to be implemented lock- free for good performance. [26]
 
@@ -303,190 +234,6 @@ Queues, Execution Objects, Scheduler
 \todo[inline]{Mapping between fast path hardware and dataplane application}
 \todo[inline]{Event driven parallel programming model}
 \todo[inline]{Currently no support for distributed computation}
-
-% \section{Mobile-edge Computing}
-% Use cases:
-% Device location tracking
-% Agumented Reality Content Delivery
-% Video Analytics
-% Radio Access Network (RAN) -aware Content Optimization
-% Distributed Content and DNS caching
-% Application-aware Performance Optimization
-
-% Edge: at the base station or at the aggregation point? ETSI specification mentions both!
-%   - at base station, the mec would provide minimal latency
-%   - at aggregation point, the solution can be more cost effective
-
-% World's first content delivery network (CDN): http://www.saguna.net/news-events/press-releases/saguna-and-akamai-showcase-the-world-s-first-content-delivery-network-operating-from-the-mobile-base-station/?utm_source=Blog?utm_medium=website?utm_campaign=Q2-2015
-
-% PERFORMANCE PARAMETERS!
-
-% !!Service-oriented Architecture (SOA)
-
-% Load balancing problems and congestion on all the levels
-
-% In cloud environment, the computing nodes are heterogeneous
-% -> Load balancing is very important, but complex
-
-% CIA model!
-% CAP model?
-% SNMP protocol?
-
-% ``Move the computation code to the data, not the other way''
-
-% CPU bound vs. IO bound: Florence at al. Energy Aware Load Balancing for Computational Cloud
-
-% ``Cloud computing is the key mantra of todayÃÂÃÂ¢ÃÂÃÂÃÂÃÂs technology
-% era. It caters anything as a service. It promotes resource
-% sharing through internet. Eventually in cloud computing load
-% balancing is a major concern used to allocate the tasks across
-% several computers. Major concerns of load balancing are:
-% optimal resource utilization, maximize processor throughput,
-% minimize task response time, and avoid overloading''
-
-% ``To achieve maximum throughput, in turn to improve the
-% overall system performance [3], tasks can be migrated from
-% overloaded nodes to lightly loaded nodes. In a cloud
-% environment, to enhance the system performance workload is
-% divided effectively across the participating nodes[5].There are
-% two types of load balancing algorithms [9] existing such as:
-% - Static ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ It is non-preemptive. The master distributes the
-% workload between the slaves according to their
-% performance.Once a host is allocated for a process, it
-% cannot be pre-empted at run time. Here workload
-% allocation is static.
-% - Dynamic ÃÂÃÂ¢ÃÂÃÂÃÂÃÂWork load is distributed at run time
-% dynamically. Processes are migrated dynamically from
-% over loaded nodes to under loaded nodes in order to
-% keep all the nodes busy with balanced load.''
-
-% % [1] M. Kocaoglu, D. Malak, O. Akan, ÃÂ¢ÃÂÃÂFundamentals of Green Communications and Computing: Modeling and Simulation,ÃÂ¢ÃÂÃÂ Computer, Vol. 45, pp. 40-46, July 2012.
-% % [7] K. Abbas, F. Zarafshan, Adznan, B. Jantan, ÃÂ¢ÃÂÃÂA New Fuzzy Approach  for Dynamic Load Balancing Algorithm,ÃÂ¢ÃÂÃÂ International Journal of Computer Science and Information Security, Vol. 6, pp. 1-5, 2009.
-% % [11] George Cybenko, ÃÂ¢ÃÂÃÂDynamic Load Balancing for Distributed Memory Multiprocessors,ÃÂ¢ÃÂÃÂ Journal of Parallel and Distributed Computing, Vol. 7, pp. 279-301, 1989.
-% % [12] A.H.Harp, ÃÂ¢ÃÂÃÂProgramming for ParallelismÃÂ¢ÃÂÃÂ, IEEE Computer, Vol. 20, pp. 41 ÃÂ¢ÃÂÃÂ 47, 1987.
-% %https://portal.etsi.org/Portals/0/TBpages/MEC/Docs/Mobile-edge_Computing_-_Introductory_Technical_White_Paper_V1%2018-09-14.pdf
-
-% ``Load balancing is a core networking solution responsible for distributing incoming traffic among servers hosting the same application content. By balancing application requests across multiple servers, a load balancer prevents any application server from becoming a single point of failure, thus improving overall application availability and responsiveness. For example, when one application server becomes unavailable, the load balancer simply directs all new application requests to other available servers in the pool.
-
-% Load balancers also improve server utilization and maximize availability. Load balancing is the most straightforward method of scaling out an application server infrastructure. As application demand increases, new servers can be easily added to the resource pool, and the load balancer will immediately begin sending traffic to the new server.
-
-% Early generation server load balancers are tried and true solutions for improving the availability and scalability of an organizationÃÂ¢ÃÂÃÂs application infrastructure. Nonetheless, enterprises that persist in using such products run the risk of exposing themselves and their customers to increasingly poor application performance and a seemingly endless stream of application layer security threats.''
-% % https://www.citrix.com/glossary/load-balancing.html
-
-% Proactive vs. reactive
-
-% % https://www.usenix.org/legacy/event/hotice11/tech/full_papers/Wang_Richard.pdf
-% % [5] S.Lee,R.Panigrahy,V.Prabhakaran,V.Ramasubramanian,K.Talwar,L.Uyeda, U.Wieder,Validatingheuristicsforvirtualmachinesconsolidation,Technical Report,2011.
-% % [6] M. Sindelar, R.K. Sitaraman, P. Shenoy, Sharing-aware algorithms for virtual machine colocation, in: Proc. of the 23rd ACM Symposium on Parallelism in AlgorithmsandArchitectures,SPAAÃÂ¢ÃÂÃÂ11,2011.
-% % [7] C. Isci, J.E. Hanson, I. Whalley, M. Steinder, J.O. Kephart, Runtime demand estimation for effective dynamic resource management, in: Proc. of the IEEE NetworkOperationsandManagementSymposium,NOMS,2010.
-% % https://www.cct.lsu.edu/~xuelin/openflow/sigcomm09-demo-loadbalancer.pdf
-
-% % !! http://www.cs.yale.edu/homes/jf/nox.pdf
-
-% % laja Load-balancing viitteita:
-% % Zhang et al. Web server load balancing: A queueing analysis
-
-% Centralized. vs. distributed load balancing
-%   - centralized creates overhead, but provides better overview
-%   - in centralized design, the network is more fault toleranec
-% static vs. dynamic load balancing
-% cloud vs. grid. vs. cluster
-
-% eucalyptus greedy first-fit with round-robin vm mapping
-
-% % [15] Lee, R. & Jeng, B. (2011). Load-balancing tactics in cloud . In proc. International Conference on Cyber- Enabled Distributed Computing and Knowledge Discovery (CyberC), IEEE, (pp. 447-454).
-% % [16] Wang, S. C., Yan, K. Q., Liao, W. P. & Wang, S. S. (2010). Towards a load balancing in a three- level cloud computing network . Proceedings of 3 rd International Conference on Computer Science and Information Technology (ICCSIT), IEEE, July, 1, 108-113
-
-% % A Comparative Study of Load Balancing Algorithms in Cloud Computing Environment
-% % http://arxiv.org/pdf/1403.6918.pdf
-
-% % OpenStack: Toward an Open-Source Solution for Cloud Computing [http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.245.229&rep=rep1&type=pdf]
-
-
-% Unified computing system: https://kemptechnologies.com/server-load-balancing-appliances/loadmaster-for-ucs/overview/
-
-% ``Cloud computing promises to increase the velocity with which applications are deployed, enhance
-% modernization, and lower expenses, all at the same time increasing business agility. Cloud Computing is a
-% concept that has many computers interconnected through a real time network like internet. Cloud computing
-% mainly refers to distributed computing. Cloud computing enables well-situated, on-demand, dynamic and
-% reliable utilization of distributed computing assets. The cloud is altering our life by providing users with new
-% kinds of services. Users acquire service from a cloud without paying attention to the details. Cloud computing is
-% a on demand service in which shared resources work together to perform a task to get the results in minimum
-% possible time by distribution of any dataset among all the connected processing units. Cloud computing is also
-% referred to refer the network based services which give an illusion of providing a real server hardware but in real
-% it is simulated by the software's running on one or more real machines. Such virtual servers do not exist
-% physically so they can be scaled up and down at any point of time [1]. Cloud computing is high utility software
-% having the ability to change the IT software industry and making the software even more attractive [2]. Hence, It
-% helps to accommodate changes in demand and helps any organization in avoiding the capital costs of software
-% and hardware [3] [4]''
-% % <-Haryani, Jagli: Dynamic Method for Load Balancing in Cloud Computing
-
-% % https://f5.com/resources/white-papers/cloud-balancing-the-evolution-of-global-server-load-balancing
-
-% % Load Balancing in the Cloud Computing Using Virtual Machine Migration: A Review [http://www.ijaiem.org/volume3issue5/IJAIEM-2014-05-31-131.pdf]
-
-% % Load Balancing Cloud Computing: State of Art [http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6249253]
-
-% % Join-Idle-Queue: A novel load balancing algorithm for dynamically scalable web services [http://dl.acm.org/citation.cfm?id=2039718]
-
-
-% In~\ref{churhc et al. On Delivering Embarrassingly Distributed Cloud Services} Church et al. highlight the advantages of small scale data centers over a mega centers.
-
-% % An architecture for Load Balancing Techniques for Fog Computing Environment  [http://csjournals.com/IJCSC/PDF6-2/43.%20Manisha.pdf]
-
-% % Cisco: [http://www.cisco.com/c/en/us/td/docs/solutions/Enterprise/Data_Center/VMDC/ASA_Cluster/ASA_Cluster/ASA_Cluster.html]
-
-% `` Hierarchical Network Layers
-
-% The data center within the VMDC reference architecture is based on the classic multi-layer hierarchical network model. Hierarchical model benefits include scalability, resilience, performance, maintainability, and manageability and its design represents a structured approach to building the infrastructure, allowing for relatively easy expansion in modular increments. Redundant nodes and links at each level insure no single point of failure, while link aggregation can be engineered for optimal bandwidth and performance through the aggregation and core layers. In general, this hierarchical model uses three layers:
-
-% Ã¢ÂÂ¢Core LayerÃ¢ÂÂCharacterized by a high degree of redundancy and bandwidth capacity and thus optimized for availability and performance.
-
-% Ã¢ÂÂ¢Aggregation LayerÃ¢ÂÂCharacterized by a high degree of high-bandwidth port density capacity and thus optimized for traffic distribution and link fan-out capabilities to access layer switches. Functionally, the nodes in the aggregation layer typically serve as the Layer 2/Layer 3 boundary.
-
-% Ã¢ÂÂ¢Access LayerÃ¢ÂÂServes to connect hosts to the infrastructure, providing network access, typically at Layer 2 (L2) (i.e., LANs or VLANs).''
-
-% http://web.stanford.edu/class/ee380/Abstracts/091118-DataCenterSwitch.pdf
-
-% % A Scalable Commodity Data Center Network Architecture,
-% % Data Center Switch Architecture in the Age of Merchant Silicon
-% % PortLand: A Scalable Fault Tolerant Layer 2 Data Center Network Fabric
-
-% % http://ccr.sigcomm.org/online/files/p63-alfares.pdf
-
-
-% The goal of load balancing system is to provide optimal resource, e.g. central processing units, memory, or storage, utilization and desired performance metrics, usually maximal throughput, minimizing response time, and avoiding congestion and overloading parts of the system.
-
-% Traditional web server load balancing algorithms are not sufficient for the large scale and distinct structure of so-called service-oriented data centers.
-
-% One on the main requirements for cloud, or fog, computing is efficient load-balancing.
-% Telecommunication industry is facing difficult challenges to keep up with more demanding needs of end users and businesses.
-% \begin{itemize}
-% \item end users need:
-%   \item personalization
-%   \item performance
-%   \item ux
-% \item businesses need:
-%   \item information from consumers
-%   \item easier, secure access to devices
-%   \item more flexible provisioning of new services
-% \end{itemize}
-
-% Mobile traffic has been growing, and no end to that is in sight. number of sensor expected to grow exponentially. cellular network is becoming uniquitous.
-% \begin{itemize}
-% \item IOT, huge amount of (wireless) sensors
-% \item MACHINE TO MACHINE!
-% \item smart phones
-% \item streaming video
-% \item messaging
-% \item P2P
-% \end{itemize}
-
-% The IT and Telecommunication Networking evolutions are coming closer to each other.
-% -> new possibilities
-% -> computation is moving to the network edge, closer to the end user and sensors.
-
-% ``Mobile-edge Computing can be seen as a cloud server running at the edge of a mobile network and performing specific tasks that could not be achieved with traditional network infrastructure. Machine-to-Machine gateway and control functions are one example, but there are many others.''
 
 %%% Local Variables:
 %%% mode: latex
