@@ -71,7 +71,7 @@
  address = {New York, NY, USA},
 }
 
-@inproceedings{chatterjee:2013:async-task-parallelism-mpi,
+@inproceedings{Chatterjee:2013:HCMPI,
  author    = {Sanjay Chatterjee and
               Sagnak Tasirlar and
               Zoran Budimlic and
@@ -80,7 +80,7 @@
               Max Grossman and
               Vivek Sarkar and
               Yonghong Yan},
- title     = {Integrating Asynchronous Task Parallelism with {MPI}},
+ title     = {Integrating Asynchronous Task Parallelism with MPI},
  year      = 2013,
  booktitle = {27th {IEEE} International Symposium on Parallel and Distributed Processing,
               {IPDPS} 2013, Cambridge, MA, USA, May 20-24, 2013},
@@ -415,6 +415,36 @@
  month={Feb}
 }
 
+@inproceedings{Weaver:2008:Cycle,
+  title={Are cycle accurate simulations a waste of time},
+  author={Weaver, Vincent M and McKee, Sally A},
+  booktitle={Proc. 7th Workshop on Duplicating, Deconstructing, and Debunking},
+  pages={40--53},
+  year={2008}
+}
+
+@article{Patterson:2007:Computer,
+  title={Computer organization and design},
+  author={Patterson, David A and Hennessy, John L},
+  journal={Morgan Kaufmann},
+  pages={474--476},
+  year={2007}
+}
+
+@article{Lopez:2015:GPGPUSIM,
+ author={U. Lopez-Novoa and A. Mendiburu and J. Miguel-Alonso},
+ journal={IEEE Transactions on Parallel and Distributed Systems},
+ title={A Survey of Performance Modeling and Simulation Techniques for Accelerator-Based Computing},
+ year={2015},
+ volume={26},
+ number={1},
+ pages={272-281},
+ keywords={graphics processing units;microprocessor chips;multiprocessing systems;parallel processing;DSP;FPGA;GPU;Intel Xeon Phi;accelerator device;accelerator-based computing;heterogeneous system;high performance computing landscape;many-core chips;out-of-order execution cores;Computational modeling;Graphics processing units;Hardware;Kernel;Performance evaluation;Predictive models;Accelerator-based computing;GPGPU;heterogeneous systems;performance modeling},
+ doi={10.1109/TPDS.2014.2308216},
+ ISSN={1045-9219},
+ month={Jan},
+}
+
 @article{982918,
  author={Emer, J. and Ahuja, P. and Borch, E. and Klauser, A. and Chi-Keung Luk and Manne, S. and Mukherjee, S.S. and Patil, H. and Wallace, S. and Binkert, N. and Espasa, R. and Juan, T.},
  journal={Computer},
@@ -436,6 +466,59 @@
  journal={Computer Science Department, North Carolina State University, Raleigh, North Carolina, USA},
  pages={1--3},
  year={2009}
+}
+
+@article{Calheiros:2011:Cloudsim,
+ title={CloudSim: a toolkit for modeling and simulation of cloud computing environments and evaluation of resource provisioning algorithms},
+ author={Calheiros, Rodrigo N and Ranjan, Rajiv and Beloglazov, Anton and De Rose, C{\'e}sar AF and Buyya, Rajkumar},
+ journal={Software: Practice and Experience},
+ volume={41},
+ number={1},
+ pages={23--50},
+ year={2011},
+ publisher={Wiley Online Library}
+}
+
+@inproceedings{Kathiravelu:2014:Concurrent,
+  title={Concurrent and distributed cloudsim simulations},
+  author={Kathiravelu, Pradeeban and Veiga, Luis},
+  booktitle={Modelling, Analysis \& Simulation of Computer and Telecommunication Systems (MASCOTS), 2014 IEEE 22nd International Symposium on},
+  pages={490--493},
+  year={2014},
+  organization={IEEE}
+}
+
+@online{CloudSimEx,
+ title={CloudSimEx},
+ author={CloudSimEx},
+ year={2012},
+ url={https://github.com/Cloudslab/CloudSimEx},
+ accessed={7.4.2016}
+}
+
+@inproceedings{Wickremasinghe:2010:CloudAnalyst,
+ author={B. Wickremasinghe and R. N. Calheiros and R. Buyya},
+ booktitle={Advanced Information Networking and Applications (AINA), 2010 24th IEEE International Conference on},
+ title={CloudAnalyst: A CloudSim-Based Visual Modeller for Analysing Cloud Computing Environments and Applications},
+ year={2010},
+ pages={446-452},
+ keywords={Internet;computer centres;digital simulation;file servers;software maintenance;CloudAnalyst;Internet;cloud computing environment analysis;cloud providers;cloudsim-based visual modeller;computing servers;data center locations;pricing models;service brokers;software infrastructure maintenance;Application software;Cloud computing;Computational modeling;Distributed computing;Internet;Large-scale systems;Pricing;Software maintenance;Traffic control;Web server;Cloud Computing;Modeling;Simulation},
+ doi={10.1109/AINA.2010.32},
+ ISSN={1550-445X},
+ month={April},
+}
+
+@article{Kliazovich:2010:GreenCloud,
+ author="Kliazovich, Dzmitry and Bouvry, Pascal and Khan, Samee Ullah",
+ title="GreenCloud: a packet-level simulator of energy-aware cloud computing data centers",
+ journal="The Journal of Supercomputing",
+ year="2010",
+ volume="62",
+ number="3",
+ pages="1263--1283",
+ abstract="Cloud computing data centers are becoming increasingly popular for the provisioning of computing resources. The cost and operating expenses of data centers have skyrocketed with the increase in computing capacity. Several governmental, industrial, and academic surveys indicate that the energy utilized by computing and communication units within a data center contributes to a considerable slice of the data center operational costs.",
+ issn="1573-0484",
+ doi="10.1007/s11227-010-0504-1",
 }
 
 @inproceedings{jackson:2010:HPCOC,
@@ -1113,4 +1196,46 @@
  year={2005},
  url={https://tools.ietf.org/html/rfc4180},
  accessed={25.3.2016}
+}
+
+@online{Intel:DPDK,
+  title={Data Plane Development Kit},
+  author={Intel},
+  url={http://dpdk.org},
+  accessed={6.4.2016}
+}
+
+@online{Intel:DPDK:Doc,
+  title={Data Plane Development Kit Documentation},
+  author={Intel},
+  url={http://dpdk.org/doc/guides/index.html},
+  accessed={6.4.2016}
+}
+
+@online{OpenEM,
+  title={Open Event Machine},
+  author={Carl Wallén},
+  url={https://sourceforge.net/projects/eventmachine/},
+  accessed={6.4.2016}
+}
+
+@inproceedings{Pfaff:2009:OVS,
+  title={Extending Networking into the Virtualization Layer.},
+  author={Pfaff, Ben and Pettit, Justin and Amidon, Keith and Casado, Martin and Koponen, Teemu and Shenker, Scott},
+  booktitle={Hotnets},
+  year={2009}
+}
+
+@article{Armstrong:1993:Concurrent,
+ title={Concurrent programming in ERLANG},
+ author={Armstrong, Joe and Virding, Robert and Wikstr{\"o}m, Claes and Williams, Mike},
+ year={1993},
+ publisher={Citeseer}
+}
+
+@online{Akka,
+ title={Akka Framework},
+ author={Akka},
+ url={http://akka.io/},
+ accessed={6.4.2016}
 }

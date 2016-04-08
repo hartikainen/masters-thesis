@@ -72,45 +72,113 @@ There are two generally used approaches for gathering simulation metrics: trace-
 
 \section{Simulator Software}
 % TODO:
-% - tässä voisi miettiä jotain korkeamman tason jaottelua erityyppisten simulaationsoftien välille
-% - sitten voisi antaa konkreettisia esimerkkejä kustakin
-% - voisi pohtia erilaisten mallinnusmekanismien ilmaisuvoimaa (primääriä käyttökohdetta, simulaationopeutta, mallinnustehokkuutta, jne.)
+% - tÃ¤ssÃ¤ voisi miettiÃ¤ jotain korkeamman tason jaottelua erityyppisten simulaationsoftien vÃ¤lille
+% - sitten voisi antaa konkreettisia esimerkkejÃ¤ kustakin
+% - voisi pohtia erilaisten mallinnusmekanismien ilmaisuvoimaa (primÃ¤Ã¤riÃ¤ kÃ¤yttÃ¶kohdetta, simulaationopeutta, mallinnustehokkuutta, jne.)
 
-\todo[inline]{CloudSim: Provides tools for simulation IaaS.
-  Provides configuration for data centers, hosts and virtual machines.
-Different policies for creating host VM's, assigning VM's to hosts, VM resource allocation etc
-}
+In~\cite{Austin:2002:SimpleScalar}, Austin et al. present three drivers for measuring simulator software model: performance, flexibility, and detail. Performance refers to the amount of simulation the model per resources. Flexibility describes how customizable the simulator software is, in terms of modeling. Lastly, detail refers to the level of abstraction used in the simulator. In theory, a simulator software could exist, that fulfills all these characteristics at the same time. However, in practice, at least one of them is missing.~\cite{Austin:2002:SimpleScalar}
 
-\todo[inline]{Rsim: More detailed hardware simulation, with focus on ILP effects of processors
-      Detailed shared-memory multiprocessor models
-      They show that the previous simple-processor-models cannot demonstrate the complicated dynamically scheduled processors with sufficient detail.}
+Partly because of this, no single general purpose simulator exists. On the contrary, there are a multitude of different simulators design with different goals in mind. On a high level, the simulator software can be categorized as cycle accurate, functional, and high level simulators.
 
-\todo[inline]{Simics: ``Reliable performance estimates require simulation of the full system''
-        Their simulator includes device models accurate enough to run unmodified operating system kernels, firmware and device driver.
-        They simulate a network of heterogeneous computers.
-        Commercial product
-        Two dimensional classification:
-          scope (what is modeled),
-          abstraction level (level at which the system is modeled)
-            two perspectives: functional, timing (performance)}
+The lowest level cycle accurate simulators are mainly used in low level hardware designs, and microarchitectural optimizations. At this level, the hardware execution can be modeled precisely, at the cost of simulation speed. As the simulation is carried out on a software, it is typically orders of magnitudes slower than the execution on real hardware. They are also difficult to maintain, and thus, in many applications this level simulators are too fine detailed. The hardware models at this levels are typically described with special purpose hardware design languages such as VHDL or Verilog.~\cite{Patterson:2007:Computer, Weaver:2008:Cycle}
 
-\todo[inline]{SimpleScalar:
-  Hardware development is often accelerated by software simulations of the hardware under development.
-  Basic idea: Implement a software model of the hardware, stress then with appropriate workload
-  Gains: The availability of the simulation model is much faster than building the hardware. Thus the hardware can be tested faster. Shorter time to market, cut down development costs.
-  Simulation modeling is driven by three factors: performance, flexibility, detail
-    Performance measures the system's ability to process workload
-    Flexibility reflects the ability to modify the models, enabling measurements of different designs
-    Detail means the level of abstraction the model captures from the actual system
-    -> Getting all three is hard, practically impossible.
-    -> trade offs}
+One abstraction level higher, functional simulators are used to simulate the system architecture together with execution of program binaries. They are typically used to measure how applications behave on certain hardware. For example, GPGPU-Sim and Barra, used to simulate NVIDIA graphics processing units, are functional simulations. They both can execute CUDA code, and thus can be used to evaluate the performance of different GPU software implementations. Most of the simulation related to existing MPSoC devices are done on the functional level.~\cite{Lopez:2015:GPGPUSIM}
 
-% In discrete-event simulation models the system's state at each point of discrete times. The system is modeled in terms of the entities flowing through the system utilizing other entities that represent the system resources.~\cite{Banks:2010:DES}
+While cycle accurate and functional simulators are important part of design and optimization of hardware and software, in many situations, higher level simulation is needed. On higher level, the applications and hardware are of presented with coarse abstractions of the underlying system details, to enable early design space exploration of non-existing systems.
 
-% DES is one way of progressing the simulation
+This thesis provides an example of a discrete event simulator, PSE, used for modeling packet processing applications in fog computing context. However, the breadth of different systems in fog and cloud computing field is enormous, and PSE is only one example amongst many others. Again, these simulators are build on different abstraction levels, ranging from more detailed (functional) simulators for specific computing units in datacenters, to higher level simulators capable of simulating interrelations of multple full scale datacenters.
 
-% The idea of the general model is expanded with queues, event lists, delay, clock.
+There are several simulators targeted for simulation of cloud computing datacenters on different level. CloudSim~\cite{Calheiros:2011:Cloudsim} is an extensible toolset for modeling and simulation of cloud computing infrastructure and application services, originally released and developed by the University of Melbourne. CloudSim can be used for simulating large scale datacenters, virtualized server hosts with customizable provisioning policies, energy-aware computational resources, data center network topologies and message-passing applications. Companies such as Hewlett Packard use CloudSim for simulating resource provisioning, energy efficiency, optimization, and further research.
 
+Various different projects extend the CloudSim API for advanced cloud computing simulations. For example, CloudSimEx~\cite{CloudSimEx} enables MapReduce simulation capabilities and parallel simulations, Cloud2Sim~\cite{Kathiravelu:2014:Concurrent} enables simulation execution on multiple distributed servers, and CloudAnalyst~\cite{Wickremasinghe:2010:CloudAnalyst} enables simulation of large-scale cloud applications in terms of geographic distribution of both servers and workloads.
+
+Some simulator software, such as Greencloud~\cite{Kliazovich:2010:GreenCloud}, are designed for the measuring the energy and power consumption of different datacenter setups. GreenCloud provides tools for simulating CPI, memory, storage, and networking resources, with Independent energy models for each resource. It also supports virtualization and virtual machine migration, and full TCP/IP implementation.
+
+\todo[inline]{should this be extended/fixed?}
+
+% Different cloud simulation tools:
+% CloudSim
+% CloudAnalyst
+% GreenCloud
+% iCanCloud
+% MDCSim
+% NetworkCloudSim
+% VirtualCloud
+
+% Simulation provides cost savings and speeds the development in high level system such as cloud datacenters, and low level systems like network processors.
+
+% cloudsim================================
+% CloudSim is an extensible toolset for modeling and simulation of cloud computing infrastructure and application services, developed originally released and developed by the University of Melbourne. CloudSim can be used for simulating large scale cloud datacenters.~\cite{Calheiros:2011:Cloudsim}
+
+% Java based, no GUI. Latest release 3.0.3 (May 2013)
+% HP and other organizations using cloudsim for for example resource provisioning, energy efficiency, optmization, and further research.
+
+% It allows simulation of ``of different kinds of resource leasing scenarios under varying load and pricing distributions''
+
+% ``
+% support for modeling and simulation of large scale Cloud computing data centers
+% support for modeling and simulation of virtualized server hosts, with customizable policies for provisioning host resources to virtual machines
+% support for modeling and simulation of energy-aware computational resources
+% support for modeling and simulation of data center network topologies and message-passing applications
+% support for modeling and simulation of federated clouds
+% support for dynamic insertion of simulation elements, stop and resume of simulation
+% support for user-defined policies for allocation of hosts to virtual machines and policies for allocation of host resources to virtual machines''
+
+% CloudSim 3.0 released at Jan 13. 2012.
+
+% \todo[inline]{CloudSim: Provides tools for simulation IaaS.
+%   Provides configuration for data centers, hosts and virtual machines.
+% Different policies for creating host VM's, assigning VM's to hosts, VM resource allocation etc
+% }
+% ================
+% cloudanalyst===========================
+% easy to use GUI
+% Flebility through High degree of configurability
+% simulation of large-scale cloud applications, including geographic location of both datacenter and workloads.
+% Built on top of cloudsim
+% =============================
+% greencloud=======================
+% detailed cloud simulator, enables observing, interacting and measuring cloud performance.
+% ``sophisticated opensource simulator''
+% born in the GreenIT project
+% Enables measuring the cloudservers' energy efficiency (precise energy models, and power saving modes for DNS and DVFS)
+% Writte in C++/OTcl
+% Open source
+% Extension to a well-known NS2 network simulator
+% All the communication is simulated on the packet level, enabling detailed network simulation -> supports for example TCP/IP protocol simulation
+% ================================
+% icancloud ================================
+% Developed at the University of Madrid
+% Enables prediction of the trade-offs between cost and performance of applications and hardware used in the datacenter
+% Provides built-in models of the Amazon's instance types.
+% Flexible hypervisor module -> enables fast modeling of uni-core/manycore systems
+% GUI
+% ===================================
+
+
+% \todo[inline]{Rsim: More detailed hardware simulation, with focus on ILP effects of processors
+%       Detailed shared-memory multiprocessor models
+%       They show that the previous simple-processor-models cannot demonstrate the complicated dynamically scheduled processors with sufficient detail.}
+
+% \todo[inline]{Simics: ``Reliable performance estimates require simulation of the full system''
+%         Their simulator includes device models accurate enough to run unmodified operating system kernels, firmware and device driver.
+%         They simulate a network of heterogeneous computers.
+%         Commercial product
+%         Two dimensional classification:
+%           scope (what is modeled),
+%           abstraction level (level at which the system is modeled)
+%             two perspectives: functional, timing (performance)}
+
+% \todo[inline]{SimpleScalar:
+%   Hardware development is often accelerated by software simulations of the hardware under development.
+%   Basic idea: Implement a software model of the hardware, stress then with appropriate workload
+%   Gains: The availability of the simulation model is much faster than building the hardware. Thus the hardware can be tested faster. Shorter time to market, cut down development costs.
+%   Simulation modeling is driven by three factors: performance, flexibility, detail
+%     Performance measures the system's ability to process workload
+%     Flexibility reflects the ability to modify the models, enabling measurements of different designs
+%     Detail means the level of abstraction the model captures from the actual system
+%     -> Getting all three is hard, practically impossible.
+%     -> trade offs}
 
 %%% Local Variables:
 %%% mode: latex

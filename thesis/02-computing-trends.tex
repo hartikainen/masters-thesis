@@ -188,52 +188,25 @@ Fast path architecture refers to an path through a computer program, which incor
 
 The typical slow path of the data plane is run on top of an operating system stack. The fast path layer processes packet outside the operating system environment, often with hardware acceleration, thus avoiding the overheads occuring from the thick software stack. This leaves only a small number of packets, that require special processing, to be forwarded to the slow path able to do more complex processing. Typical examples of packets requiring slow path handling are IP options and ARP packets. In MPSoC packet processing systems, such as Cavium OCTEON II CN6880, the processing cores can often be dynamically configured to run fast path or slow path.~\cite{cavium:2010:fundamentals, 6wind:2016:FP}
 
+Commodity software and multi-core hardware can reduce the cost and provide high flexibity in the development and management of software packet processing, while at the same time achieving the performance of traditional hardware routers. This is achieved by replacing the thick software networking stack of commodity operating systems with special driver and kernel improvements.
+
+Different frameworks, such as Data Plane Development Kit~\cite{Intel:DPDK}, Open vSwitch~\cite{Pfaff:2009:OVS}, and Open Event Machine~\cite{OpenEM}, have been implemented to ease the development of high speed packet processing application for commodity hardware.
+
 \subsection{Data Plane Development Kit}
-\todo[inline]{clean API with a set of coherent libraries and drivers}
+The Data Plane Development Kit (DPDK) provides a clean application programming interface and a set of coherent libraries and drivers, for Intel x86 processors. It has a generic support for many CPU's and network interface controllers ranging from Intel Atom processors to Intel Xeon processors. It supports system with and without non-uniform memory access (NUMA), and any number of processing cores.~\cite{Intel:DPDK:Doc}
 
-\todo[inline]{generic support for many CPUs/NICs}
-\todo[inline]{easy to use and understand}
-\todo[inline]{documentation}
+DPDK runs as a Linux user-space application, utilizing the pthread library. Similarly to many other packet processing frameworks, DPDK implements a run-to-completion model, to minimize the process switching overhead. The model removes the typical operating system scheduler, and all the devices must be accessed by polling, thus eliminating the interrupt overhead. The packets can be passed between the cores, enabling more efficient and flexible core usage.~\cite{Intel:DPDK:Doc}
 
-\todo[inline]{DPDK subscribers/commits}
+DPDK's Environment Abstraction Layer (EAL) abstracts the hardware environment from applications and libraries, enabling hardware agnostic implementation of packet processing applications. EAL provides services such as core affinity and assignment procedures, memory management, atomic and lock operations, and bus accesses, and interrupt handling. These features are exposed as a programming libraries.~\cite{Intel:DPDK:Doc}
 
-\todo[inline]{Many of today's dataplane architectures use run to completion model. No cycles can be wasted for scheduling. Applications poll for received packets. Power management?}
+DPDK has an active ecosystem around it, with wide vendor support. It is also well documented and includes several software examples demonstrating the best practices for data plane architectures, application profiling, and performance tuning.~\cite{Intel:DPDK:Doc}
 
-\todo[inline]{poll mode drivers}
-
-\todo[inline]{DPDK almost ISA neutral, but has to be done properly}
-
-\todo[inline]{DPDK: Hugepages -> less TLB cache misses}
-
-\todo[inline]{Legacy dataplane? Legacy IPsec?}
-
-\todo[inline]{Protocols, addresses, ports, packet dropping, flow reordering}
-\todo[inline]{Reference implementations: Intel DPDK, ODP}
-\subsection{OpenDataPlane}
 \subsection{Open Event-Machine}
-% TODO:
-% - vs. lÃÂ¶ytyykÃÂ¶ vielÃÂ¤ jotain muita task processing malleja jotka samankaltaisia kuin OpenEM?
-% - onko missÃÂ¤ÃÂ¤n nÃÂ¤istÃÂ¤ tukea hajautetulle laskennalle?
+Open Event Machine (OpenEM) is an event-driven programming framework for multicore dataplane applications, developed by Nokia Solutions and Networks (NSN). It has been designed to ease the implementation of event/packet processing applications for different MPSoC devices. One of main drivers for the development of OpenEM has been easy integration with modern hardware accelerators.
 
-% The OpenEM framework provides a programming model for scalable and dynamically load balanced applications. The key components of the OpenEM programming model are events, execution objects, queues and the scheduler. OpenEM operates with so-called run-to-completion principle. The run-to- completion principle means that once an event starts executing it will not be interrupted. New events cannot be scheduled until a core has completed its current task even if the events in execution had lower priorities than the events forced to wait. This implies limitations within which well performing applications must be designed. The program has to be divided to small events, so that the scheduler may efficiently distribute the computation and adhere to scheduling rules and priorities. Another limitation implied by the run-to-completion principle is that application needs to be implemented lock- free for good performance. [26]
+The key concepts of OpenEM framework are execution objects, events, queues, and the scheduler. \emph{Execution objects} are the main building blocks the OpenEM application. They are the run-to-completion functions, describing the processing logic of the application. Each execution object has one or more \emph{queues} attached to it. The \emph{scheduler} selects the events from the queues, based on the global interralations of the queues. When the event is selected from the queue, the corresponding execution object is attached to the processing core, and the event is passed to it as a parameter. Once the execution object finishes its run, the scheduler chooses a new event from the queues similarly.
 
-% The OpenEM framework structure and functionality are loosely defined by the source code distribution available at [26]. Apart from the source dis- tribution, there exists no public declaration of the structure and functionality of the framework. This lack of detail is explained by the OpenEM design principles, which are stated in the OpenEM source files at [26]. A selection of the design principles is presented here. The following list is not in any particular order.
-
-% - OpenEM has been designed to be easy to implement on different mul- ticore SoCs.
-% - Easy integration with modern hardware accelerators is stated to have been a major driver in the OpenEM concept design.
-% - All of the calls in the OpenEM API are multicore safe meaning no data structure gets broken if multiple cores make calls simultaneously. However the application designer needs to take the parallelism into con- sideration with regards to the application data structures and execution order.
-% - The API attempts to guide the application designer towards portable architecture.
-% - The API is not defined for portability through recompilation.
-% - OpenEM does not implement a full software platform or a middleware solution. OpenEM implements a driver-level layer of such a solution but can be used by the application directly for best performance.
-
-% Another factor explaining the loose definitions is how NSN views the status of its own public OpenEM implementation targeted for Intel DPDK. The disclaimer in the NSN source distribution at [26] states: ``The implementation of OpenEM for Intel CPUs in this package should NOT be considered a Reference OpenEM implementation'', but rather an ``Example of an all-SW implementation of OpenEM for Intel CPU'' This helps put the differences between the OpenEM API specification and the TI OpenEM implementation introduced in 3.2 in context.
-
-Queues, Execution Objects, Scheduler
-
-\todo[inline]{vs. Intel DPDK, ODP??}
-\todo[inline]{Mapping between fast path hardware and dataplane application}
-\todo[inline]{Event driven parallel programming model}
-\todo[inline]{Currently no support for distributed computation}
+From the programmer's perspective, OpenEM's event-driven programming model relates closely to actor based programming models such as Erlang~\cite{Armstrong:1993:Concurrent} and Akka framework~\cite{Akka}. While the use cases for these frameworks are different, and thus cannot directly be compared with OpenEM, it is worth mentioning their message passing support. Support for combined inter-node and intra-node parallelism has potential benefits for efficient scaling in the future. HCMPI~\cite{Chatterjee:2013:HCMPI} is an example of experimental framework that combines task-parallelism with message passing. OpenEM's current specification does not support inter-node message passing.
 
 %%% Local Variables:
 %%% mode: latex
