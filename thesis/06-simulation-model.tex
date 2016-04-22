@@ -1,28 +1,11 @@
-\chapter{Simulation Model of Packet Processing System}
+\chapter{Example Simulation Model}
 \label{chapter:example-simulation-model}
 
+\todo[inline]{ fix this
 In this chapter, we present an example simulation model of Cavium OCTEON II CN6880 network processing unit~\cite{cavium:2010:fundamentals}.
 
 First, we will introduce the Cavium OCTEON II CN6880 unit, and then describe the measurement setup required to obtain reference values for the simulation model. Two different measurements will be done, one to measure the communication latencies, and another to measure the memory latencies and throughput. Then, we will present the actual simulation model, including the model components and entities. The gathered reference values are plugged in to the model and the relevant details are discussed. Finally, we describe the implementation of the SSO unit using the PSE plugin interface.
-
-\section{Cavium OCTEON II CN6880}
-\label{sec:cavium-octeon}
-
-% https://www.reddit.com/r/networking/comments/2kamp1/eli5_why_are_cavium_chipsets_so_popular_with/
-
-Cavium Octeon II CN6880 is a 32 MIPS core network processing unit, optimized for high-performance, high-bandwidth, and low power consumption software-defined control-plane~\cite{control-plane} and data-plane~\cite{data-plane} applications.
-
-CN6880 provides several hardware acceleration units for enhanced packet processing and minimized software development complexity. The packet management accelerators offload the actual packet processing cores from many general packet receive, buffering, buffer management, flow classification, quality of service, and transmit processing. The accelerator functions can be customized using software, and accessing the configuration registers.~\cite{cavium:2010:fundamentals}
-
-The packet input processor unit (PKI) and input packet data unit (IPD) work together to manage the received packets, and to perform required processing before scheduling the packets to application cores. They automatically handle most of the processing requirements of the layer 2 to layer 7 open systems interconnection model~\cite{OSI model}. Once the required computation is done, the PKI unit sends the packet's work entry to the SSO unit to be scheduled for processing.~\cite{cavium:2010:fundamentals}
-
-The packet transmission is handled by the packet transmission unit (PKO). When a core finishes a packet processing, it notifies the PKO that the packet is ready for transmission. The PKO then directly copies the packet data from the shared memory into its internal memory, optionally computes checksums for the packet header, transmits the packet, and optionally frees the packet data from the memory.~\cite{cavium:2010:fundamentals}
-
-One of the key features of the CN6880 is its scheduling/synchronization and order unit (SSO). It frees the actual packet processing applications, running on the 32 MIPS cores, from the complex packet scheduling and ordering tasks. The cores execute a loop, and when a core is ready for the next packet, it requests work from the SSO, which then schedules the next work based on the quality of service priority and work group.~\cite{cavium:2010:fundamentals}
-
-The SSO also provides efficient locking mechanisms for protecting the critical regions without explicit software locking, and allows packet processing to be done in parallel or atomically, while still maintaining the packet flow order. The processing cores can also be dedicated for specific flows. One of our goals is to be able to model the scheduling functionality with PSE, as it is crucial to the packet latency and throughput when processing several flows at the time.~\cite{cavium:2010:fundamentals}
-
-The memory latencies have large effect in the packet processing times. The CN6880 provides several memory policies for optimized multi-core packet processing. Each of the 32 cores have dedicated 32KB L1 data and 37KB L1 instruction cache, and a shared 4MB L2 cache. The L1 data cache provides a hybrid write-through, write-back policy, using a write buffer mechanism, and the L2 cache implements a write-back policy. Several other cache related features are offered, for example to avoid unnecessary data writes after the packet transmission, and to automatically send the received packet header to L2 cache and the packet data to main memory, bypassing the L2 cache.~\cite{cavium:2010:fundamentals}
+}
 
 \section{Characteristic Measurements}
 \label{sec:characteristic-measurements}
@@ -151,71 +134,6 @@ The hardware model is a simple one level model containing no submodels. In the b
 
 The probes, attached to the SSO unit, the cores, and the memory nodes, are used to gather statistics from the execution. Each of the units have two probes, one to measure the resource usage, and the other to measures the queue for the corresponding resource. In this hardware model, the routing nodes (squares) and the edges connecting the resources do not have any functional meaning, but are used solely to mimic the graphical models of the CN6880 unit presented in~\cite{cavium:2010:fundamentals}.
 
-\section{Modeling the Task Scheduler}
-\label{sec:modeling-task-scheduler}
-
-The Schedule/Synchronization/Order (SSO) unit has an important effect on the tasks' throughput times, as it controls the order in which the task get service from the application cores. This section first describes the application nodes used to model the SSO unit, and then the actual plug-in functions used to implement the scheduling functionality on the hardware model level.
-
-% The SSO unit assigns the tasks to the processing cores.
-
-% SSO unit needs to have a global
-
-% The SSO unit schedules the tasks for the cores based on the
-
-% Modeling a task processing application
-
-% Figure~\ref{fig:full-model} has two different task processing applications.
-
-% Before the task can be processed, it must wait for the SSO to schedule it on the core.
-
-When modeling the applications on PSE, it is helpful to consider the flow from the task's perspective. When a task has passed the input processing, it is put into the SSO queue to wait to be scheduled on the application cores. Each time a core finishes its previous task, it requests for a new work from the SSO-unit, which then schedules a task based on the flow quality of service  priority and work group.
-
-\subsection{Application Models}
-\label{application-models}
-
-Each packet processing application consists of two parts: the SSO queue node, and the actual processing. The software layer in Figure~\ref{fig:full-model} presents an example of two main applications. The second application is divided into two sub-applications. The parameters for the first application's queue and execution object are shown in the Listings~\ref{lst:queue-attributes} and~\ref{lst:eo-attributes}, respectively.
-
-\lstinputlisting[caption=The attributes of the SSO queue.,
-                 label=lst:queue-attributes]{listings/queue-attributes.txt}
-
-The first line in Listing~\ref{lst:queue-attributes} specifies the display title for the node, as shown in the Figure~\ref{fig:full-model}. The \emph{name} and \emph{type} attributes specify that the resource usage is passive, and the required resource provision entity is $core\_require$, i.e. the SSO. The parameters on lines 5-7 define the parameters that are used in the custom scheduling code on the hardware level. The \emph{$queue\_type$} value atomic specifies that two nodes entering the SSO from the same resource usage node, cannot be processed simultaneously. The \emph{$queue\_id$} is used to keep track of the tasks being processed, and \emph{$queue\_priority$} is used to globally prioritize tasks between the queues.
-
-\lstinputlisting[caption=The attributes of execution object.,
-                 label=lst:eo-attributes]{listings/eo-attributes.txt}
-
-The execution object node parameters are shown in the Listing~\ref{lst:eo-attributes}. It is a simple submodel node. It specifies the display title, and the name of the submodel to be used. The \emph{file} attribute specifies the file that defines the submodel. Note that, each execution object submodel needs to release the SSO/core resource, as shown in the Figure~\ref{fig:full-model}.
-
-\subsection{Custom Scheduler Functions}
-\label{sec:custom-scheduler-functions}
-
-% Because the tasks processing in CN6880 is done in run-to-completion manner, the SSO unit is modeled as a passive resource. Each time when a tasks is entering a processing application, it must acquire the passive SSO resource. The amount of available passive SSO resources are equal to the processing cores in the system, and a task cannot use processing core without holding the SSO resource.
-
-% The SSO scheduling is done in the SSO node presented in the hardware level in Figure~\ref{fig:full-model}. The actual scheduler function is written as a plug-in code, using the interface provided by PSE. The custom scheduling in PSE requires two functions, which are written in C-code: the selection function, and the reserve function. Each time a task enters a resource usage node in the task graph, the reserve function is called. The reserve function either
-
-To model the SSO unit, a custom scheduling functions are required. PSE enables fully customizable resource scheduling through its plug-in interface. The actual scheduling functions are written in C-code, and the resource node parameters are changed to use these functions. The parameters of the SSO node used in the example model are presented in the Listing~\ref{lst:RNS-attributes}.
-
-\lstinputlisting[caption=The attributes of the SSO node to determine the custom scheduler.,
-                 label=lst:RNS-attributes]{listings/SSO-attributes.txt}
-
-The first three lines specify the node title, name, and capacity. The capacity is set to the amount of available processing cores, meaning that no more than 32 tasks can be processed simultaneously. The \emph{discipline} parameter \mbox{CUSTOM}, on line 5, specifies that a custom scheduler is used instead of the built-in scheduling functions. The \emph{file} parameter specifies the path of the C header file that declares the scheduling functions. The \emph{$select\_function$} and the \emph{$reserve\_function$} parameters specify the two functions that are required to implement the scheduling logic.
-
-The reserve function is called each time a task enters a resource usage node in the resource usage model, and it determines whether the task can immediately be served, or if it has to wait for the service. If the task can be processed immediately, it is inserted to the processing queue of the resource, and to the waiting queue otherwise. If the task gets put to the waiting queue, the reserve function also needs to reorder the queue.
-
-Listing~\ref{lst:CUSTOM_reserve} describes the reserve function used to model the SSO. The function takes four input arguments: \emph{r} contains the data of the resource being reserved; \emph{queue} is a pointer whose value is assigned either to the processing queue or the waiting queue; \emph{position} is a pointer, whose value is assigned to the position in the queue; \emph{$new\_client$} holds the parameters, defined in the workload and resource usage models, of the new task.
-
-\lstinputlisting[caption=The $CUSTOM\_reserve$ function for SSO.,
-                 label=lst:CUSTOM_reserve]{listings/CUSTOM_reserve.c}
-
-On the lines 11-39, the reserve function attempts to place the task in the processing queue. The if-statement, on line 11, checks if the resource capacity is full. If there are available cores, then the processing conditions are checked, by going through all the cores, as shown in the for-loop on lines 21-32. If the new task's flow is marked atomic (in the reserve node in resource usage graph), and another task from the same flow is being processed on one of the cores (if-condition on lines 25-26), then the for-loop breaks, and the task gets set to the waiting queue. If a core is not processing, and the flow's coremask permits processing on the core (if-condition on line 31), we assign core's index to variable \emph{j}. Finally, if there is available core (\emph{j} is smaller or equal than the resource capacity) and none of the tasks from the same atomic flow are being processed, we set the queue to point to the resource's processing queue, and the position to the variable \emph{j}, and return.
-
-If the processing conditions are not met, i.e. the execution goes past the if-block, then the task is set into the waiting queue. Line 43 assigns the \emph{queue} to point to the waiting queue of the resource. The for-loop on lines 46-48 finds the first task with larger priority, at index \emph{i}, and the for-loop on lines 51-53 moves all the higher priority tasks one step further on the queue. Finally the index \emph{i} is assigned to \emph{position}, and the function returns.
-
-Each time a core ends a processing of a task, a new task is selected for the processing, using the the custom select function. Listing~\ref{lst:CUSTOM_select} shows the code used for the select function to model the SSO.
-
-\lstinputlisting[caption=The $CUSTOM\_select$ function for SSO.,
-                 label=lst:CUSTOM_select]{listings/CUSTOM_select.c}
-
-$CUSTOM\_select$ takes the resource \emph{r}, and the index of the released core \emph{$release\_index$} as an input. The outer for-loop, starting at line 7, goes through all the tasks in the waiting queue, and finds the first task that satisfies the processing constraints, similarily as the reserve function. Line 10 checks if the waiting task's coremask allows the task to be processed on the core. If the waiting task's flow is atomic (line 12), we need to go through all the processing cores to check that there is no task being processed from the same flow (lines 18-24). If the task was not atomic, or no tasks from the same flow were being processed, the function returns the index of the task in the waiting queue. Otherwise we move to the next waiting task and repeat. If no task from the waiting queue can be scheduled, the function returns $RNS\_LARGE$. The RNS automatically moves the clients when it removes the task from the waiting queue.
 
 %%% Local Variables:
 %%% mode: latex

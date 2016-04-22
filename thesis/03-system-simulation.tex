@@ -1,9 +1,9 @@
 \chapter{System Performance Analysis and Simulation}
 \label{chapter:system-performance-analysis-and-simulation}
 
-In this thesis, we study and evaluate the performance of a modern packet processing system. Our evaluations are based on the modeling and simulation techniques, while measurements are needed to build the model. Similarly to many other packet processing system studies~\cite{cavium:2010:fundamentals}, we are mostly interested in the communication delays, namely throughput and latency, of the system.
+% In this thesis, we study and evaluate the performance of a modern packet processing system. Our evaluations are based on the modeling and simulation techniques, while measurements are needed to build the model. Similarly to many other packet processing system studies~\cite{cavium:2010:fundamentals}, we are mostly interested in the communication delays, namely throughput and latency, of the system.
 
-This chapter introduces the methods used in our experiments. We will start by introducing the common performance analysis methods and metrics, and then further examine the modeling and simulation techniques. After that, we define the components of system under a performance study. Finally, we will describe the simulation model and monitoring, with a short survey of the existing simulation software.
+This chapter introduces the measurement and simulation methods used in our experiments. We will start by introducing the common performance analysis methods and metrics, and then further examine the modeling and simulation techniques. After that, we define the components of system under a performance study. Finally, we will describe the simulation model and monitoring, with a short survey of the existing simulation software.
 
 \section{Performance Analysis}
 For almost every computer system -- whether it be a high performance application on the cloud~\cite{jackson:2010:HPCOC} or an army fuel-supply system~\cite{sabuncuoglu:2005:TAS} -- the performance is one of the most sought-after criterion. To achieve the highest performance for the lowest cost, different performance evaluation techniques are required at different system life cycle stages. The choice of evaluation criteria and techniques used to evaluate the system performance vary between systems. These two choices are discussed in the following subsections.~\cite{jain:1991:AOCSPA}
@@ -17,7 +17,7 @@ The life-cycle stage of the system is usually the first to consider. In early de
 
 Available resources also dictate the technique selection. Running the measurements and simulations are often more time consuming~\cite{Fujimoto:1990:PDE} than the analytic approach, and the required time can be difficult to predict. They both also require special equipment and tools, which are expensive and need special skills to operate. The analytical methods are generally considered less time consuming and less expensive than measurement and simulation.~\cite{jain:1991:AOCSPA}
 
-An important thing to note about the simulation software is their parallelization. Managing the events of and monitoring during the simulation, in addition to the challenging in parallel computing itself, make the scaling of simulation software extremely complex.~\cite{Fujimoto:1990:PDE}
+An important thing to note about the simulation software is their parallelization. Managing the events of, and monitoring during, the simulation, in addition to the challenging in parallel computing itself, make the scaling of simulation software extremely complex.~\cite{Fujimoto:1990:PDE}
 
 The required level of accuracy should also be considered. For analytical models to be solvable, they often have to be very simple abstractions of the original system. Thus, the results of the analytical methods are often approximate and less accurate than simulation or measurement. Simulations, like analytical methods, are abstract, but often much closer to the real system. Even measurements, depsite being most accurate of these methods, can produce results that do not agree with the actual system behavior. The accuracy of simulations and measurements can often be enhanced by spending more time and money on them.~\cite{jain:1991:AOCSPA}
 
@@ -70,7 +70,24 @@ To make conclusions about simulation, the information about the simulation syste
 
 There are two generally used approaches for gathering simulation metrics: trace-based and on-the-fly. The tracing approaches produce raw data from the execution, which are then often post-processed in suitable way. In on-the-fly approaches, the simulator program aggregates the data during the simulation, thus reducing the amount of output.~\cite{jain:1991:AOCSPA, peros:2009:simulation}
 
-\section{Simulator Software}
+\section{Resource Networks}
+Network structures are often used for describing the models. For example petri nets~\cite{Peterson:1981:Petri}, markov chains~\cite{Bolch:2006:Queueing}, queuing networks~\cite{Bolch:2006:Queueing}, and resource networks~\cite{Menasce:1994:CPP} are widely researched model definitions with a well-developed theory for analyzing the system behavior.
+
+Queueing networks is a specific modeling concept, in which the system under study is represented with a restricted set of building blocks: tasks, queues, resources, and routes. The tasks traverse through the system, possibly queueing for, and consuming the resources along their way, based on the routing definitions. Each resource has a queue associated to it, where the tasks wait for the required resource to be available.~\cite{Bolch:2006:Queueing}
+
+The resource queues can have various scheduling disciplines, such as first in first out (FIFO), last in first out (LIFO), priority, or shortest task first. The queueing network models are often solved analytically or simulated, to find the equilibrium or transient state of the system.~\cite{Bolch:2006:Queueing}
+
+Queueing networks can be used to describe various systems, and many different problems have well studied, efficient queueing networks solutions for them. However, the lack of simulation time task routing and detailed monitoring, and confined resource descriptions, make queueing networks unsuitable for more complex computing system studies.~\cite{Bolch:2006:Queueing}
+
+Resource networks extend the queueing networks concept by decoupling the network into resource usage network and resource provision network, and introducing a passive resource type. The resource usage network is a directed graph, describing the possible paths and resource usage requests for the tasks. Resource provision networks are similar to the traditional queueing networks, describing the available resources and their interconnections in the system. Resource networks also enable new task control mechanisms such as fork-join and branching. ~\cite{Menasce:1994:CPP}
+
+Resource networks are suitable for modeling resource requests, dynamic scheduling and different load balancing schemes. These techniques enable modeling of more complex interactions of parallel systems with dynamic workload and resource usage. Due to the dynamicity introduced by the flexibility, resource networks often have to be solved by simulation.~\cite{Menasce:1994:CPP}
+
+\section{Modeling and Simulation Software}
+
+% Java Modelling Tools,[java modeling tools http://jmt.sourceforge.net/] a GPL suite of queueing theory tools written in Java
+% Queueing Package for GNU Octave~\cite{Marzolla:2010:QPGNU}
+
 % TODO:
 % - tÃ¤ssÃ¤ voisi miettiÃ¤ jotain korkeamman tason jaottelua erityyppisten simulaationsoftien vÃ¤lille
 % - sitten voisi antaa konkreettisia esimerkkejÃ¤ kustakin
@@ -95,6 +112,7 @@ Various different projects extend the CloudSim API for advanced cloud computing 
 Some simulator software, such as Greencloud~\cite{Kliazovich:2010:GreenCloud}, are designed for the measuring the energy and power consumption of different datacenter setups. GreenCloud provides tools for simulating CPI, memory, storage, and networking resources, with Independent energy models for each resource. It also supports virtualization and virtual machine migration, and full TCP/IP implementation.
 
 \todo[inline]{should this be extended/fixed?}
+
 
 % Different cloud simulation tools:
 % CloudSim
@@ -179,6 +197,7 @@ Some simulator software, such as Greencloud~\cite{Kliazovich:2010:GreenCloud}, a
 %     Detail means the level of abstraction the model captures from the actual system
 %     -> Getting all three is hard, practically impossible.
 %     -> trade offs}
+
 
 %%% Local Variables:
 %%% mode: latex
