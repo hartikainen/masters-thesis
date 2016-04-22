@@ -59,6 +59,48 @@ According to EMC corporation sponsored IDC study~\cite{Turner:2014:Digital}, the
 
 With the enormous data masses, data diversity, and with complex processing requirements, often referred as Big Data, the traditional traditional data processing methods become inadequate.
 
+
+\section{Packet Processing}
+\label{sec:packet-processing}
+
+Packet processing refers to the methods and concepts applied to transport data packets through the various network elements in a communication network. The network routers, switches, and other devices, such as computers and smartphones, all have their own packet processing subsystems to manage the packet traversal between the network elements.  \todo{This thesis focuses on the network equipment in the middle of Internet backbone, and more precisely...}
+
+Packet switching refers to a method of transmitting data in separate, suitable sized blocks, called packets, between the links of a telecomunications networks. The importance of packet switched networks is increasing in every part of the communication networks which is explained partly by the Internet itself being a packet switched network.
+
+The Open Systems Interconnection (OSI) model is a standard conceptual model which characterizes the communication functions involved in a general network communications of computer system. The model defines seven hierarchical layers of functional elements, between the physical interconnections (layer 1) and the software applications (layer 7).~\cite{ISO:1994:OSI}
+
+The Internet Protocol Suite, or Transmission Control Protocol / Internet Protocol (TCP/IP), is a set of core protocols for the Internet and similar packet switched networks. It provides end-to-end data communication and specifies data packetizing, addressing, transmission, routing and receiving in the packet network. In addition to TCP and IP protocols, it provides several other network and transmission layer functionalities. The functionalities are divided into four abstraction layers: application layer, transport layer, internet layer, and link layer.
+
+Internet Protocol (IP) is an essential Internet layer protocol of the Internet Protocol Suite. It provides the necessary addresses and (unreliable) delivery mechanisms for datagrams between the transmission endpoints. It is a connectionless, best-effort protocol with no error control, sequencing, or end-to-end reliability, but rather contains only the functions for packet fragmentation and delivery through the network. The packets in the IP protocol can be forwarded independent of other packets, forwarding them on-the-fly by routers.
+
+A packet refers to the unit of data transmitted across the network. Packets consist of two parts: the header information and the payload data. The header information is used by network routers to direct the packet to destination system, whereas the payload is extracted and used by the application software. All the higher layer protocols in the TCP/IP stack are encapsulated in the IP-packet's payload section.
+
+\subsection{Network Equipment}
+% One of the cornerstones of the Internet is the ability to connect devices together into networks, and further set of networks into internetworks. Packet switches and routers
+
+% Routers and switches are the cornerstones of the Internet. They are used to connect multiple heterogeneous devices together, forming a network of devices, whereas the routers connect. heterogeneous networks into internetworks.
+
+% Today's network functionality is becoming increasingly sophisticated: data loss protection, application acceleration, intrusion detection. New services: video, mobility support services. $->$ Ever increasing need for programmable and extensible network equipment.~\cite{Egi:2009:PP}
+
+Traditionally, the primary focus in the development of network equipment -- switches, routers, and various other middleboxes -- has been to achieve high performance with very limited packet processing functionalities. The network appliances and middleboxes have typically been deployed on special purpose Application-Specific Integrated Circuits (ASIC) hardware, mainly due to high performance requirements compared to the hardware development and the absence of extensibility and flexibility requirements.~\cite{Dobrescu:2009:REP}
+
+However, the required network functionality is becoming increasingly sophisticated. In addition to the traditional layer 2 and layer 3 routing and switching tasks, the network elements are required to handle more demanding tasks (e.g. application acceleration, encryption, and intrusion detection) all the way to layer 7. These extensions often require modified per-packet processing on the router data plane, and as the specialized network processors are difficult to extend and program, both industry and research are seeking new, more flexible networking solutions.~\cite{Dobrescu:2009:REP}
+
+On the other extreme of the design spectrum, are the software routers built from general-purpose operating systems and x86 hardware platforms. The main promise of the software routers is their extensibility in the software and hardware development: the system's network funtionalities, both in the data and control plane, can be modified fully by the software, thus mitigating the hardware design and development burden of the network developers.~\cite{Dobrescu:2009:REP}
+
+The software routers also enable several other properties of the general purpose computer ecosystem. Huge manufacturing volumes and widespread supply and support chain allow much cheaper hardware prices. The rapid advances in commodity semiconductor technology, such as the state-of-the-art power management features, can provide significant advantages over the slow hardware upgrade cycles of the traditional ASIC based systems.~\cite{Dobrescu:2009:REP}
+
+The challenge with the software routers is the scaling the approach to high-speed networks.
+
+% high performance and programmability are competing goals
+% -> even mutually exclusive?
+
+% Optimizing packet processing performance of the software routers would allow developers to build and program networks using commodity hardware platforms and operating systems. The software networks promise great extensibility as the data and control plane functionality can be extended through software, mitigating the hardware design and development burden.
+
+% A typical switch or router consists of four main components: the input ports, switch fabric, routing processor and output ports.~\cite{Kurose:2012:CNT}
+
+% The routing and switching systems are typically built Application-Specific Integrated Circuits (ASICs), Network Processing Units (NPUs) and commodity x86 hardware.
+
 \section{Virtualization}
 \label{section:virtualization}
 Virtualization is an act of dividing a common set of computing resources into a multiple isolated execution environments. It enables multiple operating systems to be run, in parallel, on a single processing unit, thus alleviating the efficiency problems of parallel computing.
@@ -172,50 +214,6 @@ The data plane, often referred as forwarding plane, defines the part of the rout
 SDN is often complemented with network functions virtualization. In NFV, the network devices are virtualized (using similar techniques as discussed in section~\ref{section:virtualization}) and the network functionalities of the devices are implemented in software packages.~\cite{Demestichas:2013:NFV}
 
 Long Term Evolution (LTE)~\cite{Sesia:2009:LTE} and Evolved Packet Core (EPC) work as a natural platforms for the fog's edge data centers. Small cloud stations can be deployed to the EPCs, and the routers can be utilized as the virtualization infrastructure. This also enables the application services to be co-located where needed.~\cite{Vaquero:2014:FYW}
-
-\section{Packet Processing}
-\label{sec:packet-processing}
-
-Packet processing refers to the methods and concepts applied to transport data packets through the various network elements in a communication network. The network routers, switches, and other devices, such as computers and smartphones, all have their own packet processing subsystems to manage the packet traversal between the network elements.  \todo{This thesis focuses on the network equipment in the middle of Internet backbone, and more precisely...}
-
-%[https://aaltodoc.aalto.fi/bitstream/handle/123456789/3668/urn100416.pdf?sequence=1&isAllowed=y]
-%[https://aaltodoc.aalto.fi/bitstream/handle/123456789/5215/master_karonmaa_kalle_2012.pdf?sequence=1&isAllowed=y]
-\subsection{Packet Switched Networks}
-Packet switching refers to a method of transmitting data in separate, suitable sized blocks, called packets, between the links of a telecomunications networks. The importance of packet switched networks is increasing in every part of the communication networks which is explained partly by the Internet itself being a packet switched network.
-
-The Open Systems Interconnection (OSI) model is a standard conceptual model which characterizes the communication functions involved in a general network communications of computer system. The model defines seven hierarchical layers of functional elements, between the physical interconnections (layer 1) and the software applications (layer 7).~\cite{ISO:1994:OSI}
-
-The Internet Protocol Suite, or Transmission Control Protocol / Internet Protocol (TCP/IP), is a set of core protocols for the Internet and similar packet switched networks. It provides end-to-end data communication and specifies data packetizing, addressing, transmission, routing and receiving in the packet network. In addition to TCP and IP protocols, it provides several other network and transmission layer functionalities. The functionalities are divided into four abstraction layers: application layer, transport layer, internet layer, and link layer.
-
-Internet Protocol (IP) is an essential Internet layer protocol of the Internet Protocol Suite. It provides the necessary addresses and (unreliable) delivery mechanisms for datagrams between the transmission endpoints. It is a connectionless, best-effort protocol with no error control, sequencing, or end-to-end reliability, but rather contains only the functions for packet fragmentation and delivery through the network. The packets in the IP protocol can be forwarded independent of other packets, forwarding them on-the-fly by routers.
-
-A packet refers to the unit of data transmitted across the network. Packets consist of two parts: the header information and the payload data. The header information is used by network routers to direct the packet to destination system, whereas the payload is extracted and used by the application software. All the higher layer protocols in the TCP/IP stack are encapsulated in the IP-packet's payload section.
-
-\subsection{Network Equipment}
-% One of the cornerstones of the Internet is the ability to connect devices together into networks, and further set of networks into internetworks. Packet switches and routers
-
-% Routers and switches are the cornerstones of the Internet. They are used to connect multiple heterogeneous devices together, forming a network of devices, whereas the routers connect. heterogeneous networks into internetworks.
-
-% Today's network functionality is becoming increasingly sophisticated: data loss protection, application acceleration, intrusion detection. New services: video, mobility support services. $->$ Ever increasing need for programmable and extensible network equipment.~\cite{Egi:2009:PP}
-
-Traditionally, the primary focus in the development of network equipment -- switches, routers, and various other middleboxes -- has been to achieve high performance with very limited packet processing functionalities. The network appliances and middleboxes have typically been deployed on special purpose Application-Specific Integrated Circuits (ASIC) hardware, mainly due to high performance requirements compared to the hardware development and the absence of extensibility and flexibility requirements.~\cite{Dobrescu:2009:REP}
-
-However, the required network functionality is becoming increasingly sophisticated. In addition to the traditional layer 2 and layer 3 routing and switching tasks, the network elements are required to handle more demanding tasks (e.g. application acceleration, encryption, and intrusion detection) all the way to layer 7. These extensions often require modified per-packet processing on the router data plane, and as the specialized network processors are difficult to extend and program, both industry and research are seeking new, more flexible networking solutions.~\cite{Dobrescu:2009:REP}
-
-On the other extreme of the design spectrum, are the software routers built from general-purpose operating systems and x86 hardware platforms. The main promise of the software routers is their extensibility in the software and hardware development: the system's network funtionalities, both in the data and control plane, can be modified fully by the software, thus mitigating the hardware design and development burden of the network developers.~\cite{Dobrescu:2009:REP}
-
-The software routers also enable several other properties of the general purpose computer ecosystem. Huge manufacturing volumes and widespread supply and support chain allow much cheaper hardware prices. The rapid advances in commodity semiconductor technology, such as the state-of-the-art power management features, can provide significant advantages over the slow hardware upgrade cycles of the traditional ASIC based systems.~\cite{Dobrescu:2009:REP}
-
-The challenge with the software routers is the scaling the approach to high-speed networks.
-
-% high performance and programmability are competing goals
-% -> even mutually exclusive?
-
-% Optimizing packet processing performance of the software routers would allow developers to build and program networks using commodity hardware platforms and operating systems. The software networks promise great extensibility as the data and control plane functionality can be extended through software, mitigating the hardware design and development burden.
-
-% A typical switch or router consists of four main components: the input ports, switch fabric, routing processor and output ports.~\cite{Kurose:2012:CNT}
-
-% The routing and switching systems are typically built Application-Specific Integrated Circuits (ASICs), Network Processing Units (NPUs) and commodity x86 hardware.
 
 %%% Local Variables:
 %%% mode: latex
