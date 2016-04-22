@@ -1,5 +1,5 @@
-\chapter{Demonstrative Experiment}
-\label{chapter:demonstrative-experiment}
+\chapter{Demonstrative Experiments}
+\label{chapter:demonstrative-experiments}
 
 This chapter presents a demonstrative simulation experiment done on the CN6880 PSE model. The goal of the experiment is to demonstrate how the queue types and priorities affect the scheduler, and hence the packet throughput and latency, and at the same time validate the scheduler functionality implemented in the model. It also demonstrates the usage of probes to detect bottlenecks in a system.
 
@@ -98,6 +98,41 @@ The second application removes this problem by parallelizing part of the atomic 
 \end{figure}
 
 As the figures show, the second application removes the bottleneck from the system. The latencies stay within 22$\mu$s, and the limiting queue length is always below 40, over the simulation period.
+
+% app1 heavy
+% app2 light
+\subsection{Hardware Scheduling}
+\begin{figure}[]
+  \begin{center}
+    \includegraphics[width=\textwidth]{images/experiment/exp2-app1-no-coremask-latency-crop.pdf}
+    \caption{TODO}
+    \label{fig:exp2-app1-no-coremask-latency}
+  \end{center}
+\end{figure}
+
+\begin{figure}[]
+  \begin{center}
+    \includegraphics[width=\textwidth]{images/experiment/exp2-app2-no-coremask-latency-crop.pdf}
+    \caption{TODO}
+    \label{fig:exp2-app2-no-coremask-latency}
+  \end{center}
+\end{figure}
+
+\begin{figure}[]
+  \begin{center}
+    \includegraphics[width=\textwidth]{images/experiment/exp2-app1-is-coremask-latency-crop.pdf}
+    \caption{TODO}
+    \label{fig:exp2-app1-is-coremask-latency}
+  \end{center}
+\end{figure}
+
+\begin{figure}[]
+  \begin{center}
+    \includegraphics[width=\textwidth]{images/experiment/exp2-app2-is-coremask-latency-crop.pdf}
+    \caption{TODO}
+    \label{fig:exp2-app2-is-coremask-latency}
+  \end{center}
+\end{figure}
 
 \section{Discoveries}
 
