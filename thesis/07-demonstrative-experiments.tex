@@ -25,11 +25,7 @@ We gather two different metrics of the system. First, we are interested in the c
 \section{Experiment 1: Global Queue Interrelations}
 The first experiment consists of two different simulations and measurements. We will first demonstrate a packet processing application, whose throughput is limited due to the bottleneck occurring from a slow atomic processing. The application is then modified, extracting part of the atomic execution object into parallel, thus breaking the bottleneck.
 
-% The bottleneck application, \emph{application 1}, is shown as the upper path and the modified application, \emph{application 2}, as the lower path in figure~\ref{fig:exp1-software}, respectively.
-
 The workload model consists of a single packet stream, which is generated from a two level workload model, presented at the top in figure~\ref{fig:exp1-software}. The \emph{TRAFFIC GENERATOR} node triggers its child node with interval $RNS\_random\_uniform(5*10^{-5}, 15*10^{-5})$ seconds, and lifetime of 0.05 seconds. The child node creates 512B packets with interval $5.1~*~10^{-8}~*~RNS\_random\_lognormal(-10, 0.9)$ seconds for $4*10^{-5}$ seconds.
-
-% The software model is presented in figure~\ref{fig:exp1-sofware}. The high level software model consists of the input, process, and output phases. The 'packet input' and 'packet output' nodes are modeled exactly as discussed in the section~\ref{sec:characteristic-measurements}, delaying the the packets according to the equation~\ref{eq:1}.
 
 The two different applications used in the experiment are shown in the software model after the \emph{select app}-node. The lower and upper application are referred as \emph{application 1} and \emph{application 2}, respectively. The application selection is done in the workload model by the \emph{AppId} attribute.
 
@@ -90,15 +86,10 @@ As the shown in the figures, the second application removes the bottleneck from 
 \section{Experiment 2: Queue Coremasks}
 % app1 heavy
 % app2 light
-% The first experiment consists of two different simulations and measurements. We will first demonstrate a packet processing application, whose throughput is limited due to the bottleneck occurring from a slow atomic processing. The application is then modified, extracting part of the atomic execution object into parallel, thus breaking the bottleneck.
-
-% The workload model consists of a single packet stream, which is generated from a two level workload model, presented at the top in figure 7.2. The TRAFFIC GENERATOR node triggers its child node with interval RNS random uniform(5∗10−5,15∗10−5) seconds, and lifetime of 0.05 seconds. The child node creates 512B packets with interval 5.1 ∗ 10−8 ∗ RNS random lognormal(−10 seconds for 4 ∗ 10−5 seconds.
-
-% The two different applications used in the experiment are shown in the software model after the select app-node. The lower and upper application are referred as application 1 and application 2, respectively. The application selection is done in the workload model by the AppId attribute.
-
-% Application 1 consists of two processing steps, both consuming CPU and memory for the range of 5000 clock cycles. The first step consists of parallel, priority 2 queue (A), and the second one is done atomically with priority 1 queue (B). Application 2 is a modified version of the first packet processing application, where the second processing step is split into parallel and atomic steps. The release nodes are omitted from the software model for clarity.
 
 The second experiment demonstrates the packet flow control via queue coremasks. The experiment consists of two packet flows and dedicated application processing them, as presented in figure~\ref{fig:exp2-software}. The first packet stream (presented as orange), presents a higher OSI-level application data, such as video stream, that is processed on a heavy execution object. The second stream (presented as blue), on the other hand, consists of control packets whose processing is done on fast processing application with strict latency requirements.
+
+The \emph{TRAFFIC GENERATOR} node triggers its child nodes with interval $RNS\_random\_uniform(5*10^{-5}, 15*10^{-5})$ seconds, and lifetime of 0.05 seconds. Stream 1 and Stream 2 create 512B packets with interval $6.1*10^{-7}~*~RNS\_lognormal(-10, 0.9)$ and $10^{-6}~*~RNS\_lognormal(5, 10)$ seconds for $4*10^{-5}$ and $10^{-5}$ seconds, respectively. The heavy application consumes the CPU and memory for a total of about 50000 cycles per 512B packet, while the light application packets are processed for tenth of that, in 4500 cycles.
 
 We will again perform two different simulations and measurements. The first one is carried out by allowing the heavy application to be processed on all the 32 processing cores. Despite the light flow being processed on higher priority queue, the processing of the heavy flow has an effect to the worst case latency of the control packets. This happens due to the run-to-completion model of the cores, where control packets may have to queue for a core while the heavy tasks finish. In the seacond simulation, the heavy application processing is limited to 30 cores, dedicating two cores for the light application.
 
@@ -113,10 +104,14 @@ We will again perform two different simulations and measurements. The first one 
 \subsection{Simulation Results}
 \label{sec:exp2-simulation-results}
 
+The system was simulated twice, once without limiting the heavy application processing cores, and once with limited coremask. The data from the probes were post-processed.
+
+Figures~\ref{fig:exp2-app1-no-coremask-latency} and~\ref{fig:exp2-app2-no-coremask-latency} present the data from the simulation without coremask, for the heavy and light flow, respectively. The latency of the heavy flow packets is between 80$\mu$s and 340$\mu$s throughout the simulation. As shown in the figure~\ref{fig:exp2-app2-no-coremask-latency}, the light flow packets can be processed in 8$\mu$s at best. However, in the worst case, when all the cores are processing heavy flow packets, the light flow packet latency is almost ten-fold, 61$\mu$s. The throughput of the heavy application is 0.214GBps.
+
 \begin{figure}[]
   \begin{center}
     \includegraphics[width=\textwidth]{images/experiment/exp2-app1-no-coremask-latency.pdf}
-    \caption{TODO}
+    \caption{Latencies of the heavy flow packets, without coremask.}
     \label{fig:exp2-app1-no-coremask-latency}
   \end{center}
 \end{figure}
@@ -124,15 +119,19 @@ We will again perform two different simulations and measurements. The first one 
 \begin{figure}[]
   \begin{center}
     \includegraphics[width=\textwidth]{images/experiment/exp2-app2-no-coremask-latency.pdf}
-    \caption{TODO}
+    \caption{Latencies of the light flow packets, without coremask. The worst case latencies are almost ten-fold compared to the best case.}
     \label{fig:exp2-app2-no-coremask-latency}
   \end{center}
 \end{figure}
 
+In the second simulation, we use a modified coremask for the heavy application, i.e. dedicating one of the cores for the light application processing. The resulting latencies of the heavy and light flow are presented in figures~\ref{fig:exp2-app1-is-coremask-latency} and~\ref{fig:exp2-app2-is-coremask-latency}, respectively.
+
+As the figures show, the light flow's worst-case packet latencies can be reduced to less than 12$\mu$s. The throughput of the heavy application is 0.212GBps, corresponding to only 2\% drop compared to the non-coremask processing.
+
 \begin{figure}[]
   \begin{center}
     \includegraphics[width=\textwidth]{images/experiment/exp2-app1-is-coremask-latency.pdf}
-    \caption{TODO}
+    \caption{Latencies of the heavy flow packets. One of the cores is dedicated for the light flow.}
     \label{fig:exp2-app1-is-coremask-latency}
   \end{center}
 \end{figure}
@@ -140,16 +139,15 @@ We will again perform two different simulations and measurements. The first one 
 \begin{figure}[]
   \begin{center}
     \includegraphics[width=\textwidth]{images/experiment/exp2-app2-is-coremask-latency.pdf}
-    \caption{TODO}
+    \caption{Latencies of the light flow packets. One of the cores is dedicated for the light flow. The worst-case latencies are less than 50\% higher than of the best case.}
     \label{fig:exp2-app2-is-coremask-latency}
   \end{center}
 \end{figure}
 
 \section{Discoveries}
+The experiments present a proof of concept of the PSE's plugin code mechanism, and the model of Cavium OCTEON CN6880 network processing unit. The simulation results are encouraging. In both experiments, the model acts as expected. According to the experiment results, the PSE's plugin mechanism seems to be a viable tool for modeling complex hardware and software co-scheduled manycore systems, such as the CN6880's SSO-unit.
 
-The experiment presents an example usage of the PSE's plugin code mechanism, and simulation of a packet processing system. The simulation results are encouraging. They show that PSE can be used for performance analysis of complex hardware accelerated systems. This brings advantages especially in the early design space exploration, when there is no real life system available, or when individual system parameters are explored.
-
-The plugin code mechanism extends to any resource network based simulation task, providing flexibility, and allowing even more complex systems to be modeled.
+More importantly, the plugin code mechanism extends to any resource network based simulation task, providing flexibility, hopefully allowing even more complex systems to be modeled.
 
 %%% Local Variables:
 %%% mode: latex
