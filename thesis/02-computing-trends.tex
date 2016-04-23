@@ -62,9 +62,12 @@ With the enormous data masses, data diversity, and with complex processing requi
 
 \section{Packet Processing}
 \label{sec:packet-processing}
+% \todo[inline]{control vs data packets. control $>$ data}
 
 Packet processing refers to the methods and concepts applied to transport data packets through the various network elements in a communication network. The network routers, switches, and other devices, such as computers and smartphones, all have their own packet processing subsystems to manage the packet traversal between the network elements.  \todo{This thesis focuses on the network equipment in the middle of Internet backbone, and more precisely...}
 
+%[https://aaltodoc.aalto.fi/bitstream/handle/123456789/3668/urn100416.pdf?sequence=1&isAllowed=y]
+%[https://aaltodoc.aalto.fi/bitstream/handle/123456789/5215/master_karonmaa_kalle_2012.pdf?sequence=1&isAllowed=y]
 \subsection{Packet Switched Networks}
 Packet switching refers to a method of transmitting data in separate, suitable sized blocks, called packets, between the links of a telecomunications networks. The importance of packet switched networks is increasing in every part of the communication networks which is explained partly by the Internet itself being a packet switched network.
 
@@ -76,31 +79,35 @@ Internet Protocol (IP) is an essential Internet layer protocol of the Internet P
 
 A packet refers to the unit of data transmitted across the network. Packets consist of two parts: the header information and the payload data. The header information is used by network routers to direct the packet to destination system, whereas the payload is extracted and used by the application software. All the higher layer protocols in the TCP/IP stack are encapsulated in the IP-packet's payload section.
 
-\subsection{Network Equipment}
+In a conventional IP-based network architecture, the packet processing equipment is partitioned into three components: management plane, control plane, and data plane.
+
+The control plane refers to the parts of the routing architecture, that carries and consumes the control packets needed to describe the network topology and correctly route the actual data packets. The control packets originate from and are destined for a router.~\cite{Chao:2007:HPS:1202844, Yang:2004:FCE}
+
+The data plane, often referred as forwarding plane, defines the part of the routing architecture, which decides destination and takes action for the data arriving to it. The decision is typically determined by a look-up table, which the incoming packet is compared to. The management plane carries the traffic used for the administrative tasks of the network.~\cite{Chao:2007:HPS:1202844, Yang:2004:FCE}
+
+\subsection{Networking Equipment}
+
+% high performance and programmability are competing goals
+% -> even mutually exclusive?
+
 % One of the cornerstones of the Internet is the ability to connect devices together into networks, and further set of networks into internetworks. Packet switches and routers
 
 % Routers and switches are the cornerstones of the Internet. They are used to connect multiple heterogeneous devices together, forming a network of devices, whereas the routers connect. heterogeneous networks into internetworks.
 
-% Today's network functionality is becoming increasingly sophisticated: data loss protection, application acceleration, intrusion detection. New services: video, mobility support services. $->$ Ever increasing need for programmable and extensible network equipment.~\cite{Egi:2009:PP}
-
 Traditionally, the primary focus in the development of network equipment -- switches, routers, and various other middleboxes -- has been to achieve high performance with very limited packet processing functionalities. The network appliances and middleboxes have typically been deployed on special purpose Application-Specific Integrated Circuits (ASIC) hardware, mainly due to high performance requirements compared to the hardware development and the absence of extensibility and flexibility requirements.~\cite{Dobrescu:2009:REP}
 
-However, the required network functionality is becoming increasingly sophisticated. In addition to the traditional layer 2 and layer 3 routing and switching tasks, the network elements are required to handle more demanding tasks (e.g. application acceleration, encryption, and intrusion detection) all the way to layer 7. These extensions often require modified per-packet processing on the router data plane, and as the specialized network processors are difficult to extend and program, both industry and research are seeking new, more flexible networking solutions.~\cite{Dobrescu:2009:REP}
+However, the required network functionality is becoming increasingly sophisticated. In addition to the traditional layer 2 and layer 3 routing and switching tasks, the network elements are required to handle more demanding tasks (e.g. application acceleration, encryption, and intrusion detection) all the way to layer 7. These extensions often require modified per-packet processing on the router data plane, and as the specialized network processors are difficult to extend and program, both industry and research are seeking new, more flexible networking solutions.~\cite{Egi:2009:PP, Dobrescu:2009:REP}
 
 On the other extreme of the design spectrum, are the software routers built from general-purpose operating systems and x86 hardware platforms. The main promise of the software routers is their extensibility in the software and hardware development: the system's network funtionalities, both in the data and control plane, can be modified fully by the software, thus mitigating the hardware design and development burden of the network developers.~\cite{Dobrescu:2009:REP}
 
 The software routers also enable several other properties of the general purpose computer ecosystem. Huge manufacturing volumes and widespread supply and support chain allow much cheaper hardware prices. The rapid advances in commodity semiconductor technology, such as the state-of-the-art power management features, can provide significant advantages over the slow hardware upgrade cycles of the traditional ASIC based systems.~\cite{Dobrescu:2009:REP}
 
 The challenge with the software routers is the scaling the approach to high-speed networks.
+\todo[inline]{presents NPUs here as well}
 
-% high performance and programmability are competing goals
-% -> even mutually exclusive?
+The nature of the high-speed packet processing entails new types of constraints to the computing; Advanced stream processing systems are needed to process the data on-the-fly in the vicinity of the sources.~\cite{Bonomi:2012:Fog}
 
-% Optimizing packet processing performance of the software routers would allow developers to build and program networks using commodity hardware platforms and operating systems. The software networks promise great extensibility as the data and control plane functionality can be extended through software, mitigating the hardware design and development burden.
-
-% A typical switch or router consists of four main components: the input ports, switch fabric, routing processor and output ports.~\cite{Kurose:2012:CNT}
-
-% The routing and switching systems are typically built Application-Specific Integrated Circuits (ASICs), Network Processing Units (NPUs) and commodity x86 hardware.
+In the traditional von Neumann model of computing~\cite{Neumann:1993:EDVAC}, the computation is carried out by modifying the data stored in memory. However, the growing volumes of data and strict latency requirements, require not only distributing the computation, but also changes the nature of it more towards stream processing. The manipulation of the data streams passing through the system must be done on the on-the-fly.~\cite{Bonomi:2012:Fog, Thies:2002:StreamIt}
 
 \section{Virtualization}
 \label{section:virtualization}
@@ -137,12 +144,12 @@ Cloud computing paradigm provides a shared pool of easily configurable and flexi
 
 According to the definition of The National Institute of Standards and Technology, cloud computing is composed of five essential characteristics (on-demand self-service, broad network access, resource pooling, rapid elasticity, and measured service), three service models (software as a service, platform as a service, and infrastructure as a service), and four deployment models (private cloud, public cloud, community cloud, and hybrid cloud).~\cite{Mell:2011:ccdef}
 
-\subsection{Characteristics}
+%\subsection{Characteristics}
 The \emph{on-demand self-service} characteristic means that the consumer of the service can provision computing resources, such as server time and network storage, automatically without requiring human interaction with each service provider. \emph{Broad network access} requires the service to be available over the network and accessible using standard mechanisms which promote use by heterogeneous platforms such as mobile phones, tablets, laptops, or personal computers. \emph{Resource pooling} refers to virtualization techniques discussed in the subsection~\ref{subsection:virtualization}. \emph{Rapid elasticity} means that the consumer is able to elastically and automatically, provision and release the seemingly untlimited resources on demand. The last characteristic, \emph{measured service}, refers to the automatic control and optimization of the resources by metering the usage of the services.~\cite{Mell:2011:ccdef}
 
 The characteristics of cloud computing make it tempting for both customers and service providers. From the customer perspective, it provides advantages of high computing power, cheap service costs, high performance, flexible scalability and accessibility as well as high availability. It reduces the upfront infrastructure costs for companies, allowing them to focus on their core businesses instead of on infrastructure, and getting their applications running faster, with improved manageability and less maintenance. On the other hand, it provides completely new business models for the service providers.~\cite{Mell:2011:ccdef, Dikaiakos:2009:Cloud}
 
-\subsection{Service Models}
+%\subsection{Service Models}
 The three service models divide the cloud services into logical levels based on the computing layers provided by the cloud service. Figure~\ref{fig:cloud-computing-service-models} presents the comparison these levels together with the on-premise solution. On-premise solution refers to model where the complete computation stack is managed by the customer.
 
 \begin{figure}[]
@@ -159,12 +166,12 @@ In the next service level, \emph{Platform as a service (PaaS)} model, the servic
 
 \emph{Software as a service (SaaS)} model provides, on top of the IaaS and PaaS, the management of the application and data level. The customers access the software from cloud clients, typically web browsers via personal computers, laptops, tablets or smartphones. SaaS has become a common model for delivering wide range of different applications, such as Facebook~\cite{facebook}, Salesforce~\cite{salesforce}, and Google Gmail~\cite{Teeter:2011:Gmail}.~\cite{Mell:2011:ccdef}
 
-\subsection{Deployment Models}
+%\subsection{Deployment Models}
 \emph{Private Cloud} infrastructure is hosted internally by a company or organization, targeting a specific set of customers. Private clouds are typically more affordable to setup and offer more flexibility, while also providing the companies full privacy on their data and applications. \emph{Public Cloud}, on the other hand, is exposed to any customer over a public network. The data, applications and other resources are stored over the service provider's data center, and thus the security has to be considered. The underlying infrastructure is often similar between these two models.~\cite{Mell:2011:ccdef}
 
 The cloud service can also be a combination of the public and private clouds. This kind of deployment model is referred to as a \emph{hybrid cloud}. Hybrid cloud allows the utilization of the flexibility and cost of the public cloud solutions, while at the same time maintaining the security sensitive data in their own infrastructure. \emph{Community cloud} refers to cloud infrastructure that is shared between multiple organizations, typically with common security, jurisdiction, and compliance concerns in mind. Community clouds can be hosted and managed either internally or externally from the sharing organizations.~\cite{Mell:2011:ccdef}
 
-\subsection{Datacenter Energy Consumption}
+\subsection{Energy Consumption}
 The power consumption has become the major concerns in the design of today's warehouse scale datacenters. In 2005, the world's server power demand (including cooling and auxiliary infrastrucure) was about 14,000MW, resulting in about \$7.2B eletricity costs. Majority of these costs come from cooling, which is the consequence of the heat generated by the computing resources such as CPU, memory, storage, and networking.~\cite{Koomey:2007:PC, Fan:2007:PPW}
 
 Virtualized datacenters can greatly increase the usage rates of computing resources, decreasing the total server energy consumption. However, the benefits of cloud computing are tightly coupled to the scale of the individual datacenters. While the total energy consumption is reduced, the energy usage of individual datacenters are often huge.~\cite{Hoelzle:2009:DCI}
@@ -195,22 +202,11 @@ While the benefits of Cloud Computing provide efficient alternative to the tradi
 
 Fog computing is an extension to the traditional cloud computing architecture, where parts of the cloud computing services, mainly computation, storage, and networking, are carried out in the edge of the communication network. It is defined to provide the following characteristics on top of the existing cloud computing architectures: low latency and location awareness; wide-spread geographical distribution; mobility; very large number of nodes, predominant role of wireless access, strong presence of streaming and real time applications, heterogeneity.~\cite{Bonomi:2012:Fog}
 
-High virtualization and efficient stream processing are key elements for successful fog computing.
+High virtualization and efficient stream processing are the key elements for successful fog computing.
 
-\subsection{Data Streams}
-The nature of the data in fog computing entails new types of constraints to the computing; Advanced stream processing systems are needed to process the data on-the-fly in the vicinity of the sources.~\cite{Bonomi:2012:Fog}
+Until recently, the typical network architectures have been implemented on proprietary or special purpose hardware. The growing networking traffic and competition in communication services have led to the development of software based solutions. Ssoftware based solutions enable flexible and extensible networking, and measure up the tight standards for stability, protocol adherence, and quality, previously achieved only with the hardware solutions.~\cite{Kim:2013:SDN}
 
-In the traditional von Neumann model of computing~\cite{Neumann:1993:EDVAC}, the computation is carried out by modifying the data stored in memory. However, the growing volumes of data and strict latency requirements, require not only distributing the computation, but also changes the nature of it more towards stream processing. The manipulation of the data streams passing through the system must be done on the on-the-fly.~\cite{Bonomi:2012:Fog, Thies:2002:StreamIt}
-
-\subsection{Fog Networks}
-
-Until recently, the typical network architectures have been implemented on proprietary or special purpose hardware. The growing networking traffic and competition in communication services have led to the development of software based solutions. Today's software based solutions are able to measure up the tight standards for stability, protocol adherence, and quality, previously achieved only with the hardware solutions.~\cite{Kim:2013:SDN}
-
-The main enabling technologies of fog computing are the software-defined networking (SDN), and further the network functions virtualization (NFV). Software defined networking separates the data plane and the control plane functionalities of the network, making the data plane switches simple packet forwarding devices, while leaving the routing decision control logic for the control plane.~\cite{Kim:2013:SDN, Demestichas:2013:NFV}
-
-The control plane refers to the parts of the routing architecture, that carries and consumes the control packets needed to describe the network topology and correctly route the actual data packets. The control packets originate from and are destined for a router.~\cite{Chao:2007:HPS:1202844, Yang:2004:FCE}
-
-The data plane, often referred as forwarding plane, defines the part of the routing architecture, which decides destination and takes action for the data arriving to it. The decision is typically determined by a look-up table, which the incoming packet is compared to.~\cite{Chao:2007:HPS:1202844, Yang:2004:FCE}
+The main enabling technologies of fog computing are the software-defined networking (SDN), and further the network functions virtualization (NFV). Software defined networking separates the data plane and the control plane functionalities of the network, making the data plane switches simple packet forwarding devices, while leaving the routing decision control logic for the control plane. Thus the network control becomes directly programmable, centrally managed, programmatically configurable, and vendor agnostic, amongst many other benefits from softwareization.~\cite{Kim:2013:SDN}
 
 SDN is often complemented with network functions virtualization. In NFV, the network devices are virtualized (using similar techniques as discussed in section~\ref{section:virtualization}) and the network functionalities of the devices are implemented in software packages.~\cite{Demestichas:2013:NFV}
 
