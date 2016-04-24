@@ -1,9 +1,10 @@
 \chapter{System Performance Analysis and Simulation}
 \label{chapter:system-performance-analysis-and-simulation}
+In this thesis, we study and evaluate the performance analysis methods of a modern packet processing system. This chapter introduces the modeling, measurement, and simulation methods used in our work.
 
-% In this thesis, we study and evaluate the performance of a modern packet processing system. Our evaluations are based on the modeling and simulation techniques, while measurements are needed to build the model. Similarly to many other packet processing system studies~\cite{cavium:2010:fundamentals}, we are mostly interested in the communication delays, namely throughput and latency, of the system.
+We will start by introducing the common performance analysis methods and metrics, and then further examine the modeling and simulation techniques. Further, we present the queueing and resource networks, which are fundamental concepts for modeling packet processing systems. We will describe the basic concepts of simulation, the primary method for solving more complex networks needed to model modern packet processing systems. We end the chapter with a short survey of the existing simulation software.
 
-This chapter introduces the measurement and simulation methods used in our experiments. We will start by introducing the common performance analysis methods and metrics, and then further examine the modeling and simulation techniques. After that, we define the components of system under a performance study. Finally, we will describe the simulation model and monitoring, with a short survey of the existing simulation software.
+% Our evaluations are based on the modeling and simulation techniques, while measurements are needed to build the model. Similarly to many other packet processing system studies~\cite{cavium:2010:fundamentals}, we are mostly interested in the communication delays, namely throughput and latency, of the system.
 
 \section{Performance Analysis}
 For almost every computer system -- whether it be a high performance application on the cloud~\cite{jackson:2010:HPCOC} or an army fuel-supply system~\cite{sabuncuoglu:2005:TAS} -- the performance is one of the most sought-after criterion. To achieve the highest performance for the lowest cost, different performance evaluation techniques are required at different system life cycle stages. The choice of evaluation criteria and techniques used to evaluate the system performance vary between systems. These two choices are discussed in the following subsections.~\cite{jain:1991:AOCSPA}
@@ -31,6 +32,19 @@ When the service result is correct, the performance metrics are used to measure 
 If the service result is incorrect, the metrics describe the probabilities of the error, for example, how probably an unintentional packet drops or out-of-orderings occur. When the system fails to perform requested service, it is helpful the classify the different causes of failure, and determine the probability and the duration for each.~\cite{jain:1991:AOCSPA}
 
 It should be noted that many systems provide multiple services, and the number of metrics can be large. Also, different evaluation techniques provide different metrics at different times of the service. For example, some simulators allow white-box-like view of the system states during the simulation, whereas, with analytical methods, the details of the system are often unavailable.~\cite{jain:1991:AOCSPA}
+
+\section{Resource Networks}
+Network structures are often used for describing the models. For example petri nets~\cite{Peterson:1981:Petri}, markov chains~\cite{Bolch:2006:Queueing}, queuing networks~\cite{Bolch:2006:Queueing}, and resource networks~\cite{Menasce:1994:CPP} are widely researched model definitions with a well-developed theory for analyzing the system behavior.
+
+Queueing networks is a specific modeling concept, in which the system under study is represented with a restricted set of building blocks: tasks, queues, resources, and routes. The tasks traverse through the system, possibly queueing for, and consuming the resources along their way, based on the routing definitions. Each resource has a queue associated to it, where the tasks wait for the required resource to be available.~\cite{Bolch:2006:Queueing}
+
+The resource queues can have various scheduling disciplines, such as first in first out (FIFO), last in first out (LIFO), priority, or shortest task first.\todo{add more stuff about queue disciplines} The queueing network models are often solved analytically or simulated, to find the equilibrium or transient state of the system.\todo{explain the pros and cons of different solutions, emphasize the strict queue disciplines for analytical solutions}~\cite{Bolch:2006:Queueing}
+
+Queueing networks can be used to describe various systems, and many different problems have well studied, efficient queueing networks solutions for them. However, the lack of simulation time task routing and detailed monitoring, and confined resource descriptions, make queueing networks unsuitable for more complex computing system studies.~\cite{Bolch:2006:Queueing}
+
+Resource networks extend the queueing networks concept by decoupling the network into resource usage network and resource provision network, and introducing a passive resource type. The resource usage network is a directed graph, describing the possible paths and resource usage requests for the tasks. Resource provision networks are similar to the traditional queueing networks, describing the available resources and their interconnections in the system. Resource networks also enable new task control mechanisms such as fork-join and branching. ~\cite{Menasce:1994:CPP}
+
+Resource networks are suitable for modeling resource requests, dynamic scheduling and different load balancing schemes. These techniques enable modeling of more complex interactions of parallel systems with dynamic workload and resource usage. Due to the dynamicity introduced by the flexibility, resource networks often have to be solved by simulation.~\cite{Menasce:1994:CPP}
 
 \section{Simulation}
 This sections describes the basic principles related to simulation. Note that, despite the most of the examples in this chapter being about computing, simulation is widely used also in several other contexts, even beyond science. The concepts described below, e.g. entities, attributes, or activities, have different realizations from system to system.
@@ -69,19 +83,6 @@ Three different simulation advancement designs are presented in~\cite{peros:2009
 To make conclusions about simulation, the information about the simulation system needs to be gathered. Similarily to the measurement based techniques, the system is instrumented and the data are saved during the execution. The constructed simulation model is simulated, and the execution is monitored to gather metrics of interest.~\cite{jain:1991:AOCSPA, peros:2009:simulation}
 
 There are two generally used approaches for gathering simulation metrics: trace-based and on-the-fly. The tracing approaches produce raw data from the execution, which are then often post-processed in suitable way. In on-the-fly approaches, the simulator program aggregates the data during the simulation, thus reducing the amount of output.~\cite{jain:1991:AOCSPA, peros:2009:simulation}
-
-\section{Resource Networks}
-Network structures are often used for describing the models. For example petri nets~\cite{Peterson:1981:Petri}, markov chains~\cite{Bolch:2006:Queueing}, queuing networks~\cite{Bolch:2006:Queueing}, and resource networks~\cite{Menasce:1994:CPP} are widely researched model definitions with a well-developed theory for analyzing the system behavior.
-
-Queueing networks is a specific modeling concept, in which the system under study is represented with a restricted set of building blocks: tasks, queues, resources, and routes. The tasks traverse through the system, possibly queueing for, and consuming the resources along their way, based on the routing definitions. Each resource has a queue associated to it, where the tasks wait for the required resource to be available.~\cite{Bolch:2006:Queueing}
-
-The resource queues can have various scheduling disciplines, such as first in first out (FIFO), last in first out (LIFO), priority, or shortest task first.\todo{add more stuff about queue disciplines} The queueing network models are often solved analytically or simulated, to find the equilibrium or transient state of the system.\todo{explain the pros and cons of different solutions, emphasize the strict queue disciplines for analytical solutions}~\cite{Bolch:2006:Queueing}
-
-Queueing networks can be used to describe various systems, and many different problems have well studied, efficient queueing networks solutions for them. However, the lack of simulation time task routing and detailed monitoring, and confined resource descriptions, make queueing networks unsuitable for more complex computing system studies.~\cite{Bolch:2006:Queueing}
-
-Resource networks extend the queueing networks concept by decoupling the network into resource usage network and resource provision network, and introducing a passive resource type. The resource usage network is a directed graph, describing the possible paths and resource usage requests for the tasks. Resource provision networks are similar to the traditional queueing networks, describing the available resources and their interconnections in the system. Resource networks also enable new task control mechanisms such as fork-join and branching. ~\cite{Menasce:1994:CPP}
-
-Resource networks are suitable for modeling resource requests, dynamic scheduling and different load balancing schemes. These techniques enable modeling of more complex interactions of parallel systems with dynamic workload and resource usage. Due to the dynamicity introduced by the flexibility, resource networks often have to be solved by simulation.~\cite{Menasce:1994:CPP}
 
 \section{Modeling and Simulation Software}
 

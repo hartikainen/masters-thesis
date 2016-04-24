@@ -1,9 +1,10 @@
 \chapter{Computing Trends}
 \label{chapter:computing-trends}
+This chapter presents the background of this thesis and motivates the need for, and the context of, efficient packet processing systems.
+
+We begin with an overview of today's challenges in hardware development, that have resulted in the transition from traditional single threaded computing to concurrent, multi-threaded and parallelized programming. Then, the dimensions of the required data processing capacity is emphasized by explaining the concept named Big Data. Further, the characteristics of packet switched networks' data, and further the context of packet processing, i.e. cloud and fog computing, are explained.
 
 \section{Modern Computing}
-This chapter introduces the context of this thesis. We present the challenges and reasons that have led the traditional single threaded computing to concurrent, multi-threaded and parallelized programming, and further to a paradigms called cloud and fog computing.
-
 The terminology around the parallelized computation is somewhat ambiguous. Throughout this chapter, we will be using the term \emph{parallel computing} as a general term referring to the opposite of \emph{single-threaded} or \emph{sequential} computing, unless explicitly stated to mean the act of \emph{parallel computing}, in which multiple calculations are carried out \emph{simultaneously}. The general term comprises many different types of computing, such as \emph{concurrent}- and \emph{distributed computing}, as well as the type of \emph{parallel computing} itself.
 
 \subsection{The End of Free Lunch}
@@ -60,16 +61,14 @@ According to EMC corporation sponsored IDC study~\cite{Turner:2014:Digital}, the
 With the enormous data masses, data diversity, and with complex processing requirements, often referred as Big Data, the traditional traditional data processing methods become inadequate.
 
 
-\section{Packet Processing}
-\label{sec:packet-processing}
+\section{Packet Switched Networks}
+\label{sec:packet-switched-networks}
 % \todo[inline]{control vs data packets. control $>$ data}
-
-Packet processing refers to the methods and concepts applied to transport data packets through the various network elements in a communication network. The network routers, switches, and other devices, such as computers and smartphones, all have their own packet processing subsystems to manage the packet traversal between the network elements.  \todo{This thesis focuses on the network equipment in the middle of Internet backbone, and more precisely...}
 
 %[https://aaltodoc.aalto.fi/bitstream/handle/123456789/3668/urn100416.pdf?sequence=1&isAllowed=y]
 %[https://aaltodoc.aalto.fi/bitstream/handle/123456789/5215/master_karonmaa_kalle_2012.pdf?sequence=1&isAllowed=y]
-\subsection{Packet Switched Networks}
-Packet switching refers to a method of transmitting data in separate, suitable sized blocks, called packets, between the links of a telecomunications networks. The importance of packet switched networks is increasing in every part of the communication networks which is explained partly by the Internet itself being a packet switched network.
+\subsection{Network Components}
+Packet switching refers to a method of transmitting data in separate, suitable sized blocks, called packets, between the links of a telecomunications networks. The importance of packet switched networks is increasing in every part of the communication networks which is explained partly by the Internet itself being an enormous packet switched network.
 
 The Open Systems Interconnection (OSI) model is a standard conceptual model which characterizes the communication functions involved in a general network communications of computer system. The model defines seven hierarchical layers of functional elements, between the physical interconnections (layer 1) and the software applications (layer 7).~\cite{ISO:1994:OSI}
 
@@ -79,22 +78,24 @@ Internet Protocol (IP) is an essential Internet layer protocol of the Internet P
 
 A packet refers to the unit of data transmitted across the network. Packets consist of two parts: the header information and the payload data. The header information is used by network routers to direct the packet to destination system, whereas the payload is extracted and used by the application software. All the higher layer protocols in the TCP/IP stack are encapsulated in the IP-packet's payload section.
 
-In a conventional IP-based network architecture, the packet processing equipment is partitioned into three components: management plane, control plane, and data plane.
+In a conventional IP-based network architecture, the packet processing equipment and functionality is partitioned into three components: management plane, control plane, and data plane.
 
-The control plane refers to the parts of the routing architecture, that carries and consumes the control packets needed to describe the network topology and correctly route the actual data packets. The control packets originate from and are destined for a router.~\cite{Chao:2007:HPS:1202844, Yang:2004:FCE}
+The control plane refers to the parts of the routing architecture, that carries and consumes the control packets needed to describe the network topology and correctly route the actual data packets. The control packets originate from and are destined for a router.~\cite{Chao:2007:HPS, Yang:2004:FCE}
 
-The data plane, often referred as forwarding plane, defines the part of the routing architecture, which decides destination and takes action for the data arriving to it. The decision is typically determined by a look-up table, which the incoming packet is compared to. The management plane carries the traffic used for the administrative tasks of the network.~\cite{Chao:2007:HPS:1202844, Yang:2004:FCE}
+The data plane, often referred as forwarding plane, defines the part of the routing architecture, which decides destination and takes action for the data arriving to it. The decision is typically determined by a look-up table, which the incoming packet is compared to. The management plane carries the traffic used for the administrative tasks of the network.~\cite{Chao:2007:HPS, Yang:2004:FCE}
 
 \subsection{Networking Equipment}
+
+Packet processing refers to the methods and concepts applied to transport data packets through the various network elements in a communication network. The network routers, switches, and other devices, such as computers and smartphones, all have their own packet processing subsystems to manage the packet traversal between the network elements.  \todo{This thesis focuses on the network equipment in the middle of Internet backbone, and more precisely...}
 
 % high performance and programmability are competing goals
 % -> even mutually exclusive?
 
-% One of the cornerstones of the Internet is the ability to connect devices together into networks, and further set of networks into internetworks. Packet switches and routers
+% One of the cornerstones of the Internet is the ability to connect devices together into networks, and further set of networks into internetworks. Packet switches and routers ...
 
 % Routers and switches are the cornerstones of the Internet. They are used to connect multiple heterogeneous devices together, forming a network of devices, whereas the routers connect. heterogeneous networks into internetworks.
 
-Traditionally, the primary focus in the development of network equipment -- switches, routers, and various other middleboxes -- has been to achieve high performance with very limited packet processing functionalities. The network appliances and middleboxes have typically been deployed on special purpose Application-Specific Integrated Circuits (ASIC) hardware, mainly due to high performance requirements compared to the hardware development and the absence of extensibility and flexibility requirements.~\cite{Dobrescu:2009:REP}
+Traditionally, the focus in the development of network equipment -- switches, routers, and various other middleboxes -- has been to achieve high performance with very limited packet processing functionalities. The network appliances and middleboxes have typically been deployed on special purpose Application-Specific Integrated Circuits (ASIC) hardware, mainly due to high performance requirements compared to the hardware development and the absence of extensibility and flexibility requirements.~\cite{Dobrescu:2009:REP}
 
 However, the required network functionality is becoming increasingly sophisticated. In addition to the traditional layer 2 and layer 3 routing and switching tasks, the network elements are required to handle more demanding tasks (e.g. application acceleration, encryption, and intrusion detection) all the way to layer 7. These extensions often require modified per-packet processing on the router data plane, and as the specialized network processors are difficult to extend and program, both industry and research are seeking new, more flexible networking solutions.~\cite{Egi:2009:PP, Dobrescu:2009:REP}
 
