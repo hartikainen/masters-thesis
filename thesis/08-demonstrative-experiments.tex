@@ -119,7 +119,7 @@ Figures~\ref{fig:exp2-app1-no-coremask-latency} and~\ref{fig:exp2-app2-no-corema
 \begin{figure}[]
   \begin{center}
     \includegraphics[width=\textwidth]{images/experiment/exp2-app2-no-coremask-latency.pdf}
-    \caption{Latencies of the light flow packets, without coremask. The worst case latencies are almost ten-fold compared to the best case.}
+    \caption{Latencies of the light flow packets, without coremask. The worst case latencies are almost ten-fold compared to the best-case.}
     \label{fig:exp2-app2-no-coremask-latency}
   \end{center}
 \end{figure}
@@ -139,15 +139,19 @@ As the figures show, the light flow's worst-case packet latencies can be reduced
 \begin{figure}[]
   \begin{center}
     \includegraphics[width=\textwidth]{images/experiment/exp2-app2-is-coremask-latency.pdf}
-    \caption{Latencies of the light flow packets. One of the cores is dedicated for the light flow. The worst-case latencies are less than 50\% higher than of the best case.}
+    \caption{Latencies of the light flow packets. One of the cores is dedicated for the light flow. The worst-case latencies are less than 50\% higher than of the best-case.}
     \label{fig:exp2-app2-is-coremask-latency}
   \end{center}
 \end{figure}
 
 \section{Discoveries}
-The experiments present a proof of concept of the PSE's plugin code mechanism, and the model of Cavium OCTEON II CN6880 network processing unit. The simulation results are encouraging. In both experiments, the model acts as expected. According to the experiment results, the PSE's plugin mechanism seems to be a viable tool for modeling complex hardware and software co-scheduled manycore systems, such as the CN6880's SSO-unit.
+
+% TODO: simulation methods can speed up the modeling work by abstracting the system and decoupling the complex hardware and software models, while also maintaining the correct behaviour of the system under study.
+
+The experiments present a proof of concept of the PSE's plugin code mechanism, and the model of Cavium OCTEON II CN6880 network processing unit. The simulation results are encouraging. In both experiments, the model acts as expected. According to the experiment results, the PSE's resource network concept, extended with customized queue disciplines, seems to be a viable tool for modeling complex hardware and software co-scheduled manycore systems, such as the CN6880 network processing unit.
 
 More importantly, the plugin code mechanism extends to any resource network based simulation task, providing flexibility, hopefully allowing even more complex systems to be modeled.
+
 
 %%% Local Variables:
 %%% mode: latex

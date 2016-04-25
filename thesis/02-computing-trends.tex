@@ -1,8 +1,6 @@
 \chapter{Computing Trends}
 \label{chapter:computing-trends}
-This chapter presents the background of this thesis and motivates the need for, and the context of, efficient packet processing systems.
-
-We begin with an overview of today's challenges in hardware development, that have resulted in the transition from traditional single threaded computing to concurrent, multi-threaded and parallelized programming. Then, the dimensions of the required data processing capacity is emphasized by explaining the concept named Big Data. Further, the characteristics of packet switched networks' data, and further the context of packet processing, i.e. cloud and fog computing, are explained.
+This chapter presents the background of this thesis and motivates the need for, and the context of, efficient packet processing systems. We begin with an overview of today's challenges in hardware development, that have resulted in the transition from traditional single threaded computing to concurrent, multi-threaded and parallelized programming. Then, the dimensions of the required data processing capacity is emphasized by explaining the concept named Big Data. Further, the characteristics of packet switched networks' data, and further the context of packet processing, i.e. cloud and fog computing, are explained.
 
 \section{Modern Computing}
 The terminology around the parallelized computation is somewhat ambiguous. Throughout this chapter, we will be using the term \emph{parallel computing} as a general term referring to the opposite of \emph{single-threaded} or \emph{sequential} computing, unless explicitly stated to mean the act of \emph{parallel computing}, in which multiple calculations are carried out \emph{simultaneously}. The general term comprises many different types of computing, such as \emph{concurrent}- and \emph{distributed computing}, as well as the type of \emph{parallel computing} itself.
@@ -54,22 +52,22 @@ The implication of Amdahl's Law is that the speedup of a program is always limit
 
 \section{Big Data}
 \label{section:big-data}
-The Internet traffic volumes are growing rapidly. For the first time, in 2010, the number of devices connected to the Internet (12.5 billion) passed the world's human population (6.8 billion). This growth is explained by not only the number of mobile devices (mobile phones and tablets, especially in developing countries), but also the proliferation Internet of Things (IoT) devices and sensors. Cisco projects the number of mobile devices, connected to the Internet, to grow up to 50 billion through 2020. IoT devices and sensors included, this number will double to over 100 billion.~\cite{Evans:2011:IoT}
+The Internet traffic volumes are growing rapidly. For the first time, in 2010, the number of devices connected to the Internet (12.5 billion) passed the world's human population (6.8 billion). This growth is explained by not only the number of mobile devices (mobile phones and tablets, especially in developing countries), but also the proliferation Internet of Things (IoT) devices and sensors. Cisco projects the number of mobile devices connected to the Internet, to grow up to 50 billion through 2020. IoT devices and sensors included, this number will double to over 100 billion.~\cite{Evans:2011:IoT}
 
 According to EMC corporation sponsored IDC study~\cite{Turner:2014:Digital}, the size of the digital universe is estimated to grow ten-fold, from 4.4 zettabytes to 44 zettabytes, between 2013 and 2020. The data comes from several different sources and in many different forms. At the same time the processing requirements are growing. Everyday end users are expecting services to be delivered in higher quality near real-time, and growing number of industry, medical, and other performance critical applications are depended on the processed data.
 
-With the enormous data masses, data diversity, and with complex processing requirements, often referred as Big Data, the traditional traditional data processing methods become inadequate.
+With the enormous data masses, data diversity, and with complex processing requirements, often referred as Big Data, the traditional traditional data processing methods become inadequate and the new performance analysis solutions become more important.
 
 
 \section{Packet Switched Networks}
 \label{sec:packet-switched-networks}
+Packet switching refers to a method of transmitting data in separate, suitable sized blocks, called packets, between the links of a telecomunications networks. The importance of packet switched networks is increasing in every part of the communication networks which is explained partly by the Internet itself being an enormous packet switched network.
+
 % \todo[inline]{control vs data packets. control $>$ data}
 
 %[https://aaltodoc.aalto.fi/bitstream/handle/123456789/3668/urn100416.pdf?sequence=1&isAllowed=y]
 %[https://aaltodoc.aalto.fi/bitstream/handle/123456789/5215/master_karonmaa_kalle_2012.pdf?sequence=1&isAllowed=y]
 \subsection{Network Components}
-Packet switching refers to a method of transmitting data in separate, suitable sized blocks, called packets, between the links of a telecomunications networks. The importance of packet switched networks is increasing in every part of the communication networks which is explained partly by the Internet itself being an enormous packet switched network.
-
 The Open Systems Interconnection (OSI) model is a standard conceptual model which characterizes the communication functions involved in a general network communications of computer system. The model defines seven hierarchical layers of functional elements, between the physical interconnections (layer 1) and the software applications (layer 7).~\cite{ISO:1994:OSI}
 
 The Internet Protocol Suite, or Transmission Control Protocol / Internet Protocol (TCP/IP), is a set of core protocols for the Internet and similar packet switched networks. It provides end-to-end data communication and specifies data packetizing, addressing, transmission, routing and receiving in the packet network. In addition to TCP and IP protocols, it provides several other network and transmission layer functionalities. The functionalities are divided into four abstraction layers: application layer, transport layer, internet layer, and link layer.
@@ -86,7 +84,7 @@ The data plane, often referred as forwarding plane, defines the part of the rout
 
 \subsection{Networking Equipment}
 
-Packet processing refers to the methods and concepts applied to transport data packets through the various network elements in a communication network. The network routers, switches, and other devices, such as computers and smartphones, all have their own packet processing subsystems to manage the packet traversal between the network elements.  \todo{This thesis focuses on the network equipment in the middle of Internet backbone, and more precisely...}
+Packet processing refers to the methods and concepts applied to transport data packets through the various network elements in a communication network. The network routers, switches, and other devices, such as computers and smartphones, all have their own packet processing subsystems to manage the packet traversal between the network elements. This thesis focuses on the packet routing equipment in the middle of Internet backbone.
 
 % high performance and programmability are competing goals
 % -> even mutually exclusive?
@@ -103,8 +101,7 @@ On the other extreme of the design spectrum, are the software routers built from
 
 The software routers also enable several other properties of the general purpose computer ecosystem. Huge manufacturing volumes and widespread supply and support chain allow much cheaper hardware prices. The rapid advances in commodity semiconductor technology, such as the state-of-the-art power management features, can provide significant advantages over the slow hardware upgrade cycles of the traditional ASIC based systems.~\cite{Dobrescu:2009:REP}
 
-The challenge with the software routers is the scaling the approach to high-speed networks.
-\todo[inline]{presents NPUs here as well}
+The challenge with the full software routers is the scaling the approach to high-speed networks. Between these two extremes exist design solutions, that offer much of the programmability of commodity hardware and the performance of specialized ASIC systems. Our focus in this thesis, is on the MPSoC systems constisting of these middle ground network processing units.~\cite{Dobrescu:2009:REP}
 
 The nature of the high-speed packet processing entails new types of constraints to the computing; Advanced stream processing systems are needed to process the data on-the-fly in the vicinity of the sources.~\cite{Bonomi:2012:Fog}
 
