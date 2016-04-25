@@ -59,28 +59,35 @@ According to EMC corporation sponsored IDC study~\cite{Turner:2014:Digital}, the
 With the enormous data masses, data diversity, and with complex processing requirements, often referred as Big Data, the traditional traditional data processing methods become inadequate and the new performance analysis solutions become more important.
 
 
-\section{Packet Switched Networks}
-\label{sec:packet-switched-networks}
-Packet switching refers to a method of transmitting data in separate, suitable sized blocks, called packets, between the links of a telecomunications networks. The importance of packet switched networks is increasing in every part of the communication networks which is explained partly by the Internet itself being an enormous packet switched network.
-
+\section{Packet Processing}
+\label{sec:packet-processing}
 % \todo[inline]{control vs data packets. control $>$ data}
 
 %[https://aaltodoc.aalto.fi/bitstream/handle/123456789/3668/urn100416.pdf?sequence=1&isAllowed=y]
 %[https://aaltodoc.aalto.fi/bitstream/handle/123456789/5215/master_karonmaa_kalle_2012.pdf?sequence=1&isAllowed=y]
 \subsection{Network Components}
+Packet switching refers to a method of transmitting data in separate, suitable sized blocks, called packets, between the links of a telecomunications networks. The importance of packet switched networks is increasing in every part of the communication networks which is explained partly by the Internet itself being an enormous packet switched network.
+
 The Open Systems Interconnection (OSI) model is a standard conceptual model which characterizes the communication functions involved in a general network communications of computer system. The model defines seven hierarchical layers of functional elements, between the physical interconnections (layer 1) and the software applications (layer 7).~\cite{ISO:1994:OSI}
 
-The Internet Protocol Suite, or Transmission Control Protocol / Internet Protocol (TCP/IP), is a set of core protocols for the Internet and similar packet switched networks. It provides end-to-end data communication and specifies data packetizing, addressing, transmission, routing and receiving in the packet network. In addition to TCP and IP protocols, it provides several other network and transmission layer functionalities. The functionalities are divided into four abstraction layers: application layer, transport layer, internet layer, and link layer.
+The Internet Protocol Suite, or Transmission Control Protocol / Internet Protocol (TCP/IP), is a set of core protocols for the Internet and similar packet switched networks. It provides end-to-end data communication and specifies data packetizing, addressing, transmission, routing and receiving in the packet network. In addition to TCP and IP protocols, it provides several other network and transmission layer functionalities. The functionalities are divided into four abstraction layers: application layer, transport layer, internet layer, and link layer.~\cite{Braden:1989:TCPIP}
 
-Internet Protocol (IP) is an essential Internet layer protocol of the Internet Protocol Suite. It provides the necessary addresses and (unreliable) delivery mechanisms for datagrams between the transmission endpoints. It is a connectionless, best-effort protocol with no error control, sequencing, or end-to-end reliability, but rather contains only the functions for packet fragmentation and delivery through the network. The packets in the IP protocol can be forwarded independent of other packets, forwarding them on-the-fly by routers.
+Internet Protocol (IP) is an essential Internet layer protocol of the Internet Protocol Suite. It provides the necessary addresses and (unreliable) delivery mechanisms for datagrams between the transmission endpoints. It is a connectionless, best-effort protocol with no error control, sequencing, or end-to-end reliability, but rather contains only the functions for packet fragmentation and delivery through the network. The packets in the IP protocol can be forwarded independent of other packets, forwarding them on-the-fly by routers.~\cite{Deering:1998:Internet}
 
-A packet refers to the unit of data transmitted across the network. Packets consist of two parts: the header information and the payload data. The header information is used by network routers to direct the packet to destination system, whereas the payload is extracted and used by the application software. All the higher layer protocols in the TCP/IP stack are encapsulated in the IP-packet's payload section.
+A packet refers to the unit of data transmitted across the network. Packets consist of two parts: the header information and the payload data. The header information is used by network routers to direct the packet to destination system, whereas the payload is extracted and used by the application software. All the higher layer protocols in the TCP/IP stack are encapsulated in the IP-packet's payload section.~\cite{Deering:1998:Internet}
 
-In a conventional IP-based network architecture, the packet processing equipment and functionality is partitioned into three components: management plane, control plane, and data plane.
+In a conventional IP-based network architecture, the packet processing equipment and functionality is partitioned into three components: management plane, control plane, and data plane.~\cite{Chao:2007:HPS}
 
 The control plane refers to the parts of the routing architecture, that carries and consumes the control packets needed to describe the network topology and correctly route the actual data packets. The control packets originate from and are destined for a router.~\cite{Chao:2007:HPS, Yang:2004:FCE}
 
 The data plane, often referred as forwarding plane, defines the part of the routing architecture, which decides destination and takes action for the data arriving to it. The decision is typically determined by a look-up table, which the incoming packet is compared to. The management plane carries the traffic used for the administrative tasks of the network.~\cite{Chao:2007:HPS, Yang:2004:FCE}
+
+\subsection{Traffic Characteristics}
+The nature of the high-speed packet processing entails new types of constraints to the computing; Advanced stream processing systems are needed to process the data on-the-fly in the vicinity of the sources.~\cite{Bonomi:2012:Fog}
+
+In the traditional von Neumann model of computing~\cite{Neumann:1993:EDVAC}, the computation is carried out by modifying the data stored in memory. However, the growing volumes of data and strict latency requirements, require not only distributing the computation, but also changes the nature of it more towards stream processing. The manipulation of the data streams passing through the system must often be done on the on-the-fly.~\cite{Bonomi:2012:Fog, Thies:2002:StreamIt}
+
+A single packet stream contains a large number of packets. The Internet Protocol allows each individual packet of a stream to be processed in any order, leaving the ordering of the packets to the end devices. This characteristic makes packet processing applications look like ideal for a parallel computing. However, protocols such as TCP/IP (accounting over 80\% of the Internet traffic), have significant performance reductions due to redordering of packets in a single stream. For this reason, the packet processing systems often have built-in schemes to keep flow specific packets traversing through the queues in order.
 
 \subsection{Networking Equipment}
 
@@ -102,10 +109,6 @@ On the other extreme of the design spectrum, are the software routers built from
 The software routers also enable several other properties of the general purpose computer ecosystem. Huge manufacturing volumes and widespread supply and support chain allow much cheaper hardware prices. The rapid advances in commodity semiconductor technology, such as the state-of-the-art power management features, can provide significant advantages over the slow hardware upgrade cycles of the traditional ASIC based systems.~\cite{Dobrescu:2009:REP}
 
 The challenge with the full software routers is the scaling the approach to high-speed networks. Between these two extremes exist design solutions, that offer much of the programmability of commodity hardware and the performance of specialized ASIC systems. Our focus in this thesis, is on the MPSoC systems constisting of these middle ground network processing units.~\cite{Dobrescu:2009:REP}
-
-The nature of the high-speed packet processing entails new types of constraints to the computing; Advanced stream processing systems are needed to process the data on-the-fly in the vicinity of the sources.~\cite{Bonomi:2012:Fog}
-
-In the traditional von Neumann model of computing~\cite{Neumann:1993:EDVAC}, the computation is carried out by modifying the data stored in memory. However, the growing volumes of data and strict latency requirements, require not only distributing the computation, but also changes the nature of it more towards stream processing. The manipulation of the data streams passing through the system must be done on the on-the-fly.~\cite{Bonomi:2012:Fog, Thies:2002:StreamIt}
 
 \section{Virtualization}
 \label{section:virtualization}
