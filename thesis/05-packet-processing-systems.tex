@@ -96,23 +96,24 @@ A processing element can implemented in many forms, and the architecture depends
 
 Processing elements can operate independently, or be grouped into functional blocks. Similarly as in the design of network processors, there is often a trade-off between the functionality and flexibility of processing element, and the speed. Whether the processing elements are complex multi-threaded units, or small and simple, in a typical network processor architecture, the goal is to achieve high performance by maximizing the utilisation of the on-chip elements. Thus the elements should be configured to correspond the needs of the network processor.~\cite{Giladi:2008:Network}
 
-Hardware accelerators and co-processors refer to state machines that are specialized to a certain packet processing tasks, such as cyclic redundancy check, search and lookups, or security. Hardware accelerator operates independently of the network processor's processing elements, and are called as a functional unit from other elements. Co-processors refer to a hardware accelerators that are in itself programmable.
-
+Hardware accelerators and co-processors refer to state machines that are specialized to a certain packet processing tasks, such as cyclic redundancy check, search and lookups, or security. Hardware accelerator operates independently of the network processor's processing elements, and are called as a functional unit from other elements. Co-processors refer to a hardware accelerators that are in itself programmable.~\cite{Giladi:2008:Network}
 
 \subsection{Parallel and Pipelined Architectures}
 % TODO: Parallel configuration is typically used for higher layer networking applications, where as the pipeline configurations are used in line cards that require high-speed processing at low layer networking applications.
 
-The arrangement, or topology, of processing elements can be divided in two fundamentally different approaches: parallel and pipeline architectures. Depending on the application, the topology can consists of multiple homogeneous or heterogeneous processing elements, organized in parallel, pipeline, or a combination of these two.~\cite{Giladi:2008:Network}
+The arrangement, or topology, of processing elements can be divided in two fundamentally different approaches: parallel and pipeline architectures. Depending on the application, the topology can consists of multiple homogeneous or heterogeneous processing elements, organized in parallel, pipeline, or a combination of these two. Figure~\ref{fig:processing-element-organization} depicts the four different combinations of the architectures.~\cite{Giladi:2008:Network}
 
-The parallel processing (in this context) refers to a topology where several processing elements work in parallel on the packets dedicated to them. In the extreme case, the entire packet processing is done by the same processing element. The extreme case is typically implemented on homogeneous, ``general purpose'' packet processors capable of executing all the required packet processing tasks.~\cite{Giladi:2008:Network}
+In pipelined architecture (Figure~\ref{fig:pipeline}), several (homogeneous or heterogeneous) processors are organized in one after each other, forming a number of processing steps that every packet goes through. The pipeline is often implemented by heterogeneous processing elements, each of which do part of the total packet processing work. The advantage of the pipelined architecture is to have a dedicated, specialized processing element for packet processing tasks. Also, a fully pipelined architecture forces the packets to be ordered in the same order as they enter, making the behaviour of the  packet stream more predictable. In an ideal pipeline, each stage should require the same time to perform. The packet processing tasks, however, are often complex and dynamic by their nature, and in heterogeneous implementations different elements require separate programming models. Thus the pipeline implementations are often more difficult than a typical parallel architecture..~\cite{Giladi:2008:Network}
 
-In pipelined architecture, several (homogeneous or heterogeneous) processors are organized in one after each other, forming a number of processing steps that every packet goes through. The pipeline is often implemented by heterogeneous processing elements, each of which do part of the total packet processing work. The advantage of the pipelined architecture is to have a dedicated, specialized processing element for packet processing tasks. Also, a fully pipelined architecture forces the packets to be ordered in the same order as they enter, making the behaviour of the  packet stream more predictable. In an ideal pipeline, each stage should require the same time to perform. The packet processing tasks, however, are often complex and dynamic by their nature, making the pipeline difficult to implement.~\cite{Giladi:2008:Network}
+The parallel processing (in this context) refers to a topology where several processing elements work in parallel on the packets dedicated to them. In the extreme case (Figure~\ref{fig:parallel}), the entire packet processing is done by the same processing element. The extreme case is typically implemented on homogeneous, ``general purpose'' packet processors capable of executing all the required packet processing tasks.~\cite{Giladi:2008:Network}
 
-It is typical to combine these to approches into parallel pipeline of processors or pipeline of parallel processors.
+It is typical to combine these to approches into parallel pipeline of processors (Figure~\ref{fig:parallel-pipeline}) or pipeline of parallel processors (Figure~\ref{fig:pipeline-parallel}). In a pool of parallel pipeline, each incoming packet is directed to one of the pipelines, which processes in steps, until the processing is finished. This configuration is a compromise between strict parallel processors and strict pipeline of processors, allowing each pipeline to execute different subtasks.~\cite{Giladi:2008:Network}
+
+In a pipeline of parallel processors, pipeline consists multiple processing steps carreied out with a multiple parallel elements. Typically, the processing elements within each parallel step are homogeneous, whereas the the elements between different steps can be heterogeneous. The time taken for processing can vary between the stages and between the processors of each stage, while reducing the waiting times for the processing, and the need of synchronization and buffering.~\cite{Giladi:2008:Network}
 
 \begin{figure*}
   \centering
-  \begin{subfigure}[b]{0.475\textwidth}
+  \begin{subfigure}[b]{0.625\textwidth}
     \centering
     \includegraphics[]{images/pipeline.pdf}
     \vspace*{1.75cm}
@@ -120,8 +121,8 @@ It is typical to combine these to approches into parallel pipeline of processors
     {{\small Pipeline}}
     \label{fig:pipeline}
   \end{subfigure}
-  \hspace*{\fill}
-  \begin{subfigure}[b]{0.475\textwidth}
+  %\hspace*{\fill}
+  \begin{subfigure}[b]{0.275\textwidth}
     \centering
     \includegraphics[]{images/parallel.pdf}
     \caption[]%
@@ -129,7 +130,7 @@ It is typical to combine these to approches into parallel pipeline of processors
     \label{fig:parallel}
   \end{subfigure}
   \vskip\baselineskip
-  \begin{subfigure}[b]{0.475\textwidth}
+  \begin{subfigure}[b]{0.425\textwidth}
     \centering
     \includegraphics[]{images/parallel-pipeline.pdf}
     \caption[]%
@@ -137,7 +138,7 @@ It is typical to combine these to approches into parallel pipeline of processors
     \label{fig:parallel-pipeline}
   \end{subfigure}
   %\hspace*{\fill}
-  \begin{subfigure}[b]{0.475\textwidth}
+  \begin{subfigure}[b]{0.525\textwidth}
     \centering
     \includegraphics[]{images/pipeline-parallel.pdf}
     \caption[]%
@@ -146,7 +147,7 @@ It is typical to combine these to approches into parallel pipeline of processors
   \end{subfigure}
   \caption[]
   {\small Different processing element architectures}
-  \label{fig:mean and std of nets}
+  \label{fig:processing-element-organization}
 \end{figure*}
 
 \section{Cavium OCTEON II CN6880}
