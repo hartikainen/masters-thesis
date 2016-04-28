@@ -34,6 +34,8 @@ The \emph{parallel computing type} refers to computing in which a subparts of a 
 
 There exist many different forms of parallel computing, often divided into four high level categories: bit-level, instruction-level, task, and data parallelism. Parallelism can be implemented in both software and hardware levels.~\cite{Culler:1997:PCA}
 
+\todo[inline]{packet level parallelism?}
+
 Bit-level parallelism increases refers to increasing the processor word size, thus reducing the needed number of instructions to be executed. In instruction level parallelism, the processor executes multiple instructions at the same time. Instruction level parallelism can happen in both hardware or software level.~\cite{Culler:1997:PCA}
 
 The data parallelism refers to the simultaneous execution of the same function, on multiple cores, across the elements of the input data. Modern graphics processing units (GPU's), often implemented as wide single instruction, multiple data (SIMD) principle, are examples of data parallelism.~\cite{Culler:1997:PCA}
@@ -80,14 +82,14 @@ In a conventional IP-based network architecture, the packet processing equipment
 
 The control plane refers to the parts of the routing architecture, that carries and consumes the control packets needed to describe the network topology and correctly route the actual data packets. The control packets originate from and are destined for a router.~\cite{Chao:2007:HPS, Yang:2004:FCE}
 
-The data plane, often referred as forwarding plane, defines the part of the routing architecture, which decides destination and takes action for the data arriving to it. The decision is typically determined by a look-up table, which the incoming packet is compared to. The management plane carries the traffic used for the administrative tasks of the network.~\cite{Chao:2007:HPS, Yang:2004:FCE}
+The data plane, often referred as forwarding plane, deals with the actual data forwarding in the network. It defines the part of the routing architecture, which decides destination and takes action for the data arriving to it. The decision is typically determined by a look-up table, which the incoming packet is compared to. The management plane carries the traffic used for the administrative tasks of the network.~\cite{Chao:2007:HPS, Yang:2004:FCE}
 
 \subsection{Traffic Characteristics}
 The nature of the high-speed packet processing entails new types of constraints to the computing; Advanced stream processing systems are needed to process the data on-the-fly in the vicinity of the sources.~\cite{Bonomi:2012:Fog}
 
 In the traditional von Neumann model of computing~\cite{Neumann:1993:EDVAC}, the computation is carried out by modifying the data stored in memory. However, the growing volumes of data and strict latency requirements, require not only distributing the computation, but also changes the nature of it more towards stream processing. The manipulation of the data streams passing through the system must often be done on the on-the-fly.~\cite{Bonomi:2012:Fog, Thies:2002:StreamIt}
 
-A single packet stream contains a large number of packets. The Internet Protocol allows each individual packet of a stream to be processed in any order, leaving the ordering of the packets to the end devices. This characteristic makes packet processing applications look like ideal for a parallel computing. However, protocols such as TCP/IP (accounting over 80\% of the Internet traffic~\cite{Fraleigh:2001:Packet}), have significant performance reductions due to redordering of packets in a single stream. For this reason, the packet processing systems often have built-in schemes to keep flow specific packets traversing through the queues in order.~\cite{Govind:2008:PacketReorder}
+In packet switched networks, the data streams are called \emph{flows}. Flows represent the data in specific time periods between specific network end-points. A single flow contains a large number of packets. The Internet Protocol allows each individual packet of a stream to be processed in any order, leaving the ordering of the packets to the end devices. This characteristic makes packet processing applications look like ideal for a parallel computing. However, protocols such as TCP/IP (accounting over 80\% of the Internet traffic~\cite{Fraleigh:2001:Packet}), have significant performance reductions due to redordering of packets in a single stream. For this reason, the packet processing systems often have built-in schemes, such as specialized queue management and buffering, to efficiently keep flow specific packets traversing through the queues in order.~\cite{Govind:2008:PacketReorder, Kumar:1998:RouterArchitecture}
 
 \subsection{Networking Equipment}
 
