@@ -1,7 +1,9 @@
 \chapter{Packet Processing Systems}
 \label{chapter:packet-processing-systems}
-\todo[inline]{TODO: refactor this chapter and write the introduction}
-% and then describe the measurement setup required to obtain reference values for the simulation model. Two different measurements will be done, one to measure the communication latencies, and another to measure the memory latencies and throughput.
+
+This chapter presents the general methodology of packet processing and network processing units. We begin by describing the general packet processing framework used in network processors. After that, we present the packet flow handling and quality of service methods, emphasizing the importance of packet buffering and queuing theory in the packet processing. Further, we present an overview of the hardware architecture and programming models used in packet processing units.
+
+Finally we will have a closer look on a specific network processing unit, Cavium OCTEON II CN6880, and instrument the system to obtain the required information to model the system. Two different measurements will be done: one to measure the communication latencies, and another to measure the memory latencies and throughput.
 
 \section{General Packet Processing Framework}
 
@@ -84,8 +86,6 @@ Processing elements can operate independently, or be grouped into functional blo
 Hardware accelerators and co-processors refer to state machines that are specialized to a certain packet processing tasks, such as cyclic redundancy check, search and lookups, or security. Hardware accelerators operate independently of the network processor's processing elements, and are called as a functional unit from other elements. Co-processors refer to a hardware accelerators that are in itself programmable.~\cite{Giladi:2008:Network}
 
 \subsection{Parallel and Pipelined Architectures}
-% TODO: Parallel configuration is typically used for higher layer networking applications, where as the pipeline configurations are used in line cards that require high-speed processing at low layer networking applications.
-
 The arrangement, or topology, of processing elements can be divided in two fundamentally different approaches: parallel and pipeline architectures. Depending on the application, the topology can consists of multiple homogeneous or heterogeneous processing elements, organized in parallel, pipeline, or a combination of these two. Figure~\ref{fig:processing-element-organization} depicts the four different combinations of the architectures.~\cite{Giladi:2008:Network}
 
 In pipelined architecture (Figure~\ref{fig:pipeline}), several (homogeneous or heterogeneous) processors are organized in one after each other, forming a number of processing steps that every packet goes through. The pipeline is often implemented by heterogeneous processing elements, each of which do part of the total packet processing work. The advantage of the pipelined architecture is to have a dedicated, specialized processing element for packet processing tasks. Also, a fully pipelined architecture forces the packets to be ordered in the same order as they enter, making the behavior of the packet stream more predictable. In an ideal pipeline, each stage should require the same time to perform. The packet processing tasks, however, are often complex and dynamic by their nature, and in heterogeneous implementations different elements require separate programming models. Thus the pipeline implementations are often more difficult than a typical parallel architecture..~\cite{Giladi:2008:Network}
@@ -134,6 +134,8 @@ In a pipeline of parallel processors, pipeline consists multiple processing step
   {\small Different processing element architectures}
   \label{fig:processing-element-organization}
 \end{figure*}
+
+The parallel configuration is typically used for higher layer networking applications, where as the pipeline configurations are used in line cards that require high-speed processing at low layer networking applications.
 
 \section{Programming Models}
 \todo[inline]{Write a general view of the NPU programming models.}

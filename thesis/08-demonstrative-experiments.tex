@@ -96,7 +96,7 @@ We will again perform two different simulations and measurements. The first one 
 \begin{figure}[]
   \begin{center}
     \includegraphics[width=\textwidth]{images/pse-models/exp2-software.pdf}
-    \caption{TODO}
+    \caption{An overview of the workload and software  models used in the experiment 2. The orange and blue paths present the paths of the packets through the system. Each of the flows has its own packet processing application.}
     \label{fig:exp2-software}
   \end{center}
 \end{figure}
@@ -148,10 +148,11 @@ As the figures show, the light flow's worst-case packet latencies can be reduced
 
 % TODO: simulation methods can speed up the modeling work by abstracting the system and decoupling the complex hardware and software models, while also maintaining the correct behavior of the system under study.
 
+% TODO: comment on simulation times?
+
 The experiments present a proof of concept of the PSE's plugin code mechanism, and the model of Cavium OCTEON II CN6880 network processing unit. The simulation results are encouraging. In both experiments, the model acts as expected. According to the experiment results, the PSE's resource network concept, extended with customized queue disciplines, seems to be a viable tool for modeling complex hardware and software co-scheduled manycore systems, such as the CN6880 network processing unit.
 
 More importantly, the plugin code mechanism extends to any resource network based simulation task, providing flexibility, hopefully allowing even more complex systems to be modeled.
-
 
 %%% Local Variables:
 %%% mode: latex

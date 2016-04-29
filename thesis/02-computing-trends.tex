@@ -34,13 +34,13 @@ The \emph{parallel computing type} refers to computing in which a subparts of a 
 
 There exist many different forms of parallel computing, often divided into four high level categories: bit-level, instruction-level, task, and data parallelism. Parallelism can be implemented in both software and hardware levels.~\cite{Culler:1997:PCA}
 
-\todo[inline]{packet level parallelism?}
-
 Bit-level parallelism refers to increasing the processor word size, thus reducing the needed number of instructions to be executed. In instruction level parallelism, the processor executes multiple instructions at the same time. Instruction level parallelism can happen in both hardware or software level.~\cite{Culler:1997:PCA}
 
 The data parallelism refers to the simultaneous execution of the same function, on multiple cores, across the elements of the input data. Modern graphics processing units (GPU's), often implemented as wide single instruction, multiple data (SIMD) principle, are examples of data parallelism.~\cite{Culler:1997:PCA}
 
 In contrast to data parallelism, task parallelism refers to execution of multiple cores of (possibly) completely different functions, across the same or different input data. In a typical multi-core processor, task parallelism is achieved by executing different threads or processes, on each core.~\cite{Culler:1997:PCA}
+
+Another form of parallelism, specific to the context of network processing, is called ~\emph{Packet-level parallelism}. Network packets are typically processed on packet-by-packet basis. Most network packets are independent of each other, except for the ordering constraint for packets belonging to the same flow, thus enabling different forms of parallelism to be implemented in network processing units.~\cite{Liljeqvist:2003:Visions}
 
 Introducing parallelism into the computing brings various new challenges in the software development. For example, the lack of a global clock, and possible failure of components demands extensive care from the developers, on top of the already challenging software development. Different frameworks and methods have been implemented, to ease the software development of efficient parallel applications. The focus of this thesis is on task level parallelism, especially in the context of packet processing applications. We will present some of the task processing frameworks more comprehensively in subsection~\ref{sec:packet-processing}.~\cite{Asanovic:2006:Landscape}
 
@@ -64,10 +64,7 @@ With the enormous data masses, data diversity, and with complex processing requi
 
 \section{Packet Processing}
 \label{sec:packet-processing}
-% \todo[inline]{control vs data packets. control $>$ data}
 
-%[https://aaltodoc.aalto.fi/bitstream/handle/123456789/3668/urn100416.pdf?sequence=1&isAllowed=y]
-%[https://aaltodoc.aalto.fi/bitstream/handle/123456789/5215/master_karonmaa_kalle_2012.pdf?sequence=1&isAllowed=y]
 \subsection{Network Components}
 Packet switching refers to a method of transmitting data in separate, suitable sized blocks, called packets, between the links of a telecommunications networks. The importance of packet switched networks is increasing in every part of the communication networks, which is explained partly by the Internet itself being an enormous packet switched network.
 
@@ -158,7 +155,7 @@ The three service models divide the cloud services into logical levels based on 
 \begin{figure}[]
   \begin{center}
     \includegraphics[width=\textwidth]{images/cloud-computing-service-models.png}
-    \caption{TODO: describe the service models cite: https://www.simple-talk.com/cloud/development/a-comprehensive-introduction-to-cloud-computing/}
+    \caption{A comparison of the three cloud service models and on-premise solution. Figure from~\cite{Lau:2011:ServiceModels}}
     \label{fig:cloud-computing-service-models}
   \end{center}
 \end{figure}
