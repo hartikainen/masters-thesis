@@ -92,7 +92,6 @@ In the traditional von Neumann model of computing~\cite{Neumann:1993:EDVAC}, the
 In packet switched networks, the data streams are called \emph{flows}. Flows represent the data in specific time periods between specific network end-points. A single flow contains a large number of packets. The Internet Protocol allows each individual packet of a stream to be processed in any order, leaving the ordering of the packets to the end devices. This characteristic makes packet processing applications look like ideal for a parallel computing. However, protocols such as TCP/IP (accounting over 80\% of the Internet traffic~\cite{Fraleigh:2001:Packet}), have significant performance reductions due to redordering of packets in a single stream. For this reason, the packet processing systems often have built-in schemes, such as specialized queue management and buffering, to efficiently keep flow specific packets traversing through the queues in order.~\cite{Govind:2008:PacketReorder, Kumar:1998:RouterArchitecture}
 
 \subsection{Networking Equipment}
-
 Packet processing refers to the methods and concepts applied to transport data packets through the various network elements in a communication network. The network routers, switches, and other devices, such as computers and smartphones, all have their own packet processing subsystems to manage the packet traversal between the network elements. This thesis focuses on the packet routing equipment in the middle of Internet backbone.
 
 % high performance and programmability are competing goals
