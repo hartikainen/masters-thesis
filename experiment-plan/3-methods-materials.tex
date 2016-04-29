@@ -1,6 +1,6 @@
 The hardware setup that we are interested in, consists of eight 32 MIPS core network processing units, or blades. Due to the black-box-like nature of the setup, the focus of the experiment will be in the simulation of the system. We will build a realistic simulation model of our hardware running OpenEM application for video processing. The parameters, mainly delays, needed for the simulation model will be gathered from several smaller measurement experiments done with the actual hardware setup.
 
-The accuracy of the model must be precise enough so that further studies of the system behaviour can be conducted reliably by the simulation. We will validate and verify the results by comparing the behaviour of the simulation to the real life application.
+The accuracy of the model must be precise enough so that further studies of the system behavior can be conducted reliably by the simulation. We will validate and verify the results by comparing the behavior of the simulation to the real life application.
 
 \subsection{Hardware Setup}
 The blades are connected to each other over ethernet switch. The data packet flow inside each blade can be divided into three main phases namely input phase, sso and core processing phase, and output phase.
@@ -28,7 +28,7 @@ Output phase:
 \item PKO free's the Packet Data Buffer back to FPA.
 \end{enumerate}
 
-The delays in the input and output phases are most interesting, and challenging at the same time, for us to understand the inter-unit load balancing. The input and output phases are mostly hardware accelerated which makes the measurements challenging. The measurements will be varied to be able to statistically model the behaviour. Also, the intra-unit core-to-core delays are interesting.
+The delays in the input and output phases are most interesting, and challenging at the same time, for us to understand the inter-unit load balancing. The input and output phases are mostly hardware accelerated which makes the measurements challenging. The measurements will be varied to be able to statistically model the behavior. Also, the intra-unit core-to-core delays are interesting.
 
 \subsection{OpenEM}
 Understanding the OpenEM's computation context is crucial when creating the simulation model. When we move the computation of from one blade, we need to know how much, and what kind of, data needs to be transferred in order to continue the computation on another blade.

@@ -1,6 +1,6 @@
 \chapter{Introduction}
 \label{chapter:intro}
-Efficient packet processing is becoming more and more important as the computation moves away from the end-devices, towards cloud and fog. At the same time the performance analysis of these systems is difficult, due to the complex non-deterministic behaviour of the multiprocessor system-on-chip systems (MPSoC) and the dynamic nature of the input data streams. The non-deterministic behaviour of the MPSoC is a result of parallelism, communication delays, complex memory systems, and scheduling mechanisms. These system interactions are difficult, sometimes even impossible, to reason about, and make the performance analysis non-trivial.
+Efficient packet processing is becoming more and more important as the computation moves away from the end-devices, towards cloud and fog. At the same time the performance analysis of these systems is difficult, due to the complex non-deterministic behavior of the multiprocessor system-on-chip systems (MPSoC) and the dynamic nature of the input data streams. The non-deterministic behavior of the MPSoC is a result of parallelism, communication delays, complex memory systems, and scheduling mechanisms. These system interactions are difficult, sometimes even impossible, to reason about, and make the performance analysis non-trivial.
 
 In this thesis, we investigate the use of measurement, modeling, and simulation methods for the use of packet processing system development. We present a way to model complex hardware and software interactions of a modern MPSoC network processing systems, using an extended resource networks concept with customized queue disciplines and support for modeling task parallelism. An existing in-house discrete event simulator, Performance Simulation Environment (PSE), is used to simulate the models. We show that, with extended custom queue disciplines, resource network methodology is a viable approach for complex packet processing system performance analysis.
 
@@ -10,21 +10,21 @@ In this thesis, we investigate the use of measurement, modeling, and simulation 
 
 \section{Problem statement}
 
-% Packet processing systems are, in essence, queueing systems. While queue and resource networks and simulation are widely used concepts for packet processing problems, today's packet processing systems are too complex to be modeled with traditional queue disciplines.
+% Packet processing systems are, in essence, queuing systems. While queue and resource networks and simulation are widely used concepts for packet processing problems, today's packet processing systems are too complex to be modeled with traditional queue disciplines.
 
 % esource network methodology and dynamic scheduling models are a viable approach in modeling heterogeneous MPSoCs with accel- eratosr
 
-% this type of simulation methods can speed up the modeling work by abstracting the system and decoupling the complex hardware and software models, while also maintaining the correct behaviour of the system under study.
+% this type of simulation methods can speed up the modeling work by abstracting the system and decoupling the complex hardware and software models, while also maintaining the correct behavior of the system under study.
 
-The packet processing systems are, in essence, queueing systems. Queue and resource networks are widely studied concepts, often used for packet processing problems. However, the complex low level interactions between the components of MPSoC's make the traditional queue concepts insufficient, while at the same time the exact measurements may be unsuitable, especially in the early stage of the system development. One way to address this problem, is to extend the resource networks with more flexible queue discplines and methods for modeling parallelism, to correctly mimic the behaviour of complex MPSoC based packet processing systems.
+The packet processing systems are, in essence, queuing systems. Queue and resource networks are widely studied concepts, often used for packet processing problems. However, the complex low level interactions between the components of MPSoC's make the traditional queue concepts insufficient, while at the same time the exact measurements may be unsuitable, especially in the early stage of the system development. One way to address this problem, is to extend the resource networks with more flexible queue disciplines and methods for modeling parallelism, to correctly mimic the behavior of complex MPSoC based packet processing systems.
 
 \todo[inline]{restate the research problem}
-The research problem of this thesis is: How to model the packet processing systems, or more accurately the hardware schedulers of the packet processing systems, to achieve feasible modeling capability, fast enough simulation times, and correct behaviour of the system at the same time.
+The research problem of this thesis is: How to model the packet processing systems, or more accurately the hardware schedulers of the packet processing systems, to achieve feasible modeling capability, fast enough simulation times, and correct behavior of the system at the same time.
 
 \section{Contributions}
 We will present a method for modeling and simulation of packet processing systems, with emphasis on the hardware accelerated packet scheduling. We extend the in-house discrete event simulator, Performance Simulation Environment (PSE), to enable use of customized queue discipline algorithms. We will also model a modern network processing unit using the tools provided by PSE and simulate the model by PSE's discrete event simulation engine. The major contributions of our work can be summarized as:
 
-% The main contributions of our work are three-fold. First, we have instrumented and measured the characteristics of a customized network processing system. Secondly, we extended the toolset of an existing in-house simulator software to enable modeling customized queue disciplines, allowing. Lastly, we built a simulation model based of the network processing unit and ran experiments to validate the proper model behaviour.
+% The main contributions of our work are three-fold. First, we have instrumented and measured the characteristics of a customized network processing system. Secondly, we extended the toolset of an existing in-house simulator software to enable modeling customized queue disciplines, allowing. Lastly, we built a simulation model based of the network processing unit and ran experiments to validate the proper model behavior.
 
 
 \begin{itemize}
@@ -39,30 +39,32 @@ We will present a method for modeling and simulation of packet processing system
 \item The PSE extensions and the network processing unit model has been used as the building blocks for the experiment of further research on Fog computing
 \end{itemize}
 
-Our contributions start with...
+% Our contributions start with...
 
-Our first contribution includes setting up of an environment for measuring the memory and communication delays of the network processing system. The setup required vast amount of configuration and modifications done to the partly broken software development kit. The automization scripts and test programs are documented and ready to be used in further experiments on this hardware.
+Our first contribution includes setting up of an environment for measuring the memory and communication delays of the network processing system. The setup required vast amount of configuration and modifications done to the partly broken software development kit. The automatization scripts and test programs are documented and ready to be used in further experiments on this hardware.
 
-The extensions of PSE includes a new plugin code mechanism, that allows customized queue discpline algorithms be defined by external C-code. The design and implementation affected nearly all parts of the underlying simulation program. During the development of these features, we noticed several critical memory bugs in the software, that inhibited the use of the existing fork-join mechanism on any meaningful sized workloads. Together the extension and bug fixes consisted of roughly 700 edited and 600 new lines of code. These features are documented to be further utilized by PSE users.
+The extension of PSE includes a new plugin code mechanism, which allows customized queue discipline algorithms to be defined by external C-code. The design and implementation affected nearly all parts of the underlying simulation program. During the development of these features, we noticed several critical memory bugs in the software, which inhibited the use of the existing fork-join mechanism on any meaningful sized workloads. Together the extension and bug fixes consisted of roughly 700 edited and 600 new lines of code. These features are documented and available to be further utilized by PSE users.
 
-Our third major contribution is the implementation of functional simulation model of a modern network processing unit. The model is based on the measurement results of the measurement results of the reference unit and other required characteristics found in literature. The model acts as a working example of modeling non-trivial parts of network processing units using PSE. The model highlights the ability to decouple the hardware and software model; The software modelers can work on their parts of the system without having to dive into the details of the hardware, and vice versa. The results has been an inspiration, and the PSE extensions a de rigueur, for the Embedded System Group's future experiments and research that includes PSE simulation.
+Our third major contribution is the implementation of functional simulation model of a modern network processing unit. The model is based on the measurement results of the reference unit and other required characteristics found in the literature.
+
+Finally, we have built a proof-of-concept experiment to validate the model and added PSE functionality. The model acts as a working example of modeling non-trivial parts of network processing units using PSE. It highlights the ability to decouple the hardware and software model; the software modelers can work on their parts of the system without having to dive into the details of the hardware, and vice versa. The results has been an inspiration, and the PSE extensions a de rigueur, for the Embedded System Group's future experiments and research that includes PSE simulation.
 
 % Finally, these results are presented to the industry partners showing much interest in the possibilities of PSE.
 
 \section{Structure}
-Chapter~\ref{chapter:computing-trends} presents an overview to the context of this thesis. It motivates the performance analysis of packet processing units. We will describe the reasons that have led IT industry to widely adapt paradigms called cloud and fog computing. Further, we describe the cloud and fog computing together with the relevant technologies, such as virtualization and software defined networking, enabling these paradigms.
+Chapter~\ref{chapter:computing-trends} presents an overview to the context of this thesis. It motivates the performance analysis of packet processing units. We will describe the reasons that have led the IT industry to widely adopt paradigms called cloud and fog computing. Further, we describe the cloud and fog computing together with the relevant technologies, such as virtualization and software defined networking, enabling these paradigms.
 
 % use and present the problems of simulating packet processing systems.
 
-In chapter~\ref{chapter:system-performance-analysis-and-simulation}, we will present the basic concepts of performance analysis and simulation. We We will begin by presenting different evaluation techniques and performance metrics, further defining the components of system under a performance study. Then, we present the queue and resource networks, to underline their usage in traditional packet processing systems performance analysis. Finally, we will describe the simulation model and monitoring, with a short survey of the existing simulation software.
+In chapter~\ref{chapter:system-performance-analysis-and-simulation}, we will present the basic concepts of performance analysis and simulation. We will begin by presenting different evaluation techniques and performance metrics, further defining the components of system under a performance study. Then, we present the queue and resource networks, to underline their usage in traditional packet processing systems performance analysis. Finally, we will describe the simulation model and monitoring, with a short survey of the existing simulation software.
 
 Chapter~\ref{chapter:performance-simulation-environment} presents the simulation tool, Performance Simulation Environment (PSE), used in our work. The chapter begins with an overview of the PSE's toolset. After that, we will describe the three main components of a PSE model. Finally, we will present the built-in discrete event simulator of PSE.
 
-We beging chapter~\ref{chapter:packet-processing-systems}, by explaining the concepts needed to understand the functionality of modern packet processing hardware, and their relation to queueing theory. After that, we present a  more detailed view on a Cavium OCTEON II CN6880 network processing system. The chapter finishes with characteristic measurements to gather the needed information to understand and model the system.
+We beging chapter~\ref{chapter:packet-processing-systems}, by explaining the concepts needed to understand the functionality of modern packet processing hardware, and their relation to queuing theory. After that, we present a more detailed view on a Cavium OCTEON II CN6880 network processing system. The chapter finishes with characteristic measurements to gather the needed information to understand and model the system.
 
 Chapter~\ref{chapter:mechanism-for-extended-queue-disciplines} presents the implementation of the extended PSE functionality. We create a plugin interface to enable customized queue disciplines needed to model the Cavium OCTEON II CN6800 system.
 
-The example model of the Cavium OCTEON II CN6800 network processing unit is presented in chapter~\ref{chapter:example-simulation-model}. We will first describe the main characteristics of the model, and futher describe a more detailed view of the scheduler functionality.
+The example model of the Cavium OCTEON II CN6800 network processing unit is presented in chapter~\ref{chapter:example-simulation-model}. We will first describe the main characteristics of the model, and further describe a more detailed view of the scheduler functionality.
 
 The demonstrative experiments are presented in chapter~\ref{chapter:demonstrative-experiment}. We will describe the two experiment setups used, and the simulation results of them. Finally, we will analyze the experiments results in the discoveries section.
 

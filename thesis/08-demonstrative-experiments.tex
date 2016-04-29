@@ -16,7 +16,7 @@ Both experiments are run on the hardware model represented in figure~\ref{fig:ex
   \end{center}
 \end{figure}
 
-The SSO unit uses the custom scheduling functions presented in the section~\ref{sec:SSO-unit}, enabling the use of atomicity, queue priorities, and coremasks. The core release is a typical relase node referring to the SSO unit.
+The SSO unit uses the custom scheduling functions presented in the section~\ref{sec:SSO-unit}, enabling the use of atomicity, queue priorities, and coremasks. The core release is a typical release node referring to the SSO unit.
 
 The same high level software model is used for the both experiments, as seen in the figures~\ref{fig:exp1-software} and~\ref{fig:exp2-software}. The \emph{Packet Input} and \emph{Packet Output} nodes consume the PKI and PKO units as discussed in the section~\ref{sec:characteristic-measurements}, delaying the packets relative to their size, according to the equation~\ref{eq:1}. The workload and packet process submodels are unique for both experiments.
 
@@ -87,11 +87,11 @@ As the shown in the figures, the second application removes the bottleneck from 
 % app1 heavy
 % app2 light
 
-The second experiment demonstrates the packet flow control via queue coremasks. The experiment consists of two packet flows and dedicated application processing them, as presented in figure~\ref{fig:exp2-software}. The first packet stream (presented as orange), presents a higher OSI-level application data, such as video stream, that is processed on a heavy execution object. The second stream (presented as blue), on the other hand, consists of packets whose processing is done on fast processing application with strict latency requirements.
+The second experiment demonstrates the packet flow control via queue coremasks. The experiment consists of two packet flows and dedicated application processing them, as presented in figure~\ref{fig:exp2-software}. The first packet stream (presented as orange), presents a higher OSI-level application data, such as video stream, which is processed on a heavy execution object. The second stream (presented as blue), on the other hand, consists of packets whose processing is done on fast processing application with strict latency requirements.
 
 The \emph{TRAFFIC GENERATOR} node triggers its child nodes with interval $RNS\_random\_uniform(5*10^{-5}, 15*10^{-5})$ seconds, and lifetime of 0.05 seconds. Stream 1 and Stream 2 create 512B packets with interval $6.1*10^{-7}~*~RNS\_lognormal(-10, 0.9)$ and $10^{-6}~*~RNS\_lognormal(5, 10)$ seconds for $4*10^{-5}$ and $10^{-5}$ seconds, respectively. The heavy application consumes the CPU and memory for a total of about 50000 cycles per 512B packet, while the light application packets are processed for tenth of that, in 4500 cycles.
 
-We will again perform two different simulations and measurements. The first one is carried out by allowing the heavy application to be processed on all the 32 processing cores. Despite the light flow being processed on higher priority queue, the processing of the heavy flow has an effect to the worst case latency of the light flow packets. This happens due to the run-to-completion model of the cores, where light flow packets may have to queue for a core while the heavy tasks finish. In the seacond simulation, the heavy application processing is limited to 30 cores, dedicating two cores for the light application.
+We will again perform two different simulations and measurements. The first one is carried out by allowing the heavy application to be processed on all the 32 processing cores. Despite the light flow being processed on higher priority queue, the processing of the heavy flow has an effect to the worst case latency of the light flow packets. This happens due to the run-to-completion model of the cores, where light flow packets may have to queue for a core while the heavy tasks finish. In the second simulation, the heavy application processing is limited to 30 cores, dedicating two cores for the light application.
 
 \begin{figure}[]
   \begin{center}
@@ -146,7 +146,7 @@ As the figures show, the light flow's worst-case packet latencies can be reduced
 
 \section{Discoveries}
 
-% TODO: simulation methods can speed up the modeling work by abstracting the system and decoupling the complex hardware and software models, while also maintaining the correct behaviour of the system under study.
+% TODO: simulation methods can speed up the modeling work by abstracting the system and decoupling the complex hardware and software models, while also maintaining the correct behavior of the system under study.
 
 The experiments present a proof of concept of the PSE's plugin code mechanism, and the model of Cavium OCTEON II CN6880 network processing unit. The simulation results are encouraging. In both experiments, the model acts as expected. According to the experiment results, the PSE's resource network concept, extended with customized queue disciplines, seems to be a viable tool for modeling complex hardware and software co-scheduled manycore systems, such as the CN6880 network processing unit.
 

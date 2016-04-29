@@ -3,11 +3,11 @@
 
 In this chapter, we present an example simulation model of Cavium OCTEON II CN6880 network processing unit~\cite{cavium:2010:fundamentals}.
 
-First, we will introduce the high level model components and entities. The reference values, gathered from the measurements presented in section~\ref{sec:characteristic-measurements}, are then plugged in to the model and the relevant details are discussed. Finally, we describe the implementation of the SSO unit using the PSE plugin interface.
+First, we will introduce the high-level model components and entities. The reference values, gathered from the measurements presented in section~\ref{sec:characteristic-measurements}, are then plugged in to the model and the relevant details are discussed. Finally, we describe the implementation of the SSO unit using the PSE plugin interface.
 
 \section{Cavium OCTEON CN6880 Model}
 \label{sec:simulation-model}
-We created a high level simulation model of the Cavium OCTEON II CN6880 network processing unit with Performance Simulation Environment. As our interests are mainly in the applications' and SSO unit's  effect on the packet throughput and latency, we will not model the specific details of all the hardware components. Some of the components, such as the input and output phases, or the memory models, are modeled statistically. Figure~\ref{fig:full-model} shows a layered representation of the main components of the final model: workload, hardware, and software. The workload model and software model's application steps vary between different applications, and are not fixed part of the CN6880 model per se, but rather presented here to give a full example of the model.
+We created a high-level simulation model of the Cavium OCTEON II CN6880 network processing unit with Performance Simulation Environment. As our interests are mainly in the applications' and SSO unit's effect on the packet throughput and latency, we will not model the specific details of all the hardware components. Some of the components, such as the input and output phases, or the memory models, are modeled statistically. Figure~\ref{fig:full-model} shows a layered representation of the main components of the final model: workload, hardware, and software. The workload model and software model's application steps vary between different applications, and are not fixed part of the CN6880 model per se, but rather presented here to give a full example of the model.
 
 \begin{figure}[]
   \begin{center}
@@ -25,9 +25,9 @@ The software model is divided into several submodels. The top software level mod
 
 The packet processing submodel is presented in the middle software layer. The select app node forwards each of the packets to one of the two packet processing application, based on the application id attribute defined in the workload model. The queue nodes represent the core scheduling done by the SSO hardware unit. The packets arriving in the upper application have priority of 1, and they can be processed in parallel. In the application below, there are 2 atomic queues with priority 3. When the packet receives the passive resource from SSO, it can enter the actual processing application, called execution object (eo). The execution objects are submodels that consume core cycles and memory similarly to the packet input and packet output submodels presented above. The SSO/core passive resource is released inside each execution object.
 
-The hardware model is a simple one level model containing no submodels. In the bottom left hand corner, there are PKI and PKO devices providing processor cycles for the packet input and packet output phases. The only passive resource node, SSO, provides core access resources, that can be released with the core release node. The application cores are shown in the top left corner of the hardware layer. There are 32 cores, and a specific L1 cache access for each of them. The L2 and RAM memory resources provide the delay for reading and writing to memory.
+The hardware model is a simple one level model containing no submodels. In the bottom left hand corner, there are PKI and PKO devices providing processor cycles for the packet input and packet output phases. The only passive resource node, SSO, provides core access resources, which can be released with the core release node. The application cores are shown in the top left corner of the hardware layer. There are 32 cores, and a specific L1 cache access for each of them. The L2 and RAM memory resources provide the delay for reading and writing to memory.
 
-The probes, attached to the SSO unit, the cores, and the memory nodes, are used to gather statistics from the execution. Each of the units have two probes, one to measure the resource usage, and the other to measures the queue for the corresponding resource. In this hardware model, the routing nodes (squares) and the edges connecting the resources do not have any functional meaning, but are used solely to mimic the graphical models of the CN6880 unit presented in~\cite{cavium:2010:fundamentals}.
+The probes, attached to the SSO unit, the cores, and the memory nodes, are used to gather statistics from the execution. Each of the units has two probes, one to measure the resource usage, and the other to measures the queue for the corresponding resource. In this hardware model, the routing nodes (squares) and the edges connecting the resources do not have any functional meaning, but are used solely to mimic the graphical models of the CN6880 unit presented in~\cite{cavium:2010:fundamentals}.
 
 \section{Modeling the Task Scheduler}
 \label{sec:modeling-task-scheduler}
@@ -45,7 +45,7 @@ The Schedule/Synchronization/Order (SSO) unit has an important effect on the tas
 
 % Before the task can be processed, it must wait for the SSO to schedule it on the core.
 
-When modeling the applications on PSE, it is helpful to consider the flow from the task's perspective. When a task has passed the input processing, it is put into the SSO queue to wait to be scheduled on the application cores. Each time a core finishes its previous task, it requests for a new work from the SSO-unit, which then schedules a task based on the flow quality of service  priority and work group.
+When modeling the applications on PSE, it is helpful to consider the flow from the task's perspective. When a task has passed the input processing, it is put into the SSO queue to wait to be scheduled on the application cores. Each time a core finishes its previous task, it requests for a new work from the SSO-unit, which then schedules a task based on the flow quality of service priority and work group.
 
 \subsection{Application Models}
 \label{application-models}
@@ -64,11 +64,11 @@ The execution object node parameters are shown in the Listing~\ref{lst:eo-attrib
 
 \subsection{Scheduling/Synchronization/Ordering Unit}
 \label{sec:SSO-unit}
-To model the CN6880 processing cores' run-to-completion behaviour, the SSO unit is modeled as a passive resource. Each time a task is entering a processing application, it first acquires the passive SSO resource. The amount of available passive SSO resources are equal to the processing cores in the system, and a task cannot use processing core without holding the SSO resource.
+To model the CN6880 processing cores' run-to-completion behavior, the SSO unit is modeled as a passive resource. Each time a task is entering a processing application, it first acquires the passive SSO resource. The amount of available passive SSO resources is equal to the processing cores in the system, and a task cannot use processing core without holding the SSO resource.
 
 % The SSO scheduling is done in the SSO node presented in the hardware level in Figure~\ref{fig:full-model}. The actual scheduler function is written as a plug-in code, using the interface provided by PSE. The custom scheduling in PSE requires two functions, which are written in C-code: the selection function, and the reserve function. Each time a task enters a resource usage node in the task graph, the reserve function is called. The reserve function either
 
-To model the SSO unit, a custom scheduling functions are required. These are modeled using PSE's custom plug-in interface, presented in chapter~\ref{chapter:mechanisms-for-extended-queue-disciplines}. The functionality is implemented in two custom functions, written in C-code: the selection function, and the reserve function. The resource node parameters are changed to use these functions. The parameters of the SSO node used in the example model are presented in the Listing~\ref{lst:RNS-attributes}.
+To model the SSO unit, custom scheduling functions are required. These are modeled using PSE's custom plug-in interface, presented in chapter~\ref{chapter:mechanisms-for-extended-queue-disciplines}. The functionality is implemented in two custom functions, written in C-code: the selection function, and the reserve function. The resource node parameters are changed to use these functions. The parameters of the SSO node used in the example model are presented in the Listing~\ref{lst:RNS-attributes}.
 
 \lstinputlisting[caption=The attributes of the SSO node to determine the custom scheduler.,
                  label=lst:RNS-attributes]{listings/SSO-attributes.txt}
@@ -86,12 +86,12 @@ On the lines 11-39, the reserve function attempts to place the task in the proce
 
 If the processing conditions are not met, i.e. the execution goes past the if-block, then the task is set into the waiting queue. Line 43 assigns the \emph{queue} to point to the waiting queue of the resource. The for-loop on lines 46-48 finds the first task with larger priority, at index \emph{i}, and the for-loop on lines 51-53 moves all the higher priority tasks one step further on the queue. Finally the index \emph{i} is assigned to \emph{position}, and the function returns.
 
-Each time a core ends a processing of a task, a new task is selected for the processing, using the the custom select function. Listing~\ref{lst:CUSTOM_select} shows the code used for the select function to model the SSO.
+Each time a core ends a processing of a task, a new task is selected for the processing, using the custom select function. Listing~\ref{lst:CUSTOM_select} shows the code used for the select function to model the SSO.
 
 \lstinputlisting[caption=The $CUSTOM\_select$ function for SSO.,
                  label=lst:CUSTOM_select]{listings/CUSTOM_select.c}
 
-$CUSTOM\_select$ takes the resource \emph{r}, and the index of the released core \emph{$release\_index$} as an input. The outer for-loop, starting at line 7, goes through all the tasks in the waiting queue, and finds the first task that satisfies the processing constraints, similarily as the reserve function. Line 10 checks if the waiting task's coremask allows the task to be processed on the core. If the waiting task's flow is atomic (line 12), we need to go through all the processing cores to check that there is no task being processed from the same flow (lines 18-24). If the task was not atomic, or no tasks from the same flow were being processed, the function returns the index of the task in the waiting queue. Otherwise we move to the next waiting task and repeat. If no task from the waiting queue can be scheduled, the function returns $RNS\_LARGE$. The RNS automatically moves the clients when it removes the task from the waiting queue.
+$CUSTOM\_select$ takes the resource \emph{r}, and the index of the released core \emph{$release\_index$} as an input. The outer for-loop, starting at line 7, goes through all the tasks in the waiting queue, and finds the first task that satisfies the processing constraints, similarly as the reserve function. Line 10 checks if the waiting task's coremask allows the task to be processed on the core. If the waiting task's flow is atomic (line 12), we need to go through all the processing cores to check that there is no task being processed from the same flow (lines 18-24). If the task was not atomic, or no tasks from the same flow were being processed, the function returns the index of the task in the waiting queue. Otherwise we move to the next waiting task and repeat. If no task from the waiting queue can be scheduled, the function returns $RNS\_LARGE$. The RNS automatically moves the clients when it removes the task from the waiting queue.
 
 %%% Local Variables:
 %%% mode: latex
