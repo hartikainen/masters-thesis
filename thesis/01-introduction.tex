@@ -1,8 +1,8 @@
 \chapter{Introduction}
 \label{chapter:intro}
-Efficient packet processing is becoming more and more important as the computation moves away from the end-devices, towards cloud and fog. At the same time the performance analysis of these systems is difficult, due to the complex non-deterministic behaviour of the multiprocessor system-on-chip systems (MPSoC) devices and the dynamic nature of the input data streams. The non-deterministic behaviour of the MPSoC is a result of parallelism, communication delays, complex memory systems, and scheduling mechanisms. These system interactions are difficult, sometimes even impossible, to reason about, and make the performance analysis non-trivial.
+Efficient packet processing is becoming more and more important as the computation moves away from the end-devices, towards cloud and fog. At the same time the performance analysis of these systems is difficult, due to the complex non-deterministic behaviour of the multiprocessor system-on-chip systems (MPSoC) and the dynamic nature of the input data streams. The non-deterministic behaviour of the MPSoC is a result of parallelism, communication delays, complex memory systems, and scheduling mechanisms. These system interactions are difficult, sometimes even impossible, to reason about, and make the performance analysis non-trivial.
 
-In this thesis, we investigate the use of measurement, modeling, and simulation methods for the use of packet processing system development. We present a way to model complex hardware and software interactions of a modern MPSoC network processing systems, using an extended resource networks concept with customized queue disciplines and support for modeling task parallelism. An existing in-house discrete event simulator, Performance Simulation Environment (PSE), is used to simulate the models. We show that, with extended custom queue disciplines, resource network methodology, is a viable approach for complex packet processing system performance analysis.
+In this thesis, we investigate the use of measurement, modeling, and simulation methods for the use of packet processing system development. We present a way to model complex hardware and software interactions of a modern MPSoC network processing systems, using an extended resource networks concept with customized queue disciplines and support for modeling task parallelism. An existing in-house discrete event simulator, Performance Simulation Environment (PSE), is used to simulate the models. We show that, with extended custom queue disciplines, resource network methodology is a viable approach for complex packet processing system performance analysis.
 
 % PSE provides a toolset for performance analysis of hardware and software co-scheduled manycore systems. It is a discrete event simulator based on resource network methodology.
 
@@ -36,7 +36,10 @@ We will present a method for modeling and simulation of packet processing system
 \item The PSE extensions and the network processing unit model has been used as the building blocks for the experiment of further research on Fog computing
 \end{itemize}
 
-Our first contribution includes setting up of a functioning experiment environment for measuring the memory and communication delays of the network processing system. The setup required vast amount of configuration and modifications done to the partly broken software development kit. The automization scripts and test programs are documented and ready to be used in further experiments on this hardware.
+Our contributions start with...
+
+Our first contribution includes setting up of an environment for measuring the memory and communication delays of the network processing system. The setup required vast amount of configuration and modifications done to the partly broken software development kit. The automization scripts and test programs are documented and ready to be used in further experiments on this hardware.
+
 
 The extensions of PSE includes a new plugin code mechanism, that allows customized queue discpline algorithms be defined by external C-code. The design and implementation affected nearly all parts of the underlying simulation program. During the development of these features, we noticed several critical memory bugs in the software, that inhibited the use of the existing fork-join mechanism on any meaningful sized workloads. Together the extension and bug fixes consisted of roughly 700 edited and 600 new lines of code. These features are documented to be further utilized by PSE users.
 
