@@ -33,13 +33,15 @@ We will present a method for modeling and simulation of packet processing system
 % \item Refactoring the existing PSE functionalities and fixing several software bugs that made critical parts of the simulator unusable
 \item Designing and building a fully functional simulation model of a modern network processing unit
 % \item The results were presented to the industry partners at the ParallaX group's fall assembly, working as a concrete example of the Embedded Systems Group's work in progress
+
+\item Proof of concept experiment of the implemented model and PSE extensions.
+
 \item The PSE extensions and the network processing unit model has been used as the building blocks for the experiment of further research on Fog computing
 \end{itemize}
 
 Our contributions start with...
 
 Our first contribution includes setting up of an environment for measuring the memory and communication delays of the network processing system. The setup required vast amount of configuration and modifications done to the partly broken software development kit. The automization scripts and test programs are documented and ready to be used in further experiments on this hardware.
-
 
 The extensions of PSE includes a new plugin code mechanism, that allows customized queue discpline algorithms be defined by external C-code. The design and implementation affected nearly all parts of the underlying simulation program. During the development of these features, we noticed several critical memory bugs in the software, that inhibited the use of the existing fork-join mechanism on any meaningful sized workloads. Together the extension and bug fixes consisted of roughly 700 edited and 600 new lines of code. These features are documented to be further utilized by PSE users.
 
