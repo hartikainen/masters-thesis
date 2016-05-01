@@ -33,9 +33,11 @@ This chapter discusses the results of our work. First, we present the challenges
 % Simulaatioiden koko kasvaa -> tarvitaan skaalaautuvia simulaattoreita (parallelisoituminen)
 % Tämä johtuu tietenkin mallinnettavien jmien kompleksisuuden kasvusta.
 
-Today's packet processing system face an ever-increasing number of packets requiring more and more complex processing. Short development cycles and fast revisioning of the systems have become necessity, as the vendors face fast changes in technology, dynamic customer requirements, and pressure for time-to-market. To answer these requirements, especially with the tightening energy limitations, the packet processing systems are build as a multiprocessor system-on-chips (MPSoC's), called network processing units. Network processing units are optimized for high-speed network packet processing at wire-speeds of multi-Gbps, while at the same time enjoying the generic characteristics similar to general purpose central processing units.
+Today's packet processing system face an ever-increasing number of packets requiring more and more complex processing. Short development cycles and fast revisioning of the systems have become necessity, as the vendors face fast changes in technology, dynamic customer requirements, and pressure for time-to-market. To answer these requirements, especially with the tightening energy limitations, \todo[]{this is not true}the packet processing systems are build as a multiprocessor system-on-chips (MPSoC's), called network processing units. Network processing units are optimized for high-speed network packet processing at wire-speeds of multi-Gbps, while at the same time enjoying the generic characteristics similar to general purpose central processing units.
 
-Performance analysis on network processing units is difficult, due to complex non-deterministic behavior and complex hardware and software interactions of the MPSoC devices, and the dynamic nature of the input data streams. The complexity of today's systems, especially in the scale of cloud and fog computing, is growing to a level where prototyping is not possible.
+Performance analysis on network processing units is difficult, due to complex non-deterministic behavior and complex hardware and software interactions of the MPSoC devices, and the dynamic nature of the input data streams.
+
+The complexity of today's systems, especially in the scale of cloud and fog computing, is growing to a level where prototyping is not possible.
 
 Modeling is an important tool for the performance analysis of MPSoC systems. The packet processing systems are, in essence, queuing systems. Queue and resource networks are widely studied concepts, often used for packet processing problems. However, the complex low level interactions between the components of MPSoC's make the traditional queue concepts insufficient, while at the same time the exact measurements may be unsuitable, especially in the early stage of the system development.
 
@@ -91,7 +93,10 @@ When moving towards the fog, the performance of mobile network technologies beco
 
 \todo[inline]{Modeling virtualized systems? Modeling of virutalization (computing, communication, etc..) Requires more levels to the resource network paradigm.}
 
-As we have shown in this work, the resource network methodology extended with the customized plugin code interface, can be used for modeling more complex task-based application hardware scheduled manycore systems. The flexibility of PSE, and resource networks, enable simulation of large-scale systems on many different parts of the cloud computing context. However, there are certain limitations with the tool as well.
+
+There exist several directions for future research around the topic of this thesis.
+
+As we have shown in this work, the resource network methodology, extended with customized queue disciplines and support for modeling parallel systems, can be used to model more modern MPSoC based network processing units. \todo[]{task/event parallelism, generally hardware scheduled manycoresystems?} The flexibility of PSE, and resource networks, enable simulation of large-scale systems on many different parts of the cloud computing context. However, there are certain limitations with the tool as well.
 
 Simulation of larger systems, such as the network processing unit presented in this work, in larger scale, let alone full scale datacenter networks or complex IoT applications that consist large number of different components, with the current implementation of PSE are not feasible. This is mainly due to the inefficient implementation of the threads executing tasks, and the memory systems. The threads are fairly heavy structures to handle the tasks, in the context of large-scale simulations. These could, for example, be replaced with similar structures as Akka frameworks' actors.
 

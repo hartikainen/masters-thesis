@@ -3,6 +3,39 @@
 
 \todo[inline]{TODO: Explain the implementation of plugin extensions}
 
+This chapter presents the implemented plugin code extension for Peroformance Simulation Environment. The extensions enable modeling of customized queue disciplines written in C-code.
+
+% In this chapter the mechanisms for resource network simulation are presented at dif- ferent levels of abstraction. First the mechanisms are presented at the modeling level using as examples two basic models of hardware schedulers and a model for memory systems. After that the implementation of the fork-join mechanism is described at the runtime level of the simulator. Finally the mapping of the simulation model to execution hardware is overviewed and problems arising from different parallelization strategies are studied.
+
+\lstinputlisting[caption=RNS\_demand\_device,
+                 label=lst:RNS-demand-device]{listings/RNS_demand_device.c}
+
+RNS\_demand\_device routine in~\ref{lst:RNS-demand-device} is a simple wrapper routine, that converts the demanded service amount (service\_amount) into corresponding service time, based on the device entity speed (d-$\textgreater$speed). It then calls the RNS\_use\_device routine with the resulting service time.
+
+\lstinputlisting[caption=RNS\_use\_device,
+                 label=lst:RNS-use-device]{listings/RNS_use_device.c}
+
+RNS\_use\_device in~\ref{lst:RNS-use-device} reserves the resource, delays the process (i.e. the task) and releases the resource for other processes.
+
+\lstinputlisting[caption=RNS\_reserve\_resource,
+                 label=lst:RNS-reserve-resource]{listings/RNS_reserve_resource.c}
+
+\ref{lst:RNS-reserve-resource} summarizes the RNS\_reserve\_resource routine. RNS\_reserve\_resource calls the reserve function bound to the resource entity as explained in section~\ref{chapter:performance-simulation-environment}. The reserve function assigns the task either in the resource's processing queue or waiting queue.
+
+If the reserve function assigns the task to the waiting queue, the thread yields the execution to the scheduler.
+
+\lstinputlisting[caption=RNS\_delay\_process,
+                 label=lst:RNS-delay-process]{listings/RNS_delay_process.c}
+
+RNS\_delay\_process function, presented in~\ref{lst:RNS-reserve-resource}, delays the given process for the time defined by the \emph{seconds} parameter and generates an event that will be triggered when the requested service has ended.
+
+\lstinputlisting[caption=RNS\_release\_resource,
+                 label=lst:RNS-release-resource]{listings/RNS_release_resource.c}
+
+RNS\_release\_resource function, shown in ~\ref{lst:RNS-reserve-resource}, selects the next process to be executed, from the resource queue. \todo[]{TODO}
+
+% RNS_release_resource in Listings 8 selects a process from the resource queue for execution. The process selection is done on basis of the resource queuing discipline. The new process is put to the event list for immediate scheduling.
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "thesis-hartikainen"

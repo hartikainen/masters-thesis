@@ -17,7 +17,7 @@ We created a high-level simulation model of the Cavium OCTEON II CN6880 network 
   \end{center}
 \end{figure}
 
-The workload model, at the top of the picture, consists of two packet streams. The TRAFFIC GENERATOR node activates the two stream nodes, which again generate packets that enter the software layer. The workload nodes contain parameters, such as the application id's, that are used to control the packet flows in the software model.
+The workload model, at the top of the picture, consists of two packet streams. The \emph{TRAFFIC GENERATOR} node activates the two stream nodes, which again generate packets that enter the software layer. The workload nodes contain parameters, such as the application id's, that are used to control the packet flows in the software model.
 
 % has a lifetime of 0.5 seconds, and it triggers the streams with interval drawn from a uniform distribution with parameters 0.00005 and 0.00015. The streams have lifetime of 0.0004 seconds, and interval drawn from a lognormal distribution. The packet sizes of the streams are defined with the size attribute. Both of the streams also specify an appId attribute that is used to define the processing application in the software model. The packets from both streams enter the IN node of the top level software model.
 
@@ -68,7 +68,7 @@ To model the CN6880 processing cores' run-to-completion behavior, the SSO unit i
 
 % The SSO scheduling is done in the SSO node presented in the hardware level in Figure~\ref{fig:full-model}. The actual scheduler function is written as a plug-in code, using the interface provided by PSE. The custom scheduling in PSE requires two functions, which are written in C-code: the selection function, and the reserve function. Each time a task enters a resource usage node in the task graph, the reserve function is called. The reserve function either
 
-To model the SSO unit, custom scheduling functions are required. These are modeled using PSE's custom plug-in interface, presented in chapter~\ref{chapter:mechanisms-for-extended-queue-disciplines}. The functionality is implemented in two custom functions, written in C-code: the selection function, and the reserve function. The resource node parameters are changed to use these functions. The parameters of the SSO node used in the example model are presented in the Listing~\ref{lst:RNS-attributes}.
+To model the SSO unit, custom scheduling functions are required. These are modeled using PSE's custom plug-in interface, presented in chapter~\ref{chapter:mechanism-for-extended-queue-disciplines}. The functionality is implemented in two custom functions, written in C-code: the selection function, and the reserve function. The resource node parameters are changed to use these functions. The parameters of the SSO node used in the example model are presented in the Listing~\ref{lst:RNS-attributes}.
 
 \lstinputlisting[caption=The attributes of the SSO node to determine the custom scheduler.,
                  label=lst:RNS-attributes]{listings/SSO-attributes.txt}
