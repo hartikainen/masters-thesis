@@ -45,7 +45,7 @@ uint64_t CUSTOM_select(RNS_Resource *r, uint64_t release_index) {
   return RNS_LARGE;
 }
 
-uint64_t CUSTOM_reserve(RNS_Resource *r, uint64_t pc, RNS_Client **queue,
+uint64_t CUSTOM_reserve(RNS_Resource *r, RNS_Client **queue,
                         uint64_t *position, RNS_Queue_Attribute *new_attrs) {
   uint64_t i, j;
   char *queue_id = new_attrs->queue_id;

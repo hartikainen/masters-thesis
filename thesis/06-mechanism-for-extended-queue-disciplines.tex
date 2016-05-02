@@ -1,40 +1,113 @@
 \chapter{Mechanism For Extended Queue Disciplines}
 \label{chapter:mechanism-for-extended-queue-disciplines}
 
-\todo[inline]{TODO: Explain the implementation of plugin extensions}
+This chapter presents the implemented plugin code extensions for Performance Simulation Environment. The extensions enable modeling of customized queue disciplines written in C-code, and is our attempt to address the lack of global queue scheduling, which is required to use PSE for more detailed modeling of hardware scheduled manycore systems.
 
-This chapter presents the implemented plugin code extension for Peroformance Simulation Environment. The extensions enable modeling of customized queue disciplines written in C-code.
+We begin by explaining the PSE's service routines, which guide the resource usage between the resource usage and resource provision models. Then we present the runtime structuces, RNS\_Resource and RNS\_Client, that are relevant to understand the implementation of the custom queueing functions. Then we present the requirements for the select and reserve functions used to implement the queuing policies. Finally, we describe an example implementations of two simple disciplines: first-come-first-serve and highest-priority-served-first.
 
-% In this chapter the mechanisms for resource network simulation are presented at dif- ferent levels of abstraction. First the mechanisms are presented at the modeling level using as examples two basic models of hardware schedulers and a model for memory systems. After that the implementation of the fork-join mechanism is described at the runtime level of the simulator. Finally the mapping of the simulation model to execution hardware is overviewed and problems arising from different parallelization strategies are studied.
+\section{Service Routines}
+The main interface between the threads executing the resource usage code, and the resource provision models, are the five RNS service routines: RNS\_demand\_device, RNS\_use\_device, RNS\_reserve\_resource, RNS\_delay\_process, and RNS\_release\_resource. The functions are used to implement both the active and passive resource usage at the runtime.
 
 \lstinputlisting[caption=RNS\_demand\_device,
                  label=lst:RNS-demand-device]{listings/RNS_demand_device.c}
 
-RNS\_demand\_device routine in~\ref{lst:RNS-demand-device} is a simple wrapper routine, that converts the demanded service amount (service\_amount) into corresponding service time, based on the device entity speed (d-$\textgreater$speed). It then calls the RNS\_use\_device routine with the resulting service time.
+RNS\_demand\_device routine in Listing~\ref{lst:RNS-demand-device} is a simple wrapper routine, which converts the demanded service amount (service\_amount) into corresponding service time, based on the device entity speed (d-$\textgreater$speed). It then calls the RNS\_use\_device routine with the resulting service time.
 
 \lstinputlisting[caption=RNS\_use\_device,
                  label=lst:RNS-use-device]{listings/RNS_use_device.c}
 
-RNS\_use\_device in~\ref{lst:RNS-use-device} reserves the resource, delays the process (i.e. the task) and releases the resource for other processes.
+RNS\_use\_device in Listing~\ref{lst:RNS-use-device} reserves the resource, delays the process (i.e. the task) and immediately releases the resource for other processes.
 
 \lstinputlisting[caption=RNS\_reserve\_resource,
                  label=lst:RNS-reserve-resource]{listings/RNS_reserve_resource.c}
 
-\ref{lst:RNS-reserve-resource} summarizes the RNS\_reserve\_resource routine. RNS\_reserve\_resource calls the reserve function bound to the resource entity as explained in section~\ref{chapter:performance-simulation-environment}. The reserve function assigns the task either in the resource's processing queue or waiting queue.
+Listing~\ref{lst:RNS-reserve-resource} summarizes the RNS\_reserve\_resource routine. Whenever the process executing the resource usage code consumes a resource (passive or active), the RNS\_reserve\_resource -function gets called. In the case of passive resource, the call happens directly in the generated resource usage code. If the requested resource is active, the RNS\_reserve\_resource call happens through the RNS\_use\_device or RNS\_demand\_device functions.
 
-If the reserve function assigns the task to the waiting queue, the thread yields the execution to the scheduler.
+RNS\_reserve\_resource calls the reserve function bound to the resource entity as explained further. The reserve function assigns the task either to the resource's processing queue or waiting queue. If the reserve function assigns the task to the waiting queue, the thread yields the execution back to the scheduler.
 
 \lstinputlisting[caption=RNS\_delay\_process,
                  label=lst:RNS-delay-process]{listings/RNS_delay_process.c}
 
-RNS\_delay\_process function, presented in~\ref{lst:RNS-reserve-resource}, delays the given process for the time defined by the \emph{seconds} parameter and generates an event that will be triggered when the requested service has ended.
+RNS\_delay\_process function, presented in Listing~\ref{lst:RNS-reserve-resource}, delays the given process for the time defined by the \emph{seconds} parameter and generates an event that will be triggered when the requested service has ended.
 
 \lstinputlisting[caption=RNS\_release\_resource,
                  label=lst:RNS-release-resource]{listings/RNS_release_resource.c}
 
-RNS\_release\_resource function, shown in ~\ref{lst:RNS-reserve-resource}, selects the next process to be executed, from the resource queue. \todo[]{TODO}
+RNS\_release\_resource function, shown in ~\ref{lst:RNS-reserve-resource}, selects the next process to be executed from the resource queue, based on the resource's queue discipline function. The selected process is inserted in to the heap of schedulable processes, and thus gets immediately scheduled.
 
-% RNS_release_resource in Listings 8 selects a process from the resource queue for execution. The process selection is done on basis of the resource queuing discipline. The new process is put to the event list for immediate scheduling.
+\section{Runtime Structures}
+\subsection{RNS Resource}
+Each resource entity in the PSE resource provision model definition corresponds to a RNS\_Resource runtime variable. The runtime resources are initialized in the beginning of the simulation, based on the code generated from the resource provision entity. Listing~\ref{lst:RNS-Resource} presents the RNS\_Resource struct.
+
+\lstinputlisting[caption=RNS\_Resource struct. ,
+                 label=lst:RNS-Resource]{listings/RNS_Resource.c}
+
+The \emph{id} is a unique identifier for the resource, determined by the RNS runtime. The \emph{name}, \emph{capacity}, and \emph{group\_name} are defined by the attributes in the model entity. The \emph{probes} array contains the references to the probe structs attached to the resource entity.
+
+The \emph{processing\_queue}, and the \emph{waiting\_queue} present the data structures used to store the references to the clients that are being processed by and waiting for the resource, respectively. The size of the processing queue is determined, at runtime, by the \emph{capacity} parameter defined in the resource provision model. The size of the waiting queue is fixed, defined by the built-in \emph{RNS\_LARGE} constant. \emph{processing\_count} and \emph{waiting\_count} are initialized to 0, and present the number of clients in the respective queues.
+
+The two function pointers, \emph{select} and \emph{reserve}, are the actual functions used to implement the queue disciplines for the resource. The values of these pointers are determined by the \emph{discipline}, \emph{file}, \emph{select\_function}, and \emph{reserve\_function} in the resource entity's attributes.
+
+The possible values for \emph{discipline} attribute are: \emph{CUSTOM}, to use custom disciplines determined in the external plugin files; or one of \emph{FCFS}, \emph{LCFS}, \emph{HPSF}, \emph{LRSF}, to use the built-in disciplines. If the discipline attribute is set to use the built-in disciplines, the model entity's \emph{file}, \emph{select\_function}, and \emph{reserve\_function} can be left blank, and the corrent pointers for the \emph{select} and \emph{reserve} functions are set automatically.
+
+If the discipline is set to CUSTOM, then the pointers to the discipline functions are set to the functions named by the values of \emph{select\_function} and \emph{reserve\_function} paramaters found in the file named by the \emph{file} parameter.
+
+\subsection{RNS Client}
+RNS\_Client is the runtime representation of the task consuming a resource. The RNS\_Client struct is shown in the Listing~\ref{lst:RNS-Client}. The \emph{process} field is a pointer to the RNS\_process that reserved the resource. \emph{usage\_group} is used for trace probe grouping, and \emph{pc} is the old priority attribute left here for the backwards compatibility. In the current version of PSE, the priority should be specified in the \emph{attrs} field, together with all the other attributes to be used in the select and reserve functions. The \emph{processing} parameter specifies whether the client is currently being processed or not.
+
+\lstinputlisting[caption=RNS\_Client struct. ,
+                 label=lst:RNS-Client]{listings/RNS_Client.c}
+
+Each time a process reserves resource, the corresponing RNS\_Client entity's \emph{attrs} field, at the RNS\_Resource's processing or waiting queue, is set to the values described by the node in the resource usage model. The \emph{RNS\_Queue\_Attribute} fields are determined in the compile time, based on the attributes determined in the resource usage model's nodes.
+
+\section{Reserve and Select Functions}
+
+As explained above, the queue discipline functionality is determined by the two functions: the reserve function and the selection function. These two functions must follow certain rules and definitions to guarantee the proper scheduling and simulation behavior. The definition of the reserve and select functions are shown in the Listings~\ref{lst:reserve-definition} and~\ref{lst:select-definition}, respectively.
+
+\lstinputlisting[caption=The definition of the reserve function. ,
+                 label=lst:reserve-definition]{listings/reserve_definition.c}
+
+The reserve function is called from the RNS\_reserve\_resource function when the task requests  the resource for the first time. The parameter \emph{r} represents the requested resource entity, and the \emph{new\_client} is the client requesting for the resource. The reserve function needs to perform the following tasks:
+
+\begin{itemize}
+\item Set the \emph{queue} to point to either the processing queue or the waiting queue of the resource \emph{r}
+\item Assign an integer to the \emph{position}, presenting an empty position in the queue
+\item (Optionally) reorganize the waiting queue
+\item Return 0 in case of success, else return -1
+\end{itemize}
+
+All the necessary information required to implement the queueing decision can be accessed through the resource \emph{r}, the \emph{new\_client}, as described above.
+
+The select function, in the Listing~\ref{lst:select-definition}, is called each time the resource is released by a client currently holding it. The parameters of the select function determine the resource that is being released (\emph{r}), and the index at the processing queue that the previous client was placed at (\emph{release\_index}). Based on the resource parameter \emph{r} and the \emph{release\_index}, the selection function needs to return an index of the client to be moved to the processing queue. The waiting queue items with index greather than the returned index will be automatically shifted to fill the empty element in the queue.
+
+\lstinputlisting[caption=The definition of the select function. ,
+                 label=lst:select-definition]{listings/select_definition.c}
+
+\section{Discipline Examples}
+The following subsections present examples of two queue discipline implementations: first-come-first-serve (FCFS), and highest-priority-served-first (HPFS). Both of these functions are simple, and built-in the PSE runtime. They are used here to exemplify  the use of reserve and select functions.
+
+Both of the disciplines use the same reserve function, represented in Listing~\ref{lst:default-reserve}. The function first check if the number of clients being processed by the resource is smaller than its capacity.
+
+If so, the function continues by iterating over the resource's processing queue elements until it encounters an empty processing slot. It then assigns the \emph{queue} variable to point to the resource \emph{r}'s processing queue, and the \emph{position} variable to point to the element index \emph{i}.
+
+If all the processing slots are reserved the function assign the \emph{queue} variable to point to the resource's waiting queue, and the position variable to point to the first empty index.
+
+\lstinputlisting[caption=The reserve function used for FCFS and HPSF disciplines. ,
+                 label=lst:default-reserve]{listings/DEFAULT_reserve.c}
+
+Listing~\ref{lst:FCFS-HPSF-selects} represents the select functions used for the FCFS and HPSF disciplines. The select function for the FCFS is simple, and does not use any resource or queue parameters for its decision. It always returns 0, representing the index for the first element in the waiting queue.
+
+The HPSF\_select function uses the client priorities, defined in the resource usage model nodes, to make the scheduling decision. It iterates through all the clients in the resource's waiting queue, and keeps track of the clieeeent with highest priority. After the iteration is over, is returns the index of the client with highest priority.
+
+Again, in both cases, the RNS\_release\_resource automatically shifts the clients, with index larger than the selected, to fill the empty slot.
+
+\lstinputlisting[caption=The select functions for FCFS and HPSF disciplines. ,
+                 label=lst:FCFS-HPSF-selects]{listings/FCFS-HPSF-selects.c}
+
+% RNS\_reserve\_resource -function calls the reserve function, defined in the plugin C-files.
+
+% The processes executing the generated resource usage code, call the RNS\_reserve\_resource -function to .
+% Each time a process calls the RNS\_reserve\_resource -function, the
 
 %%% Local Variables:
 %%% mode: latex

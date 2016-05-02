@@ -44,7 +44,7 @@ We will present a method for modeling and simulation of packet processing system
 
 % Our contributions start with...
 
-Our first contribution includes setting up of an environment for measuring the memory and communication delays of the network processing system. The setup required vast amount of configuration and modifications done to the partly broken software development kit. The automatization scripts and test programs are documented and ready to be used in further experiments on this hardware.
+Our first contribution includes setting up an environment for measuring the memory and communication delays of the network processing system. The setup required vast amount of configuration and modifications done to the partly broken software development kit. The automatization scripts and test programs are documented and ready to be used in further experiments on this hardware.
 
 The extension of PSE includes a new plugin code mechanism, which allows customized queue discipline algorithms to be defined by external C-code. The design and implementation affected nearly all parts of the underlying simulation program. During the development of these features, we noticed several critical memory bugs in the software, which inhibited the use of the existing fork-join mechanism on any meaningful sized workloads. Together the extension and bug fixes consisted of roughly 700 edited and 600 new lines of code. These features are documented and available to be further utilized by PSE users.
 
@@ -65,11 +65,11 @@ Chapter~\ref{chapter:performance-simulation-environment} presents the simulation
 
 We beging chapter~\ref{chapter:packet-processing-systems}, by explaining the concepts needed to understand the functionality of modern packet processing hardware, and their relation to queuing theory. After that, we present a more detailed view on a Cavium OCTEON II CN6880 network processing system. The chapter finishes with characteristic measurements to gather the needed information to understand and model the system.
 
-Chapter~\ref{chapter:mechanism-for-extended-queue-disciplines} presents the implementation of the extended PSE functionality. We create a plugin interface to enable customized queue disciplines needed to model the Cavium OCTEON II CN6800 system.
+Chapter~\ref{chapter:mechanism-for-extended-queue-disciplines} presents the implementation of the extended queue disciplines. The implemented plugin code extensions for Performance Simulation Environment. The extensions enable modeling of customized queue disciplines written in C-code, and is our attempt to address the lack of global queue scheduling, which is required to use PSE for more detailed modeling of  hardware scheduled manycore systems.
 
 The example model of the Cavium OCTEON II CN6800 network processing unit is presented in chapter~\ref{chapter:example-simulation-model}. We will first describe the main characteristics of the model, and further describe a more detailed view of the scheduler functionality.
 
-The demonstrative experiments are presented in chapter~\ref{chapter:demonstrative-experiment}. We will describe the two experiment setups used, and the simulation results of them. Finally, we will analyze the experiments results in the discoveries section.
+The demonstrative experiments are presented in chapter~\ref{chapter:demonstrative-experiments}. We will describe the two experiment setups used, and the simulation results of them. Finally, we will analyze the experiments results in the discoveries section.
 
 The last two chapters,~\ref{chapter:discussion} and~\ref{chapter:conclusions}, present the discussion about the challenges, discoveries, together with the related and future work, and finally concludes the thesis.
 
