@@ -1,5 +1,5 @@
-\chapter{System Performance Analysis and Simulation}
-\label{chapter:system-performance-analysis-and-simulation}
+\chapter{System Performance Analysis}
+\label{chapter:system-performance-analysis}
 In this thesis, we study and evaluate the performance analysis methods of a modern packet processing system. This chapter introduces the modeling, measurement, and simulation methods used in our work.
 
 We will start by introducing the common performance analysis methods and metrics, and then further examine the modeling and simulation techniques. Further, we present the queuing and resource networks, which are fundamental concepts for modeling packet processing systems. We will describe the basic concepts of simulation, the primary method for solving more complex networks needed to model modern packet processing systems. We end the chapter with a short survey of the existing simulation software.
@@ -47,6 +47,9 @@ Queuing networks can be used to describe various systems, and many different pro
 Resource networks extend the queuing networks concept by decoupling the network into resource usage network and resource provision network, and introducing a passive resource type. The resource usage network is a directed graph, describing the possible paths and resource usage requests for the tasks. Resource provision networks are similar to the traditional queuing networks, describing the available resources and their interconnections in the system. Resource networks also enable new task control mechanisms such as fork-join and branching. ~\cite{Menasce:1994:CPP}
 
 Resource networks are suitable for modeling resource requests, dynamic scheduling and different load balancing schemes. These techniques enable modeling of more complex interactions of parallel systems with dynamic workload and resource usage. Due to the dynamicity introduced by the flexibility, resource networks often have to be solved by simulation.~\cite{Menasce:1994:CPP}
+
+\section{System Modeling}
+\todo[inline]{vois selvemmin erottaa mallinnuksen ja simuloinnis}
 
 \section{Simulation}
 This section describes the basic principles related to simulation. Note that, despite the most of the examples in this chapter being about computing, simulation is widely used also in several other contexts, even beyond science. The concepts described below, e.g. entities, attributes, or activities, have different realizations from system to system.
