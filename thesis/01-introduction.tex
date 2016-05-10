@@ -1,26 +1,23 @@
 \chapter{Introduction}
 \label{chapter:intro}
-Efficient packet processing is becoming more and more important as the computation moves away from the end-devices, towards cloud and fog. At the same time the performance analysis of these systems is difficult, due to the complex non-deterministic behavior of the multiprocessor system-on-chip systems (MPSoC) and the dynamic nature of the input data streams. The non-deterministic behavior of the MPSoC is a result of parallelism, communication delays, complex memory systems, and scheduling mechanisms. These system interactions are difficult, sometimes even impossible, to reason about, and make the performance analysis non-trivial.
-
-In this thesis, we investigate the use of measurement, modeling, and simulation methods for the use of packet processing system development. We present a way to model complex hardware and software interactions of a modern MPSoC network processing systems, using an extended resource networks concept with customized queue disciplines and support for modeling task parallelism. An existing in-house discrete event simulator, Performance Simulation Environment (PSE), is used to simulate the models. We show that, with extended custom queue disciplines, resource network methodology is a viable approach for complex packet processing system performance analysis.
+This thesis investigates the use of measurement, modeling, and simulation methods for the use of packet processing system development. We present a way to model complex hardware and software interactions of a modern MPSoC network processing systems, using an extended resource networks concept. We will study, instrument, and measure the characteristics of a modern network processing unit, and model the system using an in-house discrete event simulator, Performance Simulation Environment (PSE). We show that, with extended custom queue disciplines and support for modeling task parallelism, resource network methodology is a viable approach for complex packet processing system performance analysis.
 
 % PSE provides a toolset for performance analysis of hardware and software co-scheduled manycore systems. It is a discrete event simulator based on resource network methodology.
 
 % The focus of this work is on modern packet processing systems and pipelined network processing unit. We will present
 
 \section{Problem statement}
+Efficient packet processing is becoming more and more important as the computation moves away from the end-devices, towards the cloud and fog. At the same time the performance analysis of these systems is difficult, due to the architectural heterogeneity, complexity, and non-deterministic behavior of the typical multiprocessor system-on-chip system (MPSoC) implementation.
 
-% Packet processing systems are, in essence, queuing systems. While queue and resource networks and simulation are widely used concepts for packet processing problems, today's packet processing systems are too complex to be modeled with traditional queue disciplines.
+The non-deterministic behavior of the MPSoCs is result of parallelism, communication delays, complex memory systems, and complex hardware and software scheduling mechanisms. These system interactions are difficult, sometimes even impossible, to reason about, and make the performance analysis non-trivial.
 
-% esource network methodology and dynamic scheduling models are a viable approach in modeling heterogeneous MPSoCs with accel- eratosr
-
-% this type of simulation methods can speed up the modeling work by abstracting the system and decoupling the complex hardware and software models, while also maintaining the correct behavior of the system under study.
+The nature of packet switched network data introduces strict performance requirements: the manipulation of the packet streams passing through the system must often be done on the on-the-fly. At the same time, the data volumes are growing and are highly unpredictable.
 
 The packet processing systems are, in essence, queuing systems. Queue and resource networks are widely studied concepts, often used for packet processing problems. However, the complex low level interactions between the components of MPSoC's make the traditional queue concepts insufficient, while at the same time the exact measurements may be unsuitable, especially in the early stage of the system development. One way to address this problem, is to extend the resource networks with more flexible queue disciplines and methods for modeling parallelism, to correctly mimic the behavior of these systems.
 
-\todo[inline]{restate the research problem}
+% \todo[inline]{restate the research problem}
 
-How can the resource network paradigm be used to model complex hardware and software interactions of modern MPSoC network processing units.
+% How can the resource network paradigm be used to model packet processing systems. Can the abstraction level of the simulation be lowered without sacrificing the speed of simulation?
 
 The research problem of this thesis is: How to model the packet processing systems, or more accurately the hardware schedulers of the packet processing systems, to achieve feasible modeling capability, fast enough simulation times, and correct behavior of the system at the same time.
 
