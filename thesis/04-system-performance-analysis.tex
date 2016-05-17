@@ -33,7 +33,37 @@ If the service result is incorrect, the metrics describe the probabilities of th
 
 It should be noted that many systems provide multiple services, and the number of metrics can be large. Also, different evaluation techniques provide different metrics at different times of the service. For example, some simulators allow white-box-like view of the system states during the simulation, whereas, with analytical methods, the details of the system are often unavailable.~\cite{jain:1991:AOCSPA}
 
-\section{Resource Networks}
+\subsection{System Components and Environment}
+\label{sec:syst-comp-envir}
+
+In performance analysis, a \emph{system} can be defined to be a set of objects that work together, in regular interaction or interdependence, to accomplish some goal or purpose. Every system is a subsystem of broader \emph{system environment}, whose changes can affect the system. For every performance analysis study, a \emph{boundary} between the system and its environment must be set.~\cite{Banks:2010:DES}
+
+For example, computer systems are often enormously complex. The complexity is managed by designing them as a hierarchy of smaller subsystems, and combining them with compatible interfaces. In a study of a network processing system, such Cavium OCTEON's~\cite{cavium:2010:fundamentals}, the higher level system can be viewed to consist of several processors, auxiliary memory, memory controllers, and other smaller subsystems. These subsystems can further be viewed as a set of smaller subsystems of subsystems: the processor has several processing cores, each core consists of different functional units, and each functional unit consists of logical circuitry.~\cite{Banks:2010:DES}
+
+The objects of interest in a system are called \emph{entities}, which are associated with a set \emph{attributes}. An \emph{activity} is a specified length time period. A system \emph{state} completely describes the system at any given time of a specific study. The state might be changed by an immediate occurrences called \emph{events}. The events affecting the system are divided into two groups by their source: \emph{endogenous} events occur within the system under study, and \emph{exogenous} events occur in the system environment.~\cite{Banks:2010:DES}
+
+Continuing with the above example, each of the mentioned components can be seen as the entities of the system. There are several activities and events at different levels of the system. At the higher level, these can be seen as the packets flowing through the system: writes and reads to the memory, execution on different processors, and queuing for the processor time. At a lower level, these could be the computation done by the logical units or the flipping of the transistors' state.
+
+Systems can be categorized into discrete and continuous systems, as per the type of their state change. In a \emph{discrete system}, the state changes only at a discrete time points, and in a \emph{continuous system}, the state change is continuous over time. In practice, almost every system is a combination of both continuous and discrete changes. These systems are often classified by their dominant type.~\cite{Banks:2010:DES}
+
+
+\section{System Modeling}
+\label{sec:system-modeling}
+
+\emph{Model} is a representation of either hypothetical or real-life system under study. By the definition a model should be a simplified representation of the original system. It should represent the studied system with enough detail to provide relevant conclusions and, at the same time, only consider those details that affect the investigated problem. The decision between the level of accuracy and abstraction usually requires knowledge of the system under modeling.~\cite{Banks:2010:DES}
+
+Like with the system representation, the basic building blocks of the model can be defined as entities, attributes, activities and events. The model does not necessarily contain the exact replica of the components of the system, but rather simplified components that represent the system with enough detail.~\cite{Banks:2010:DES}
+
+In the example study of network processing unit, the likely goals would be to determine the packet throughput and latency of the system. In that case, the system could be modeled with sufficient accuracy by omitting all the lower level details of the CPU. On the other hand, a detailed performance study of a specific CPU might require even the minute details of the functional units or logical circuitry.~\cite{Magnusson:2002:Simics, Hughes:2002:Rsim}
+
+The models may be categorized as being static or dynamic, and deterministic or stochastic. Static models represent steady-state time-invariant systems, whereas the dynamic models represent systems as time-variant. Deterministic models contain no random variables, meaning that for the known set of inputs the result, of solving the model, will result in a unique set of outputs. Stochastic models on the other hand include random variables, thus leading to a random set of outputs.~\cite{Banks:2010:DES}
+
+Models can further be divided into discrete and continuous, analogously with the discrete and continuous systems described in Section~\ref{sec:syst-comp-envir}. However, it is possible to model continuous systems with discrete models, and vice versa. Just as the real-life systems, the models can be a mix of both continuous and discrete models.~\cite{Banks:2010:DES}
+
+\subsection{Queuing Networks}
+\todo[inline]{systems can often be represented as queuing networks yada yada}
+
+\subsection{Resource Networks}
 Network structures are often used for describing the models. For example petri nets~\cite{Peterson:1981:Petri}, markov chains~\cite{Bolch:2006:Queuing}, queuing networks~\cite{Bolch:2006:Queuing}, and resource networks~\cite{Menasce:1994:CPP} are widely researched model definitions with a well-developed theory for analyzing the system behavior.
 
 Queue based modeling schemes are inherent in packet processing systems performance analysis. Queuing networks, is a specific modeling concept, in which the system under study is represented with a restricted set of building blocks: tasks, queues, resources, and routes. Queuing theory models the behavior of the tasks arriving the system at random inter-arrival periods.~\cite{Bolch:2006:Queuing}
@@ -48,39 +78,10 @@ Resource networks extend the queuing networks concept by decoupling the network 
 
 Resource networks are suitable for modeling resource requests, dynamic scheduling and different load balancing schemes. These techniques enable modeling of more complex interactions of parallel systems with dynamic workload and resource usage. Due to the dynamicity introduced by the flexibility, resource networks often have to be solved by simulation.~\cite{Menasce:1994:CPP}
 
-\section{System Modeling}
-\todo[inline]{vois selvemmin erottaa mallinnuksen ja simuloinnis}
-
 \section{Simulation}
 This section describes the basic principles related to simulation. Note that, despite the most of the examples in this chapter being about computing, simulation is widely used also in several other contexts, even beyond science. The concepts described below, e.g. entities, attributes, or activities, have different realizations from system to system.
 
 Simulation is an artificial imitation of the operation of a real-life system over time. The system behavior is studied by developing a simulation model, based on a set of assumptions concerning the characteristics and functions of the system. The assumptions are presented in mathematical, logical, and symbolic relationships between the objects of interest of the system. An artificial operation history is generated by executing the simulation model, generally on a simulator program, with respect to system input and time. Data are collected from the simulation similarly as if the real system was being measured.
-
-\subsection{System components and environment}
-\label{sec:syst-comp-envir}
-
-In simulation, a \emph{system} is defined to be a set of objects that work together, in regular interaction or interdependence, to accomplish some goal or purpose. Every system is a subsystem of broader \emph{system environment}, whose changes can affect the system. For every simulation study, a \emph{boundary} between the system and its environment must be set.~\cite{Banks:2010:DES}
-
-For example, computer systems are often enormously complex. The complexity is managed by designing them as a hierarchy of smaller subsystems, and combining them with compatible interfaces. In a study of a network processing system, such Cavium OCTEON's~\cite{cavium:2010:fundamentals}, the higher level system can be viewed to consist of several processors, auxiliary memory, memory controllers, and other smaller subsystems. These subsystems can further be viewed as a set of smaller subsystems of subsystems: the processor has several processing cores, each core consists of different functional units, and each functional unit consists of logical circuitry.~\cite{Banks:2010:DES}
-
-The objects of interest in a system are called \emph{entities}, which are associated with a set \emph{attributes}. An \emph{activity} is a specified length time period. A system \emph{state} completely describes the system at any given time of a specific study. The state might be changed by an immediate occurrences called \emph{events}. The events affecting the system are divided into two groups by their source: \emph{endogenous} events occur within the system under study, and \emph{exogenous} events occur in the system environment.~\cite{Banks:2010:DES}
-
-Continuing with the above example, each of the mentioned components can be seen as the entities of the system. There are several activities and events at different levels of the system. At the higher level, these can be seen as the packets flowing through the system: writes and reads to the memory, execution on different processors, and queuing for the processor time. At a lower level, these could be the computation done by the logical units or the flipping of the transistors' state.
-
-Systems can be categorized into discrete and continuous systems, as per the type of their state change. In a \emph{discrete system}, the state changes only at a discrete time points, and in a \emph{continuous system}, the state change is continuous over time. In practice, almost every system is a combination of both continuous and discrete changes. These systems are often classified by their dominant type.~\cite{Banks:2010:DES}
-
-\subsection{Simulation Model}
-\label{sec:simulation-model}
-
-Simulation \emph{model} is a representation of either hypothetical or real-life system under study. By the definition a model should be a simplified representation of the original system. In simulation, it should represent the studied system with enough detail to provide relevant conclusions and, at the same time, only consider those details that affect the investigated problem. The decision between the level of accuracy and abstraction usually requires knowledge of the system under modeling.~\cite{Banks:2010:DES}
-
-Like with the system representation, the basic building blocks of the simulation model are entities, attributes, activities and events. The model does not necessarily contain the exact replica of the components of the system, but rather simplified components that represent the system with enough detail.~\cite{Banks:2010:DES}
-
-In the example study of network processing unit, the likely goals would be to determine the packet throughput and latency of the system. In that case, the system could be modeled with sufficient accuracy by omitting all the lower level details of the CPU. On the other hand, a detailed performance study of a specific CPU might require even the minute details of the functional units or logical circuitry.~\cite{Magnusson:2002:Simics, Hughes:2002:Rsim}
-
-The models may be categorized as being static or dynamic, and deterministic or stochastic. Static simulation models represent steady-state time-invariant systems, whereas the dynamic simulation models represent systems as time-variant. Deterministic models contain no random variables, meaning that for the known set of inputs the simulation result will be a unique set of outputs. Stochastic models on the other hand include random variables, thus leading to a random set of outputs.~\cite{Banks:2010:DES}
-
-Simulation models are further divided into discrete and continuous, analogously with the discrete and continuous systems described in Section~\ref{sec:syst-comp-envir}. However, it is possible to model continuous systems with discrete models, and vice versa. Just as the real-life systems, the simulation models can be a mix of both continuous and discrete models.~\cite{Banks:2010:DES}
 
 Three different simulation advancement designs are presented in~\cite{peros:2009:simulation}: event-advance, unit-time advance and activity based. In event-advance design the system state changes only when the event occurs. Thus the system state advances from snapshot to snapshot, meaning that the state is unchanged between two successive events. In unit-time advance design, the master clock is advanced in fixed time increments. Activity based design is a continuous design method, which models the system as a set of conditions that determine when the activities start or stop.~\cite{peros:2009:simulation}
 

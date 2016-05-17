@@ -1,12 +1,12 @@
-\chapter{Example Simulation Model}
-\label{chapter:example-simulation-model}
+\chapter{Modeling a Packet Processing System}
+\label{chapter:modeling-a-packet-processing-system}
 
 In this chapter, we present an example simulation model of Cavium OCTEON II CN6880 network processing unit~\cite{cavium:2010:fundamentals}.
 
 First, we will introduce the high-level model components and entities. The reference values, gathered from the measurements presented in section~\ref{sec:characteristic-measurements}, are then plugged in to the model and the relevant details are discussed. Finally, we describe the implementation of the SSO unit using the PSE plugin interface.
 
 \section{Cavium OCTEON CN6880 Model}
-\label{sec:simulation-model}
+\label{sec:cavium-model}
 We created a high-level simulation model of the Cavium OCTEON II CN6880 network processing unit with Performance Simulation Environment. As our interests are mainly in the applications' and SSO unit's effect on the packet throughput and latency, we will not model the specific details of all the hardware components. Some of the components, such as the input and output phases, or the memory models, are modeled statistically. Figure~\ref{fig:full-model} shows a layered representation of the main components of the final model: workload, hardware, and software. The workload model and software model's application steps vary between different applications, and are not fixed part of the CN6880 model per se, but rather presented here to give a full example of the model.
 
 \begin{figure}[]
