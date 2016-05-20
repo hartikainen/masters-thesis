@@ -146,8 +146,18 @@
 % \usepackage{alltt}
 
 % Use biblatex instead of natbib.
-\usepackage[style=numeric, bibencoding=utf8, backend=bibtex, firstinits=true]{biblatex}
+\usepackage[
+style=numeric,
+bibencoding=utf8,
+backend=bibtex,
+firstinits=true,
+doi=true,
+url=true]{biblatex}
 \addbibresource[datatype=bibtex]{sources.bib}
+
+\DefineBibliographyStrings{english}{%
+  urlseen = {Retrieved},
+}
 
 % The eurosym package provides a euro symbol. Use with \euro{}
 % \usepackage{eurosym}
@@ -293,8 +303,8 @@
 % You can just fix the texts there. Just remember to check all the language
 % variants you use (they are all there in the same place).
 % ------------------------------------------------------------------
-\newcommand{\TITLE}{Simulation of Packet Processing Systems at the Network Edge}
-\newcommand{\FTITLE}{Pakettiprosessointisysteemien Simulaatio Verkon Reunalla}
+\newcommand{\TITLE}{Performance Analysis of Packet Processing Systems}
+\newcommand{\FTITLE}{Pakettiprosessointisysteemien Suorituskykyanalyysi}
 \newcommand{\SUBTITLE}{}
 \newcommand{\FSUBTITLE}{}
 \newcommand{\DATE}{\usdate \today}
@@ -509,9 +519,7 @@
 \input{06-mechanism-for-extended-queue-disciplines.tex}
 \input{07-simulation-model.tex}
 \input{08-demonstrative-experiments.tex}
-\input{09-discussion.tex}
-% \input{10-conclusions.tex} TODO
-
+\input{09-conclusions.tex}
 
 % Load the bibliographic references
 % ------------------------------------------------------------------

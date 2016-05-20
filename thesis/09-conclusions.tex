@@ -1,0 +1,192 @@
+% TODO
+% Goals
+%   - network processing system ok, clusteri koostuisi useammasta noodista
+%   - addressed entity -> kutsutaan nodeksi
+%   - node ihan hyva bladesta, processing element viittaa yhteen ytimeen
+%   - dipassa NPU, blade kannattaa yhtenäistää
+%   - kannattaa luoda pikkasen priorisoinnin kuvaa:
+%     - tilanne on se että tavoitteet on kahtalaiset
+%     - NPU ymmärryksellä on oma arvonsa
+%     - Simuloinnin ymmärryksellä on oma arvonsa
+%     - Latenssipäämäärät on subgoals, arvo tulee yo. goalien kautta
+%     - Se että ymmärretään delay-rakennetta palvelee molempia:
+%       - hajautetun verkkoprosessoinnin ymmärrystä, sekä simuloinnin ymmärrystä
+%       - Kysymys on että mitkä arvot? Kaikkea pystyy tekee, mutta ei ehdi
+%       - Mikä on tärkeää, miten/mitkä mittaukset tukee molempia päämääriä
+%       - Jos mittaus on työläs ja tukee vain toista, kannattaa jättää tekemättä
+
+\chapter{Conclusions}
+\label{chapter:conclusions}
+
+This chapter discusses the results and concludes our work. First, we present the challenges within the topic of the thesis. The discoveries section discusses the findings made during the thesis. In related work, we summarize the related work on the field of our study. In the future work section, we propose few possible future directions on our topic of research. Finally, it concludes the thesis by summarizing our work.
+
+\section{Challenges}
+% JUSSI
+% Yleisesti ongelma, eli fogi ja cloudi vaatii tehokasta pakettiprosessointia -> performanssianalyysi tärkeetä -> koska pakettisysteemit ja MPSoCit on vaikeita hardware-tason systeemejä niin analyyttinen analyysi ja mittaaminen usein vaikeeta -> simulaatio tärkeetä
+
+% Ja että fog/cloud jmät IoT skaalassa ovat monimutkaisia. Niin monimutkaisia, että niistä ei usein voi rakentaa protoa ennen jmän deploymenttiä.
+
+% Mallinnuksessa sopiva abstraktiotaso keskeistä. Liian tarkat abstraktiot hidastavat simulaatiota, kun taas liian korkeat antavat summittaisia tuloksia. Lisäksi käytettävyys, mallinuksen "nopeus", jne..
+
+% Simulaatiota varten täytyy pystyä mallintamaan tehokkaammin monimutkasia resursseja, kuten schedulereita
+% Simulaatioiden koko kasvaa -> tarvitaan skaalaautuvia simulaattoreita (parallelisoituminen)
+% Tämä johtuu tietenkin mallinnettavien jmien kompleksisuuden kasvusta.
+%%%%%
+
+%  - pitäis jotenkin sanoa et "where actual system based prototyping is not always possible", koska oikeestaan nythän prototyyppaillaan mallien avulla
+%  - vois korostaa et "jos sanotaan et ei voida protot. valmiilla systeemeillä", niin modeling on tärkeä performance analysis tool, ja jotenkin et voidaan käyttää osana model based designiä, joka mahdollistaa early design phase exploration, model based prototyping etc.
+%  - "correctly mimic" -> vois esittää asian niin että
+%  - "more flexible" -> user configurable
+%   - nnäiden avulla voidaan löytää hyvä balanssi tarkkuuden ja (suorituskyvyn) kompleksisuuden, käytettävyyden jne välillä.
+%  - "correct abstraction level" -> kun puhutaan tästä vois jotenkin yhdistää tohon että: "ei oo pelkästään suoritusaika ja tarkkuus, mut myös mallinnuksen vaikeus, kompleksisuus, vs. mallin ymmärrettävyys ja yleiskäyttöisyys, reuse". Toisaalta mallinnusmekanismien ilmaisuvoima. "tässä mallinnettuun NPU:ta mut näillä mekanismeilla voitais mallintaa muitakin järjestelmiä"
+% - "yleisesti hyvä mut mallinnuksessa kyse abstraktiotasoista"
+% - Tracetuksen vois jättää pois
+
+Today's packet processing system face an ever-increasing number of packets requiring more and more complex processing. Short development cycles and fast revisioning of the systems have become necessity, as the vendors face fast changes in technology, dynamic customer requirements, and pressure for time-to-market. To answer these requirements, especially with the tightening energy limitations, the vendors are searching for new packet processing solutions. Network processing units are a type of network processors, build as a multiprocessor system-on-chips (MPSoC's). Network processing units are optimized for high-speed network packet processing at wire-speeds of multi-Gbps, while at the same time enjoying the generic characteristics similar to general purpose central processing units.
+
+Network processing units are, in essence, queuing systems. Queueing and resource networks are widely studied modeling concepts, often used for packet processing problems and other computing system modeling. However, the complexity of today's packet processing systems, especially in the scale of cloud and fog computing, is reaching a scale where real system prototyping is not feasible. Thus, modeling methods are often used as a part of system performance analysis, enabling faster early design phase exploration and model based prototyping.
+
+Non-deterministic behavior and complex hardware and software interactions of the MPSoC devices make the performance analysis of the network processing units difficult.
+
+Modeling based performance analysis techniques also face various challenges. Network processing units are difficult to understand, due to complex non-deterministic behavior and complex hardware and software interactions of the MPSoC devices, and the dynamic nature of the input data streams.
+
+One way to address this problem, is to extend the resource networks with user configurable queue discplines and methods for modeling parallelism, which brings flexibility to the model abstraction level. Correct abstaction level is one of the key elements of modeling. On one hand, abstraction level affects the simulation execution time and accuracy of the results. Too detailed models are intractable and require time consuming simulations, while too high level abstractions hide the sought characteristics of the system, resulting in inadequate results. On the other, it affects the complexity of model construction and reusability. \todo{yleiskayttoisyys}
+
+More complex queue disciplines and MPSoC behavior force the use of simulation methods to execute the models.
+
+% \todo[inline]{Parallel simulation is problematic}
+
+
+\section{Discoveries}
+% Discoveries
+% PSE:llä voidaan mallintaa vaikeampiakin hardware interactioista suht intuitiivisesti (ja mahdollisesti myös tehokkaasti)
+% Valitettavaa, mutta mulla ei oikeestaan tuu mitään sen suurempia discoveryjä mieleen tän työn tuloksena...
+% Tai että laajentamalla perinteistä resurssiverkkokonseptia globaalilla skedulointi plugarilla, sillä voidaan mallintaa task based processinkia hardware scheduloiduilla alustoilla, tms..
+%%%%%%%%
+% - sen sijaan et "on a meaningful" -> miten nyt haluaa korostaa, mut esim. different abstraction levels, tai "on a suitable"
+% - "intuitive, fast" -> kun on decouplattu, mahdollistaa model reuse
+% - "does limit" -> "does not limit"
+% - "feedback, observations" -> pitäis olla aika konkreettisia asioita
+%  - eka vähän yleisempi
+%  - discoveriesissa vois olla vähän samoja kun kontrib.
+%  -> "discovery on se että kun mallinnettiin SSO unitti user definable functioilla, se mahdollisti event-based programmingin mukaisten applikaatioiden mallintamisen, fast prototyping ja performance analysing"
+%  -> sitä kautta voi sanoo et "plugarin usability ei luonnollisesti rajotu task based programming modelseihin eikä NPU:in vaan leisemmin laskenta ja tiedonsiirto järjestelmiin. Miksei myös muihinkin järjestelmiin."
+%  - vois olla hyvä myös mainita et "sitä kautta et abstraktiotaso (suor. aika vs. tarkkuus), me haluttiin tarkka malli SSO:sta. Discovery on että heti kun sen toimintaa mallinnetaan (edes korkeallatasolla) funktionaalisesti niin raudan rinnakkaisuuden mallintaminen softallisesti tappaa softan suorituskyvyn"
+%  - me valittiin tradeoffissa suorituskyvyn ja ... tarkempi vaihtoehto
+%  - jotta select jne funktiot voi tehdä päätöksen, se hidastaa simulaatiota
+
+The thesis shows that the resource network paradigm, extended with custom queuing disciplines and support for modeling task parallelism, seem be adequate tool for modeling complex hardware and software interactions of a modern MPSoC network processing systems. Performance Simulation Environment (PSE) enables flexible modeling of MPSoC systems on a different abstraction levels. It decouples the hardware and software presentation of the models, enabling intuitive and fast modeling, and improves the model reusability.
+
+Naturally, the usability of the extended plugin functionality, and the customized queueing disciplines, does not limit to modeling of network processing or task-based programming models, but enables faster modeling of general computing and packet procesing systems. Various systems, not only in the field of computer science, can be modeled using the extended resource network paradigm. Based on our own observations during the development of PSE, we believe that the traditional resource network concept will be an intriguing tool for modeling and simulation of hardware scheduled manycore network processing units. As our experiments demonstrate, modeling the packet scheduling unit with user-defined queue disciplines enables modeling of task-based software applications, fast prototyping, and performance analysis.
+
+% \todo[inline]{Resource network models, extended with more complex queuing disciplines and support for modeling task parallelism, seem to be adequate for modeling complex hardware and software interactions of a modern MPSoC network processing systems}
+% \todo[inline]{
+% PSE provides an efficient way of simulating MPSoC systems.
+% PSE decouples the hardware and software presentation of the models, enabling intuitive, and fast modeling}
+
+\section{Related Work}
+% Related Work
+% Tähän varmaan ois kiva kaivaa jotain esim. EPC tai vastaavia simulaatiojuttuja esimerkiks?
+% Lisäks ajattelin esitellä erilaisia simulaattoreita samaan tyyliin kun sunkin related workissa
+% Jotain jos löytyy järjestelmien mallinnuksesta niin hyvä ois.
+%%%%%%%%%%%%
+% - Vois aluks puhuu vaan modeling and simulation are widely used methods in perf. analysis. Sanoisko että pp systems vai ei (ehkä sen vois sanoa)
+% - Datacenter components, vähän spesifimpi
+% - Jos löytyy niin vois jotain enemmän aihealueeseen related workeja
+% - löytyykö jotain RN ratkovia simulaattoreita/ networkkeja
+% - onko NPU valmistajilla jotain omia työkaluja
+% - jos on, niin onko ne korkeantason (caviumilla ainakin syklintarkkoja)
+% - resurssiverkkojen simulointi, rautaskedulerin mallintaminen
+% - resurssiverkkosimulaattoreita, tai ees jonoverkkoextensioita
+% - jos löytyy töitä jossa mallinnettu rautaskedulereita
+
+Modeling and simulation are widely used methods in performance analysis of packet processing systems. There exists no universal modeling or simulation approach that could be used for all the performance analysis problems. Rather, there exists multitude of tools and approaches that have been implemented in attempt to balance between competing goals, and cope with a specific subset of the problem space.
+
+ns-3 is an open source network modeling and simulator software used for Internet systems. Similarly as in PSE, ns-3 enables customized queue disciplines.
+- built using C++ and Python with scripting capability
+- targeted for higher level network modeling and simulation
+- The implementation design for ns-3's queueing discipline is very similary to the PSE extensions presented in this work.
+ - ns3::Queue::DoEnqueue
+ - ns3::Queue::DoDequeue
+- detailed models of network devices are not possible (TODO: check this!)
+
+% StepNP is  an exploratory network processor simulation environment for exploring applications, multiprocessor network-processing architectures, and SoC tools. Supporting model interaction, instrumentation, and analysis, the platform lets R&D teams easily add new processors, coprocessors, and interconnects.
+StepNP is a discrete-event simulator targeted for network processor performance analysis. It enables exploration applications, multiprocessor network-processing architectures, and system-on-chip devices.
+
+Some of the NPU vendors also provide official performance analysis tools for targeted for their NPU systems, such as Cavium's cycle-accurate simulator software targeted for their OCTEON product family. Unlike PSE, the vendor provided simulator are often low level simulators targeted for specific hardware and software. PSE models are reusable higher level abstractions, enabling rapid prototyping of several hardware platforms without software model modifications, and vice versa, rapid protyping several software applications without hardware model modifications.
+
+% Despite the challenges, parallel simulation is a widely used method in performance analysis of MPSoCs. However, there exists no single method that could be used in an universal manner to model and simulate all parallel systems, nor MPSoCs. Instead, the field of parallel simulation contains many different methods, tools and54
+% approaches that attempt to balance between competing goals, and cope with a specific subset of the problem space.
+
+
+
+% Cloud datacenter simulators are used for simulation the critical parts of cloud datacenter. CloudSim~\cite{Calheiros:2011:Cloudsim}, for example, is a toolset for modeling and simulation of cloud computing infrastructure and application services. CloudSim can be used for simulating large-scale datacenters, virtualized server hosts with customizable provisioning policies, energy-aware computational resources, data center network topologies and message-passing applications. Various different projects extend the CloudSim API for more detailed performance analysis of different parts fo the cloud system: CloudSimEx enables simulation of MapReduce jobs and CloudAnalyst~\cite{Wickremasinghe:2010:CloudAnalyst} enables simulation of large-scale cloud applications in terms of geographic distribution.
+
+% When moving towards the fog, the performance of mobile network technologies becomes important. In~\cite{Ikuno:2010:LTE}, Ikuno et al. present a Matlab based simulation software for the system level LTE networks.
+
+\section{Future Work}
+% JUSSI
+% Virtualisaation simuloiminen? Tää vaikuttaa mun mielestä tärkeeltä mutta ne oikein keksi miten tota pitäis purkaa
+% Vois tietty olla future workissä. Jotain tyyliin: virtualisointien (laskenta, tiedonsiirto, yms) mallinnus vaatisi lisää tasoja resurssiverkkoparadigmaan.
+
+% Varmaan jotain yleisesti fogista ja vastaavasta? Esim. että toi meidän systeemi vois olla osa sellasta experimenttiä josta puhuttiin alkuvuodesta
+% Ehkä tänne ennemmin tuo virtualisointi asia, ja jos jotain vastaavaa löytyy kanssa.
+% Ja jotain yleisesti yhä monimutkaistuvista järjestelmistä, ja järjestelmien järjestelmistä. Internet kokoluokan ongelmista.
+
+% \todo[inline]{Modeling virtualized systems? Modeling of virutalization (computing, communication, etc..) Requires more levels to the resource network paradigm.}
+%%%%%%%%%%%%%%%%%%%%%%%
+% - Vähän lyhyemmin vaan: koko kappaleessa kyse siitä että parallel simulationin tutkimista
+%  - tehokkaampi rinnakkaustus
+%  - simulator enginen rinnakkaistaminen
+%  - support for massive task based parallelism, for example GPU farm, etc
+%  - vaikka ois todella kevyet threadirakenteet, tai rinnakkainen simu niin suorituskyky kuolis
+% - yks suunta enginen rinnakkaistus
+% - toinen support parallel acceleraattoreille
+% - yks future workki vois olla extend/support resource network konseptia, tavallaa virtualisoinnin tuki
+%  - virtualisoidaan resurssit jota applikaatiot käyttää
+%  - hw ja sw väliin tulis yks malli
+%  - pitäis
+%  - "resurssiverkkokonseptin kehittäminen tukemaan virtualisointia"
+
+
+There exist several directions for future research around the topic of this thesis. As we have shown in this work, the resource network methodology, extended with user-definable queue disciplines and support for modeling parallel systems, can be used to model more modern MPSoC based network processing units. The user-defined queue discplines provide desired flexibility to the PSE's modeling and simulation abstraction level. However, in order to meet the modeling and simulation requirements of larger systems, such as the network processing unit presented in this work, in larger scale, let alone full scale datacenter networks or complex IoT applications, PSE needs to be further developed.
+
+% in order for the PSE toolset to meet future challenges of growing core counts of both the modeled systems, and the simulation execution platforms, the PSE tools need to evolve.
+
+% As we have shown in this work, the resource network methodology, extended with user-definable queue disciplines and support for modeling parallel systems, can be used to model more modern MPSoC based network processing units. The flexibility of PSE, and resource networks, enable simulation of large-scale systems on many different parts of the cloud computing context. However, there are certain limitations with the tool as well.
+
+% \todo[]{task/event parallelism, generally hardware scheduled manycoresystems?}
+
+% Simulation of larger systems, such as the network processing unit presented in this work, in larger scale, let alone full scale datacenter networks or complex IoT applications that consist large number of different components, with the current implementation of PSE are not feasible.
+
+% Simulation of such models require lots of memory and computing resources. This calls for new modeling methods and simulation parallelization techniques. E.g. simulator runtime should be able to reuse the model description by decoupling model state from description. Advanced memory management schemes, such as shared events, application memory regula- tion, and collective file I/O should be used. And finally, the simulator should make use of parallel hardware, and be able to scale with increased core counts.
+
+Simulation of the large-scale models face the same challenges as any large scale application. Due to the growing memory and computing resources requirements, the resource usage of PSE needs to be improved.
+
+One way of improving the simulation efficiency, is to develop the threads executing tasks and the data structures used in the simulation runtime. The threads are fairly heavy structures to handle the tasks, in the context of large-scale simulations. These could, for example, be replaced with similar structures as Akka frameworks' actors. Some of the data structures used in the simulation are dependent on the modeler's choice of the scheduling functions, thus resulting in a tradeoff between the general but less efficient memory structures and the ease of modeling.
+
+Despite the more efficient data structures and single threaded execution, simulator software face the same problems as any other computer software: efficient scaling requires parallelization of the software. Parallelization of discrete-event simulator software is a wide research topic itself, and faces multiple challenges, not only the ones faced with parallelization in general, but also the simulators' nature makes the problem non-trivial. The parallelization of PSE could be done in several ways. With the current implementation of the PSE, the conservative parallel simulation (the simulation threads advance conservatively) approach seems to be most viable solution. However, to enable more advanced parallelization methods, e.g. variations of optimistic and conservative approaches, parts of the simulator core needs to be rewritten, as the current version of PSE does not support any history of the simulation.
+
+Another future research topic around resource networks is the support for virtualization. Virtualization is an important topic in today's computing, and for example large scale cloud- and fog datacenters are contingent on the efficient virtualization methods. Performance analysis methods need to adapt to support the needs to further understand these systems. A natural way to model virtualization in PSE, would to add a new virtualization model layer between the resource utilization and resources usage models.
+
+This thesis investigated the use of measurement, modeling, and simulation methods for the use of packet processing performance analysis. \todo[inline]{should the 'conclusions' start directly from here, or be its own subsection?}
+% The goal of this thesis was to investigate the use of simulation, measurement and modeling methods for analyzing the performance of parallel accelerator rich plat- forms. The motivation behind this work was that as the new heterogeneous parallel hardware is complex and traditional programming methods are not working as such, a higher level of abstraction is needed in order to analyze the performance of different scheduling, application partitioning and runtime configuration decisions.
+
+%This thesis presented a way how to model, simulate and analyze the performance of MPSoCs with accelerators using the resource reservation based mechanism. Focus of this thesis is in scheduling, how to model and analyze hardware, software and hy- brid scheduled systems. Performance analysis was done by constructing executable models of systems with adjustable monitoring mechanisms. Modeling in PSE is based on the use of graphical editor tools which allow model description using basic building blocks. PSE models are simulated using discrete event based approach.
+
+%Concrete contributions of this thesis include updating an existing simulation framework to support parallelism. Main contribution is on one hand that modeling concepts of PSE have been widened and on the other hand that the supporting mechanisms have been implemented. The implemented fork-join mechanism allows modeling of parallel resource requests.
+
+%This thesis has shown that the resource network methodology augmented with dynamic scheduling is a viable approach in modeling heterogeneous MPSoCs with accelerators. With the use of concrete example models this thesis showed how dynamic scheduling can be modeled and simulated using the reseource reservation based methodology. Similarly a way to model memory systems was presented. A small scale demontrative experiment was also done. The demonstrative experiment showed that PSE suits well for early design space exploration.
+
+%The PSE runtime can be used to collect a comprehensive set of simulation metrics and traces. The detailed monitoring capabilities of PSE allow exact tracing of events which makes causal reasoning of event sequences possible.
+
+%The heterogeneous multi- and manycore systems-on-chip are increasingly com- plex devices with lots of interacting components. The future platforms will have even greater number of cores and accelerators. MPSoCs are used in embedded sys- tems with high-performance real time requirements, and systems of systems are built using these components. Research in high-level simulation techniques is motivated by the fact that complex systems, such as IoT, are growing in complexity and re- quire new application development tools. Efficient modeling and simulation tools are needed to support the design process.
+
+% Similarly new higher level modeling methods and novel parallelization strategies are needed in order to model, simulate and analyze the performance of such systems using as execution platform the available manycore platforms.
+
+%Parallelization of PSE and simulators in general is a research question that needs addressing more and more as the core counts on the execution platforms are con- stantly growing. This is not only for the sake of speeding simulation execution, but also because of PDES research itself. Research made within the field of parallel simulation can lead to novel discoveries that have applications in the general domain of parallel computing.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "thesis-hartikainen"
+%%% End:
