@@ -1,12 +1,14 @@
 \chapter{Demonstrative Experiments}
 \label{chapter:demonstrative-experiments}
 
-This chapter presents two demonstrative simulation experiments done on the Cavium OCTEON II CN6880 PSE model. The goal of the experiments is to demonstrate how the queue types, priorities, and coremasking affect the scheduler, and hence the packet throughput and latency. At the same time, it validates the PSE's implemented plugin-code functionality and the CN6880 model.
+This chapter presents two demonstrative simulation experiments done on the NPU model presented in Chapter~\ref{chapter:modeling-a-packet-processing-system}. The goal of the experiments is to demonstrate how the parallel mechanisms of a task based-programming model, i.e. queue types, priorities, and coremasking, affect the scheduler, and hence the packet throughput and latency. At the same time, it validates our NPU model and the PSE's implemented plugin-code functionality.
+
+In the first experiment, we will use the global queue information to control the resource provision based on global queue priorities and disciplines defined in the software queues. The second experiment presents the use of queue coremasks, to control the use of specific hardware resources, through the software model.
 
 \section{Experiment Setup}
 \label{sec:experiment-setup}
 
-Both experiments are run on the hardware model represented in Figure~\ref{fig:experiment-hardware}. The model consists of six active resources. The PKI and PKO units are consumed by the input and output phases of the packet flow, respectively. Each 32 processing cores have a L1 cache associated with it, and the L2 cache and RAM are shared between the cores. The cores are served as first come first serve basis, as the scheduling logic is taken care of in the SSO unit.
+Both experiments are run on the hardware model represented in Figure~\ref{fig:experiment-hardware}. The model consists of six active resources. The PKI and PKO units are consumed by the input and output phases of the packet flow, respectively. Each 32 processing cores have a L1 cache associated with it, and the L2 cache and RAM are shared between the cores. The cores are served as first come first serve basis, as the scheduling logic is taken care of by the SSO unit.
 
 \begin{figure}[]
   \begin{center}
@@ -25,7 +27,7 @@ We gather two different metrics of the system. First, we are interested in the c
 \section{Experiment 1: Global Queue Interrelations}
 The first experiment consists of two different simulations and measurements. We will first demonstrate a packet processing application, whose throughput is limited due to the bottleneck occurring from a slow atomic processing. The application is then modified, extracting part of the atomic execution object into parallel, thus breaking the bottleneck.
 
-The workload model consists of a single packet stream, which is generated from a two level workload model, presented at the top in Figure~\ref{fig:exp1-software}. The \emph{TRAFFIC GENERATOR} node triggers its child node with interval $RNS\_random\_uniform(5*10^{-5}, 15*10^{-5})$ seconds, and lifetime of 0.05 seconds. The child node creates 512B packets with interval $5.1~*~10^{-8}~*~RNS\_random\_lognormal(-10, 0.9)$ seconds for $4*10^{-5}$ seconds.
+The workload model consists of a single packet stream, which is generated from a two level workload model, presented at the top in Figure~\ref{fig:exp1-software}. The \emph{TRAFFIC GENERATOR} node triggers its child node with interval $RNS\_random\_uniform(5*10^{-5}, 15*10^{-5})$ seconds, and lifetime of 0.05 seconds. The child node creates 512B packets with interval $5.1~*~10^{-8}~* RNS\_random\_lognormal(-10, 0.9)$ seconds for $4*10^{-5}$ seconds.
 
 The two different applications used in the experiment are shown in the software model after the \emph{select app}-node. The lower and upper application are referred as \emph{application 1} and \emph{application 2}, respectively. The application selection is done in the workload model by the \emph{AppId} attribute.
 
@@ -39,9 +41,9 @@ Application 1 consists of two processing steps, both consuming CPU and memory fo
   \end{center}
 \end{figure}
 
-\subsection{Simulation Results}
-\label{sec:exp1-simulation-results}
-The system was simulated twice, using both applications separately, and the data from the probes were post-processed. We grouped the number of tasks in the SSO/core queue, by the processing step.
+\subsection{Simulation Measurements}
+\label{sec:exp1-simulation-measurements}
+The system was simulated using both applications separately, and the data from the probes were post-processed. We grouped the number of tasks in the SSO/core queue, by the processing step.
 
 Figures~\ref{fig:app1-queue2} and~\ref{fig:app1-latency} present the data from the first simulation using the packet processing application 1. Figure~\ref{fig:app1-queue2} describes the number of tasks in the SSO/core queue, that are from the atomic resource usage queue, with respect to simulation time. The corresponding graph for the first queue is omitted, as none of that tasks from it end up in the waiting queue. Figure~\ref{fig:app1-latency} presents the latency of each packet through the whole system.
 
@@ -61,7 +63,7 @@ Figures~\ref{fig:app1-queue2} and~\ref{fig:app1-latency} present the data from t
   \end{center}
 \end{figure}
 
-As shown in the Figures, the second processing step of application 1 produces a bottleneck to the system. The processing in the second execution object is so heavy that the tasks accumulate into the waiting queue, and thus the packet latency keeps growing until the workload ceases.
+As shown in the Figures, the processing in the second execution object of application 1 is so heavy that the tasks accumulate into the waiting queue, and thus the packet latency keeps growing until the workload ceases.
 
 The second application modifies the system by parallelizing part of the atomic processing. Figures~\ref{fig:app2-queue2} and~\ref{fig:app2-latency} present the data from the second application simulation. Figure~\ref{fig:app2-queue2} shows the number of tasks in the SSO/core queue, that are from the atomic resource usage queue, with respect to simulation time. Figure~\ref{fig:app2-latency} presents the latency of the packets through the whole system. Neither of the parallel queues have tasks in the waiting queue of the SSO/core during the simulation.
 
@@ -81,7 +83,7 @@ The second application modifies the system by parallelizing part of the atomic p
   \end{center}
 \end{figure}
 
-As the shown in the Figures, the second application removes the bottleneck from the system. The latencies stay within 22$\mu$s, and the reducing the queue length below 40 over the whole simulation period.
+As the shown in the Figures~\ref{fig:app2-queue2} and~\ref{fig:app2-latency}, the latencies of the second application stay within 22$\mu$s, reducing the queue length below 40 over the whole simulation period.
 
 \section{Experiment 2: Queue Coremasks}
 % app1 heavy
@@ -91,7 +93,7 @@ The second experiment demonstrates the packet flow control via queue coremasks. 
 
 The \emph{TRAFFIC GENERATOR} node triggers its child nodes with interval $RNS\_random\_uniform(5*10^{-5}, 15*10^{-5})$ seconds, and lifetime of 0.05 seconds. \emph{Stream 1} and \emph{Stream 2} create 512B packets with interval $6.1*10^{-7}~*~RNS\_lognormal(-10, 0.9)$ and $10^{-6}~*~RNS\_lognormal(5, 10)$ seconds for $4*10^{-5}$ and $10^{-5}$ seconds, respectively. The heavy application consumes the CPU and memory for a total of about 50000 cycles per 512B packet, while the light application packets are processed for tenth of that, in 4500 cycles.
 
-We will again perform two different simulations and measurements. The first one is carried out by allowing the heavy application to be processed on all the 32 processing cores. Despite the light flow being processed on higher priority queue, the processing of the heavy flow has an effect to the worst case latency of the light flow packets. This happens due to the run-to-completion model of the cores, where light flow packets may have to queue for a core while the heavy tasks finish. In the second simulation, the heavy application processing is limited to 30 cores, dedicating two cores for the light application.
+We will again perform two different simulations and measurements. The first one is carried out by allowing the heavy application to be processed on all the 32 processing cores. Despite the light flow being processed on higher priority queue, the processing of the heavy flow has an effect to the worst-case latency of the light flow packets. This happens due to the run-to-completion model of the cores, where light flow packets may have to queue for a core while the heavy tasks finish. In the second simulation, the heavy application processing is limited to 30 cores, dedicating two cores for the light application.
 
 \begin{figure}[]
   \begin{center}
@@ -101,12 +103,10 @@ We will again perform two different simulations and measurements. The first one 
   \end{center}
 \end{figure}
 
-\subsection{Simulation Results}
-\label{sec:exp2-simulation-results}
+\subsection{Simulation Measurements}
+\label{sec:exp2-simulation-measurements}
 
-The system was simulated twice, once without limiting the heavy application processing cores, and once with limited coremask. The data from the probes were post-processed.
-
-Figures~\ref{fig:exp2-app1-no-coremask-latency} and~\ref{fig:exp2-app2-no-coremask-latency} present the data from the simulation without coremask, for the heavy and light flow, respectively. The latency of the heavy flow packets is between 80$\mu$s and 340$\mu$s throughout the simulation. As shown in the Figure~\ref{fig:exp2-app2-no-coremask-latency}, the light flow packets can be processed in 8$\mu$s at best. However, in the worst case, when all the cores are processing heavy flow packets, the light flow packet latency is almost ten-fold, 61$\mu$s. The throughput of the heavy application is 0.214GBps.
+The system was simulated with and without the limited coremask on the heavy application processing cores. The data from the probes were then post-processed. Figures~\ref{fig:exp2-app1-no-coremask-latency} and~\ref{fig:exp2-app2-no-coremask-latency} present the data from the simulation without coremask, for the heavy and light flow, respectively. The latency of the heavy flow packets is between 80$\mu$s and 340$\mu$s throughout the simulation. The throughput of the heavy application is 0.214GBps.
 
 \begin{figure}[]
   \begin{center}
@@ -119,14 +119,12 @@ Figures~\ref{fig:exp2-app1-no-coremask-latency} and~\ref{fig:exp2-app2-no-corema
 \begin{figure}[]
   \begin{center}
     \includegraphics[width=\textwidth]{images/experiment/exp2-app2-no-coremask-latency.pdf}
-    \caption{Latencies of the light flow packets, without coremask. The worst case latencies are almost ten-fold compared to the best-case.}
+    \caption{Latencies of the light flow packets, without coremask. The worst-case latencies are almost ten-fold compared to the best-case.}
     \label{fig:exp2-app2-no-coremask-latency}
   \end{center}
 \end{figure}
 
-In the second simulation, we use a modified coremask for the heavy application, i.e. dedicating one of the cores for the light application processing. The resulting latencies of the heavy and light flow are presented in Figures~\ref{fig:exp2-app1-is-coremask-latency} and~\ref{fig:exp2-app2-is-coremask-latency}, respectively.
-
-As the Figures show, the light flow's worst-case packet latencies can be reduced to less than 12$\mu$s. The throughput of the heavy application is 0.212GBps, corresponding to only 2\% drop compared to the non-coremask processing.
+In the second simulation, we use a modified coremask for the heavy application, i.e. dedicating one of the cores for the light application processing. The resulting latencies of the heavy and light flow are presented in Figures~\ref{fig:exp2-app1-is-coremask-latency} and~\ref{fig:exp2-app2-is-coremask-latency}, respectively. The light flow's worst-case packet latencies stay below 12$\mu$s. The throughput of the heavy application is 0.212GBps.
 
 \begin{figure}[]
   \begin{center}
@@ -144,15 +142,20 @@ As the Figures show, the light flow's worst-case packet latencies can be reduced
   \end{center}
 \end{figure}
 
-\section{Discoveries}
+\section{Results}
 
 % TODO: simulation methods can speed up the modeling work by abstracting the system and decoupling the complex hardware and software models, while also maintaining the correct behavior of the system under study.
 
 % TODO: comment on simulation times?
+The experiments present a proof of concept of the implemented PSE's plugin code mechanism and the model of the reference NPU. In both experiments, the model acts as expected.
 
-The experiments present a proof of concept of the PSE's plugin code mechanism, and the model of Cavium OCTEON II CN6880 network processing unit. The simulation results are encouraging. In both experiments, the model acts as expected. According to the experiment results, the PSE's resource network concept, extended with customized queue disciplines, seems to be a viable tool for modeling complex hardware and software co-scheduled manycore systems, such as the CN6880 network processing unit.
+The first experiment, presents the use the global queue information to control the resource provision based on global queue priorities and disciplines. As seen in the Figures~\ref{fig:app1-queue2} and~\ref{fig:app1-latency}, the second processing step produces a bottleneck to the system. This happens due to the atomicity of the second processing queue, forcing heavy processing of the packets one at a time. By dividing the atomic processing step into a smaller atomic part and larger parallel part, the latency of the system should be reduced, as the atomic part of the processing can be done faster, and the cores can fully be utilized by the heavier parallel part of the second processing step. The measurements results of the second application, as shown in the Figures~\ref{fig:app2-queue2} and~\ref{fig:app2-latency}, validate this behavior.
 
-More importantly, the plugin code mechanism extends to any resource network based simulation task, providing flexibility, hopefully allowing even more complex systems to be modeled.
+The second experiment presents the use of queue coremasks, to control the use of specific hardware resources, through the software model. As shown in the Figure~\ref{fig:exp2-app2-no-coremask-latency}, without limiting the coremask, the light flow packets can be processed in 8$\mu$s at best. However, in the worst-case, when all the cores are processing heavy flow packets, the light flow packet latency is almost ten-fold compared to the best-case latency, 61$\mu$s. By dedicating a processing core for the light flow, we sacrifice the throughput of the heavy flow in order to reduce the worst-case latency of the light flow. As shown in the Figure~\ref{fig:exp2-app2-is-coremask-latency}, changing the coremask in the software model removes the bottleneck from the system. The light flow's worst-case packet latencies can be reduced to less than 50\% higher than of the best-case, while the heavy flow's throughput drops only 2\% compared to the non-coremask processing.
+
+The experiments also highlight the PSE's ability to decouple the hardware and software model. All the changes in the experiment applications can be done through the four software model files. Once the resource provision model and the high level resource usage models are built, the application developers can prototype the system with by modifying only the software and workload parts of the model corresponding the real software applications written in task-based programming models, such as Open Event-Machine. At the same time, the hardware developers can work on the model parts corresponding to the real hardware.
+
+According to the experiment results, the PSE's resource network concept, extended with user-defined queue disciplines, seems to be provide the desired flexibility, both in the abstraction level and the modularity, for modeling complex hardware and software co-scheduled manycore systems, such as the reference network processing unit. More importantly, the plugin code mechanism extends to any resource network based simulation task, providing flexibility, hopefully allowing even more complex systems to be modeled.
 
 %%% Local Variables:
 %%% mode: latex
