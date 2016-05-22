@@ -93,27 +93,8 @@ Some packet processing systems \emph{compress and encrypt} the packets before th
 
 Finally, in the packet transmission phase, \emph{queuing, prioritization, and traffic management} are used to make sure the traffic patterns are as expected. The traffic management process forwards the packets to appropriate output queues and schedules them for transmission, according to the line and receiver conditions, and the parameters, such as priorities, of the packets. Traffic management is also used to meter the packets, and transmit the packets on a desired rate and burstiness. Due to the complexity of traffic management, it is often implemented by a dedicated traffic manager co-processor. In some cases, packets incoming to the system also go through a traffic management phase.~\cite{Giladi:2008:Network}
 
-% \section{Fast path Architecture}
-% Commodity software and multi-core hardware can reduce the cost and provide high flexibity in the development and management of software packet processing, while at the same time achieving the performance of traditional hardware routers. This is achieved by replacing the thick software networking stack of commodity operating systems with special driver and kernel improvements.
-
-% \section{Packet Flow Handling, Queues, Buffers}
-
-% \todo[inline]{Packet Flow Handling, Queues, Buffers}
-
 \section{Processing Hardware}
 \label{sec:hardware-architecture}
-% \section{Network Processor Architecture}
-% TODO: http://ieeexplore.ieee.org.libproxy.aalto.fi/stamp/stamp.jsp?tp=&arnumber=668286
-% Papaefstathiou:2005:Queue
-% TODO: https://hal.archives-ouvertes.fr/hal-00181832/document
-% Kumar:1998:RouterArchitecture
-
-% high performance and programmability are competing goals
-% -> even mutually exclusive?
-
-% One of the cornerstones of the Internet is the ability to connect devices together into networks, and further set of networks into internetworks. Packet switches and routers ...
-
-% Routers and switches are the cornerstones of the Internet. They are used to connect multiple heterogeneous devices together, forming a network of devices, whereas the routers connect. heterogeneous networks into internetworks.
 
 Traditionally, the focus in the development of network equipment -- switches, routers, and various other middleboxes -- has been to achieve high performance with very limited packet processing functionalities. The network appliances and middleboxes have typically been deployed on special purpose Application-Specific Integrated Circuits (ASIC) hardware, mainly due to high performance requirements compared to the hardware development, and the absence of extensibility and flexibility requirements.~\cite{Dobrescu:2009:REP}
 
