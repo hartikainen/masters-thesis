@@ -4,8 +4,6 @@ In this thesis, we study and evaluate the performance analysis methods of a mode
 
 We will start by introducing the common performance analysis methods and metrics, and then further examine the modeling and simulation techniques. Further, we present the queuing and resource networks, which are fundamental concepts for modeling packet processing systems. We will describe the basic concepts of simulation, the primary method for solving more complex networks needed to model modern packet processing systems. We end the chapter with a short survey of the existing simulation software.
 
-% Our evaluations are based on the modeling and simulation techniques, while measurements are needed to build the model. Similarly to many other packet processing system studies~\cite{cavium:2010:fundamentals}, we are mostly interested in the communication delays, namely throughput and latency, of the system.
-
 \section{Performance Analysis}
 For almost every computer system -- whether it be a high performance application on the cloud~\cite{jackson:2010:HPCOC} or an army fuel-supply system~\cite{sabuncuoglu:2005:TAS} -- the performance is one of the most sought-after criterion. To achieve the highest performance for the lowest cost, different performance evaluation techniques are required at different system life cycle stages. The choice of evaluation criteria and techniques used to evaluate the system performance vary between systems. These two choices are discussed in the following subsections.~\cite{jain:1991:AOCSPA}
 
@@ -91,14 +89,6 @@ To make conclusions about simulation, the information about the simulation syste
 There are two generally used approaches for gathering simulation metrics: trace-based and on the fly. The tracing approaches produce raw data from the execution, which are then often post-processed in suitable way. In on-the-fly approaches, the simulator program aggregates the data during the simulation, thus reducing the amount of output.~\cite{jain:1991:AOCSPA, peros:2009:simulation}
 
 \section{Modeling and Simulation Software}
-
-% Java Modelling Tools,[java modeling tools http://jmt.sourceforge.net/] a GPL suite of queuing theory tools written in Java
-% Queuing Package for GNU Octave~\cite{Marzolla:2010:QPGNU}
-
-% TODO:
-% - tÃÂ¤ssÃÂ¤ voisi miettiÃÂ¤ jotain korkeamman tason jaottelua erityyppisten simulaationsoftien vÃÂ¤lille
-% - sitten voisi antaa konkreettisia esimerkkejÃÂ¤ kustakin
-% - voisi pohtia erilaisten mallinnusmekanismien ilmaisuvoimaa (primÃÂ¤ÃÂ¤riÃÂ¤ kÃÂ¤yttÃÂ¶kohdetta, simulaationopeutta, mallinnustehokkuutta, jne.)
 
 In~\cite{Austin:2002:SimpleScalar}, Austin et al. present three drivers for measuring simulator software model: performance, flexibility, and detail. Performance refers to the amount of simulation the model per resources. Flexibility describes how customizable the simulator software is, in terms of modeling. Lastly, detail refers to the level of abstraction used in the simulator. In theory, simulator software could exist, that fulfills all these characteristics at the same time. However, in practice, at least one of them is missing.~\cite{Austin:2002:SimpleScalar}
 
