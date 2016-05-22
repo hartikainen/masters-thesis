@@ -1,7 +1,9 @@
 \chapter{Modeling a Packet Processing System}
 \label{chapter:modeling-a-packet-processing-system}
 
-In this chapter, we present an example model of a pipelined network processing system. First, we will introduce the high-level model components and entities. The reference values, gathered from the measurements presented in section~\ref{sec:characteristic-measurements}, are then plugged in to the model and the relevant details are discussed. Finally, we describe the implementation of the scheduler unit using the PSE plugin interface.
+In this chapter, we present an example model of a pipelined network processing system running OpenEM based task-parallel applications. First, we will introduce the high-level model components and entities. The reference values, gathered from the measurements presented in section~\ref{sec:characteristic-measurements}, are then plugged in to the model and the relevant details are discussed. Finally, we describe the implementation of the scheduler unit using the PSE plugin interface.
+
+
 
 \section{Hardware Model}
 \label{sec:hardware-model}
@@ -48,11 +50,11 @@ The first line in Listing~\ref{lst:queue-attributes} specifies the display title
 
 The execution object node parameters are shown in the Listing~\ref{lst:eo-attributes}. It is a simple submodel node. It specifies the display title, and the name of the submodel to be used. The \emph{file} attribute specifies the file that defines the submodel. Note that, each execution object submodel needs to release the scheduler/core resource, as shown in the Figure~\ref{fig:full-model}.
 
-\subsection{Scheduling/Synchronization/Ordering Unit}
+\subsection{Global Hardware Scheduler}
 \label{sec:scheduler-unit}
-To model the CN6880 processing cores' run-to-completion behavior, the scheduler unit is modeled as a passive resource. Each time a task is entering a processing application, it first acquires the passive scheduler resource. The amount of available passive scheduler resources is equal to the processing cores in the system, and a task cannot use processing core without holding the scheduler resource.
+To model the processing cores' run-to-completion behavior, the scheduler unit is modeled as a passive resource. Each time a task is entering a processing application, it first acquires the passive scheduler resource. The amount of available passive scheduler resources is equal to the processing cores in the system, and a task cannot use processing core without holding the scheduler resource.
 
-To model the scheduler unit, custom scheduling functions are required. These are modeled using PSE's custom plug-in interface, presented in chapter~\ref{chapter:mechanism-for-extended-queue-disciplines}. The functionality is implemented in two custom functions, written in C-code: the selection function, and the reserve function. The resource node parameters are changed to use these functions. The parameters of the scheduler node used in the example model are presented in the Listing~\ref{lst:RNS-attributes}.
+The scheduler unit model requires the use of custom scheduling functions. These are modeled using PSE's custom plug-in interface, presented in chapter~\ref{chapter:mechanism-for-extended-queue-disciplines}. The functionality is implemented in two custom functions, written in C-code: the selection function, and the reserve function. The resource node parameters are changed to use these functions. The parameters of the scheduler node used in the example model are presented in the Listing~\ref{lst:RNS-attributes}.
 
 \lstinputlisting[caption=The attributes of the scheduler node to determine the custom scheduler.,
                  label=lst:RNS-attributes]{listings/scheduler-attributes.txt}

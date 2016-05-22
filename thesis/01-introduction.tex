@@ -19,13 +19,9 @@ Our experiments demonstrate that, with extended custom queue disciplines and sup
 \section{Problem statement}
 Modern MPSoC based network processing units are parallel processing systems with complex hardware interactions. Understanding these systems is difficult, due to the architectural heterogeneity, complexity, and non-deterministic behavior. The non-deterministic behavior of the MPSoCs is a result of parallelism, communication delays, complex memory systems, and hardware and software scheduling mechanisms.
 
-% These system interactions are difficult, sometimes even impossible, to reason about, and make the performance analysis non-trivial.
-
 The nature of packet switched network data introduces strict performance requirements for the packet processing devices: the manipulation of the packet streams passing through the system must often be done on the on-the-fly, while at the same time, the data volumes are often huge and unpredictable.
 
 The performance of the task parallel applications is heavily dependent on the scheduling mechanism of the system. To guarantee the performance of task parallel programming models, the scheduler has to efficiently map the functions and minimize the context switch overhead. MPSoC devices are inherently parallel, and the scheduling is often done globally at multiple points of the system.
-
-% Important aspect of the performance of task parallel programming mod- els is how the tasks are scheduled on the cores. OpenEM features a dynamic scheduler, which means the execution order of tasks is decided in runtime. Another way of scheduling tasks would be static scheduling, where the exe- cution order of the tasks is determined at the time of compilation.
 
 Queueing and resource networks are widely studied concepts, often used for packet processing problems and other computing system modeling. However, the complex hardware level interactions between the MPSoC components, dynamic workload, and task-based parallelism methods, make the traditional queue concepts insufficient. One way to address this problem, is to extend resource networks with user-definable queue disciplines allowing global view of the system, and methods for modeling parallelism.
 
@@ -34,24 +30,16 @@ The research problem of this thesis is: How to analyze the performance of packet
 \section{Contributions}
 We will present a method for modeling and simulation of the hardware accelerated manycore packet processing systems. We extend the in-house discrete event simulator, Performance Simulation Environment (PSE), to enable use of customized queue discipline algorithms. We will also model a modern network processing unit using the tools provided by PSE and simulate the model by PSE's discrete event simulation engine. The major contributions of our work can be summarized as:
 
-% The main contributions of our work are three-fold. First, we have instrumented and measured the characteristics of a customized network processing system. Secondly, we extended the toolset of an existing in-house simulator software to enable modeling customized queue disciplines, allowing. Lastly, we built a simulation model based of the network processing unit and ran experiments to validate the proper model behavior.
-
-
 \begin{itemize}
 
 \item Instrumenting and measuring the characteristics of a modern network processing unit
 
-\item Extending an existing in-house modeling and simulation framework, Performance Simulation Environment (PSE), to support user-definable queue disciplines through a plugin interface %more complex hardware scheduling functions
-
-% \item Refactoring the existing PSE functionalities and fixing several software bugs that made critical parts of the simulator unusable
+\item Extending an existing in-house modeling and simulation framework, Performance Simulation Environment (PSE), to support user-definable queue disciplines through a plugin interface
 
 \item Designing and building a PSE model of a MPSoC based packet processing system
 
-% \item The results were presented to the industry partners at the ParallaX group's fall assembly, working as a concrete example of the Embedded Systems Group's work in progress
-
 \item Proof of concept experiment demonstrating performance analysis of the implemented hardware model and task-based parallel application models
 
-% \item The PSE extensions and the network processing unit model has been used as the building blocks for the experiment of further research on Fog computing
 \end{itemize}
 
 Our first contribution includes setting up an environment for measuring the memory and communication delays of a packet processing system. The measurements are used to gain in-depth understanding of the system interaction of such systems, and to further determine the correct abstraction level for our performance analysis models. The measurements consisted of executing several microbenchmarks using low level hardware application programming interfaces. The automatization scripts and test programs are documented and available to be used in further experiments on similar systems.
