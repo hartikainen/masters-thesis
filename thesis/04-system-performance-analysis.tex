@@ -59,25 +59,24 @@ The models may be categorized as being static or dynamic, and deterministic or s
 Models can further be divided into discrete and continuous, analogously with the discrete and continuous systems described in Section~\ref{sec:syst-comp-envir}. However, it is possible to model continuous systems with discrete models, and vice versa. Just as the real-life systems, the models can be a mix of both continuous and discrete models.~\cite{Banks:2010:DES}
 
 \subsection{Queuing Networks}
-\todo[inline]{systems can often be represented as queuing networks yada yada}
-
-\subsection{Resource Networks}
 Network structures are often used for describing the models. For example petri nets~\cite{Peterson:1981:Petri}, markov chains~\cite{Bolch:2006:Queuing}, queuing networks~\cite{Bolch:2006:Queuing}, and resource networks~\cite{Menasce:1994:CPP} are widely researched model definitions with a well-developed theory for analyzing the system behavior.
 
-Queue based modeling schemes are inherent in packet processing systems performance analysis. Queuing networks, is a specific modeling concept, in which the system under study is represented with a restricted set of building blocks: tasks, queues, resources, and routes. Queuing theory models the behavior of the tasks arriving the system at random inter-arrival periods.~\cite{Bolch:2006:Queuing}
+Queue based modeling schemes are inherent in packet processing systems performance analysis. As presented earlier, the software running on top of complex MPSoC hardware, are in essence queue abstractions hiding the complex hardware interactions of the system. Queuing networks is a specific modeling concept, in which the system under study is represented with a restricted set of building blocks: tasks, queues, resources, and routes. Queuing theory models the behavior of the tasks arriving the system at random inter-arrival periods.~\cite{Bolch:2006:Queuing}
 
 The resource queues can have various scheduling policies, defining the order in which tasks are delivered to the resources. The policies are referred to as \emph{queue disciplines}. The queue discipline are the main components to models different behaviors of a queuing system. A model consistics of simple quing disciplines, such as first in first out (FIFO), last in first out (LIFO), priority, or shortest task first, can often be solved analytically to find the equilibrium or transient state of the system.~\cite{Bolch:2006:Queuing}
 
-However, models of systems such as packet processors often require more complex policies, to correctly mitigate the system under study. Thus, solving the queuing networks often require approximate methods, such as simulation, to be solved.~\cite{Bolch:2006:Queuing}
+However, models of systems such as packet processors often require more complex policies, to correctly mitigate the system under study. Thus, solving the queuing networks often require approximate methods, such as simulation, to be solved. Queuing networks can be used to describe various systems, and many different problems have well studied, efficient queuing networks solutions for them.~\cite{Bolch:2006:Queuing}
 
-Queuing networks can be used to describe various systems, and many different problems have well studied, efficient queuing networks solutions for them. However, the lack of simulation time task routing and detailed monitoring, and confined resource descriptions, make queuing networks unsuitable for more complex computing system studies.~\cite{Bolch:2006:Queuing}
+\subsection{Resource Networks}
+
+Unfortunately, the lack of simulation time task routing logic and detailed monitoring, and confined resource descriptions, make queuing networks unsuitable for more complex computing system studies. To overcome these challenges, for the studies and experiments of this thesis, we have chosen a modeling tool, which incorporates the resource networks modeling concept.~\cite{Bolch:2006:Queuing}
 
 Resource networks extend the queuing networks concept by decoupling the network into resource usage network and resource provision network, and introducing a passive resource type. The resource usage network is a directed graph, describing the possible paths and resource usage requests for the tasks. Resource provision networks are similar to the traditional queuing networks, describing the available resources and their interconnections in the system. Resource networks also enable new task control mechanisms such as fork-join and branching. ~\cite{Menasce:1994:CPP}
 
-Resource networks are suitable for modeling resource requests, dynamic scheduling and different load balancing schemes. These techniques enable modeling of more complex interactions of parallel systems with dynamic workload and resource usage. Due to the dynamicity introduced by the flexibility, resource networks often have to be solved by simulation.~\cite{Menasce:1994:CPP}
+Thus, resource networks support modeling resource requests, dynamic scheduling and different load balancing schemes. These techniques enable modeling of more complex interactions of parallel systems with dynamic workload and resource usage. Due to the dynamicity introduced by the flexibility, resource networks are also often solved by simulation.~\cite{Menasce:1994:CPP}
 
 \section{Simulation}
-This section describes the basic principles related to simulation. Note that, despite the most of the examples in this chapter being about computing, simulation is widely used also in several other contexts, even beyond science. The concepts described below, e.g. entities, attributes, or activities, have different realizations from system to system.
+This section describes the basic principles related to simulation. Despite most of the examples in this chapter being about computing, simulation is widely studied and used method also in several other contexts. The concepts described below, e.g. entities, attributes, or activities, have different realizations from system to system.
 
 Simulation is an artificial imitation of the operation of a real-life system over time. The system behavior is studied by developing a simulation model, based on a set of assumptions concerning the characteristics and functions of the system. The assumptions are presented in mathematical, logical, and symbolic relationships between the objects of interest of the system. An artificial operation history is generated by executing the simulation model, generally on a simulator program, with respect to system input and time. Data are collected from the simulation similarly as if the real system was being measured.
 
@@ -107,6 +106,8 @@ There are several simulators targeted for simulation of cloud computing datacent
 Various different projects extend the CloudSim API for advanced cloud computing simulations. For example, CloudSimEx~\cite{CloudSimEx} enables MapReduce~\cite{Dean:2008:MR} simulation capabilities and parallel simulations, Cloud2Sim~\cite{Kathiravelu:2014:Concurrent} enables simulation execution on multiple distributed servers, and CloudAnalyst~\cite{Wickremasinghe:2010:CloudAnalyst} enables simulation of large-scale cloud applications in terms of geographic distribution of both servers and workloads.
 
 Some simulator software, such as Greencloud~\cite{Kliazovich:2010:GreenCloud}, are designed for the measuring the energy and power consumption of different datacenter setups. GreenCloud provides tools for simulating CPI, memory, storage, and networking resources, with Independent energy models for each resource. It also supports virtualization and virtual machine migration, and full TCP/IP implementation.
+
+The next chapter present a more detailed view of the modeling and simulation framework, Performance Simulation Environment, used in this thesis.
 
 % \todo[inline]{should this be extended/fixed?}
 
