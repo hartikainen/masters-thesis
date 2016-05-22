@@ -1,20 +1,3 @@
-% TODO
-% Goals
-%   - network processing system ok, clusteri koostuisi useammasta noodista
-%   - addressed entity -> kutsutaan nodeksi
-%   - node ihan hyva bladesta, processing element viittaa yhteen ytimeen
-%   - dipassa NPU, blade kannattaa yhten‰ist‰‰
-%   - kannattaa luoda pikkasen priorisoinnin kuvaa:
-%     - tilanne on se ett‰ tavoitteet on kahtalaiset
-%     - NPU ymm‰rryksell‰ on oma arvonsa
-%     - Simuloinnin ymm‰rryksell‰ on oma arvonsa
-%     - Latenssip‰‰m‰‰r‰t on subgoals, arvo tulee yo. goalien kautta
-%     - Se ett‰ ymm‰rret‰‰n delay-rakennetta palvelee molempia:
-%       - hajautetun verkkoprosessoinnin ymm‰rryst‰, sek‰ simuloinnin ymm‰rryst‰
-%       - Kysymys on ett‰ mitk‰ arvot? Kaikkea pystyy tekee, mutta ei ehdi
-%       - Mik‰ on t‰rke‰‰, miten/mitk‰ mittaukset tukee molempia p‰‰m‰‰ri‰
-%       - Jos mittaus on tyˆl‰s ja tukee vain toista, kannattaa j‰tt‰‰ tekem‰tt‰
-
 \chapter{Conclusions}
 \label{chapter:conclusions}
 
@@ -53,8 +36,6 @@ Modeling based performance analysis techniques also face various challenges. Net
 One way to address this problem, is to extend the resource networks with user configurable queue discplines and methods for modeling parallelism, which brings flexibility to the model abstraction level. Correct abstaction level is one of the key elements of modeling. On one hand, abstraction level affects the simulation execution time and accuracy of the results. Too detailed models are intractable and require time consuming simulations, while too high level abstractions hide the sought characteristics of the system, resulting in inadequate results. On the other, it affects the complexity of model construction and reusability. \todo{yleiskayttoisyys}
 
 More complex queue disciplines and MPSoC behavior force the use of simulation methods to execute the models.
-
-% \todo[inline]{Parallel simulation is problematic}
 
 
 \section{Discoveries}

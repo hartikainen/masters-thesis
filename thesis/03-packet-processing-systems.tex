@@ -172,8 +172,7 @@ In a pipeline of parallel processors, pipeline consists multiple processing step
 The parallel configuration is typically used for higher layer networking applications, where as the pipeline configurations are used in line cards that require high-speed processing at low layer networking applications.
 
 \section{Programming Models}
-
-% \todo[inline]{Write a general view of the NPU programming models.}
+\label{sec:programming-models}
 
 Programming of the high-speed packet processing systems is challenging, due to the parallel nature of the hardware, and the dynamicity of the packet streams. Generic software frameworks are often used to abstract the underlying hardware complexity, and ease the parallel application development. Abstractions try to hide the details of hardware implementation from applications developers, providing ease of development and portability of code through different hardware implementations.
 
@@ -191,6 +190,7 @@ DPDK's Environment Abstraction Layer (EAL) abstracts the hardware environment fr
 DPDK has an active ecosystem around it, with wide vendor support. It is also well documented and includes several software examples demonstrating the best practices for data plane architectures, application profiling, and performance tuning.~\cite{Intel:DPDK:Doc}
 
 \subsection{Open Event-Machine}
+\label{subsec:open-em}
 Open Event Machine (OpenEM) is an event-driven programming framework for multicore dataplane applications, developed by Nokia Solutions and Networks (NSN). It has been designed to ease the implementation of event/packet processing applications for different MPSoC devices. One of main drivers for the development of OpenEM has been easy integration with modern hardware accelerators.~\cite{NSN:2015:OpenEM}
 
 The key concepts of OpenEM framework are execution objects, events, queues, and the scheduler. \emph{Execution objects} are the main building blocks the OpenEM application. They are the run-to-completion functions, describing the processing logic of the application. Each execution object has one or more \emph{queues} attached to it. The \emph{scheduler} selects the events from the queues, based on the global interrelations of the queues. When the event is selected from the queue, the corresponding execution object is attached to the processing core, and the event is passed to it as a parameter. Once the execution object finishes its run, the scheduler chooses a new event from the queues similarly.~\cite{NSN:2015:OpenEM}
@@ -225,7 +225,7 @@ This section presents characteristic measurements of the system, providing in-de
 \subsection{Communication Latencies}
 \label{sec:communication-latencies}
 
-By communication latencies, we refer to the time in the input and output phase of the packet processing, between physical receive/transmit ports and the actual core processing, as described in the Section~\ref{sec:example-network-processing-system}. We will include the times spent in the scheduler unit for both of these metrics, as due to our resource constraints, we were unable to do the measurements with the required detail to break down these delays. Also, for our modeling purposes, it is accurate enough to assume that the input and output phases consume equal amount of processing time.
+By communication latencies, we refer to the time in the input and output phase of the packet processing, between physical receive/transmit ports and the actual core processing, as described in Section~\ref{sec:example-network-processing-system}. We will include the times spent in the scheduler unit for both of these metrics, as due to our resource constraints, we were unable to do the measurements with the required detail to break down these delays. Also, for our modeling purposes, it is accurate enough to assume that the input and output phases consume equal amount of processing time.
 
 The input and output phase latencies are measured by generating traffic from external machine, and passing it through two identical network processing units back to the generator itself. The measurements were done at two independent points in the processing path, to validate the accuracy of the measurements.
 

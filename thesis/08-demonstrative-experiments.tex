@@ -18,9 +18,9 @@ Both experiments are run on the hardware model represented in Figure~\ref{fig:ex
   \end{center}
 \end{figure}
 
-The scheduler unit uses the custom scheduling functions presented in the section~\ref{sec:scheduler-unit}, enabling the use of atomicity, queue priorities, and coremasks. The core release is a typical release node referring to the scheduler unit.
+The scheduler unit uses the custom scheduling functions presented in Section~\ref{sec:scheduler-unit}, enabling the use of atomicity, queue priorities, and coremasks. The core release is a typical release node referring to the scheduler unit.
 
-The same high level software model is used for the both experiments, as seen in the Figures~\ref{fig:exp1-software} and~\ref{fig:exp2-software}. The \emph{Packet Input} and \emph{Packet Output} nodes consume the PKI and PKO units as discussed in the section~\ref{sec:characteristic-measurements}, delaying the packets relative to their size, according to the equation~\ref{eq:1}. The workload and packet process submodels are unique for both experiments.
+The same high level software model is used for the both experiments, as seen in the Figures~\ref{fig:exp1-software} and~\ref{fig:exp2-software}. The \emph{Packet Input} and \emph{Packet Output} nodes consume the PKI and PKO units as discussed in Section~\ref{sec:characteristic-measurements}, delaying the packets relative to their size, according to the equation~\ref{eq:1}. The workload and packet process submodels are unique for both experiments.
 
 We gather two different metrics of the system. First, we are interested in the core utilization and queue lengths for each processing step. These are measured by the probes attached to the scheduler unit as shown in hardware model in Figure~\ref{fig:experiment-hardware}. Secondly, we are interested in the packet latencies. They are measured by calculating the time difference between the \emph{out probe} and the \emph{in probe} (Figures~\ref{fig:exp1-software} and~\ref{fig:exp2-software}) for each packet. All the probes write absolute traces of the packets.
 
@@ -144,9 +144,6 @@ In the second simulation, we use a modified coremask for the heavy application, 
 
 \section{Results}
 
-% TODO: simulation methods can speed up the modeling work by abstracting the system and decoupling the complex hardware and software models, while also maintaining the correct behavior of the system under study.
-
-% TODO: comment on simulation times?
 The experiments present a proof of concept of the implemented PSE's plugin code mechanism and the model of the reference NPU. In both experiments, the model acts as expected.
 
 The first experiment presents the use the global queue information to control the resource provision based on global queue priorities and disciplines. As seen in the Figures~\ref{fig:app1-queue2} and~\ref{fig:app1-latency}, the second processing step produces a bottleneck to the system. This happens due to the atomicity of the second processing queue, forcing heavy processing of the packets one at a time. By dividing the atomic processing step into a smaller atomic part and larger parallel part, the latency of the system should be reduced, as the atomic part of the processing can be done faster, and the cores can fully be utilized by the heavier parallel part of the second processing step. The measurements results of the second application, as shown in the Figures~\ref{fig:app2-queue2} and~\ref{fig:app2-latency}, validate this behavior.
