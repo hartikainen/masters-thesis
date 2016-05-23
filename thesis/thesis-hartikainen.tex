@@ -138,6 +138,7 @@
 % to the author directly (\citet{blaablaa} said blaa blaa), and
 % \citep when you wish to refer similarly than with numbered citations
 % (It has been said that blaa blaa~\citep{blaablaa}).
+\usepackage[square,sort&compress,numbers]{natbib}
 % \usepackage[square]{natbib}
 
 % The alltt package provides an all-teletype environment that acts
@@ -146,18 +147,18 @@
 % \usepackage{alltt}
 
 % Use biblatex instead of natbib.
-\usepackage[
-style=numeric,
-bibencoding=utf8,
-backend=bibtex,
-firstinits=true,
-doi=true,
-url=true]{biblatex}
-\addbibresource[datatype=bibtex]{sources.bib}
+% \usepackage[
+% style=numeric,
+% bibencoding=utf8,
+% backend=bibtex,
+% firstinits=true,
+% doi=true,
+% url=true]{biblatex}
+% \addbibresource[datatype=bibtex]{sources.bib}
 
-\DefineBibliographyStrings{english}{%
-  urlseen = {Retrieved},
-}
+% \DefineBibliographyStrings{english}{%
+%   urlseen = {Retrieved},
+% }
 
 % The eurosym package provides a euro symbol. Use with \euro{}
 % \usepackage{eurosym}
@@ -400,7 +401,7 @@ url=true]{biblatex}
 % references.
 % \bibliographystyle{acm}
 % Plainnat is a plain style that works with both numbered and name citations.
-% \bibliographystyle{plainnat}
+\bibliographystyle{plainnat}
 
 
 % Extra hyphenation settings
@@ -528,7 +529,8 @@ url=true]{biblatex}
 % \bibliography{sources}
 % \nocite{*}
 % \todo[inline]{remove nocite}
-\printbibliography
+\bibliography{sources}
+%\printbibliography
 % Appendices go here
 % ------------------------------------------------------------------
 % If you do not have appendices, comment out the following lines
