@@ -3,12 +3,11 @@
 
 This thesis investigated the use of measurement, simulation, and modeling methods for the performance analysis of MPSoC based packet processing systems running task-parallel applications. The motivation behind our work was to enable more accurate modeling of task-parallel software abstractions, such as Open Event-Machine, on the resource network concept.
 
-We approached the problem by extending an in-house resource network modeling and simulation tool, Performance Simulation Environment, with user-definable queue disciplines. The extensions enabled global queueing disciplines, and further modeled the hardware scheduler of the system such that it enabled the use of Open Event-Machine type queue models.
+We approached the problem by extending the toolset of an existing in-house modeling and simulation software, Performance Simulation Environment. The extensions enable modeling of user-definable queue disciplines, which further enable flexible modeling of complex hardware interactions of MPSoCs and the parallelism of task-based programming models.
 
-The concrete contributions of our work are three-fold. First, we extended the toolset of an existing in-house modeling and simulation software, Performance Simulation Environment. The extensions enable modeling of user-definable queue disciplines, which further enable flexible modeling of complex hardware interactions of MPSoCs and the parallelism of task-based programming models. Secondly, we studied, instrumented, and measured the characteristics of a packet processing system. Finally we have modeled a multi-blade packet processing system with customizable workload and task-parallel application models, and run simulation experiments.
+We studied, instrumented, and measured the characteristics of a packet processing systems. Based on our findings, we modeled a multi-blade packet processing system with customizable workload and task-parallel application models, and run simulation experiments.
 
-The experiment results suggest that the resource network concept is viable tool for the performance analysis of such packet processing systems. The chosen abstraction level provides desired balance between the functionality, ease of use, and simulation performance.
-
+The experiment results suggest that resource network concept, extended with global user-definable queue disciplines, is a viable tool for the performance analysis of packet processing systems. The chosen abstraction level provides desired balance between the functionality, ease of use, and simulation performance. However, further research is required in order to scale such a method to support ultra-large-scale simulations.
 
 %%% Local Variables:
 %%% mode: latex
