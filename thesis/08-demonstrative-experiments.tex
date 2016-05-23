@@ -1,4 +1,4 @@
-\chapter{Demonstrative Experiments}
+\chapter{Demonstrative Experiment and Discussion}
 \label{chapter:demonstrative-experiments}
 
 This chapter presents two demonstrative simulation experiments done on the NPU model presented in Chapter~\ref{chapter:modeling-a-packet-processing-system}. The goal of the experiments is to demonstrate how the parallel mechanisms of a task based-programming model, i.e. queue types, priorities, and coremasking, affect the scheduler, and hence the packet throughput and latency. At the same time, it validates our NPU model and the PSE's implemented plugin-code functionality.
@@ -142,7 +142,7 @@ In the second simulation, we use a modified coremask for the heavy application, 
   \end{center}
 \end{figure}
 
-\section{Results}
+\section{Experiment Analysis}
 
 The experiments present a proof of concept of the implemented PSE's plugin code mechanism and the model of the reference NPU. In both experiments, the model acts as expected.
 
@@ -153,6 +153,38 @@ The second experiment presents the use of queue coremasks, to control the use of
 The experiments also highlight the PSE's ability to decouple the hardware and software model. All the changes in the experiment applications can be done easily through the four software model files. Once the resource provision model and the high level resource usage models are built, the application developers can prototype the system with by modifying only the software and workload parts of the model corresponding the real software applications written in task-based programming models, such as Open Event-Machine. At the same time, the hardware developers can work on the model parts corresponding to the real hardware.
 
 According to the experiment results, the PSE's resource network concept, extended with user-defined queue disciplines, seems to be provide the desired flexibility, both in the abstraction level and the modularity, for modeling complex hardware and software co-scheduled manycore systems, such as the reference network processing unit. More importantly, the plugin code mechanism extends to any resource network based simulation task, providing flexibility, hopefully allowing even more complex systems to be modeled.
+
+\section{Discussion}
+
+\subsection{Challenges}
+Performance analysis of packet processing systems involves various challenges. Our work began with the instrumentation of an example packet processing system, but due to the hardware difficulties, we chose to proceed with modeling and simulation methods. The tool, Performance Simulation Environment, used for the study was chosen mainly because of our previous experience with it. The modeling work begins with the proper understanding the different components, such as the hardware, software, and workload of the system under study.
+
+Understanding typical MPSoC based packet processing systems is difficult, due to the architectural heterogeneity, complexity, and non-deterministic behavior. Our study focused on the packet processing system's hardware packet scheduling unit, and the ability to abstract hardware on Open Event-Machine type parallel programming frameworks. We also executed various measurement experiments to gather more detailed characteristics of the hardware memory and ingress- and egress unit behavior. Instrumentation faces the same challenges as any other parallel application development.
+
+Different parallel programming frameworks are used to abstract the hardware from the software application development. To understand the actual applications' effect on the packet processing systems, the underlying runtime frameworks must also be understood. In our work, one of the challenges was to understand the queue based Open Event-Machine implementation, and especially the globar scheduler functionality and implementation on different platforms. Also, the actual packet processing functions needed to be understood, in order to create realistic application models.
+
+Hardware system models are difficult to simulate on software; Efficient simulation of inherently parallel hardware models requires non-trivial parallelization of the simulator, which has been widely studied research topic for decades. Finding appropriate model abstraction level is essential. On one hand, abstraction level affects the simulation execution time and accuracy of the results. Too detailed models are intractable and require time consuming simulations, while too high level abstractions hide the sought characteristics of the system, resulting in inadequate results. On the other, it affects the complexity of model
+construction and reusability. Higher abstraction levels are used more and more often, as the systems under study are becoming more complex.
+
+\subsection{Discoveries}
+In this thesis, we created a model of an MPSoC based packet processing system, running Open Event-Machine type task-parallel packet processing applications on dynamic workloads. The goal of Open Event-Machine is to decouple the hardware and software from each other, and further enable code and performance portability between different systems.
+
+By the implemented user-definable queue disciplines, Performance Simulation Environment (PSE), enables flexible adjustment of modeling abstraction levels. We chose to focus on the hardware packet scheduler unit of the system, and modeled it behavior on a level which enables performance analysis of Open Event-Machine applications on dynamic workloads. The chosen abstraction level hides the details of hardware level memory behavior, but still provides accurate details of Open Event-Machine's software level queues.
+
+The abstraction level, naturally, limits the parallelization possibilities of the underlying simulator engine. When the functionality of the hardware scheduler is modeled, even on high abstraction level as done in our work, the modeling of the hardware parallelism on software eliminates the simulation performance. Also, the use of interrelated global queues increases the data dependencies between the simulation execution, resulting in difficulties in the parallel simulation execution. The problem is common when simulating hardware on software. In our experiments, the simulation performance suffered mostly due to the custom select and reserve functions. The choice to model Open Event-Machine's queue system accurately was intentional, despite its obvious effect on simulation performance.
+
+As our experiments demonstrate, the resource network paradigm extended with custom queuing disciplines and support for modeling task parallelism, is adequate tool for performance analysis of network processing systems, running Open Event-Machine based task-parallel applications on dynamic workloads. PSE separates the workload, software, and hardware models, highlighting the ability to decouple the different functional parts of the system, and enabling modularization and further model reuse.
+
+\subsection{Future Work}
+There exist several directions for future research around the topic of this thesis. As we have shown in this work, the resource network methodology, extended with user-definable queue disciplines and support for modeling parallel systems, can be used to model more modern MPSoC based network processing units. The user-defined queue discplines provide desired flexibility to the PSE's modeling and simulation abstraction level. However, in order to meet the modeling and simulation requirements of larger systems, such as the network processing unit presented in this work, in larger scale, let alone full scale datacenter networks or complex IoT applications, PSE needs to be further developed.
+
+Simulation of large-scale models face the same challenges as any large scale application. Due to the growing memory and computing resources requirements, the resource usage of PSE needs to be improved.
+
+% One way of improving the simulation efficiency, is to develop the threads executing tasks and the data structures used in the simulation runtime. The threads are fairly heavy structures to handle the tasks, in the context of large-scale simulations. These could, for example, be replaced with similar structures as Akka frameworks' actors. Some of the data structures used in the simulation are dependent on the modeler's choice of the scheduling functions, thus resulting in a tradeoff between the general but less efficient memory structures and the ease of modeling.
+
+Despite the more efficient data structures and single threaded execution, simulator software face the same problems as any other computer software: efficient scaling requires parallelization of the software. Parallelization of discrete-event simulator software is a wide research topic itself, and faces multiple challenges, not only the ones faced with parallelization in general, but also the simulators' nature makes the problem non-trivial. The parallelization of PSE could be done in several ways. With the current implementation of the PSE, the conservative parallel simulation (the simulation threads advance conservatively) approach seems to be most viable solution. However, to enable more advanced parallelization methods, e.g. variations of optimistic and conservative approaches, parts of the simulator core needs to be rewritten, as the current version of PSE does not support any history of the simulation.
+
+Another future research topic around resource networks is the support for virtualization. Virtualization is an important topic in today's computing, and for example large scale cloud- and fog datacenters are contingent on the efficient virtualization methods. Performance analysis methods need to adapt to support the needs to further understand these systems. A natural way to model virtualization with resource network concept, would be to add a new virtualization model layer between the resource utilization and resources provision models.
 
 %%% Local Variables:
 %%% mode: latex

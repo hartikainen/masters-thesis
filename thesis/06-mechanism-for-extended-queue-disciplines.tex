@@ -1,11 +1,13 @@
 \chapter{Mechanism For Extended Queue Disciplines}
 \label{chapter:mechanism-for-extended-queue-disciplines}
 
-This chapter presents the implemented plugin code extensions for Performance Simulation Environment. The extensions enable modeling of customized queue disciplines written in C-code, and is our attempt to address the lack of global queue scheduling, which is required to use PSE for more detailed modeling of hardware scheduled manycore systems and task-based parallel applications.
+This chapter presents the implemented plugin code extensions for Performance Simulation Environment. The extensions enable modeling of customized queue disciplines written in C-code, and is our attempt to address PSE's lack of global queue scheduling.
 
 The implementation is based on our observations, presented in the previous chapters, of the implementations of networks processing systems and the task-parallel packet processing applications: the systems are essentially controlled through queue abstractions, while the queues are also inherent in the PSE's resource network models. However, what PSE lacks, is the ability to control the execution time behavior of the resource provision nodes (hardware) through the interdependent resource usage nodes' (application) attributes.
 
-We begin this chapter by explaining the PSE's service routines, which guide the resource usage between the resource usage and resource provision models. Then we present the runtime structuces, RNS\_Resource and RNS\_Client, that are relevant to understand the implementation of the custom queueing functions. Then we present the requirements for the select and reserve functions used to implement the queuing policies. Finally, we describe an example implementations of two simple disciplines: first-come-first-serve and highest-priority-served-first.
+The implemented mechanism enables investigation of task-based parallel programming applications, linking the described software and hardware functionality with each other. This again enables the performance analysis of task-parallel applications running on hardware scheduled MPSoC devices.
+
+We begin this chapter by explaining the PSE's service routines, which guide the resource usage between the resource usage and resource provision models. Then we present the runtime structuces, RNS\_Resource and RNS\_Client, that are relevant to understand the implementation of the custom queuing functions. Then we present the requirements for the select and reserve functions used to implement the queuing policies. Finally, we describe an example implementations of two simple disciplines: first-come-first-serve and highest-priority-served-first.
 
 \section{Service Routines}
 The main interface between the threads executing the resource usage code, and the resource provision models, are the five RNS service routines: RNS\_demand\_device, RNS\_use\_device, RNS\_reserve\_resource, RNS\_delay\_process, and RNS\_release\_resource. The functions are used to implement both the active and passive resource usage at the runtime.
@@ -78,7 +80,7 @@ The reserve function is called from the RNS\_reserve\_resource function when the
 \item Return 0 in case of success, else return -1
 \end{itemize}
 
-All the necessary information required to implement the queueing decision can be accessed through the resource \emph{r}, the \emph{new\_client}, as described above.
+All the necessary information required to implement the queuing decision can be accessed through the resource \emph{r}, the \emph{new\_client}, as described above.
 
 The select function, in the Listing~\ref{lst:select-definition}, is called each time the resource is released by a client currently holding it. The parameters of the select function determine the resource that is being released (\emph{r}), and the index at the processing queue that the previous client was placed at (\emph{release\_index}). Based on the resource parameter \emph{r} and the \emph{release\_index}, the selection function needs to return an index of the client to be moved to the processing queue. The waiting queue items with index greather than the returned index will be automatically shifted to fill the empty element in the queue.
 

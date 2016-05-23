@@ -6,33 +6,33 @@ Packet processing devices face an enormous performance challenge. While the amou
 
 Network processing equipment can generally be divided into three categories: easily programmable general Central Processing Units (CPU), well-performing but hardwired Application-Specific Integrated Circuits (ASIC), and middle-ground Network Processing Units (NPU). The focus of this thesis is on the middle-ground NPU devices, typically built as a multiprocessor system-on-chip (MPSoC). MPSoCs integrate multiple heterogenous or homogenous functional units, such as processors, memory, circuits, and peripherals, on a single chip. The promise of MPSoC devices are their better performance,  functionality, and energy usage, due to the multiple interconnected specialized processors.
 
-Network processing units are, in essence, queuing systems. Different components of the MPSoC devices, such as network interface cards, CPUs, and the global system scheduler, queue the packets in memory between the processing steps. Each component fetches the packets from the memory, or queues, based on certain rules that can be seen as queue disciplines.
+Network processing systems are, in essence, queuing systems. Different components of the MPSoC devices, such as network interface cards, CPUs, and the global system scheduler, queue the packets in memory between the processing steps. Each component fetches the packets from the memory, or queues, based on certain rules that can be seen as queue disciplines.
 
 The treatment of the packets flowing through the network processing equipment is called packet processing. Packet processing consists of series of functions performed, typically in parallel, on the packets. The functions are often implemented as separate software applications. Different parallel programming models, such as task-parallelism, are used to abstract the complexity of these devices, enabling efficient application development and portability. In the packet processing context, the task parallelism can be seen as each task consisting of an operation (code) done on a packet (data). Again, the task parallel programming frameworks can be seen as a set of queues abstracting the underlying hardware.
 
-Packet processing systems are complex. To keep up with the ever increasing performance requirements, the behavior of the systems needs to be understood. This thesis investigates the use of measurement, modeling, and simulation methods for the use of packet processing performance analysis. We present a way to model complex hardware and software interactions of a modern MPSoC network processing systems and task-based parallel programming frameworks, using an extended resource networks concept. Resource networks are based on the queueing networks concept, often used for packet processing problems and other computing system modeling, thus being a natural way of describing MPSoC systems and task-based parallel programming applications.
+Packet processing systems are complex. To keep up with the ever increasing performance requirements, the behavior of the systems needs to be understood. This thesis investigates the use of measurement, modeling, and simulation methods for the use of packet processing performance analysis. We present a way to model complex hardware and software interactions of a modern MPSoC network processing systems and task-based parallel programming frameworks, using an extended resource networks concept. Resource networks are based on the queuing networks concept, often used for packet processing problems and other computing system modeling, thus being a natural way of describing MPSoC systems and task-based parallel programming applications.
 
 The tool chosen for the modeling and simulation is an in-house simulator and modeling software, Performance Simulation Environment (PSE). We will instrument and measure the characteristics of a modern packet processing system, and build a resource network model using PSE's built-in editors. We extend PSE to support user definable queue disciplines, enabling more detailed models of the systems global packet scheduler. We present two demonstrative experiments, showing that the model and PSE extensions work as expected. The models are simulated using PSE's discrete event simulator engine.
 
 Our experiments demonstrate that, with extended custom queue disciplines and support for modeling task parallelism, resource network methodology is a viable approach for performance analysis of such packet processing systems.
 
 \section{Problem statement}
-Modern MPSoC based network processing units are parallel processing systems with complex hardware interactions. Understanding these systems is difficult, due to the architectural heterogeneity, complexity, and non-deterministic behavior. The non-deterministic behavior of the MPSoCs is a result of parallelism, communication delays, complex memory systems, and hardware and software scheduling mechanisms.
+Packet processing system performance analysis is non-trivial for several reasons. Modern MPSoC based packet processing systems are parallel processing systems with complex hardware interactions. Understanding these systems is difficult, due to the architectural heterogeneity, complexity, and non-deterministic behavior. The non-deterministic behavior of the MPSoCs is a result of parallelism, communication delays, complex memory systems, and hardware and software scheduling mechanisms.
 
 The nature of packet switched network data introduces strict performance requirements for the packet processing devices: the manipulation of the packet streams passing through the system must often be done on the on-the-fly, while at the same time, the data volumes are often huge and unpredictable.
 
 The performance of the task parallel applications is heavily dependent on the scheduling mechanism of the system. To guarantee the performance of task parallel programming models, the scheduler has to efficiently map the functions and minimize the context switch overhead. MPSoC devices are inherently parallel, and the scheduling is often done globally at multiple points of the system.
 
-Queueing and resource networks are widely studied concepts, often used for packet processing problems and other computing system modeling. However, the complex hardware level interactions between the MPSoC components, dynamic workload, and task-based parallelism methods, make the traditional queue concepts insufficient. One way to address this problem, is to extend resource networks with user-definable queue disciplines allowing global view of the system, and methods for modeling parallelism.
+Queuing and resource networks are widely studied concepts, often used for packet processing problems and other computing system modeling. However, the complex hardware level interactions between the MPSoC components, dynamic workload, and task-based parallelism methods, make the traditional queue concepts insufficient. One way to address this problem, is to extend resource networks with user-definable queue disciplines allowing global view of the system, and methods for modeling parallelism.
 
-The research problem of this thesis is: How to analyze the performance of packet processing systems. Or more precisely: how to extend the resource network concept to support more accurate models of hardware accelerated manycore systems, and on the other hand, how to support modeling of packet processing task-based programming models.
+The research problem of this thesis is: How to analyze the performance of packet processing systems. Or more precisely: how to extend the resource network concept to support more accurate models of hardware accelerated manycore systems, and on the other hand, how to support modeling of task-based parallel programming applications on dynamic workloads.
 
 \section{Contributions}
-We will present a method for modeling and simulation of the hardware accelerated manycore packet processing systems. We extend the in-house discrete event simulator, Performance Simulation Environment (PSE), to enable use of customized queue discipline algorithms. We will also model a modern network processing unit using the tools provided by PSE and simulate the model by PSE's discrete event simulation engine. The major contributions of our work can be summarized as:
+We will present a method for modeling and simulation of the hardware accelerated manycore packet processing systems. We extend the in-house discrete event simulator, Performance Simulation Environment (PSE), to enable use of customized queue discipline algorithms. We will also model a modern network processing system using the tools provided by PSE and simulate the model by PSE's discrete event simulation engine. The major contributions of our work can be summarized as:
 
 \begin{itemize}
 
-\item Instrumenting and measuring the characteristics of a modern network processing unit
+\item Instrumenting and measuring the characteristics of a modern network processing system
 
 \item Extending an existing in-house modeling and simulation framework, Performance Simulation Environment (PSE), to support user-definable queue disciplines through a plugin interface
 
@@ -63,9 +63,9 @@ Chapter~\ref{chapter:mechanism-for-extended-queue-disciplines} presents the impl
 
 The example model of a packet processing system is presented in Chapter~\ref{chapter:modeling-a-packet-processing-system}. We will first describe the main characteristics of the model, and further describe a more detailed view of the global packet scheduler functionality.
 
-The demonstrative experiments are presented in Chapter~\ref{chapter:demonstrative-experiments}. We will describe the two experiment setups used, and their measurement results. Finally, we will analyze the experiments results and discuss the experiment.
+The demonstrative experiments are presented in Chapter~\ref{chapter:demonstrative-experiments}. We will describe the two experiment setups used, and their measurement results. We will analyze the experiment results and further discuss the challenges, discoveries, and the future work within the topic of the thesis.
 
-The conclusion of our work are presented in Chapter~\ref{chapter:conclusions}. It discusses the challenges, discoveries, and the related and future work within the topic of the thesis, and finally concludes it.
+The conclusion of our work are presented in Chapter~\ref{chapter:conclusions}.
 
 %%% Local Variables:
 %%% mode: latex
