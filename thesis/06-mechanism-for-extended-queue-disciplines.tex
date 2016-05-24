@@ -7,7 +7,7 @@ The implementation is based on our observations, presented in the previous chapt
 
 The implemented mechanism enables investigation of task-based parallel programming applications, linking the described software and hardware functionality with each other. This again enables the performance analysis of task-parallel applications running on hardware scheduled MPSoC devices.
 
-We begin this chapter by explaining the PSE's service routines, which guide the resource usage between the resource usage and resource provision models. Then we present the runtime structures, RNS\_Resource and RNS\_Client, that are relevant to understand the implementation of the custom queuing functions. Then we present the requirements for the select and reserve functions used to implement the queuing policies. Finally, we describe an example implementations of two simple disciplines: first-come-first-serve and highest-priority-served-first.
+We begin this chapter by explaining the PSE's service routines, which guide the resource usage between the resource usage and resource provision models. Then we present the runtime structures, RNS\_Resource and RNS\_Client, which are relevant to understand the implementation of the custom queuing functions. Then we present the requirements for the select and reserve functions used to implement the queuing policies. Finally, we describe example implementations of two simple disciplines: first-come-first-serve and highest-priority-served-first.
 
 \section{Service Routines}
 The main interface between the threads executing the resource usage code, and the resource provision models, are the five RNS service routines: RNS\_demand\_device, RNS\_use\_device, RNS\_reserve\_resource, RNS\_delay\_process, and RNS\_release\_resource. The functions are used to implement both the active and passive resource usage at the runtime.
@@ -90,7 +90,7 @@ The select function, in the Listing~\ref{lst:select-definition}, is called each 
 \section{Discipline Examples}
 The following subsections present examples of two queue discipline implementations: first-come-first-serve (FCFS), and highest-priority-served-first (HPFS). Both of these functions are simple, and built-in the PSE runtime. They are used here to exemplify  the use of reserve and select functions.
 
-Both of the disciplines use the same reserve function, represented in Listing~\ref{lst:default-reserve}. The function first check if the number of clients being processed by the resource is smaller than its capacity.
+Both of the disciplines use the same reserve function, represented in Listing~\ref{lst:default-reserve}. The function first checks if the number of clients being processed by the resource is smaller than its capacity.
 
 If so, the function continues by iterating over the resource's processing queue elements until it encounters an empty processing slot. It then assigns the \emph{queue} variable to point to the resource \emph{r}'s processing queue, and the \emph{position} variable to point to the element index \emph{i}.
 
@@ -101,7 +101,7 @@ If all the processing slots are reserved the function assign the \emph{queue} va
 
 Listing~\ref{lst:FCFS-HPSF-selects} represents the select functions used for the FCFS and HPSF disciplines. The select function for the FCFS is simple, and does not use any resource or queue parameters for its decision. It always returns 0, representing the index for the first element in the waiting queue.
 
-The HPSF\_select function uses the client priorities, defined in the resource usage model nodes, to make the scheduling decision. It iterates through all the clients in the resource's waiting queue, and keeps track of the client with highest priority. After the iteration is over, is returns the index of the client with highest priority.
+The HPSF\_select function uses the client priorities, defined in the resource usage model nodes, to make the scheduling decision. It iterates through all the clients in the resource's waiting queue, and keeps track of the client with highest priority. After the iteration is over, it returns the index of the client with highest priority.
 
 Again, in both cases, the RNS\_release\_resource automatically shifts the clients, with index larger than the selected, to fill the empty slot.
 
