@@ -1,7 +1,7 @@
 \chapter{Demonstrative Experiment and Discussion}
 \label{chapter:demonstrative-experiments}
 
-This chapter presents two demonstrative simulation experiments done on the NPU model presented in Chapter~\ref{chapter:modeling-a-packet-processing-system}. The goal of the experiments is to demonstrate how the parallel mechanisms of a task based-programming model, i.e. queue types, priorities, and coremasking, affect the scheduler, and hence the packet throughput and latency. At the same time, it validates our NPU model and the PSE's implemented plugin-code functionality.
+This chapter presents two demonstrative simulation experiments done on the NPU model presented in Chapter~\ref{chapter:modeling-a-packet-processing-system}. The goal of the experiments is to demonstrate how the parallel mechanisms of a task based-programming model, i.e. queue types, priorities, and coremasking, affect the scheduler, and hence the packet throughput and latency. At the same time, it validates our NPU model and the PSE's implemented plug-in-code functionality.
 
 In the first experiment, we will use the global queue information to control the resource provision based on global queue priorities and disciplines defined in the software queues. The second experiment presents the use of queue coremasks, to control the use of specific hardware resources, through the software model.
 
@@ -144,7 +144,7 @@ In the second simulation, we use a modified coremask for the heavy application, 
 
 \section{Experiment Analysis}
 
-The experiments present a proof of concept of the implemented PSE's plugin code mechanism and the model of the reference NPU. In both experiments, the model acts as expected.
+The experiments present a proof of concept of the implemented PSE's plug-in code mechanism and the model of the reference NPU. In both experiments, the model acts as expected.
 
 The first experiment presents the use the global queue information to control the resource provision based on global queue priorities and disciplines. As seen in the Figures~\ref{fig:app1-queue2} and~\ref{fig:app1-latency}, the second processing step produces a bottleneck to the system. This happens due to the atomicity of the second processing queue, forcing heavy processing of the packets one at a time. By dividing the atomic processing step into a smaller atomic part and larger parallel part, the latency of the system should be reduced, as the atomic part of the processing can be done faster, and the cores can fully be utilized by the heavier parallel part of the second processing step. The measurements results of the second application, as shown in the Figures~\ref{fig:app2-queue2} and~\ref{fig:app2-latency}, validate this behavior.
 
@@ -152,7 +152,7 @@ The second experiment presents the use of queue coremasks, to control the use of
 
 The experiments also highlight the PSE's ability to decouple the hardware and software model. All the changes in the experiment applications can be done easily through the four software model files. Once the resource provision model and the high level resource usage models are built, the application developers can prototype the system with by modifying only the software and workload parts of the model corresponding the real software applications written in task-based programming models, such as Open Event-Machine. At the same time, the hardware developers can work on the model parts corresponding to the real hardware.
 
-According to the experiment results, the PSE's resource network concept, extended with user-defined queue disciplines, seems to be provide the desired flexibility, both in the abstraction level and the modularity, for modeling complex hardware and software co-scheduled manycore systems, such as the reference network processing unit. More importantly, the plugin code mechanism extends to any resource network based simulation task, providing flexibility, hopefully allowing even more complex systems to be modeled.
+According to the experiment results, the PSE's resource network concept, extended with user-defined queue disciplines, seems to be provide the desired flexibility, both in the abstraction level and the modularity, for modeling complex hardware and software co-scheduled many-core systems, such as the reference network processing unit. More importantly, the plug-in code mechanism extends to any resource network based simulation task, providing flexibility, hopefully allowing even more complex systems to be modeled.
 
 \section{Discussion}
 

@@ -13,14 +13,14 @@ The hardware and software needed to carry out the measurements are listed below.
 All the measurements will be done on the Cavium OCTEON II blades. OCTEON SDK provides several packet processing examples, which will be used as a base for the actual measurements. The examples include a traffic generator application which will be one potential option, together with Wireshark, when generating test workloads. The SDK provides convenient access to the hardware counters which will be used in the timing.
 
 \subsection{Modeling material}
-The system will be modeled using Performation Simulation Environment (PSE). PSE is a heterogeneous modeling and discrete event simulation environment, based on a Queuing Network Simulation (QSE) tool built at Aalto University. It provides a toolset for analyzing hardware and software co-scheduled manycore systems.
+The system will be modeled using Performation Simulation Environment (PSE). PSE is a heterogeneous modeling and discrete event simulation environment, based on a Queuing Network Simulation (QSE) tool built at Aalto University. It provides a toolset for analyzing hardware and software co-scheduled many-core systems.
 
 \subsection{Reference Material}
 The reference material, listed below, is not directly related to the measurements or the modeling of the system, but act as the base for understanding the different solutions for the challenges.
 
 \begin{itemize}
 
-\item \textbf{Open Event-Machine (OpenEM)}: Architectural abstraction and framework of event-driven multicore computation. OpenEM enables efficient writing of dynamically load-balanced multicore applications with a very low overhead run-to-completion principle. OpenEM can be implemented both, on bare hardware as well as on top of an operating system.
+\item \textbf{Open Event-Machine (OpenEM)}: Architectural abstraction and framework of event-driven multi-core computation. OpenEM enables efficient writing of dynamically load-balanced multi-core applications with a very low overhead run-to-completion principle. OpenEM can be implemented both, on bare hardware as well as on top of an operating system.
 \item \textbf{Message Passing Interface (MPI)}: A specification and de facto standard for a set of message passing libraries. MPI standard defines the syntax and semantics for functions that are useful in a portable message-passing and distributed memory programs.
 \item \textbf{Futures and promises}: Futures and promises are constructs that are used communication and synchronization in concurrent programming.
 \item \textbf{Open Multi-Processing (OpenMP)}: Multi-platform, shared memory multiprocessing API.
@@ -33,7 +33,7 @@ OpenEM will work as a base programming framework in our study. To understand how
 Vesa Hirvisalo will work as an advisor for this thesis. Jussi Hanhirova is working on his doctoral thesis on the same area of research. Risto Vuorio is working on his Master's thesis on the similar subject. The supervisor is still yet to be decided.
 
 % \subsection{Open Event Machine}
-% Open Event Machine (OpenEM), originally developed by Nokia Solutions and Networks (NSN) is a framework and programming model for a task (event) based processing on a multicore platforms. It enables efficient writing of dynamically load-balanced multicore applications with a very low overhead run-to-completion principle. OpenEM can be implemented both, on bare hardware as well as on top of an operating system.
+% Open Event Machine (OpenEM), originally developed by Nokia Solutions and Networks (NSN) is a framework and programming model for a task (event) based processing on a multi-core platforms. It enables efficient writing of dynamically load-balanced multi-core applications with a very low overhead run-to-completion principle. OpenEM can be implemented both, on bare hardware as well as on top of an operating system.
 
 % OpenEM applications are constructed from three main parts, namely execution objects (EO), events, and event queues. Events are the main communication blocks, the data, of OpenEM. Execution object is a run-to-completion object, or a function [TODO: mention context], that is run using the event as the argument. Event queues are used to store the events between execution objects. The scheduling order of the events, from the queues to the EO's, are handled by the OpenEM scheduler. Neither the application nor the EO's are tied to a specific core. The dynamic load balancing is achieved by processing EO's with the events on any available core at the time.
 
