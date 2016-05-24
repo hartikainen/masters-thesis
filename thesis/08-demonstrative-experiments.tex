@@ -8,7 +8,7 @@ In the first experiment, we will use the global queue information to control the
 \section{Experiment Setup}
 \label{sec:experiment-setup}
 
-Both experiments are run on the hardware model represented in Figure~\ref{fig:experiment-hardware}. The model consists of six active resources. The PKI and PKO units are consumed by the input and output phases of the packet flow, respectively. Each 32 processing cores have a L1 cache associated with it, and the L2 cache and RAM are shared between the cores. The cores are served as first come first serve basis, as the scheduling logic is taken care of by the scheduler unit.
+Both experiments are run on the hardware model represented in Figure~\ref{fig:experiment-hardware}. The model consists of six active resources. The IN and OUT units are consumed by the input and output phases of the packet flow, respectively. Each 32 processing cores have a L1 cache associated with it, and the L2 cache and RAM are shared between the cores. The cores are served as first come first serve basis, as the scheduling logic is taken care of by the scheduler unit.
 
 \begin{figure}[]
   \begin{center}
@@ -20,7 +20,7 @@ Both experiments are run on the hardware model represented in Figure~\ref{fig:ex
 
 The scheduler unit uses the custom scheduling functions presented in Section~\ref{sec:scheduler-unit}, enabling the use of atomicity, queue priorities, and coremasks. The core release is a typical release node referring to the scheduler unit.
 
-The same high level software model is used for the both experiments, as seen in the Figures~\ref{fig:exp1-software} and~\ref{fig:exp2-software}. The \emph{Packet Input} and \emph{Packet Output} nodes consume the PKI and PKO units as discussed in Section~\ref{sec:characteristic-measurements}, delaying the packets relative to their size, according to the equation~\ref{eq:1}. The workload and packet process submodels are unique for both experiments.
+The same high level software model is used for the both experiments, as seen in the Figures~\ref{fig:exp1-software} and~\ref{fig:exp2-software}. The \emph{Packet Input} and \emph{Packet Output} nodes consume the IN and OUT units as discussed in Section~\ref{sec:characteristic-measurements}, delaying the packets relative to their size, according to the equation~\ref{eq:1}. The workload and packet process submodels are unique for both experiments.
 
 We gather two different metrics of the system. First, we are interested in the core utilization and queue lengths for each processing step. These are measured by the probes attached to the scheduler unit as shown in hardware model in Figure~\ref{fig:experiment-hardware}. Secondly, we are interested in the packet latencies. They are measured by calculating the time difference between the \emph{out probe} and the \emph{in probe} (Figures~\ref{fig:exp1-software} and~\ref{fig:exp2-software}) for each packet. All the probes write absolute traces of the packets.
 

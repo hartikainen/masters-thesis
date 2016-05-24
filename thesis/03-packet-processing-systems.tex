@@ -207,9 +207,9 @@ The ingress and egress processing are handled by separate processing elements, h
 
 The egress functions are handled similarly by the specific packet transmission units. When a core finishes a packet processing, it notifies the output processor that the packet is ready for transmission. The output processor then directly copies the packet data from the shared memory into its internal memory, optionally computes checksums for the packet header, transmits the packet, and optionally frees the packet data from the memory.
 
-Our example system consists of 32 MIPS application cores, with several hardware acceleration units for enhanced packet processing and minimized software development complexity. The packet management accelerators offload the actual packet processing cores from many general packet receive, buffering, buffer management, flow classification, quality of service, and transmit processing. The accelerator functions can be customized using software, and accessing the configuration registers. Together with the hardware acceleration units, the processing cores can handle most of the processing requirements of all the way through layer 2 to layer 7 in the standard OSI model~\cite{ISO:1994:OSI}.
+Our example system consists of 32 application cores, with several hardware acceleration units for enhanced packet processing and minimized software development complexity. The packet management accelerators offload the actual packet processing cores from many general packet receive, buffering, buffer management, flow classification, quality of service, and transmit processing. The accelerator functions can be customized using software, and accessing the configuration registers. Together with the hardware acceleration units, the processing cores can handle most of the processing requirements of all the way through layer 2 to layer 7 in the standard OSI model~\cite{ISO:1994:OSI}.
 
-One of the key features of the unit is its global packet scheduling unit, which is responsible for the packet scheduling, synchronization, ordering. It frees the actual packet processing applications, running on the 32 MIPS cores, from the complex packet scheduling and ordering tasks. The cores execute a loop, and when a core is ready for the next packet, it requests work from the scheduler, which then schedules the next work based on the quality of service priority and work group.
+One of the key features of the unit is its global packet scheduling unit, which is responsible for the packet scheduling, synchronization, ordering. It frees the actual packet processing applications, running on the application cores, from the complex packet scheduling and ordering tasks. The cores execute a loop, and when a core is ready for the next packet, it requests work from the scheduler, which then schedules the next work based on the quality of service priority and work group.
 
 The scheduler has efficient locking mechanisms for protecting the critical regions without explicit software locking, and allows packet processing to be done in parallel or atomically, while still maintaining the packet flow order. The processing cores can also be dedicated for specific flows. One of our goals is to be able to model the scheduling functionality with PSE, as it is one of the key elements in the packet latency and throughput when processing several flows at the time.
 
@@ -251,7 +251,7 @@ We measured the times for packet sizes of 64B, 128B, 256B, 512B, 1024B, and 1500
 \begin{figure}[]
   \begin{center}
     \includegraphics[width=\textwidth]{images/comm-latency-boxplot.pdf}
-    \caption{Latency of the input and output phase of the example unit. On each box, the central mark is the median, the edges of the box are the 25th and 75th percentiles. 99.3\% of the points lie within the whiskers, and the most extreme points are presented as red crosses. Both of the axes are on logarithmic scale. Latency units are hidden due to data confidentiality.}
+    \caption{Latency of the input and output phase of the example unit. On each box, the central mark is the median, the edges of the box are the 25th and 75th percentiles. 99.3\% of the points lie within the whiskers, and the most extreme points are presented as red crosses. Both of the axes are on logarithmic scale. Latency values are hidden due to data confidentiality.}
     \label{fig:comm-latency-boxplot}
   \end{center}
 \end{figure}
@@ -259,7 +259,7 @@ We measured the times for packet sizes of 64B, 128B, 256B, 512B, 1024B, and 1500
 \begin{figure}[]
   \begin{center}
     \includegraphics[width=\textwidth]{images/comm-latency-histograms.pdf}
-    \caption{Latency frequency histograms for each packet size, along with a normal density function with parameters, estimated with maximum likelihood method from the data. Latency units are hidden due to data confidentiality.}
+    \caption{Latency frequency histograms for each packet size, along with a normal density function with parameters, estimated with maximum likelihood method from the data. Latency values are hidden due to data confidentiality.}
     \label{fig:comm-latency-histograms}
   \end{center}
 \end{figure}
@@ -268,9 +268,9 @@ As shown in the Figure~\ref{fig:comm-latency-boxplot}, the time spent in the inp
 
 As seen from both of the Figures~\ref{fig:comm-latency-boxplot} and ~\ref{fig:comm-latency-histograms}, there exist points with unexpectly large deviation from the rest of the group. These deviations seem to be independent of the packet size, and thus we assume that they are caused by the scheduling unit. This behavior is also statistically incorporated in the simulation model.
 
-The only packet size dependent operations in the input and output phases are the memory transfers done for the actual packet data between the memory (L2/RAM) and PKI or PKO. All the other other operations are done based on the packet header, thus requiring constant amount of time regardless of the packet size.
+The only packet size dependent operations in the input and output phases are the memory transfers done for the actual packet data between the memory (L2/RAM) and IN or OUT. All the other other operations are done based on the packet header, thus requiring constant amount of time regardless of the packet size.
 
-Since We cannot make a distinction between the input and output phase, in the simulation model presented further, we will adjust the input/output phase amount so that they consume the PKI and PKO units for the amount that corresponds the constant term of equation~\ref{eq:1}. The variable (non-constant) term is caused by the memory copies in the input/output phases, and are proportional to the packet size.
+Since We cannot make a distinction between the input and output phase, in the simulation model presented further, we will adjust the input/output phase amount so that they consume the IN and OUT units for the amount that corresponds the constant term of equation~\ref{eq:1}. The variable (non-constant) term is caused by the memory copies in the input/output phases, and are proportional to the packet size.
 
 The input and output delays used in the simulation model are estimated by fitting a linear model to the data, using least square estimate. The determination coefficient of the estimate $R^2 = 0.997$. The delay for the input and output phase are divided evenly, resulting in
 
@@ -287,7 +287,7 @@ Memory delays were measured using Multi-core Processor Architecture and Communic
 \begin{figure}[]
   \begin{center}
     \includegraphics[width=\textwidth]{images/mem-latency.pdf}
-    \caption{Memory latency of the example unit across number of threads for integer data type (32bit), measured by MPAC. Each data point in the graph present one experiment run with different thread and write sizes. The latencies for different packet sizes are marked with colors as shown in the legend (in bytes). The y-axis is presented in logarithmic scale. Latency units are hidden due to data confidentiality.}
+    \caption{Memory latency of the example unit across number of threads for integer data type (32bit), measured by MPAC. Each data point in the graph present one experiment run with different thread and write sizes. The latencies for different packet sizes are marked with colors as shown in the legend (in bytes). The y-axis is presented in logarithmic scale. Latency values are hidden due to data confidentiality.}
     \label{fig:mem-latency}
   \end{center}
 \end{figure}
@@ -299,12 +299,12 @@ The write latencies also thrash beyond 32 threads, especially for the cache size
 \begin{figure}[]
   \begin{center}
     \includegraphics[width=\textwidth]{images/mem-throughput.pdf}
-    \caption{Memory throughput of the example unit across number of threads for integer data type (32bit), measured by MPAC. Each data point in the graph present one experiment run with different thread and data sizes. The throughput for different packet sizes are marked with colors as shown in the legend (in bytes). The throughput units are hidden due to data confidentiality.}
+    \caption{Memory throughput of the example unit across number of threads for integer data type (32bit), measured by MPAC. Each data point in the graph present one experiment run with different thread and data sizes. The throughput for different packet sizes are marked with colors as shown in the legend (in bytes). The throughput values are hidden due to data confidentiality.}
     \label{fig:mem-throughput}
   \end{center}
 \end{figure}
 
-Figure~\ref{fig:mem-latency} presents the results from the throughput measurements for different packet sizes and thread counts. Again, as expected, the maximum throughput is achieved with 1KB write lengths and 32 cores, when both the write and read arrays fit in the caches. The write throughput scales linearly with 128B - 1KB write sizes for up to 32 cores, with 2KB - 64KB up to 16 cores, and for 256KB, 512KB, and 1MB, write sizes up to 8, 4, and 2 cores respectively. The transitions between the memory levels are similar as in the latency graph. Again, a clear thrashing can be seen with more than 32 threads.
+Figure~\ref{fig:mem-throughput} presents the results from the throughput measurements for different packet sizes and thread counts. Again, as expected, the maximum throughput is achieved with 1KB write lengths and 32 cores, when both the write and read arrays fit in the caches. The write throughput scales linearly with 128B - 1KB write sizes for up to 32 cores, with 2KB - 64KB up to 16 cores, and for 256KB, 512KB, and 1MB, write sizes up to 8, 4, and 2 cores respectively. The transitions between the memory levels are similar as in the latency graph. Again, a clear thrashing can be seen with more than 32 threads.
 
 
 %%% Local Variables:
