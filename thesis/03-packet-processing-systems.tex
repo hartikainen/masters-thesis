@@ -191,7 +191,7 @@ DPDK has an active ecosystem around it, with wide vendor support. It is also wel
 
 \subsection{Open Event-Machine}
 \label{subsec:open-em}
-Open Event Machine (OpenEM) is an event-driven programming framework for multi-core dataplane applications, developed by Nokia Solutions and Networks (NSN). It has been designed to ease the implementation of event/packet processing applications for different MPSoC devices. One of main drivers for the development of OpenEM has been easy integration with modern hardware accelerators.~\cite{NSN:2015:OpenEM}
+Open Event Machine (OpenEM) is an event-driven programming framework for multi-core dataplane applications, developed by Nokia Solutions and Networks (NSN). It has been designed to ease the implementation of event and packet processing applications for different MPSoC devices. One of main drivers for the development of OpenEM has been easy integration with modern hardware accelerators.~\cite{NSN:2015:OpenEM}
 
 The key concepts of OpenEM framework are execution objects, events, queues, and the scheduler. \emph{Execution objects} are the main building blocks the OpenEM application. They are the run-to-completion functions, describing the processing logic of the application. Each execution object has one or more \emph{queues} attached to it. The \emph{scheduler} selects the events from the queues, based on the global interrelations of the queues. When the event is selected from the queue, the corresponding execution object is attached to the processing core, and the event is passed to it as a parameter. Once the execution object finishes its run, the scheduler chooses a new event from the queues similarly.~\cite{NSN:2015:OpenEM}
 
@@ -217,10 +217,10 @@ The scheduler has efficient locking mechanisms for protecting the critical regio
 
 The network processing unit provides several memory policies for optimized multi-core packet processing. The cores often have dedicated L1 data and L1 instruction cache, and a shared L2 cache. Different cache features and policies are offered, for example to avoid unnecessary data writes after the packet transmission, and to automatically send the received packet header to L2 cache and the packet data to main memory, bypassing the L2 cache.
 
-\section{Characteristic Measurements}
+\section{Characteristic Behavior}
 \label{sec:characteristic-measurements}
 
-This section presents characteristic measurements of the system, providing in-depth knowledge required choosing the correct modeling abstraction level. Some of the system characteristics are simple enough to be obtained directly from the literature, while others are either unavailable, or are presented in an unusable form to be used in the simulation model. The missing communication and memory related parameters are obtained by conducting measurements on the example hardware. These are discussed in the following sections, respectively.
+This section presents characteristic behavior of the system, providing in-depth knowledge required choosing the correct modeling abstraction level. Some of the system characteristics are simple enough to be obtained directly from the literature, while others are either unavailable, or are presented in an unusable form to be used in the simulation model. The missing communication and memory related parameters are obtained by measuring the example hardware. These are discussed in the following sections, respectively.
 
 \subsection{Communication Latencies}
 \label{sec:communication-latencies}
@@ -251,7 +251,7 @@ We measured the times for packet sizes of 64B, 128B, 256B, 512B, 1024B, and 1500
 \begin{figure}[]
   \begin{center}
     \includegraphics[width=\textwidth]{images/comm-latency-boxplot.pdf}
-    \caption{Latency of the input and output phase of the example unit. On each box, the central mark is the median, the edges of the box are the 25th and 75th percentiles. 99.3\% of the points lie within the whiskers, and the most extreme points are presented as red crosses. Both of the axes are on logarithmic scale.}
+    \caption{Abstract latency of the input and output phase of the example unit. On each box, the central mark is the median, the edges of the box are the 25th and 75th percentiles. Both of the axes are on logarithmic scale.}
     \label{fig:comm-latency-boxplot}
   \end{center}
 \end{figure}
@@ -259,7 +259,7 @@ We measured the times for packet sizes of 64B, 128B, 256B, 512B, 1024B, and 1500
 \begin{figure}[]
   \begin{center}
     \includegraphics[width=\textwidth]{images/comm-latency-histograms.pdf}
-    \caption{Latency frequency histograms for each packet size, along with a normal density function with parameters, estimated with maximum likelihood method from the data.}
+    \caption{Abstract latency frequency histograms for each packet size, along with a normal density function with parameters, estimated with maximum likelihood method from the data.}
     \label{fig:comm-latency-histograms}
   \end{center}
 \end{figure}
@@ -270,7 +270,7 @@ As seen from both of the Figures~\ref{fig:comm-latency-boxplot} and ~\ref{fig:co
 
 The only packet size dependent operations in the input and output phases are the memory transfers done for the actual packet data between the memory (L2/RAM) and IN or OUT. All the other operations are done based on the packet header, thus requiring constant amount of time regardless of the packet size.
 
-Since We cannot make a distinction between the input and output phase, in the simulation model presented further, we will adjust the input/output phase amount so that they consume the IN and OUT units for the amount that corresponds the constant term of equation~\ref{eq:1}. The variable (non-constant) term is caused by the memory copies in the input/output phases, and is proportional to the packet size.
+Since we cannot make a distinction between the input and output phase, in the simulation model presented further, we will adjust the input/output phase amount so that they consume the IN and OUT units for the amount that corresponds the constant term of equation~\ref{eq:1}. The variable (non-constant) term is caused by the memory copies in the input/output phases, and is proportional to the packet size.
 
 The input and output delays used in the simulation model are estimated by fitting a linear model to the data, using least square estimate. The determination coefficient of the estimate $R^2 = 0.997$. The delay for the input and output phase are divided evenly, resulting in
 
@@ -287,24 +287,24 @@ Memory delays were measured using Multi-core Processor Architecture and Communic
 \begin{figure}[]
   \begin{center}
     \includegraphics[width=\textwidth]{images/mem-latency.pdf}
-    \caption{Memory latency of the example unit across number of threads for integer data type (32bit), measured by MPAC. Each data point in the graph present one experiment run with different thread and write sizes. The latencies for different packet sizes are marked with colors as shown in the legend (in bytes). The y-axis is presented in logarithmic scale.}
+    \caption{Abstract memory latency of the example unit across number of threads for integer data type (32bit), measured by MPAC. The latencies for different packet sizes are marked with colors as shown in the legend (in bytes). The y-axis is presented in logarithmic scale.}
     \label{fig:mem-latency}
   \end{center}
 \end{figure}
 
-Figure~\ref{fig:mem-latency} presents the results from the latency measurements for different packet sizes and thread counts. Notice that the y-axis the graph is logarithmic. As expected, the memory latencies grow together with the size of the write. The transition between the memory levels can be seen as the jumps in the latency graph. With 128B - 1KB write sizes both the read and write arrays fit in the L1 cache (32KB), and thus the latency per repetition is independent of the thread count. With write sizes above 2KB, some of the writes hit L2 cache, increasing the latency as the thread count increases. Similarly, the step from L2 cache to RAM can be seen 128KB, 256KB, 512KB, 1MB, and 2MB write sizes, where both write and read arrays completely fit in the L2 cache with 8, 4, 2, 1 and 1 threads, and move to RAM beyond that.
+Figure~\ref{fig:mem-latency} presents the latency characteristics for different packet sizes and thread counts. Notice that the y-axis the graph is logarithmic. As expected, the memory latencies grow together with the size of the write. The transition between the memory levels can be seen as the jumps in the latency graph. With 128B - 1KB write sizes both the read and write arrays fit in the L1 cache (32KB), and thus the latency per repetition is independent of the thread count. With write sizes above 2KB, some of the writes hit L2 cache, increasing the latency as the thread count increases. Similarly, the step from L2 cache to RAM can be seen 128KB, 256KB, 512KB, 1MB, and 2MB write sizes, where both write and read arrays completely fit in the L2 cache with 8, 4, 2, 1 and 1 threads, and move to RAM beyond that.
 
 The write latencies also thrash beyond 32 threads, especially for the cache sizes. This does not affect the main core memory accesses in the model, as only 32 threads are used for packet processing. However, these numbers work as a reference when modeling the memory communication of other units such as the scheduler.
 
 \begin{figure}[]
   \begin{center}
     \includegraphics[width=\textwidth]{images/mem-throughput.pdf}
-    \caption{Memory throughput of the example unit across number of threads for integer data type (32bit), measured by MPAC. Each data point in the graph present one experiment run with different thread and data sizes. The throughput for different packet sizes are marked with colors as shown in the legend (in bytes).}
+    \caption{Abstract memory throughput of the example unit across number of threads for integer data type (32bit), measured by MPAC. The throughput for different packet sizes are marked with colors as shown in the legend (in bytes).}
     \label{fig:mem-throughput}
   \end{center}
 \end{figure}
 
-Figure~\ref{fig:mem-throughput} presents the results from the throughput measurements for different packet sizes and thread counts. Again, as expected, the maximum throughput is achieved with 1KB write lengths and 32 threads, when both the write and read arrays fit in the caches. The write throughput scales linearly with 128B - 1KB write sizes for up to 32 threads, with 2KB - 64KB up to 16 threads, and for 256KB, 512KB, and 1MB, write sizes up to 8, 4, and 2 threads respectively. The transitions between the memory levels are similar as in the latency graph. Again, a clear thrashing can be seen with more than 32 threads.
+Figure~\ref{fig:mem-throughput} presents the throughput characteristics for different packet sizes and thread counts. Again, as expected, the maximum throughput is achieved with 1KB write lengths and 32 threads, when both the write and read arrays fit in the caches. The write throughput scales linearly with 128B - 1KB write sizes for up to 32 threads, with 2KB - 64KB up to 16 threads, and for 256KB, 512KB, and 1MB, write sizes up to 8, 4, and 2 threads respectively. The transitions between the memory levels are similar as in the latency graph. Again, a clear thrashing can be seen with more than 32 threads.
 
 
 %%% Local Variables:
